@@ -960,6 +960,9 @@ Goal:
 - produce a benchmark report suitable for upstream README/release/public claims
 - preserve raw artifacts for reproducibility
 
+___
+___
+
 ## `logHRL.tex` Training-Time Diagnostics Coverage
 
 After checking the end of upstream:
