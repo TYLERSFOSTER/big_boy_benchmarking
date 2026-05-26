@@ -2,13 +2,13 @@
   <picture>
     <source srcset="assets/images/BBB_dark.png" media="(prefers-color-scheme: dark)">
     <source srcset="assets/images/BBB_light.png" media="(prefers-color-scheme: light)">
-    <img src="assets/images/BBB_light.png" alt="BBB" width="400">
+    <img src="assets/images/BBB_light.png" alt="BBB" width="375">
   </picture>
 </p>
 
 # BIG BOY BENCHMARKING
 
-Serious, post-smoke benchmarking for the `state_collapser` package.
+Serious, post-smoke benchmarking for the [`state_collapser`](https://github.com/TYLERSFOSTER/state_collapser) package.
 
 This repository is a benchmarking workspace, not the core library. The core
 runtime, quotient-tower construction, training surfaces, and environment

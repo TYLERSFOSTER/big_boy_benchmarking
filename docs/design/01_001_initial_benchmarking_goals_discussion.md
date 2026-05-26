@@ -19,13 +19,10 @@ benchmark harness is designed or implemented.
 
 The immediate Project Owner instruction was:
 
-```text
-Ok let's jump out of `state_collapser` because I don't want to fuck with
-anything in there during this work. Go back to `big_boy_benchmarking`, and in
-`docs/design`, put a MASSIVE initial discussion doc regarding your precevied
-goals for this repo. Put lots of questions to PO with spots for turn-by-turn
-covnersation afterward.
-```
+> The present project is going to be the more serious benchmarking needed for `state_collapser`. Please read `state_collapser/docs` from that project, and all the `md` docs at root in `state_collapser`. This should give you an idea of what our main goals in the present repo [`big_boy_benchmarking`] are.
+
+> Ok let's jump out of `state_collapser` because I don't want to fuck with anything in there during this work. Go back to `big_boy_benchmarking`, and in `big_boy_benchmarking/docs/design`, put a MASSIVE initial discussion doc regarding your precevied goals for this repo. Put lots of questions to PO with spots for turn-by-turn conversation afterward.
+
 
 This document therefore lives in:
 
@@ -86,11 +83,7 @@ benchmark evidence.
 
 The most important open maturity gap is not another ordinary smoke test. It is:
 
-```text
-Can we produce honest, reproducible, multi-seed evidence that quotient/tower
-structure helps on the kind of coordination-constrained problems
-state_collapser claims to address?
-```
+> Can we produce honest, reproducible, multi-seed evidence that quotient/tower structure helps on the kind of coordination-constrained problems `state_collapser` claims to address?
 
 This repo appears to be the place where that evidence should be designed,
 run, recorded, and made legible.
@@ -99,9 +92,7 @@ run, recorded, and made legible.
 
 The first rule for this repository should probably be:
 
-```text
-Do not turn benchmark work into upstream package hacking.
-```
+> Do not turn benchmark work into upstream package hacking.
 
 This repo should be allowed to depend on `state_collapser`, import it, install
 it, pin it, run it, and observe it. It should not casually modify it.
@@ -119,17 +110,11 @@ not a stealth edit inside `state_collapser`.
 
 The upstream public posture is currently:
 
-```text
-state_collapser is a pre-alpha research package for constructing quotient-tower
-structure over discovered transition systems and exposing tower-aware training
-surfaces.
-```
+> state_collapser is a pre-alpha research package for constructing quotient-tower structure over discovered transition systems and exposing tower-aware training surfaces.
 
 The upstream public posture explicitly avoids:
 
-```text
-state_collapser speeds up RL training.
-```
+> state_collapser speeds up RL training.
 
 because that claim is not yet backed by serious benchmark artifacts.
 
@@ -150,11 +135,7 @@ But by creating a benchmark program that can survive skeptical inspection.
 
 The broad motivating claim from `state_collapser` is:
 
-```text
-For some RL problems with hidden constraint geometry and no obvious
-human-authored hierarchy, quotient/tower structure can reduce effective search
-or training burden relative to flat learning.
-```
+> For some RL problems with hidden constraint geometry and no obvioushuman-authored hierarchy, quotient/tower structure can reduce effective search or training burden relative to flat learning.
 
 That is a subtle claim. It contains many pieces:
 
@@ -629,6 +610,8 @@ The repo should probably separate metrics by type.
 
 Possible structural metrics:
 
+- flat path-volume estimate, `PVol`
+- policy-effective path-volume estimate under the current learner or policy
 - valid state count
 - ambient state count
 - valid/ambient ratio
@@ -651,6 +634,10 @@ Possible tower metrics:
 - state cell counts by tier
 - action cell counts by tier
 - compression ratio by tier
+- quotient path-address compression ratios, conceptually `|Omega_i| / |Omega_{i-1}|`
+- lift-fiber size
+- lift-fiber entropy
+- reward variance inside quotient fibers
 - internal edge count by tier
 - loop/preimage aggregation summaries
 - compatibility readout cost when requested
@@ -666,6 +653,8 @@ Possible behavioral metrics:
 - chosen action legality
 - coarse behavior selected
 - fine lift success/failure
+- lift success rate
+- fine-refinement residual
 - control fallback reasons
 
 ### Performance Metrics
@@ -681,6 +670,8 @@ Possible performance metrics:
 - sample efficiency at fixed budget
 - final policy evaluation score
 - variance across seeds
+- coarse-policy value error
+- wall-clock and sample-efficiency comparison against a non-tower baseline
 
 ### Runtime Metrics
 
@@ -968,6 +959,52 @@ Goal:
 
 - produce a benchmark report suitable for upstream README/release/public claims
 - preserve raw artifacts for reproducibility
+
+## `logHRL.tex` Training-Time Diagnostics Coverage
+
+After checking the end of upstream:
+
+```text
+/Users/foster/state_collapser/docs/design/logHRL.tex
+```
+
+the paper explicitly says the package should report not only return curves, but
+also tower diagnostics. The list there is the measurable content of the
+path-volume theorem's hypotheses.
+
+This local benchmarking discussion must therefore include the following as
+first-class benchmark targets:
+
+1. Flat and policy-effective `PVol` estimates.
+2. Quotient compression ratios, conceptually `|Omega_i| / |Omega_{i-1}|`.
+3. Lift-fiber size and entropy.
+4. Reward variance inside quotient fibers.
+5. Lift success rate.
+6. Coarse-policy value error and fine-refinement residual.
+7. Wall-clock and sample-efficiency comparisons against a non-tower baseline.
+
+Coverage status in this document after this update:
+
+- `PVol` estimates are now named explicitly under structural metrics.
+- Quotient compression ratios are now named explicitly under tower metrics.
+- Lift-fiber size and entropy are now named explicitly under tower metrics.
+- Reward variance inside quotient fibers is now named explicitly under tower
+  metrics.
+- Lift success rate is now named explicitly under behavioral metrics.
+- Coarse-policy value error and fine-refinement residual are now named
+  explicitly under performance/behavioral metrics.
+- Wall-clock and sample-efficiency comparisons against a non-tower baseline are
+  now named explicitly under performance/runtime metrics.
+
+Open design issue:
+
+```text
+The paper names these diagnostics mathematically, but this benchmark repo still
+needs operational estimators for each one. In particular, policy-effective
+PVol, quotient path-address compression, lift-fiber entropy, reward variance
+inside quotient fibers, coarse-policy value error, and fine-refinement residual
+need concrete measurement definitions before they can become benchmark columns.
+```
 
 ## Questions For The Project Owner
 
