@@ -1,0 +1,51 @@
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "big-boy-benchmarking"
+version = "0.1.0"
+description = "Serious, post-smoke benchmarking harnesses for state_collapser."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11,<3.13"
+authors = [
+  { name = "Tyler Foster" },
+]
+dependencies = [
+  "state-collapser[rl] @ git+https://github.com/TYLERSFOSTER/state_collapser.git@v0.6.0",
+]
+
+[dependency-groups]
+dev = [
+  "pytest>=8.4.0",
+  "pytest-cov>=7.0.0",
+  "ruff>=0.13.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/big_boy_benchmarking"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.pytest.ini_options]
+addopts = [
+  "--strict-config",
+  "--strict-markers",
+]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = [
+  "B",
+  "E",
+  "F",
+  "I",
+  "UP",
+]
