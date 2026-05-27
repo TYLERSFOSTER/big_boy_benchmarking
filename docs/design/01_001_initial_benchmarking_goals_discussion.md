@@ -1062,13 +1062,16 @@ geometry, clear baselines, and sober language over polished marketing.
 ### PO Answer 1.2
 
 ```text
-
+Correct.
 ```
 
 ### Follow-Up 1.2
 
 ```text
+Codex response:
 
+Accepted. This audience remains the primary design constraint for benchmark
+language, artifacts, and rigor.
 ```
 
 ## PO Question 2: What Claim Should The First Benchmark Try To Support?
@@ -1105,13 +1108,33 @@ be the primary success claim for the first milestone.
 ### PO Answer 2.2
 
 ```text
-
+Actually we ant all of these all of these eventually:
+"the tower builds nontrivial structure"
+"the tower improves tabular learning on small constrained examples"
+"full tower beats flat across the environment family"
+"full tower beats the empty-schema/no-contraction baseline"
+"runtime overhead is acceptable"
+"we can produce reproducible benchmark artifacts"
 ```
 
 ### Follow-Up 2.2
 
 ```text
+Codex response:
 
+Accepted, with ordering. We eventually want all six claims, but they should be
+treated as an evidence ladder rather than one first-run promise:
+
+1. the tower builds nontrivial structure;
+2. the measurement system can reproduce that fact under pinned commits/seeds;
+3. tabular learning improves on small constrained examples;
+4. full tower beats direct flat training under declared budgets;
+5. full tower beats empty-schema/no-contraction tower machinery;
+6. runtime overhead remains acceptable once all online costs are counted.
+
+The first public-looking result should not try to prove all of this at once.
+But the artifact schema should be designed now so later stages are not trapped
+by early shortcuts.
 ```
 
 ## PO Question 3: What Is The Minimum Public-Release Benchmark Bar?
@@ -1135,7 +1158,7 @@ Possibilities:
 ### PO Answer 3.1
 
 ```text
-ultiple environments, at least one symbolic and one robotics-flavored environment
+Multiple environments, at least one symbolic and one robotics-flavored environment
 ```
 
 ### Follow-Up 3.1
@@ -1153,13 +1176,16 @@ environment families are still missing.
 ### PO Answer 3.2
 
 ```text
-
+Correct.
 ```
 
 ### Follow-Up 3.2
 
 ```text
+Codex response:
 
+Accepted. The PyPI/public-maturity bar remains multiple serious environments,
+including at least one symbolic family and one robotics/control-flavored family.
 ```
 
 ## PO Question 4: Should This Repo Be Script-First Or Package-First?
@@ -1208,13 +1234,31 @@ without making the user experience fussy.
 ### PO Answer 4.2
 
 ```text
-
+Ah ok. Go to `state_collapser` repo and read everything related to `synthetic_blow` review. Speed is critical in this repo, so the changes made there need to stand. This means, I think, that we need to have a conversation about more serious metric collection... I mean runtimes have error messaging, no... Why is it *so* difficult to get metrics fast following the `synthetic_blow` revisions?
 ```
 
 ### Follow-Up 4.2
 
 ```text
+Codex response:
 
+I did the read-only upstream pass and created:
+
+docs/design/01_002_state_collapser_read_only_reconnaissance.md
+
+The main answer is that synthetic-Blow speed work made a deliberate distinction
+between fast partition-tower maintenance and expensive compatibility/debug
+readouts. Serious metrics are difficult because many of the metrics we actually
+care about - fiber entropy, quotient compression, reward variance inside fibers,
+path-space volume, full quotient views - can quietly force the expensive side
+back into every step if we collect them naively.
+
+Runtime error messages are local guardrails. They catch invalid actions,
+forgotten resets, missing successors, illegal fiber departures, and so on.
+Benchmark metrics are different: they need stable schemas, repeated collection,
+seed/budget/run manifests, statistical summaries, and explicit online/offline
+cost accounting. So the benchmark repo needs a metric architecture, not just
+"log the runtime diagnostics."
 ```
 
 ## PO Question 5: How Should We Pin `state_collapser`?
@@ -1267,13 +1311,17 @@ silently continuing the old one.
 ### PO Answer 5.2
 
 ```text
-
+I support this.
 ```
 
 ### Follow-Up 5.2
 
 ```text
+Codex response:
 
+Accepted. This becomes the dependency policy unless later changed: editable
+local upstream is fine for reconnaissance and harness development; scientific
+results must record exact upstream commit/tag and dirty status.
 ```
 
 ## PO Question 6: What Environments Are In Scope First?
@@ -1290,7 +1338,7 @@ Should the first benchmark target:
 ### PO Answer 6.1
 
 ```text
-Oh there is maybe a basic confusino here. For BIG BOY benchmarking, the old environments are not sufficient at all. Part of this benchmarking is going to be some serious research into several levels or scales of new environment that actually push the package.
+Oh there is maybe a basic confusion here. For BIG BOY benchmarking, the old environments are not sufficient at all. Part of this benchmarking is going to be some serious research into several levels or scales of new environment that actually push the package.
 ```
 
 ### Follow-Up 6.1
@@ -1309,13 +1357,30 @@ for existing examples.
 ### PO Answer 6.2
 
 ```text
-
+Correct. How should we conduct this research?
 ```
 
 ### Follow-Up 6.2
 
 ```text
+Codex response:
 
+Environment research should be conducted as its own benchmark track:
+
+1. write a geometry spec for each candidate family;
+2. define what makes flat search wasteful;
+3. define the expected quotientable regularity without leaking the solution;
+4. build a scale ladder from tiny exact-diagnostic instances to larger stress
+   instances;
+5. define metrics with the environment, especially path-space/PVol-like
+   quantities;
+6. smoke the harness on upstream examples;
+7. run serious multi-seed/multi-budget comparisons only after the artifact
+   contract is stable.
+
+In other words, we should not start by coding random environments. We should
+start by writing environment-family specs that explain the hidden coordination
+geometry and the intended quotient/fiber pressure.
 ```
 
 ## PO Question 7: Should We Trust Current Upstream Example Environments?
@@ -1351,13 +1416,18 @@ can use them for tooling without pretending they settle the package's claims.
 ### PO Answer 7.2
 
 ```text
-
+Correct.
 ```
 
 ### Follow-Up 7.2
 
 ```text
+Codex response:
 
+Accepted. Upstream examples are smoke and reality-binding surfaces. They can
+test imports, runner shape, schema modes, empty-schema behavior, readout
+discipline, and basic artifact writing. They are not the serious benchmark
+corpus.
 ```
 
 ## PO Question 8: What Does `Top-Tier-Only` Mean Operationally?
@@ -1401,13 +1471,28 @@ meaning.
 ### PO Answer 8.2
 
 ```text
-
+There's still some confusion on your part, there is "traiing from environment diretly like learning in gymnasium," then there's "training with tower machinery except contrction schema is empty", and then there's "training with differnt nonempty contraction schemata." All of these play an important role in benchmarking.
 ```
 
 ### Follow-Up 8.2
 
 ```text
+Codex response:
 
+This correction is important. The benchmark matrix needs at least three
+separate mode families:
+
+1. direct environment training, like ordinary Gymnasium-style learning, with no
+   tower runtime in the decision path;
+2. training through tower machinery while the contraction schema is empty, so
+   the tower remains at `G_t^0`;
+3. training through tower machinery with one or more nonempty contraction
+   schemata.
+
+Mode 1 measures ordinary RL on the environment. Mode 2 measures the overhead and
+behavior of the tower shell without contraction. Mode 3 measures the actual
+quotient/tower claim. I was previously compressing Modes 1 and 2 too much.
+They must stay separate in artifacts, timings, and language.
 ```
 
 ## PO Question 9: Which Learner Should Be Used First?
@@ -1442,13 +1527,16 @@ variants, simple neural learners, and eventually external baselines if useful.
 ### PO Answer 9.2
 
 ```text
-
+I agree.
 ```
 
 ### Follow-Up 9.2
 
 ```text
+Codex response:
 
+Accepted. First learner: current upstream tabular Q learner. Later learner
+interfaces should remain open.
 ```
 
 ## PO Question 10: What Budget Regime Matters?
@@ -1487,13 +1575,15 @@ never repays its overhead.
 ### PO Answer 10.2
 
 ```text
-
+Correct.
 ```
 
 ### Follow-Up 10.2
 
 ```text
+Codex response:
 
+Accepted. Budgets become an explicit benchmark axis.
 ```
 
 ## PO Question 11: What Seed Count Is Serious Enough?
@@ -1537,13 +1627,31 @@ and learner seed. The artifact manifest should distinguish them.
 ### PO Answer 11.2
 
 ```text
-
+Ooooh. I see. "Seed" mean something like "minimal validating evualiation sample" or something?
 ```
 
 ### Follow-Up 11.2
 
 ```text
+Codex response:
 
+Not quite. In ML/RL, a seed is not the minimal validating sample. A seed is an
+input to a random number generator. It makes a stochastic run reproducible.
+
+One "seeded run" is one replicate of the experiment under a particular random
+initialization. A result across many seeds is many replicates, which lets us
+estimate variance instead of accidentally trusting a lucky or unlucky run.
+
+For this repo, a single replicate may need a seed bundle:
+
+- environment reset seed;
+- learner exploration seed;
+- schema/probe seed;
+- controller seed;
+- diagnostic sampling seed.
+
+So "30 seeds" means roughly "30 independently reproducible stochastic trials,"
+not "30 minimal validation samples."
 ```
 
 ## PO Question 12: What Runtime Costs Must Be Counted?
@@ -1582,13 +1690,17 @@ training-time cost.
 ### PO Answer 12.2
 
 ```text
-
+Correct.
 ```
 
 ### Follow-Up 12.2
 
 ```text
+Codex response:
 
+Accepted. Online means all costs required by the evaluated mode while it is
+actually running. Offline plots, post-hoc structural diagnostics, and expensive
+debug readouts should be recorded separately.
 ```
 
 ## PO Question 13: Are Compatibility Readouts Part Of The Benchmark Hot Path?
@@ -1629,13 +1741,40 @@ actually avoided repeated global reconstruction costs.
 ### PO Answer 13.2
 
 ```text
-
+I need a much more detailed discussion here. You're dipping into jargon to rapidly. I don't think the issue here are foreign to me, but I need you to explain the language you're using a bit more carefully.
 ```
 
 ### Follow-Up 13.2
 
 ```text
+Codex response:
 
+Let me slow down and unpack the readout issue.
+
+The fast upstream runtime now maintains the tower using partition tables and
+stable ids. That is the thing we want in the hot path: when a new state or edge
+appears, update the local partition/tower bookkeeping without rebuilding a full
+rich quotient graph after every step.
+
+A compatibility readout is different. It is a rich old-style view of the
+quotient tiers, useful for inspection, tests, old callers, and debugging. It
+answers questions like "show me the quotient-tier objects." But building that
+view can require scanning registered states, edges, action cells, and mappings.
+That is exactly the sort of global reconstruction the synthetic-Blow revisions
+were trying to keep out of default runtime stepping.
+
+So the benchmark rule should be:
+
+- if a learner/controller actually needs a readout online to choose actions,
+  include that cost in that mode;
+- if the readout is only for diagnostics or reports, compute it explicitly as a
+  diagnostic cost;
+- do not let a metric accidentally call readouts every step while claiming to
+  measure the fast path.
+
+This is not anti-metric. It is metric hygiene. We want rich diagnostics, but we
+need to label which ones are cheap online counters, which are periodic
+structural diagnostics, and which are expensive debug/readout artifacts.
 ```
 
 ## PO Question 14: What Should Count As A Negative Result?
@@ -1671,13 +1810,16 @@ can then evaluate meaning from the results.
 ### PO Answer 14.2
 
 ```text
-
+Correct.
 ```
 
 ### Follow-Up 14.2
 
 ```text
+Codex response:
 
+Accepted. The harness should record neutral results and avoid premature
+positive/negative labels.
 ```
 
 ## PO Question 15: Do We Need New Environments In This Repo?
@@ -1720,13 +1862,16 @@ that are too large or too benchmark-specific to belong inside upstream
 ### PO Answer 15.2
 
 ```text
-
+Correct.
 ```
 
 ### Follow-Up 15.2
 
 ```text
+Codex response:
 
+Accepted. Serious benchmark environments are a core responsibility of this
+repo.
 ```
 
 ## PO Question 16: Should Benchmark Artifacts Be Tracked?
@@ -1768,13 +1913,30 @@ their external location, checksum, size, and generation command.
 ### PO Answer 16.2
 
 ```text
-
+Correct. Do you agree that this is the standard practice for research repos with serious benchmarking? Is there a better or more standard convention?
 ```
 
 ### Follow-Up 16.2
 
 ```text
+Codex response:
 
+Yes, the policy you proposed is standard for serious research repos: track small
+configs, manifests, compact tables, and summary figures; keep large raw data,
+checkpoints, tensors, and bulky generated corpora outside normal git.
+
+Common conventions include:
+
+- normal git for small JSON/CSV/Markdown artifacts;
+- Git LFS only when the project deliberately accepts large binary history;
+- release assets or object storage for large reproducibility bundles;
+- DVC, MLflow, Weights & Biases, or similar systems when experiment management
+  becomes heavy;
+- checksums and generation commands in tracked manifests.
+
+For this repo I would start simple: tracked manifests and compact tables, with
+external links/checksums for large files. We can add DVC/MLflow-like machinery
+only when the artifact volume justifies it.
 ```
 
 ## PO Question 17: What Report Format Matters?
@@ -1817,13 +1979,15 @@ report writers.
 ### PO Answer 17.2
 
 ```text
-
+I agree.
 ```
 
 ### Follow-Up 17.2
 
 ```text
+Codex response:
 
+Accepted. Machine-readable artifacts first; prose/PDF reports downstream.
 ```
 
 ## PO Question 18: How Much Statistical Formalism Do We Want First?
@@ -1863,13 +2027,16 @@ and uncertainty honestly.
 ### PO Answer 18.2
 
 ```text
-
+I agree.
 ```
 
 ### Follow-Up 18.2
 
 ```text
+Codex response:
 
+Accepted. Mean/std, confidence intervals, and bootstrap intervals are the first
+statistical layer.
 ```
 
 ## PO Question 19: How Should We Treat `rl_counterpoint_v3`?
@@ -1905,13 +2072,16 @@ the solution.
 ### PO Answer 19.2
 
 ```text
-
+Correct.
 ```
 
 ### Follow-Up 19.2
 
 ```text
+Codex response:
 
+Accepted. `rl_counterpoint_v3` remains a smoke-scale ancestor for harder
+symbolic constrained-action families.
 ```
 
 ## PO Question 20: How Should We Treat Exploit/Explore?
@@ -1957,13 +2127,38 @@ part before the basic benchmark harness is stable. My recommendation is:
 ### PO Answer 20.2
 
 ```text
-
+No. I believe you are incorrect. Training with a tower requires some kind of "control flow" mechanism (maybe not exactly that) that pushes agent up/down tiers when appropriate. I there anythign beyond exp/exp that does this in `state_collapser`?
 ```
 
 ### Follow-Up 20.2
 
 ```text
+Codex response:
 
+You are right. My earlier answer separated "ordinary tower-aware training" from
+"exploit/explore" too casually. If training is supposed to use the tower as a
+tower, then some mechanism has to decide when behavior is controlled at one
+tier, when to descend, when to lift/refine, and when to train or execute.
+
+After read-only reconnaissance, the explicit up/down mechanism I see upstream is
+the exploit/explore stack:
+
+- `ActiveTierState`
+- `ActiveTierController`
+- `ControlAction`
+- `ExploitExploreTowerRuntime`
+- `LiftResolveExecutor`
+- `TierSignalState`
+- `TierControlMetrics`
+
+Its controller actions are `EXPLORE`, `TRAIN`, `DESCEND`, `LIFT`, and
+`EXPLOIT_EXECUTE`. I do not currently see a second equally explicit active-tier
+controller beyond exp/exp.
+
+There are related pieces: ordinary tower runtime updates the tower, ordinary
+tabular training can use tower-position keys, and fiber-conditioned stages train
+inside a frozen quotient path fiber. But those are not the same as autonomous
+up/down active-tier control.
 ```
 
 ## PO Question 21: How Should We Treat Fiber-Conditioned Training?
@@ -2011,13 +2206,32 @@ tests, and docs in upstream before encoding this into a benchmark plan.
 ### PO Answer 21.2
 
 ```text
-
+I think this and last question are actually discussing the same issue.
 ```
 
 ### Follow-Up 21.2
 
 ```text
+Codex response:
 
+Agreed. Questions 20 and 21 are one issue: the tower-control/training spine.
+
+The right benchmark question is not "ordinary training first or fiber training
+later?" It is: which named regime are we evaluating?
+
+Examples:
+
+- direct environment tabular;
+- tower empty-schema tabular;
+- tower nonempty-schema tabular;
+- exploit/explore active-tier control;
+- fiber-conditioned stage training;
+- future active-tier control using fiber-conditioned substages.
+
+Fiber-conditioned training is likely central to the correct long-term training
+story, but by itself it is stage-local. Exploit/explore is currently the
+explicit active-tier controller. The benchmark design has to make their
+relationship explicit rather than treating them as unrelated tracks.
 ```
 
 ## PO Question 22: What Upstream Changes Are Off-Limits?
@@ -2068,13 +2282,16 @@ reproduction and diagnosis rather than silently patching upstream.
 ### PO Answer 22.2
 
 ```text
-
+Correct.
 ```
 
 ### Follow-Up 22.2
 
 ```text
+Codex response:
 
+Accepted and applied during the reconnaissance pass: upstream was read, not
+edited.
 ```
 
 ## PO Question 23: What Counts As Benchmark Harness Completion?
@@ -2121,13 +2338,29 @@ settle larger claims.
 ### PO Answer 23.2
 
 ```text
-
+This seems fucking made-up. We're in the 3rd turn of this sub-discussion, and I still don't know what actual issue we're addressing.
 ```
 
 ### Follow-Up 23.2
 
 ```text
+Codex response:
 
+You are right to call this out. My previous answer was too procedural and not
+grounded enough in the actual issue. It answered "what could done mean?" before
+we had nailed down what problem the first work is solving.
+
+The actual issue now is:
+
+What is the first concrete artifact that prevents this repo from becoming a
+vague benchmark runner?
+
+After the second-pass discussion, the answer is a read-only upstream
+reconnaissance plus a metric/control-surface map. We needed to know what
+`state_collapser` actually exposes after the synthetic-Blow revisions, which
+surfaces are fast, which metrics would be expensive, and what tower-control
+machinery really exists. That is the prerequisite before defining harness
+completion.
 ```
 
 ## PO Question 24: Should We Start With A Blueprint Or A Reconnaissance Run?
@@ -2169,13 +2402,22 @@ blueprint from that evidence.
 ### PO Answer 24.2
 
 ```text
-
+Correct. Do this now and create massive document in same folder as this.
 ```
 
 ### Follow-Up 24.2
 
 ```text
+Codex response:
 
+Done. Created:
+
+docs/design/01_002_state_collapser_read_only_reconnaissance.md
+
+It records the synthetic-Blow runtime changes, why fast metrics are hard, the
+current upstream metric surfaces, the difference between direct-env,
+empty-schema tower, and nonempty-schema tower modes, and the current relation
+between exploit/explore active-tier control and fiber-conditioned training.
 ```
 
 ## PO Question 25: What Should This Repo Be Called Publicly?
@@ -2209,17 +2451,6 @@ as "the serious benchmark suite for `state_collapser`" while keeping the repo
 name unchanged.
 ```
 
-### PO Answer 25.2
-
-```text
-
-```
-
-### Follow-Up 25.2
-
-```text
-
-```
 
 ## Conversation Synthesis After PO Reply Pass 1
 
@@ -2273,6 +2504,64 @@ Immediate design consequences:
 - Existing upstream examples can still be valuable as the first harness smoke
   matrix, but the document should not imply they satisfy the serious benchmark
   bar.
+
+## Conversation Synthesis After PO Reply Pass 2
+
+The second Project Owner reply pass sharpened the work considerably.
+
+The biggest correction is that "tower training" is not one operational mode.
+The benchmark matrix must keep at least these conditions separate:
+
+1. direct environment training, like ordinary Gymnasium-style learning;
+2. tower machinery with empty contraction schema, where the tower stays at
+   `G_t^0`;
+3. tower machinery with nonempty contraction schemata.
+
+The second correction is that training with a tower cannot be reduced to
+"learner sees tower-position keys." A real tower-training story needs a control
+mechanism that decides when the agent is operating at a given tier, when to
+descend, when to lift/refine, when to train, and when to execute. A read-only
+upstream reconnaissance found that the explicit active-tier up/down controller
+currently lives in the exploit/explore stack. Fiber-conditioned training is
+closely related and probably central, but it is stage-local rather than a whole
+autonomous active-tier controller.
+
+The third correction is about metrics. Runtime error messages are not serious
+benchmark metrics. Error messages are local guardrails. Benchmark metrics need
+stable event schemas, online/offline cost classification, seed/budget manifests,
+statistical summaries, and careful preservation of the synthetic-Blow
+hot-path/readout separation. Rich metrics can accidentally reintroduce the
+global compatibility-readout cost that upstream just removed from default
+runtime stepping.
+
+New artifact created from this pass:
+
+```text
+docs/design/01_002_state_collapser_read_only_reconnaissance.md
+```
+
+Current authority after PO reply pass 2:
+
+1. `big_boy_benchmarking` must preserve upstream synthetic-Blow speed
+   discipline.
+2. Serious metrics should be designed as a benchmark artifact system, not as
+   casual runtime logging.
+3. Online hot-path metrics, periodic structural diagnostics, and expensive
+   readout/debug artifacts must be classified separately.
+4. Direct env, empty-schema tower, and nonempty-schema tower conditions are all
+   essential.
+5. Exploit/explore and fiber-conditioned training are part of one
+   tower-control/training discussion.
+6. The current explicit up/down active-tier controller appears to be
+   exploit/explore.
+7. Fiber-conditioned training is a package-native stage/fiber substrate, not by
+   itself a complete up/down tier controller.
+8. "Seed" means a reproducibility input for stochastic trials; many seeded
+   replicates estimate variance.
+9. Small benchmark artifacts should be tracked; large artifacts should be
+   externally stored and linked from tracked manifests.
+10. The next design step should be a metric/artifact contract and benchmark-mode
+    vocabulary, grounded in the reconnaissance document.
 
 ## Provisional Principles
 
@@ -2423,19 +2712,32 @@ exploit/explore as important tracks requiring deeper investigation.
 Project Owner:
 
 ```text
-
+Filled second-pass answers and pushed the discussion toward concrete upstream
+reconnaissance. Key corrections: distinguish direct environment training,
+empty-schema tower machinery, and nonempty-schema tower machinery; explain seed
+language more carefully; explain compatibility readouts without jargon; treat
+exploit/explore and fiber-conditioned training as the same tower-control issue;
+and create a massive read-only reconnaissance document now.
 ```
 
 Codex:
 
 ```text
-
+Created docs/design/01_002_state_collapser_read_only_reconnaissance.md after
+read-only inspection of upstream synthetic-Blow docs, runtime/snapshot code,
+benchmark smoke tooling, training metrics, exploit/explore control, and
+fiber-conditioned training. Filled second-round Codex responses throughout this
+discussion doc and added Conversation Synthesis After PO Reply Pass 2.
 ```
 
 Resulting authority change:
 
 ```text
-
+The benchmark repo now treats metrics as a first-class artifact/instrumentation
+problem and treats tower training as a regime matrix rather than one mode.
+Direct environment training, empty-schema tower training, nonempty-schema tower
+training, exploit/explore active-tier control, and fiber-conditioned stages must
+be named separately in benchmark artifacts.
 ```
 
 ### Turn 3
