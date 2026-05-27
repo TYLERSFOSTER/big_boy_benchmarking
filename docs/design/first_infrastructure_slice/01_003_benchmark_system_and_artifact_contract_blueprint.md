@@ -337,13 +337,20 @@ clear, matches the repo, and avoids another naming layer.
 ### PO Answer Slot
 
 ```text
-
+Use big_boy_benchmarking as the import package.
 ```
 
 ### Codex Follow-Up Slot
 
 ```text
+Accepted. The import package should be `big_boy_benchmarking`.
 
+This means the first implementation gameplan can assume:
+
+- `src/big_boy_benchmarking/` exists;
+- CLI modules live under `big_boy_benchmarking.cli`;
+- tests import the package by the full repo name;
+- no additional abbreviation layer is introduced yet.
 ```
 
 ## Benchmark Mode Contract
@@ -685,13 +692,18 @@ Are these acceptable as first artifact-facing mode ids?
 ### PO Answer Slot
 
 ```text
-
+I like these. They are acceptable.
 ```
 
 ### Codex Follow-Up Slot
 
 ```text
+Accepted. These become the first artifact-facing mode ids.
 
+The implementation should put them in a mode registry rather than scattering
+string literals through runner code. The registry should validate that each mode
+has an explicit environment coupling, schema mode, controller regime, training
+surface, learner id, diagnostic profile, timing profile, and online cost policy.
 ```
 
 ## Artifact Root Contract
@@ -797,13 +809,19 @@ Ignore:
 ### PO Answer Slot
 
 ```text
-
+Correct.
 ```
 
 ### Codex Follow-Up Slot
 
 ```text
+Accepted. `artifacts/` should exist in git with README/schema/tiny smoke
+material, while large outputs should be ignored or externally referenced unless
+intentionally curated.
 
+The first implementation should include an `artifacts/README.md`, an artifact
+schema file, and a `.gitignore` policy that prevents accidental large-output
+commits.
 ```
 
 ## Manifest Contracts
@@ -1403,13 +1421,19 @@ interface so Parquet or DuckDB can be added later.
 ### PO Answer Slot
 
 ```text
-
+Yes. I completely agree.
 ```
 
 ### Codex Follow-Up Slot
 
 ```text
+Accepted. CSV first, writer interface designed so Parquet/DuckDB can be added
+later.
 
+This keeps early artifacts inspectable in plain text while still avoiding a
+hard dependency on CSV forever. The implementation should isolate table writing
+behind artifact writer functions rather than making runners call `open(...).write`
+directly.
 ```
 
 ## Metric Channel Contract
@@ -1585,13 +1609,17 @@ Yes, for tests only. Do not use monkeypatched runs for scientific artifacts.
 ### PO Answer Slot
 
 ```text
-
+Yes. For tests only.
 ```
 
 ### Codex Follow-Up Slot
 
 ```text
+Accepted. Readout call-counting monkeypatches are allowed for tests only.
 
+The implementation should make this boundary explicit: monkeypatched tests can
+prove default runner paths avoid compatibility readouts, but scientific run
+artifacts should never depend on monkeypatched upstream behavior.
 ```
 
 ## Timing Contract
@@ -1692,13 +1720,22 @@ logger, but artifact cost is real and should be visible.
 ### PO Answer Slot
 
 ```text
-
+Report both.
 ```
 
 ### Codex Follow-Up Slot
 
 ```text
+Accepted. Report both.
 
+The implementation should expose at least two wall-clock fields:
+
+- algorithm online time, excluding artifact writing;
+- benchmark online time, including artifact writing.
+
+This lets us compare the algorithm honestly while still keeping artifact cost
+visible. If verbose logging becomes expensive, the artifacts will show that
+rather than hiding it.
 ```
 
 ## Seed Bundle Contract
@@ -1800,13 +1837,18 @@ Yes.
 ### PO Answer Slot
 
 ```text
-
+Agreed.
 ```
 
 ### Codex Follow-Up Slot
 
 ```text
+Accepted. First implementation should use simple percentile bootstrap over
+seed-level replicates, with fancier statistics deferred.
 
+Important implementation guardrail: the bootstrap unit is the replicate/seed
+bundle, not individual step rows. Step rows within a run are correlated; treating
+them as independent samples would inflate confidence.
 ```
 
 ## Environment Research Contract
@@ -1929,13 +1971,21 @@ robotics/control-flavored environment eventually.
 ### PO Answer Slot
 
 ```text
-
+The answer is really that we want both these as first two. ...But maybe counterpoint-like symbolic first, since it also has canonical projections, and then  or dual-arm/shared-object coordination second.
 ```
 
 ### Codex Follow-Up Slot
 
 ```text
+Accepted with ordering: first serious environment-family blueprint should be
+counterpoint-like symbolic constrained sequence; second should be
+dual-arm/shared-object coordination.
 
+The canonical projections point is a strong reason to start symbolic. It gives
+us a better chance of defining exact tiny-instance structure, projection maps,
+path/fiber diagnostics, and maybe early `PVol` estimators before facing the
+messier robotics/control family. The dual-arm track should remain explicitly
+second, not forgotten.
 ```
 
 ## Runner Architecture Blueprint
@@ -2105,13 +2155,17 @@ hour.
 ### PO Answer Slot
 
 ```text
-
+Use `python -m` first.
 ```
 
 ### Codex Follow-Up Slot
 
 ```text
+Accepted. Use `python -m big_boy_benchmarking...` first.
 
+The first implementation should avoid installing a console script until the CLI
+surface stabilizes. A later `bbb` command can become a convenience wrapper once
+the command names stop moving.
 ```
 
 ## Configuration Contract
@@ -2245,13 +2299,44 @@ our feet.
 ### PO Answer Slot
 
 ```text
-
+Yes absolutely. ...Can you tell me a little bit more about contracts in CS/engineering?
 ```
 
 ### Codex Follow-Up Slot
 
 ```text
+Accepted, and this is worth unpacking.
 
+In CS/engineering, a contract is an explicit promise between pieces of a system.
+It says what a component expects, what it guarantees, and what must stay true
+for other components to trust it.
+
+Common contract forms:
+
+- preconditions: what must be true before a function or runner is called;
+- postconditions: what must be true after it finishes;
+- invariants: what must remain true across a whole process;
+- interface contracts: what fields, methods, files, or event shapes exist;
+- schema contracts: what columns and types an artifact has;
+- behavioral contracts: what a mode is allowed to do online.
+
+For this benchmark repo, examples are concrete:
+
+- `direct_env_tabular` must not update a tower runtime;
+- `tower_empty_schema_tabular` must run tower machinery but not nonempty
+  contraction;
+- default hot-path runs must not call compatibility readouts;
+- `episodes.csv` must have the declared columns;
+- a run manifest must record upstream commit and dirty status;
+- bootstrap summaries must aggregate over seed-level replicates, not step rows.
+
+Contract tests are tests that enforce those promises before we trust a runner.
+They are not about making the code fancy. They prevent a future result from
+being meaningless because a file changed shape, a mode silently changed
+meaning, or a metric accidentally pulled an expensive readout into the hot path.
+
+So yes: the first implementation gameplan should start with artifact/mode
+contract tests before runner code.
 ```
 
 ## First Implementation Slice
@@ -2322,6 +2407,255 @@ Owner accepts or edits these decisions:
 
 Not every answer must be perfect. But the implementation gameplan should know
 which way to lean.
+
+## PO Decision Summary After First Blueprint Reply
+
+The Project Owner filled the first blueprint turn questions. Resulting
+decisions:
+
+1. Import package name: `big_boy_benchmarking`.
+2. Canonical first mode ids: accepted.
+3. Artifact root tracking: accepted.
+4. Large table storage: CSV first, with future-proof writer interface.
+5. Readout call-counting: monkeypatch tests are allowed for tests only.
+6. Artifact logging time: report both algorithm online time and benchmark
+   online time.
+7. Statistics: simple percentile bootstrap over seed-level replicates first.
+8. First serious environment order: counterpoint-like symbolic first,
+   dual-arm/shared-object coordination second.
+9. CLI naming: use `python -m` first.
+10. Test-first discipline: accepted, with contracts explained as engineering
+    promises enforced by tests.
+
+## Implementation Gameplan Readiness
+
+This blueprint is now ready to become an implementation gameplan for the first
+slice:
+
+```text
+artifact skeleton + mode registry + contract tests + readout-discipline upstream smoke
+```
+
+The implementation gameplan should not yet attempt the first serious
+counterpoint-like environment family. That should be the next design blueprint
+after the artifact/mode measurement machine exists.
+
+## Human-Facing Documentation Layer
+
+The blueprint above defines machine-readable artifacts. That is necessary, but
+not sufficient.
+
+This repo also needs a human-facing documentation layer where a reader can
+quickly understand:
+
+- what environments exist;
+- what geometry they test;
+- what experiments were run;
+- what the results mean at a glance;
+- where the raw artifacts live;
+- what caveats matter.
+
+Machine artifacts are for reproducibility and analysis. Human docs are for
+orientation, review, and scientific communication.
+
+### Recommended Docs Layout
+
+Add a docs layer shaped like:
+
+```text
+docs/
+  environments/
+    counterpoint_symbolic_v001.md
+    dual_arm_shared_object_v001.md
+  experiments/
+    2026_05_upstream_smoke_readout_discipline.md
+    2026_06_counterpoint_tiny_structural_probe.md
+  results/
+    2026_05_upstream_smoke_summary.md
+    2026_06_counterpoint_tiny_summary.md
+  methods/
+    artifact_contract.md
+    benchmark_modes.md
+    metric_channels.md
+    seed_bundles.md
+    statistics.md
+```
+
+The exact filenames can change, but the conceptual split should remain.
+
+### `docs/environments/`
+
+Purpose:
+
+Human-readable descriptions of benchmark environment families and instances.
+
+Each serious environment family should have a Markdown document describing:
+
+- environment family id;
+- human name;
+- hidden constraint geometry;
+- state definition;
+- action definition;
+- transition rule;
+- reward rule;
+- termination/truncation;
+- why flat search is wasteful;
+- quotient/projection hypothesis;
+- scale ladder;
+- schema candidates;
+- schema leakage risks;
+- negative-control variants;
+- artifact fields specific to this family.
+
+This is where a reader should go to understand why an environment belongs in
+the benchmark suite.
+
+### `docs/experiments/`
+
+Purpose:
+
+Human-readable descriptions of run families before or during execution.
+
+Each experiment doc should explain:
+
+- experiment id;
+- run family id;
+- purpose;
+- hypothesis or question;
+- environment instances;
+- modes;
+- schemas;
+- learners/controllers;
+- budgets;
+- seed plan;
+- diagnostic profile;
+- artifact root;
+- known caveats;
+- what would make the run interesting.
+
+This is where a reader should go to understand what a run family is trying to
+learn.
+
+### `docs/results/`
+
+Purpose:
+
+Human-readable summaries generated from or grounded in machine artifacts.
+
+Each result doc should include:
+
+- result id;
+- run family id;
+- artifact paths;
+- upstream `state_collapser` commit;
+- benchmark repo commit;
+- short result summary;
+- key tables;
+- key plots if present;
+- important caveats;
+- what was not tested;
+- links to raw artifacts;
+- next questions.
+
+The result doc should not be the source of truth. The artifacts are the source
+of truth. The result doc is the readable front door.
+
+### `docs/methods/`
+
+Purpose:
+
+Stable explanations of benchmark methodology.
+
+Initial method docs should include:
+
+- artifact contract;
+- benchmark modes;
+- metric channels;
+- seed bundles;
+- timing/readout discipline;
+- statistical summaries;
+- environment acceptance gates.
+
+These docs should be written for humans who do not want to read the entire
+blueprint before understanding the benchmark suite.
+
+### Relationship To Artifacts
+
+Human docs should link to artifacts, not replace them.
+
+Every result doc should name:
+
+```text
+run_family_id
+artifact_schema_version
+artifact_root
+summary.json
+run_index.jsonl
+raw table paths
+external artifact manifest if present
+```
+
+Every experiment doc should name:
+
+```text
+matrix_manifest
+environment_family_manifest
+mode ids
+budget ids
+seed bundle ids
+```
+
+Every environment doc should name:
+
+```text
+environment_family_id
+environment_instance_ids
+scale tiers
+source path or generator path
+```
+
+### Generated Versus Handwritten
+
+Some docs should be handwritten:
+
+- environment descriptions;
+- methodology docs;
+- experiment intent.
+
+Some docs may be generated from artifacts:
+
+- result summaries;
+- key tables;
+- run status sections.
+
+Recommended first policy:
+
+- handwrite `docs/environments/`, `docs/experiments/`, and `docs/methods/`;
+- generate or partially generate `docs/results/` from artifacts;
+- allow manual commentary in result docs, but keep raw numbers traceable to
+  machine artifacts.
+
+### First Implementation Implication
+
+The first implementation gameplan should include creation of:
+
+```text
+docs/environments/
+docs/experiments/
+docs/results/
+docs/methods/
+```
+
+with README files explaining each folder's purpose.
+
+The first smoke run should produce or support a human-readable result summary
+under:
+
+```text
+docs/results/
+```
+
+even if the summary is tiny.
 
 ## Risk Register
 
