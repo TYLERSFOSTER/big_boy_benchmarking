@@ -21,6 +21,26 @@ def _no_morphism(reason: str = "default hot path excludes morphism construction"
 
 
 _MODES: dict[str, BenchmarkModeContract] = {
+    "direct_env_masked_random": BenchmarkModeContract(
+        mode_id="direct_env_masked_random",
+        environment_coupling="direct_env",
+        schema_mode="none",
+        controller_regime="none",
+        training_surface="environment",
+        learner_id="masked_random",
+        diagnostic_profile=DiagnosticProfile("smoke"),
+        timing_profile=TimingProfile("default_online"),
+        online_costs_included=("environment_reset", "environment_step", "learner_act"),
+        online_costs_excluded=(
+            "tower_reset",
+            "tower_update",
+            "learner_update",
+            "compatibility_readout",
+            "morphism_construction",
+        ),
+        readout_policy=_no_readout(),
+        morphism_policy=_no_morphism(),
+    ),
     "direct_env_tabular": BenchmarkModeContract(
         mode_id="direct_env_tabular",
         environment_coupling="direct_env",
