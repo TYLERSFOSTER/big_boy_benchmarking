@@ -137,6 +137,66 @@ If the infrastructure slice has not been implemented by the time this plan is ex
 
 The implementer must not silently implement infrastructure work as an unnamed side effect of this counterpoint gameplan.
 
+## Pause Marker: 2026-05-28 Prerequisite Gate
+
+This gameplan was executed through `Phase 0.7.1` on branch:
+
+```text
+codex/counterpoint-hidden-graph-schema-benchmark
+```
+
+The implementation stopped exactly where this gameplan requires it to stop:
+
+```text
+Phase 0.7.1: Prerequisite Infrastructure Gate
+```
+
+Observed blocker:
+
+```text
+The shared benchmark machinery is not yet implemented in source.
+```
+
+Missing prerequisite machinery:
+
+- artifact writers;
+- mode registry;
+- seed bundles;
+- metric/event rows;
+- timing helpers;
+- runner skeletons;
+- upstream integration;
+- CLI.
+
+Owner decision after the stop:
+
+```text
+Pause this counterpoint implementation here.
+Design and implement the shared benchmark machinery first.
+Return to this gameplan afterward.
+```
+
+Where to pick back up:
+
+1. Finish the shared benchmark machinery design and implementation in its own approved design/gameplan flow.
+2. Return to this counterpoint branch or a fresh counterpoint implementation branch, as directed by the Project Owner.
+3. Re-open the implementation log:
+
+```text
+docs/design/first_counterpoint_environment/01_004_counterpoint_hidden_graph_and_contraction_schema_implementation_log.md
+```
+
+4. Re-run `Phase 0.5` global state reconstruction.
+5. Re-run `Phase 0.6` baseline validation.
+6. Re-run `Phase 0.7.1` prerequisite infrastructure gate.
+7. If the infrastructure gate passes, continue at:
+
+```text
+Phase 0.8: Execution Method Lock
+```
+
+Do not resume at Phase 1 until `Phase 0.7.1` passes in the actual repo state.
+
 ## Implementation Non-Goals
 
 Do not implement:
@@ -431,6 +491,12 @@ Acceptance:
 Stop condition:
 
 - if the infrastructure slice is absent or incomplete, stop and ask the Project Owner whether to execute the infrastructure gameplan first or authorize an amended combined gameplan.
+
+Resume condition:
+
+- after the shared benchmark machinery exists, re-run this gate against the current repo state.
+- if all required infrastructure modules and surfaces are present, record the pass in the implementation log and continue to `Phase 0.8`.
+- if any required infrastructure remains absent, stop again before Phase 1.
 
 ### Stage 0.8: Execution Method Lock
 
