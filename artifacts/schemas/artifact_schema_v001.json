@@ -1,0 +1,23 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "description": "Initial Big Boy Benchmarking artifact contract marker. This file is intentionally lightweight and is not a complete JSON Schema validator.",
+  "required_manifest_categories": [
+    "family_manifest",
+    "matrix_manifest",
+    "environment_family_manifest",
+    "dependency_manifest",
+    "run_manifest",
+    "mode_manifest",
+    "seed_bundle",
+    "external_artifacts"
+  ],
+  "first_event_tables": [
+    "run_index.jsonl",
+    "episodes.csv",
+    "step_events.csv",
+    "control_events.csv",
+    "timing_segments.csv",
+    "structural_diagnostics.jsonl",
+    "warnings.jsonl"
+  ]
+}
