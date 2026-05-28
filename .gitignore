@@ -210,6 +210,18 @@ tempCodeRunnerFile.py
 # PyPI configuration file
 .pypirc
 
+# Big Boy Benchmarking generated artifacts
+artifacts/runs/*/runs/*/step_events.csv
+artifacts/runs/*/runs/*/control_events.csv
+artifacts/runs/*/runs/*/structural_diagnostics.jsonl
+artifacts/runs/*/runs/*/large/
+artifacts/runs/*/runs/*/*.parquet
+artifacts/runs/*/runs/*/*.duckdb
+artifacts/runs/*/runs/*/*.sqlite
+artifacts/runs/*/runs/*/*.pt
+artifacts/runs/*/runs/*/*.npy
+artifacts/runs/*/runs/*/*.npz
+
 # Marimo
 marimo/_static/
 marimo/_lsp/

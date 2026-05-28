@@ -47,3 +47,43 @@ specific `state_collapser` surfaces that benchmarking work will depend on:
 
 The next real work is to add benchmark families that measure scaling behavior
 beyond `state_collapser`'s smoke-level in-repo benchmarks.
+
+## Shared Benchmark Machinery
+
+The first benchmark infrastructure slice adds the measurement layer that future
+environment families should use:
+
+- artifact contracts and JSON/JSONL/CSV writers
+- mode contracts and registry
+- seed bundles
+- event rows and timing helpers
+- upstream smoke adapters
+- runner skeletons
+- a thin Python module CLI
+
+Validate contracts with:
+
+```bash
+python -m big_boy_benchmarking.cli validate-contracts
+```
+
+Run a harness smoke into an explicit artifact root with:
+
+```bash
+python -m big_boy_benchmarking.cli run-upstream-smoke \
+  --smoke-id plate_support_env \
+  --artifact-root /private/tmp/bbb-smoke-artifacts
+```
+
+The future installed command name `bbb` is reserved, but this slice exposes the
+stable entry point through `python -m big_boy_benchmarking.cli`.
+
+Human-facing summaries live under:
+
+- `docs/environments/`
+- `docs/experiments/`
+- `docs/results/`
+- `docs/methods/`
+
+Machine-readable artifacts remain the source of truth. Smoke artifacts do not
+constitute serious benchmark results.
