@@ -13,6 +13,7 @@ from big_boy_benchmarking.artifacts.manifests import (
     EnvironmentFamilyManifest,
     ExternalArtifactsManifest,
     FamilyManifest,
+    LinearizationManifest,
     ModeManifest,
     RunManifest,
 )
@@ -60,7 +61,12 @@ from big_boy_benchmarking.metrics.timing import TimingRecorder, summarize_timing
 from big_boy_benchmarking.modes.registry import require_runnable_mode
 from big_boy_benchmarking.runners.base import BenchmarkRunResult
 from big_boy_benchmarking.seeds.bundles import SeedBundle
+from big_boy_benchmarking.upstream.linearization import (
+    REPORT_SOURCE,
+    build_linearization_artifact_payload,
+)
 from big_boy_benchmarking.upstream.state_collapser import (
+    STATE_COLLAPSER_DEPENDENCY_SPEC,
     collect_state_collapser_dependency_state,
 )
 
@@ -98,6 +104,7 @@ def _artifact_path_dict(run_paths: Any) -> dict[str, str]:
         "run_manifest": str(run_paths.run_manifest),
         "seed_bundle": str(run_paths.seed_bundle),
         "mode_manifest": str(run_paths.mode_manifest),
+        "linearization_manifest": str(run_paths.linearization_manifest),
         "timing_summary": str(run_paths.timing_summary),
         "episodes_csv": str(run_paths.episodes_csv),
         "step_events_csv": str(run_paths.step_events_csv),
@@ -290,6 +297,7 @@ def _write_direct_run_artifacts(
     run_family_id: str,
     run_id: str,
     mode_id: str,
+    linearization_mode_id: str,
     policy_id: str,
     seed_bundle: SeedBundle,
     budget: dict[str, Any],
@@ -303,7 +311,16 @@ def _write_direct_run_artifacts(
     ensure_artifact_dirs(family_paths, run_paths)
     mode_contract = require_runnable_mode(mode_id)
     dependency_state = collect_state_collapser_dependency_state(
-        dependency_spec="state-collapser[rl] @ git+https://github.com/TYLERSFOSTER/state_collapser.git@v0.6.0"
+        dependency_spec=STATE_COLLAPSER_DEPENDENCY_SPEC,
+    )
+    linearization_payload = build_linearization_artifact_payload(
+        linearization_mode_id=linearization_mode_id,
+        recorder=recorder,
+        metadata={
+            "runner": "counterpoint_direct",
+            "environment_instance_id": spec.environment_instance_id,
+            "mode_id": mode_id,
+        },
     )
 
     write_json(
@@ -332,6 +349,18 @@ def _write_direct_run_artifacts(
         create_parents=True,
     )
     write_json(run_paths.seed_bundle, seed_bundle.to_dict(), create_parents=True)
+    write_json(
+        run_paths.linearization_manifest,
+        LinearizationManifest(
+            run_id=run_id,
+            linearization_mode_id=linearization_mode_id,
+            linearization_config=linearization_payload.config_dict,
+            linearization_report=linearization_payload.report_dict,
+            report_source=REPORT_SOURCE,
+            conversion_records_exported=False,
+        ).to_dict(),
+        create_parents=True,
+    )
     write_json(
         run_paths.external_artifacts,
         ExternalArtifactsManifest(
@@ -408,6 +437,7 @@ def _write_direct_run_artifacts(
             uses_compatibility_readout=False,
             uses_morphism=False,
             mode_contract=mode_contract.to_dict(),
+            linearization_mode_contract=linearization_payload.contract.to_dict(),
         ).to_dict(),
         create_parents=True,
     )
@@ -419,6 +449,9 @@ def _write_direct_run_artifacts(
             run_family_id=run_family_id,
             environment_id=spec.environment_instance_id,
             mode_id=mode_id,
+            linearization_mode_id=linearization_mode_id,
+            linearization_benchmark_label=linearization_payload.report.benchmark_label,
+            linearization_enabled=linearization_payload.report.enabled,
             schema_id=mode_contract.schema_mode,
             learner_id=mode_contract.learner_id,
             controller_id=mode_contract.controller_regime,
@@ -451,6 +484,8 @@ def _write_direct_run_artifacts(
         "run_id": run_id,
         "environment_instance_id": spec.environment_instance_id,
         "mode_id": mode_id,
+        "linearization_mode_id": linearization_mode_id,
+        "linearization_benchmark_label": linearization_payload.report.benchmark_label,
         "policy_id": policy_id,
         "episode_count": len(episodes),
         "mean_return": (
@@ -481,6 +516,7 @@ def run_direct_masked_random(
     horizon: int | None = None,
     episode_count: int = 1,
     policy_id: str = MASKED_RANDOM_POLICY_ID,
+    linearization_mode_id: str = "tensor_available_disabled",
     run_family_id: str = DIRECT_RUN_FAMILY_ID,
     run_id: str | None = None,
 ) -> BenchmarkRunResult:
@@ -509,6 +545,7 @@ def run_direct_masked_random(
         run_family_id=run_family_id,
         run_id=run_id,
         mode_id="direct_env_masked_random",
+        linearization_mode_id=linearization_mode_id,
         policy_id=policy_id,
         seed_bundle=seed_bundle,
         budget={"episodes": episode_count, "horizon": active_horizon},
@@ -526,6 +563,7 @@ def run_direct_tabular_q(
     horizon: int | None = None,
     episode_count: int = 4,
     policy_id: str = TABULAR_Q_POLICY_ID,
+    linearization_mode_id: str = "tensor_available_disabled",
     run_family_id: str = DIRECT_RUN_FAMILY_ID,
     run_id: str | None = None,
     alpha: float = 0.4,
@@ -562,6 +600,7 @@ def run_direct_tabular_q(
         run_family_id=run_family_id,
         run_id=run_id,
         mode_id="direct_env_tabular",
+        linearization_mode_id=linearization_mode_id,
         policy_id=policy_id,
         seed_bundle=seed_bundle,
         budget={
@@ -601,6 +640,7 @@ def run_tower_schema_smoke(
     seed_bundle: SeedBundle,
     artifact_root: Path | str,
     schema_seed: int | None = None,
+    linearization_mode_id: str = "tensor_available_disabled",
     run_family_id: str = TOWER_RUN_FAMILY_ID,
     run_id: str | None = None,
 ) -> BenchmarkRunResult:
@@ -616,7 +656,7 @@ def run_tower_schema_smoke(
     mode_contract = require_runnable_mode(mode_id)
     recorder = TimingRecorder.create(run_id)
     dependency_state = collect_state_collapser_dependency_state(
-        dependency_spec="state-collapser[rl] @ git+https://github.com/TYLERSFOSTER/state_collapser.git@v0.6.0"
+        dependency_spec=STATE_COLLAPSER_DEPENDENCY_SPEC,
     )
 
     with recorder.segment("tower_reset"):
@@ -633,6 +673,17 @@ def run_tower_schema_smoke(
     reward_rows = [row.to_dict() for row in reward_fiber_diagnostics(build.graph, schema)]
     lift_rows = [row.to_dict() for row in lift_fiber_diagnostics(schema)]
     addressability = balanced_addressability_diagnostics(schema)
+    linearization_payload = build_linearization_artifact_payload(
+        linearization_mode_id=linearization_mode_id,
+        recorder=recorder,
+        tower=build.tower,
+        metadata={
+            "runner": "counterpoint_tower_smoke",
+            "environment_instance_id": spec.environment_instance_id,
+            "mode_id": mode_id,
+            "schema_id": schema.spec.schema_id,
+        },
+    )
 
     write_json(
         family_paths.family_manifest,
@@ -660,6 +711,18 @@ def run_tower_schema_smoke(
         create_parents=True,
     )
     write_json(run_paths.seed_bundle, seed_bundle.to_dict(), create_parents=True)
+    write_json(
+        run_paths.linearization_manifest,
+        LinearizationManifest(
+            run_id=run_id,
+            linearization_mode_id=linearization_mode_id,
+            linearization_config=linearization_payload.config_dict,
+            linearization_report=linearization_payload.report_dict,
+            report_source=REPORT_SOURCE,
+            conversion_records_exported=False,
+        ).to_dict(),
+        create_parents=True,
+    )
     write_json(
         run_paths.root / "schema_manifest.json",
         schema.spec.to_dict(),
@@ -755,6 +818,7 @@ def run_tower_schema_smoke(
             uses_compatibility_readout=False,
             uses_morphism=False,
             mode_contract=mode_contract.to_dict(),
+            linearization_mode_contract=linearization_payload.contract.to_dict(),
         ).to_dict(),
         create_parents=True,
     )
@@ -766,6 +830,9 @@ def run_tower_schema_smoke(
             run_family_id=run_family_id,
             environment_id=spec.environment_instance_id,
             mode_id=mode_id,
+            linearization_mode_id=linearization_mode_id,
+            linearization_benchmark_label=linearization_payload.report.benchmark_label,
+            linearization_enabled=linearization_payload.report.enabled,
             schema_id=schema.spec.schema_id,
             learner_id=mode_contract.learner_id,
             controller_id=mode_contract.controller_regime,
@@ -803,6 +870,8 @@ def run_tower_schema_smoke(
         "run_id": run_id,
         "environment_instance_id": spec.environment_instance_id,
         "mode_id": mode_id,
+        "linearization_mode_id": linearization_mode_id,
+        "linearization_benchmark_label": linearization_payload.report.benchmark_label,
         "schema_id": schema.spec.schema_id,
         "partition_tier_count": len(build.tower.state_layers),
         "uses_compatibility_readout": False,

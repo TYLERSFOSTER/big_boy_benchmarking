@@ -12,6 +12,7 @@ def test_path_builders_are_deterministic_and_explicit(tmp_path: Path, monkeypatc
     assert first == second
     assert first.root == artifact_root / "runs" / "family" / "runs" / "run"
     assert first.episodes_csv.name == "episodes.csv"
+    assert first.linearization_manifest.name == "linearization_manifest.json"
 
 
 def test_run_family_layout_matches_contract(tmp_path: Path) -> None:

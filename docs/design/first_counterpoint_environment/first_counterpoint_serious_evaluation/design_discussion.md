@@ -907,3 +907,35 @@ read-only-derived alignment note in `state_collapser` for the tensorization work
 The next resume gate is whether `state_collapser` has a tensor-capable
 architecture where tensor paths can be explicitly disabled or enabled.
 ```
+
+### Turn 008 - Codex Resume
+
+```text
+The upstream tensorization gate is now satisfied for the purposes of resuming
+this design discussion. BBB has been integrated with `state_collapser v0.7.0`,
+which exposes the backend-independent linearization boundary needed here:
+`LinearizationConfig`, `LinearizationReport`, `LinearizationState`,
+`NumericBackend`, `TensorDeviceKind`, `EncodingRegistry`, and
+`build_linearization_report`.
+
+Locally, BBB now records linearization mode as a separate axis beside execution
+mode. The runnable modes are `none_control_flow` and
+`tensor_available_disabled`; `tensor_enabled_cpu` and `tensor_enabled_cuda` are
+reserved until BBB has a real tensor-consuming benchmark path and local CUDA
+validation. Existing smoke/direct/tower runners now default to
+`tensor_available_disabled`, write `linearization_manifest.json`, and record
+linearization/report timing. This means new smoke artifacts no longer blur
+"pre-linearization package" with "tensor-capable package with tensor path
+disabled."
+
+No serious counterpoint evaluation claim has been made yet. The work just
+completed restores the blocked precondition that the PO identified: benchmarking
+before tensorization was not equivalent to benchmarking a tensor-capable
+architecture with tensor paths disabled. That correction belongs to the PO and
+must remain part of the project history.
+
+We can now resume this document as a design discussion, not a blueprint. The
+next decision is the first serious evaluation shape: what structural/schema
+evaluation, learning-performance evaluation, or staged combination is allowed
+to count as the first non-smoke counterpoint benchmark.
+```

@@ -37,6 +37,10 @@ from big_boy_benchmarking.environments.counterpoint.runners import (
 )
 from big_boy_benchmarking.environments.counterpoint.schemas import build_schema_for_id
 from big_boy_benchmarking.modes.contracts import validate_mode_contract
+from big_boy_benchmarking.modes.linearization import (
+    iter_linearization_mode_contracts,
+    validate_linearization_mode_contract,
+)
 from big_boy_benchmarking.modes.registry import iter_mode_contracts
 from big_boy_benchmarking.runners.upstream_smoke import (
     run_upstream_smoke,
@@ -48,10 +52,18 @@ from big_boy_benchmarking.upstream.smoke_envs import iter_smoke_environment_spec
 RESERVED_CONSOLE_COMMAND = "bbb"
 
 
+def _linearization_mode_ids() -> tuple[str, ...]:
+    return tuple(
+        contract.linearization_mode_id for contract in iter_linearization_mode_contracts()
+    )
+
+
 def _validate_contracts() -> int:
     validate_artifact_schema_version(ARTIFACT_SCHEMA_VERSION).require_valid()
     for contract in iter_mode_contracts():
         validate_mode_contract(contract, allow_reserved=True)
+    for contract in iter_linearization_mode_contracts():
+        validate_linearization_mode_contract(contract, allow_reserved=True)
     smoke_ids = [spec.smoke_id for spec in iter_smoke_environment_specs()]
     print(
         json.dumps(
@@ -59,6 +71,7 @@ def _validate_contracts() -> int:
                 "status": "ok",
                 "artifact_schema_version": ARTIFACT_SCHEMA_VERSION,
                 "mode_count": len(iter_mode_contracts()),
+                "linearization_mode_count": len(iter_linearization_mode_contracts()),
                 "smoke_ids": smoke_ids,
                 "reserved_console_command": RESERVED_CONSOLE_COMMAND,
             },
@@ -78,6 +91,11 @@ def build_parser() -> argparse.ArgumentParser:
     run_parser.add_argument("--smoke-id", required=True)
     run_parser.add_argument("--artifact-root", required=True, type=Path)
     run_parser.add_argument("--mode-id", default="tower_empty_schema_tabular")
+    run_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
     run_parser.add_argument("--run-id")
     run_parser.add_argument("--request-readout", action="store_true")
 
@@ -119,6 +137,11 @@ def build_parser() -> argparse.ArgumentParser:
     direct_parser.add_argument("--seed", type=int, default=0)
     direct_parser.add_argument("--episodes", type=int, default=1)
     direct_parser.add_argument("--horizon", type=int)
+    direct_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
 
     tower_parser = counterpoint_subparsers.add_parser("tower-smoke")
     tower_parser.add_argument("--artifact-root", required=True, type=Path)
@@ -126,6 +149,11 @@ def build_parser() -> argparse.ArgumentParser:
     tower_parser.add_argument("--schema-id", required=True)
     tower_parser.add_argument("--seed", type=int, default=0)
     tower_parser.add_argument("--schema-seed", type=int)
+    tower_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
 
     return parser
 
@@ -249,6 +277,7 @@ def _run_counterpoint_command(args: argparse.Namespace) -> int:
                 artifact_root=args.artifact_root,
                 episode_count=args.episodes,
                 horizon=args.horizon,
+                linearization_mode_id=args.linearization_mode,
             )
         else:
             result = run_direct_tabular_q(
@@ -257,6 +286,7 @@ def _run_counterpoint_command(args: argparse.Namespace) -> int:
                 artifact_root=args.artifact_root,
                 episode_count=args.episodes,
                 horizon=args.horizon,
+                linearization_mode_id=args.linearization_mode,
             )
         print(json.dumps({"status": result.status, "run_id": result.run_id}, sort_keys=True))
         return 0 if result.status == "success" else 2
@@ -270,6 +300,7 @@ def _run_counterpoint_command(args: argparse.Namespace) -> int:
             seed_bundle=seed_bundle,
             artifact_root=args.artifact_root,
             schema_seed=args.schema_seed,
+            linearization_mode_id=args.linearization_mode,
         )
         print(json.dumps({"status": result.status, "run_id": result.run_id}, sort_keys=True))
         return 0 if result.status == "success" else 2
@@ -289,6 +320,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             smoke_id=args.smoke_id,
             artifact_root=args.artifact_root,
             mode_id=args.mode_id,
+            linearization_mode_id=args.linearization_mode,
             run_id=args.run_id,
             request_readout=True if args.request_readout else None,
         )

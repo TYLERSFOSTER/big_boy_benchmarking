@@ -10,6 +10,7 @@ def test_run_request_requires_explicit_artifact_root(tmp_path: Path) -> None:
         run_family_id="family",
         environment_id="env",
         mode_id="mode",
+        linearization_mode_id="tensor_available_disabled",
         schema_id="schema",
         learner_id="learner",
         controller_id="controller",

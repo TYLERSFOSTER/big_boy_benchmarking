@@ -19,6 +19,7 @@ REQUIRED_MANIFEST_CATEGORIES = (
     "dependency_manifest",
     "run_manifest",
     "mode_manifest",
+    "linearization_manifest",
     "seed_bundle",
     "external_artifacts",
 )

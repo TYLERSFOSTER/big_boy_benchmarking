@@ -15,6 +15,22 @@ The initial schema version is:
 bbb.v001
 ```
 
+Tensorization-aware smoke and diagnostic runs add a run-level file:
+
+```text
+linearization_manifest.json
+```
+
+That manifest records:
+
+- the local BBB linearization mode id;
+- `state_collapser.training.LinearizationConfig.to_dict()`;
+- `state_collapser.training.LinearizationReport.to_dict()`;
+- whether conversion/debug records were exported.
+
+The manifest exists so future results do not blur pre-linearization control
+flow with tensor-capable-disabled or tensor-enabled benchmark conditions.
+
 Artifacts are written under an explicit artifact root. The current working
 directory must not change artifact meaning.
 

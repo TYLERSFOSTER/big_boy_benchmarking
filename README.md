@@ -18,7 +18,7 @@ adapters live in [`state_collapser`](https://github.com/TYLERSFOSTER/state_colla
 
 This project uses [`uv`](https://docs.astral.sh/uv/) for dependency management.
 `state_collapser` is a first-class dependency, pinned to the public
-`state_collapser` `v0.6.0` release tag:
+`state_collapser` `v0.7.0` release tag:
 
 ```bash
 uv sync --group dev

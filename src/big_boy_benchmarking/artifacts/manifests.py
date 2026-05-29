@@ -76,6 +76,9 @@ class RunManifest:
     run_family_id: str
     environment_id: str
     mode_id: str
+    linearization_mode_id: str
+    linearization_benchmark_label: str
+    linearization_enabled: bool
     schema_id: str
     learner_id: str
     controller_id: str
@@ -99,6 +102,7 @@ class ModeManifest:
     uses_compatibility_readout: bool
     uses_morphism: bool
     mode_contract: Mapping[str, Any]
+    linearization_mode_contract: Mapping[str, Any]
     artifact_schema_version: str = ARTIFACT_SCHEMA_VERSION
 
     def to_dict(self) -> dict[str, Any]:
@@ -109,6 +113,21 @@ class ModeManifest:
 class ExternalArtifactsManifest:
     run_id: str
     artifacts: tuple[Mapping[str, Any], ...] = ()
+    artifact_schema_version: str = ARTIFACT_SCHEMA_VERSION
+
+    def to_dict(self) -> dict[str, Any]:
+        return to_json_dict(self)
+
+
+@dataclass(frozen=True)
+class LinearizationManifest:
+    run_id: str
+    linearization_mode_id: str
+    linearization_config: Mapping[str, Any]
+    linearization_report: Mapping[str, Any]
+    report_source: str
+    conversion_records_exported: bool
+    debug_record_artifacts: tuple[Mapping[str, Any], ...] = ()
     artifact_schema_version: str = ARTIFACT_SCHEMA_VERSION
 
     def to_dict(self) -> dict[str, Any]:

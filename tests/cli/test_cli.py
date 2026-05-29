@@ -4,8 +4,9 @@ import sys
 from big_boy_benchmarking.cli.main import main
 
 
-def test_validate_contracts_command_works() -> None:
+def test_validate_contracts_command_works(capsys) -> None:
     assert main(["validate-contracts"]) == 0
+    assert "linearization_mode_count" in capsys.readouterr().out
 
 
 def test_module_help_works() -> None:

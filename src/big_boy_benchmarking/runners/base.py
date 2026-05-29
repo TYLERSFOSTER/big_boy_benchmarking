@@ -16,6 +16,7 @@ class BenchmarkRunRequest:
     run_family_id: str
     environment_id: str
     mode_id: str
+    linearization_mode_id: str
     schema_id: str
     learner_id: str
     controller_id: str

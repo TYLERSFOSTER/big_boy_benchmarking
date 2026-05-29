@@ -31,6 +31,7 @@ class RunPaths:
     run_manifest: Path
     seed_bundle: Path
     mode_manifest: Path
+    linearization_manifest: Path
     timing_summary: Path
     episodes_csv: Path
     step_events_csv: Path
@@ -79,6 +80,7 @@ def build_run_paths(artifact_root: Path | str, run_family_id: str, run_id: str) 
         run_manifest=root / "run_manifest.json",
         seed_bundle=root / "seed_bundle.json",
         mode_manifest=root / "mode_manifest.json",
+        linearization_manifest=root / "linearization_manifest.json",
         timing_summary=root / "timing_summary.json",
         episodes_csv=root / "episodes.csv",
         step_events_csv=root / "step_events.csv",

@@ -2,12 +2,27 @@
 
 from __future__ import annotations
 
+import importlib
 import importlib.metadata
 import inspect
 import subprocess
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
+
+STATE_COLLAPSER_DEPENDENCY_SPEC = (
+    "state-collapser[rl] @ git+https://github.com/TYLERSFOSTER/state_collapser.git@v0.7.0"
+)
+
+REQUIRED_LINEARIZATION_SYMBOLS = (
+    "EncodingRegistry",
+    "LinearizationConfig",
+    "LinearizationReport",
+    "LinearizationState",
+    "NumericBackend",
+    "TensorDeviceKind",
+    "build_linearization_report",
+)
 
 
 @dataclass(frozen=True)
@@ -20,6 +35,10 @@ class StateCollapserDependencyState:
     git_ahead_behind: str | None
     dependency_spec: str | None
     inspection_status: str
+    linearization_import_status: str = "not_checked"
+    linearization_symbols: tuple[str, ...] = ()
+    torch_import_status: str = "not_checked"
+    cuda_available: bool | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
@@ -50,6 +69,38 @@ def _git_state(path: Path) -> tuple[str | None, str | None, bool | None, str | N
     return commit, branch, dirty, ahead_behind
 
 
+def _inspect_linearization_imports() -> tuple[str, tuple[str, ...]]:
+    try:
+        training_module = importlib.import_module("state_collapser.training")
+    except Exception as exc:  # pragma: no cover - defensive import boundary
+        return f"import_failed:{type(exc).__name__}:{exc}", ()
+
+    present = tuple(
+        symbol for symbol in REQUIRED_LINEARIZATION_SYMBOLS if hasattr(training_module, symbol)
+    )
+    missing = tuple(
+        symbol for symbol in REQUIRED_LINEARIZATION_SYMBOLS if symbol not in present
+    )
+    if missing:
+        return f"missing:{','.join(missing)}", present
+    return "ok", present
+
+
+def _inspect_torch_import_state() -> tuple[str, bool | None]:
+    try:
+        importlib.import_module("state_collapser.training.torch")
+    except Exception as exc:  # pragma: no cover - defensive import boundary
+        return f"state_collapser_torch_import_failed:{type(exc).__name__}:{exc}", None
+
+    try:
+        torch_module = importlib.import_module("torch")
+    except ModuleNotFoundError:
+        return "missing", None
+    except Exception as exc:  # pragma: no cover - defensive import boundary
+        return f"torch_import_failed:{type(exc).__name__}:{exc}", None
+    return "ok", bool(torch_module.cuda.is_available())
+
+
 def collect_state_collapser_dependency_state(
     *,
     local_path: Path | str | None = None,
@@ -67,6 +118,10 @@ def collect_state_collapser_dependency_state(
             git_ahead_behind=None,
             dependency_spec=dependency_spec,
             inspection_status=f"import_failed:{type(exc).__name__}:{exc}",
+            linearization_import_status="not_checked",
+            linearization_symbols=(),
+            torch_import_status="not_checked",
+            cuda_available=None,
         )
 
     import_version = getattr(
@@ -87,6 +142,9 @@ def collect_state_collapser_dependency_state(
         if commit is None:
             inspection_status = "git_unavailable"
 
+    linearization_status, linearization_symbols = _inspect_linearization_imports()
+    torch_import_status, cuda_available = _inspect_torch_import_state()
+
     return StateCollapserDependencyState(
         import_version=str(import_version),
         source_path=source_path,
@@ -96,4 +154,8 @@ def collect_state_collapser_dependency_state(
         git_ahead_behind=ahead_behind,
         dependency_spec=dependency_spec,
         inspection_status=inspection_status,
+        linearization_import_status=linearization_status,
+        linearization_symbols=linearization_symbols,
+        torch_import_status=torch_import_status,
+        cuda_available=cuda_available,
     )

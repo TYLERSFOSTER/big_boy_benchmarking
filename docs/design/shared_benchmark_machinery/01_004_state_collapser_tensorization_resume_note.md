@@ -324,3 +324,25 @@ into benchmark modes, artifact schemas, and runner contracts
 
 No serious tensor-off/tensor-on benchmark claim should be made until that local
 integration work is designed, implemented, and validated.
+
+## BBB Local Integration Status
+
+Updated: 2026-05-29
+
+The local BBB integration work is now being executed under:
+
+```text
+docs/design/shared_benchmark_machinery/01_005_state_collapser_v0_7_tensorization_integration_gameplan.md
+```
+
+The running implementation log is:
+
+```text
+docs/design/shared_benchmark_machinery/01_006_state_collapser_v0_7_tensorization_integration_implementation_log.md
+```
+
+This update does not rewrite the earlier pause history. The Project Owner's
+methodological correction remains the reason the serious counterpoint
+evaluation paused. The purpose of the current integration is to make BBB
+artifacts record the now-available `state_collapser v0.7.0` linearization
+condition before serious counterpoint evaluation resumes.

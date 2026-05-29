@@ -1,3 +1,7 @@
+import csv
+import json
+from pathlib import Path
+
 from big_boy_benchmarking.environments.counterpoint.instances import default_tiny_spec
 from big_boy_benchmarking.environments.counterpoint.runners import (
     run_direct_masked_random,
@@ -25,6 +29,7 @@ def test_direct_masked_random_runner_writes_deterministic_artifacts(tmp_path) ->
     assert first.status == "success"
     assert second.status == "success"
     assert "episodes_csv" in first.artifact_paths
+    assert "linearization_manifest" in first.artifact_paths
     assert (tmp_path / "first").exists()
 
 
@@ -40,6 +45,13 @@ def test_direct_tabular_q_runner_writes_timing_and_episode_artifacts(tmp_path) -
     assert result.status == "success"
     assert "timing_segments_csv" in result.artifact_paths
     assert result.summary_path is not None
+    linearization_manifest = json.loads(
+        Path(result.artifact_paths["linearization_manifest"]).read_text()
+    )
+    assert (
+        linearization_manifest["linearization_report"]["benchmark_label"]
+        == "tensor_available_disabled"
+    )
 
 
 def test_tower_schema_smoke_runner_writes_schema_artifacts(tmp_path) -> None:
@@ -54,3 +66,12 @@ def test_tower_schema_smoke_runner_writes_schema_artifacts(tmp_path) -> None:
     assert result.status == "success"
     assert "schema_manifest" in result.artifact_paths
     assert "reward_fiber_variance" in result.artifact_paths
+    linearization_manifest = json.loads(
+        Path(result.artifact_paths["linearization_manifest"]).read_text()
+    )
+    timing_rows = list(
+        csv.DictReader(Path(result.artifact_paths["timing_segments_csv"]).open())
+    )
+
+    assert linearization_manifest["linearization_report"]["encoder_registry_id"]
+    assert "encoding_registry_build" in {row["segment_name"] for row in timing_rows}

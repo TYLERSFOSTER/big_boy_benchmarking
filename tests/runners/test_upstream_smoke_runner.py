@@ -25,10 +25,17 @@ def test_default_smoke_runner_writes_artifacts_without_readout(
     )
 
     mode_manifest = json.loads(Path(result.artifact_paths["mode_manifest"]).read_text())
+    linearization_manifest = json.loads(
+        Path(result.artifact_paths["linearization_manifest"]).read_text()
+    )
     assert result.status == "success"
     assert counter.compatibility_calls == 0
     assert mode_manifest["readout_requested"] is False
     assert mode_manifest["uses_compatibility_readout"] is False
+    assert (
+        linearization_manifest["linearization_report"]["benchmark_label"]
+        == "tensor_available_disabled"
+    )
 
 
 def test_diagnostic_smoke_runner_calls_readout_when_requested(
