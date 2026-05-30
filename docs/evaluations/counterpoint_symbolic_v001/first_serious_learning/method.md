@@ -17,12 +17,11 @@ Tower-control arms:
 - `tower_motion_exploit_explore_tabular_q`
 - `tower_bad_exploit_explore_tabular_q`
 
-Generated docs and aggregate tables are read from:
+This checked-in folder is the repo-side human readout surface. The source
+machine-readable tables for this run are read from:
 
 ```text
-<artifact-root>/evaluations/counterpoint_first_serious_learning_v001/
+/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001/
 ```
 
-The checked-in evaluation docs use `<artifact-root>` placeholders. Concrete
-machine-local paths belong in artifact-local generated docs, not in committed
-Markdown.
+The source binding for the repo readout is recorded in `readout_source.json`.

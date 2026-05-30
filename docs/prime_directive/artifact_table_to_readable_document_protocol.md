@@ -55,6 +55,33 @@ Do not summarize away the evidence.
 The readable document must preserve the path back to the artifacts while
 explaining the artifacts in ordinary engineering language.
 
+## Non-Negotiable Path Invariants
+
+The protocol has three different path roles. Do not merge them.
+
+```text
+repo_readout_surface:
+  The folder named by the Project Owner in the invocation.
+  The human-readable files are written here.
+  This folder is inside this repository.
+
+source_artifact_root:
+  The raw benchmark artifact root.
+  This may be temporary, such as /private/tmp/...
+  This is evidence metadata, not the invocation target.
+
+source_evaluation_root:
+  The evaluation subfolder containing aggregate tables and result tables.
+  This is evidence metadata, not the invocation target.
+```
+
+The invocation folder always means `repo_readout_surface`.
+
+If the Project Owner accidentally points the command at `source_artifact_root`
+or `source_evaluation_root`, stop and ask for the repo-side readout surface.
+Do not write generated readouts into the raw artifact tree unless the Project
+Owner explicitly asks for an artifact-local temporary dump.
+
 ## Consultant Invocation Surface
 
 This protocol defines a you-readable surface: a natural-language command the
@@ -72,16 +99,16 @@ Equivalent accepted invocations:
 ```text
 execute human-readable evaluation readout pointed at folder <folder>
 apply artifact-table-to-readable-document protocol to folder <folder>
-apply the readable-doc protocol to this evaluation folder: <folder>
-make the human readout for artifacts in <folder>
+apply the readable-doc protocol to this repo readout folder: <folder>
+make the human readout in <folder>
 ```
 
 When the Project Owner gives one of these commands, the consultant must treat it
 as an instruction to:
 
 1. read this protocol;
-2. resolve the supplied folder to an artifact root or evaluation root;
-3. inspect the machine-readable artifacts under that root;
+2. resolve the supplied folder as a repository-side readout surface;
+3. read that surface's source binding to find the machine-readable artifacts;
 4. write the human-readable files required by this protocol;
 5. report exactly what was written and what could not be interpreted.
 
@@ -119,6 +146,9 @@ For this repo, the protocol surface is:
 execute artifact-table readout pointed at folder <folder>
 ```
 
+Here `<folder>` means the repo-side readout surface, usually somewhere under
+`docs/evaluations/`. It does not mean the raw artifact directory.
+
 Bad reminder:
 
 ```text
@@ -130,44 +160,98 @@ unless the Project Owner appears to be searching for the command again.
 
 ### Folder Resolution
 
-The invocation must include an explicit folder. Do not infer "last run" unless
-the Project Owner explicitly adds a reliable path or marker.
+The invocation must include an explicit repository folder. Relative folders are
+resolved from the repository root. Do not infer "last run" unless the Project
+Owner explicitly adds a reliable repo surface or marker.
+
+The supplied `<folder>` is the repo-side readout surface. It is not the raw
+artifact root and it is not the raw evaluation root.
+
+For this repository's first serious counterpoint evaluation, the normal command
+target is:
+
+```text
+/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning
+```
 
 Resolve the supplied folder as follows:
 
-1. If the folder contains `evaluation_aggregate_table.csv`,
-   `evaluation_aggregate_summary.json`, or `evaluation_run_index.csv`, treat it
-   as an evaluation root.
-2. If the folder contains `evaluations/`, treat it as an artifact root and look
-   for evaluation roots beneath `evaluations/`.
-3. If exactly one evaluation root is found, use it.
-4. If multiple evaluation roots are found and the Project Owner did not name an
-   evaluation id, stop and ask which evaluation to read.
-5. If no evaluation root is found, apply Case 1: No Artifacts Found.
+1. If the folder is outside the repository, stop. Tell the Project Owner that
+   the protocol must be pointed at a repo-side readout surface, not the raw
+   artifact directory.
+2. If the folder does not exist but its parent exists inside the repository,
+   create it only when the Project Owner's command clearly names the intended
+   repo readout surface.
+3. If the folder contains `readout_source.json`, read it and use its source
+   paths to find the raw artifact tables.
+4. If the folder contains `artifact_index.md` with concrete source paths, use
+   those paths only if no `readout_source.json` exists, and write
+   `readout_source.json` as part of the readout.
+5. If the folder contains only placeholder paths such as `<artifact-root>`,
+   stop and ask for the source artifact root, unless the source can be
+   established from explicit Project Owner context already present in the
+   conversation. If that context is used, record it in `readout_source.json`.
+6. If the folder itself contains raw tables such as
+   `evaluation_aggregate_table.csv`, treat that as copied source evidence inside
+   the repo surface, not as a reason to move the readout elsewhere. Write
+   `readout_source.json` with repo-local source file paths.
+7. If no source binding or copied source tables are found, apply Case 1: No
+   Artifacts Found.
 
-For this repository's first serious counterpoint evaluation, the normal
-evaluation root is:
+### Source Binding
+
+Every repo readout surface should have a source binding file:
 
 ```text
-<artifact-root>/evaluations/counterpoint_first_serious_learning_v001/
+<repo-readout-surface>/readout_source.json
 ```
 
-### Default Output Location
+It should record at least:
 
-Unless the Project Owner points at a different output folder, write the readable
-documents under:
+```json
+{
+  "repo_readout_surface": "<absolute repo path>",
+  "source_artifact_root": "<raw artifact root>",
+  "source_evaluation_root": "<raw evaluation root>",
+  "evaluation_id": "<evaluation id>",
+  "artifact_run_label": "<human run label>",
+  "source_files": {
+    "aggregate_table": "<path to evaluation_aggregate_table.csv>",
+    "run_index": "<path to evaluation_run_index.csv>",
+    "learning_curves": "<path to results/learning_curves.csv>"
+  }
+}
+```
+
+The source artifact root may live in `/private/tmp`, another local artifact
+directory, or a durable artifact store. That path is evidence metadata. It is
+not the protocol invocation target.
+
+If the source path is temporary, say so in the readable documents. Do not imply
+that a `/private/tmp` source is a durable artifact archive. The repo readout is
+durable documentation of the interpretation; the raw machine evidence remains
+where the source binding says it remains.
+
+### Output Location
+
+Write the readable documents into the supplied repo readout surface.
+
+For example:
 
 ```text
-<evaluation-root>/docs/
+/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning
 ```
 
-This makes the readout artifact-local. Do not promote generated readouts into
-repo `docs/results/` unless the Project Owner explicitly asks for a durable
-checked-in result summary.
+Do not write under `docs/results/` unless the Project Owner explicitly asks to
+promote a final result summary there.
+
+Do not write under `/private/tmp`, an artifact root, or a raw evaluation root
+unless the Project Owner explicitly asks for an artifact-local temporary dump.
 
 ### Execution Contract
 
-The consultant must inspect, when present:
+The consultant must first resolve the source binding, then inspect, when
+present:
 
 - `evaluation_manifest.json`;
 - `evaluation_arm_manifest.json`;
@@ -189,34 +273,45 @@ The consultant must inspect, when present:
 If the artifact set is large, inspect representative per-run files for every
 arm class and every anomalous condition before writing the final readout.
 
+If a required source file listed in `readout_source.json` is missing, do not
+silently reuse an older table. Mark the source as missing and apply the relevant
+all-cases rule.
+
 ### Output Contract
 
 The default output set is:
 
 ```text
-<evaluation-root>/docs/
+<repo-readout-surface>/
+  readout_source.json
   README.md
   result_readout.md
   runbook.md
   artifact_index.md
   glossary.md
   results/
+    summary.md
     human_summary.md
     arm_readout_table.md
     diagnostic_findings.md
     timing_readout.md
 ```
 
-If the existing artifact-local docs already contain some of these files, update
+If the existing repo-local readout already contains some of these files, update
 or replace them only as needed to satisfy this protocol. Preserve useful
 existing runbook or artifact-index information.
+
+If a prior version of this protocol wrote artifact-local docs under
+`<evaluation-root>/docs/`, treat those files as non-authoritative temporary
+readouts unless the Project Owner explicitly asks to preserve or migrate them.
 
 ### Completion Report
 
 After executing this surface, report:
 
-- the input folder;
-- the resolved evaluation root;
+- the input folder, meaning the repo readout surface;
+- the resolved source artifact root;
+- the resolved source evaluation root;
 - the files written;
 - any missing artifacts;
 - any stopped claim decisions;
@@ -341,7 +436,9 @@ evidence, but it does not support a positive tower-performance claim.
 Record:
 
 - evaluation id;
-- artifact root;
+- source artifact root;
+- source evaluation root;
+- repo readout surface;
 - environment family and instance;
 - run date/time if available;
 - linearization mode;
@@ -456,12 +553,15 @@ Use this protocol whenever translating artifact tables to readable documents.
 Readable statement:
 
 ```text
-No result exists at this artifact root.
+No source artifacts could be resolved for this repo readout surface.
 ```
 
 Required content:
 
-- artifact root checked;
+- repo readout surface checked;
+- source binding status;
+- source artifact root checked, if known;
+- source evaluation root checked, if known;
 - expected files;
 - missing files;
 - command to generate artifacts if known.
@@ -862,21 +962,24 @@ It does show Y failed under this run condition.
 For a serious evaluation, prefer this generated human-facing set:
 
 ```text
-docs/
+<repo-readout-surface>/
+  readout_source.json
   README.md
   result_readout.md
   runbook.md
   artifact_index.md
   glossary.md
   results/
+    summary.md
     human_summary.md
     arm_readout_table.md
     diagnostic_findings.md
     timing_readout.md
 ```
 
-The exact paths may vary by artifact root, but the conceptual files should
-exist somewhere.
+The exact repo folder may vary by evaluation, but the command target and output
+home are the same repo-side readout surface. Raw artifact roots are evidence
+sources, not output homes.
 
 ## Minimum Acceptable Human Report
 

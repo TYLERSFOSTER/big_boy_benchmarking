@@ -1,24 +1,71 @@
 # Runbook
 
-```bash
-uv run python -m big_boy_benchmarking.cli counterpoint serious-learning calibrate \
-  --artifact-root <artifact-root> \
-  --instance-id tiny \
-  --episodes 1 \
-  --replicates 1 \
-  --schema-seeds 1
+## Artifact Root
+
+```text
+/private/tmp/bbb-counterpoint-serious-learning-serious-001
 ```
+
+## Evaluation Root
+
+```text
+/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001
+```
+
+## Reconstructed Serious Run Command
+
+The exact terminal command was not preserved as a top-level evaluation file.
+The run manifests record command family
+`python -m big_boy_benchmarking.cli counterpoint serious-learning run`, and the
+budget lock records the budget. A reconstruction from the budget lock is:
 
 ```bash
 uv run python -m big_boy_benchmarking.cli counterpoint serious-learning run \
-  --artifact-root <artifact-root> \
-  --episodes <episode-count> \
-  --replicates <replicate-count> \
-  --schema-seeds <schema-seed-count> \
-  --locked-by <operator-or-run-id>
+  --artifact-root /private/tmp/bbb-counterpoint-serious-learning-serious-001 \
+  --episodes 16 \
+  --replicates 4 \
+  --schema-seeds 3 \
+  --locked-by foster
 ```
+
+The default serious-learning linearization mode is
+`tensor_available_disabled`, which is the mode recorded in the budget lock and
+run manifests.
+
+## Regenerate Aggregate Tables
 
 ```bash
 uv run python -m big_boy_benchmarking.cli counterpoint serious-learning summarize \
-  --artifact-root <artifact-root>
+  --artifact-root /private/tmp/bbb-counterpoint-serious-learning-serious-001
+```
+
+## Regenerate Human Readout
+
+Use the protocol surface:
+
+```text
+execute artifact-table readout pointed at folder /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning
+```
+
+## First Files To Inspect
+
+For the main result:
+
+```text
+evaluation_aggregate_table.csv
+results/learning_curves.csv
+results/controller_summary.csv
+```
+
+For the non-empty tower failure mechanism:
+
+```text
+runs/counterpoint_symbolic_v001_first_serious_learning_tower_v001/runs/<run-id>/lift_fiber_events.csv
+runs/counterpoint_symbolic_v001_first_serious_learning_tower_v001/runs/<run-id>/control_events.csv
+```
+
+For linearization/backend discipline:
+
+```text
+runs/<family-id>/runs/<run-id>/linearization_manifest.json
 ```
