@@ -3,45 +3,47 @@
 Status:
 
 ```text
-smoke artifacts produced on 2026-05-28
+historical smoke artifact set; local artifact root was not durable
 ```
 
-Expected artifact-producing commands:
+Current reproducible smoke commands:
 
 ```bash
-python -m big_boy_benchmarking.cli counterpoint search-fixtures --artifact-root <root>
-python -m big_boy_benchmarking.cli counterpoint graph-diagnostics --artifact-root <root>
-python -m big_boy_benchmarking.cli counterpoint run-direct --artifact-root <root>
-python -m big_boy_benchmarking.cli counterpoint tower-smoke --artifact-root <root> --schema-id counterpoint_empty_schema_v001
+uv run python -m big_boy_benchmarking.cli counterpoint search-fixtures \
+  --artifact-root <artifact-root>
+
+uv run python -m big_boy_benchmarking.cli counterpoint graph-diagnostics \
+  --artifact-root <artifact-root> \
+  --instance-id tiny
+
+uv run python -m big_boy_benchmarking.cli counterpoint run-direct \
+  --artifact-root <artifact-root> \
+  --instance-id tiny \
+  --policy masked-random \
+  --episodes 1
+
+uv run python -m big_boy_benchmarking.cli counterpoint tower-smoke \
+  --artifact-root <artifact-root> \
+  --instance-id tiny \
+  --schema-id counterpoint_empty_schema_v001
 ```
 
-No serious benchmark claim is recorded here yet. When smoke artifacts are
-generated, this page should list their concrete artifact root and summarize only
-what the artifacts actually show.
+Recorded smoke outputs from the original local run:
 
-Artifact root:
+- fixture search found tiny candidates and selected a feasible candidate;
+- graph diagnostics wrote environment artifacts for 8 states and 16 edges;
+- direct masked-random smoke succeeded;
+- direct tabular-Q smoke succeeded;
+- schema diagnostics wrote empty, random balanced, random unbalanced,
+  structured motion, bad/adversarial, and projection-audit diagnostic artifacts;
+- tower smoke succeeded for empty, structured motion, and random balanced
+  schemas.
 
-```text
-/private/tmp/bbb-counterpoint-phase13-20260528
-```
-
-Recorded smoke outputs:
-
-- fixture search: 2 tiny candidates, selected first feasible candidate;
-- graph diagnostics: 8 states, 16 edges, 10 artifacts;
-- direct masked-random smoke: success;
-- direct tabular-Q smoke: success;
-- schema diagnostics: empty, random balanced, structured motion, random unbalanced, bad, and projection audit all wrote diagnostic artifacts;
-- tower smoke: empty schema, structured motion schema, and random balanced schema all succeeded with compatibility readouts off.
-
-Validation:
+Current repo validation:
 
 ```text
-uv run pytest
--> 99 passed in 1.02s
-
-uv run ruff check .
--> All checks passed!
+uv run pytest -q
+-> 171 passed
 ```
 
 Claim boundary:

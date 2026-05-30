@@ -67,11 +67,16 @@ reserved.
 
 ## Result Docs
 
-Generated human-facing evaluation docs live under:
+Generated human-facing evaluation docs live under the artifact root by default:
 
 ```text
-docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/
+<artifact-root>/evaluations/counterpoint_first_serious_learning_v001/docs/
 ```
 
 Generated docs summarize artifacts and claim boundary. They must not claim a
 serious result exists until the corresponding artifact root exists.
+
+Checked-in files under
+`docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/` are stable
+guides and templates. They should use `<artifact-root>` placeholders unless a
+durable artifact location is intentionally promoted.

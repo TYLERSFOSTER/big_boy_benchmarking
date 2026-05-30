@@ -49,7 +49,23 @@ def test_docs_writer_creates_expected_files_from_artifacts(tmp_path) -> None:
     assert all(Path(path).exists() for path in written.values())
     readme = Path(written["README.md"]).read_text()
     assert "counterpoint_symbolic_n3_small_v001" in readme
-    assert str(tmp_path / "artifacts") in readme
+    assert "`<artifact-root>`" in readme
+
+    combined = "\n".join(Path(path).read_text() for path in written.values())
+    assert str(tmp_path / "artifacts") not in combined
+
+
+def test_docs_writer_defaults_to_artifact_local_docs(tmp_path) -> None:
+    written = write_serious_learning_docs(artifact_root=tmp_path / "artifacts")
+
+    expected_root = (
+        tmp_path
+        / "artifacts"
+        / "evaluations"
+        / "counterpoint_first_serious_learning_v001"
+        / "docs"
+    )
+    assert Path(written["README.md"]).parent == expected_root
 
 
 def test_generated_docs_do_not_claim_forbidden_result_language(tmp_path) -> None:

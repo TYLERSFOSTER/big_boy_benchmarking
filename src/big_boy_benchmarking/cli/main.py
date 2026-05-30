@@ -434,12 +434,10 @@ def _run_counterpoint_serious_learning_command(args: argparse.Namespace) -> int:
         summary = aggregate_serious_learning_results(args.artifact_root)
         docs = write_serious_learning_docs(
             artifact_root=args.artifact_root,
-            docs_root=args.docs_root
-            if args.docs_root is not None
-            else "docs/evaluations/counterpoint_symbolic_v001/first_serious_learning",
+            docs_root=args.docs_root,
             command_lines=(
                 "uv run python -m big_boy_benchmarking.cli counterpoint serious-learning "
-                f"summarize --artifact-root {args.artifact_root}",
+                "summarize --artifact-root <artifact-root>",
             ),
         )
         print(json.dumps({"status": summary["status"], "docs": docs}, sort_keys=True))

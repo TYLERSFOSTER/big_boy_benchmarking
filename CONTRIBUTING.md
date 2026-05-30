@@ -1,146 +1,163 @@
-# First Counterpoint Serious Evaluation Pause Note
+# Repository Operating Notes
 
-## Status
+## Current Status
 
-Paused.
+This repository is active. It is no longer paused on the first serious
+counterpoint evaluation.
 
-Do not create the serious-evaluation blueprint or implementation gameplan yet.
-
-The Project Owner decided that tensorization in `state_collapser` is a blocker
-for the first serious counterpoint evaluation.
-
-This root `CONTRIBUTING.md` exists as the repo-level resume guard for this pause.
-
-## Why This Is Paused
-
-The counterpoint environment in `big_boy_benchmarking` is real enough for:
-
-- smoke and integration checks;
-- graph diagnostics;
-- schema diagnostics;
-- direct masked-random smoke;
-- direct tabular-Q smoke;
-- tower construction smoke;
-- artifact-contract validation.
-
-It is not yet the right basis for the first serious evaluation, because the
-intended serious comparison needs `state_collapser` to have tensorization
-present as an architectural option.
-
-The important distinction is:
-
-```text
-pre-linearization/current-control-flow state_collapser
-```
-
-is not the same benchmark condition as:
-
-```text
-tensor-capable state_collapser with tensor path present but disabled
-```
-
-The second condition is the meaningful "tensor-off" ablation. The first
-condition is only a pre-linearization baseline.
-
-## Current State In This Repo
-
-At the pause point:
+As of 2026-05-30, the implemented repo state is:
 
 - shared benchmark machinery exists;
-- counterpoint environment family `counterpoint_symbolic_v001` exists;
-- tiny and small fixtures exist;
-- environment artifacts can be written;
-- graph diagnostics can be written;
-- schema diagnostics can be written;
-- direct baseline smoke can run;
-- tower smoke can build partition towers;
-- current smoke should not be described as serious benchmark evidence.
+- `state_collapser` is pinned through the `v0.7.0` tensorization integration;
+- `counterpoint_symbolic_v001` has tiny and small fixtures;
+- graph, schema, direct, tower-smoke, and serious-learning commands are
+  runnable;
+- first serious learning evaluation machinery exists for calibration,
+  budget-locked execution, aggregation, and generated artifact-local docs.
 
-Relevant local discussion file:
+The current serious-learning default linearization condition is:
 
 ```text
-docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/design_discussion.md
+tensor_available_disabled
 ```
 
-## Required Upstream Alignment
+This records that the tensorization boundary is present while tensor execution
+is disabled. It is not a tensor-enabled CPU, tensor-enabled CUDA, GPU, or
+general performance claim.
 
-An alignment note should exist in `/Users/foster/state_collapser` describing the
-benchmark-driven tensorization needs. At the time this pause note was created,
-the intended path was:
+## Root Contribution Rule
+
+This file is a live repo orientation and contribution guard. It must not be
+used as a one-off pause note again.
+
+Historical pause notes belong in:
 
 ```text
-/Users/foster/state_collapser/docs/design/model_train_surfaces/01_005_big_boy_benchmarking_tensorization_alignment_note.md
+docs/engineer_continuity/
+docs/design/
 ```
 
-That note is meant to align upstream tensorization work with the benchmark needs
-here.
+If the project pauses again, record the pause in the relevant design or
+continuity document and link it from here only if it remains the current repo
+state.
 
-## Resume Gate
+## Prime Directive
 
-Do not resume serious counterpoint evaluation design until `state_collapser` has
-an answer to this question:
+Before executing an approved blueprint or implementation gameplan, reread:
 
 ```text
-Has state_collapser reached a tensor-capable architecture where tensor paths can
-be explicitly disabled or enabled under documented benchmark modes?
+docs/prime_directive/prime_directive.md
+docs/prime_directive/git_practices.md
+docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
+docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
 ```
 
-When the answer is yes, resume by rereading:
+When a gameplan uses `Phase.Stage.Action`, execute those items as written.
+Do not silently simplify, reorder, replace, or partially satisfy the approved
+plan.
+
+## Git Discipline
+
+Use a task branch for approved implementation work, especially when the work is
+attached to a blueprint and gameplan.
+
+Default branch shape:
 
 ```text
-CONTRIBUTING.md
-docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/design_discussion.md
-docs/design/first_counterpoint_environment/01_002_counterpoint_hidden_graph_and_contraction_schema_benchmark_blueprint.md
-docs/design/first_counterpoint_environment/01_004_counterpoint_hidden_graph_and_contraction_schema_implementation_log.md
-docs/engineer_continuity/2026/2026-05-28_big_boy_benchmarking_counterpoint_continuity.md
-docs/engineer_continuity/2026/2026-05-29_counterpoint_serious_evaluation_pause_for_tensorization.md
+codex/<task-name>
 ```
 
-Then decide whether the first serious evaluation should compare:
+Do not rewrite or revert unrelated user changes.
 
-- tensor-capable disabled path versus tensor-enabled path;
-- structural/schema diagnostics only;
-- learning/control behavior;
-- both structural and learning layers.
+## Documentation Map
 
-## Required Artifact Fields Later
+Use the docs folders this way:
 
-The eventual benchmark artifacts should record the numeric/backend state so
-future docs cannot blur categories.
+- `docs/design/`: design discussions, blueprints, implementation gameplans,
+  and implementation logs.
+- `docs/environments/`: human summaries of environment families and fixtures.
+- `docs/methods/`: method, contract, mode, metric, timing, and statistics
+  explanations.
+- `docs/experiments/`: planned or runnable experiment matrices.
+- `docs/results/`: durable human result summaries for artifact sets that the
+  repo intentionally records.
+- `docs/evaluations/`: checked-in guides for interpreting generated evaluation
+  docs. Local generated readouts should live under the artifact root by default.
+- `docs/engineer_continuity/`: continuity reports and historical handoff notes.
+- `docs/prime_directive/`: operating protocol directed to the embedded
+  engineering consultant.
 
-Candidate field:
+Machine-readable artifacts are the source of truth for executed runs.
+Human-facing docs must describe claim boundaries and must not invent a result
+that is not backed by recorded artifacts.
+
+## Generated Evaluation Docs
+
+Evaluation summarization writes generated docs under the artifact root by
+default:
 
 ```text
-numeric_backend:
-  none_control_flow
-  tensor_available_disabled
-  tensor_enabled_cpu
-  tensor_enabled_cuda
+<artifact-root>/evaluations/<evaluation-id>/docs/
 ```
 
-or:
+Do not commit generated docs that contain machine-local paths such as
+`/private/tmp/...`.
 
-```text
-linearization_state:
-  absent
-  present_disabled
-  present_enabled
+Checked-in evaluation docs should use `<artifact-root>` placeholders unless a
+durable, intentionally preserved artifact location is being recorded.
+
+## Validation
+
+Common checks:
+
+```bash
+uv run pytest
+uv run ruff check .
+uv run python -m big_boy_benchmarking.cli validate-contracts
 ```
 
-## Non-Claims While Paused
+Counterpoint smoke commands:
 
-Do not claim:
+```bash
+uv run python -m big_boy_benchmarking.cli counterpoint graph-diagnostics \
+  --artifact-root <artifact-root> \
+  --instance-id tiny
 
-- serious counterpoint benchmark evidence;
-- tensor-off versus tensor-on evidence;
-- GPU or vectorized rollout performance;
-- mature `state_collapser` evaluation.
+uv run python -m big_boy_benchmarking.cli counterpoint run-direct \
+  --artifact-root <artifact-root> \
+  --instance-id tiny \
+  --policy masked-random \
+  --seed 1 \
+  --episodes 1
 
-Allowed claim:
-
-```text
-big_boy_benchmarking has a runnable counterpoint environment and smoke/
-diagnostic harness, but the first serious evaluation is intentionally paused
-until upstream tensorization is ready.
+uv run python -m big_boy_benchmarking.cli counterpoint tower-smoke \
+  --artifact-root <artifact-root> \
+  --instance-id tiny \
+  --schema-id counterpoint_motion_schema_v001 \
+  --seed 2
 ```
 
+Counterpoint serious-learning commands:
+
+```bash
+uv run python -m big_boy_benchmarking.cli counterpoint serious-learning calibrate \
+  --artifact-root <artifact-root> \
+  --instance-id tiny \
+  --episodes 1 \
+  --replicates 1 \
+  --schema-seeds 1
+
+uv run python -m big_boy_benchmarking.cli counterpoint serious-learning run \
+  --artifact-root <artifact-root> \
+  --episodes <episode-count> \
+  --replicates <replicate-count> \
+  --schema-seeds <schema-seed-count> \
+  --locked-by <operator-or-run-id>
+
+uv run python -m big_boy_benchmarking.cli counterpoint serious-learning summarize \
+  --artifact-root <artifact-root>
+```
+
+The `tiny` serious-learning path is smoke/non-evidence. The `small` path is the
+first serious fixture, subject to the budget and claim boundaries documented in
+the evaluation method docs.

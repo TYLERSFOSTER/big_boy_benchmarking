@@ -10,33 +10,26 @@ from big_boy_benchmarking.environments.counterpoint.serious_learning.evaluation_
     build_serious_learning_evaluation_paths,
 )
 
-DEFAULT_COUNTERPOINT_SERIOUS_LEARNING_DOCS = (
-    Path("docs")
-    / "evaluations"
-    / "counterpoint_symbolic_v001"
-    / "first_serious_learning"
-)
-
 
 def write_serious_learning_docs(
     *,
     artifact_root: Path | str,
-    docs_root: Path | str = DEFAULT_COUNTERPOINT_SERIOUS_LEARNING_DOCS,
+    docs_root: Path | str | None = None,
     command_lines: tuple[str, ...] = (),
 ) -> dict[str, str]:
     artifact_root = Path(artifact_root)
-    docs_root = Path(docs_root)
+    paths = build_serious_learning_evaluation_paths(artifact_root)
+    docs_root = paths.docs_dir if docs_root is None else Path(docs_root)
     docs_root.mkdir(parents=True, exist_ok=True)
     (docs_root / "results").mkdir(parents=True, exist_ok=True)
-    paths = build_serious_learning_evaluation_paths(artifact_root)
     aggregate = _read_json(paths.evaluation_aggregate_summary)
     calibration = _read_json(paths.calibration_summary)
     files = {
-        "README.md": _readme(artifact_root, aggregate, calibration),
-        "method.md": _method(artifact_root),
+        "README.md": _readme(aggregate, calibration),
+        "method.md": _method(),
         "runbook.md": _runbook(artifact_root, command_lines),
-        "artifact_index.md": _artifact_index(paths),
-        "results/summary.md": _results_summary(aggregate, calibration),
+        "artifact_index.md": _artifact_index(paths, artifact_root),
+        "results/summary.md": _results_summary(aggregate, calibration, artifact_root),
     }
     written: dict[str, str] = {}
     for relative_path, content in files.items():
@@ -48,7 +41,6 @@ def write_serious_learning_docs(
 
 
 def _readme(
-    artifact_root: Path,
     aggregate: dict[str, Any],
     calibration: dict[str, Any],
 ) -> str:
@@ -57,7 +49,7 @@ def _readme(
         [
             "# Counterpoint First Serious Learning Evaluation",
             "",
-            f"Artifact root: `{artifact_root}`",
+            "Artifact root: supplied at run time as `<artifact-root>`.",
             f"Status: `{status}`",
             "",
             "Claim boundary: this document summarizes one counterpoint symbolic v001 "
@@ -70,7 +62,7 @@ def _readme(
     )
 
 
-def _method(artifact_root: Path) -> str:
+def _method() -> str:
     return "\n".join(
         [
             "# Method",
@@ -94,7 +86,7 @@ def _method(artifact_root: Path) -> str:
             "- `tower_motion_exploit_explore_tabular_q`",
             "- `tower_bad_exploit_explore_tabular_q`",
             "",
-            f"Artifacts are read from `{artifact_root}`.",
+            "Artifacts are read from `<artifact-root>`.",
             "",
         ]
     )
@@ -103,17 +95,18 @@ def _method(artifact_root: Path) -> str:
 def _runbook(artifact_root: Path, command_lines: tuple[str, ...]) -> str:
     commands = command_lines or (
         "uv run python -m big_boy_benchmarking.cli counterpoint serious-learning calibrate "
-        f"--artifact-root {artifact_root} --instance-id small",
+        "--artifact-root <artifact-root> --instance-id small",
         "uv run python -m big_boy_benchmarking.cli counterpoint serious-learning summarize "
-        f"--artifact-root {artifact_root}",
+        "--artifact-root <artifact-root>",
     )
     lines = ["# Runbook", ""]
     for command in commands:
+        command = _display_command(command, artifact_root)
         lines.extend(["```bash", command, "```", ""])
     return "\n".join(lines)
 
 
-def _artifact_index(paths) -> str:
+def _artifact_index(paths, artifact_root: Path) -> str:
     entries = [
         ("evaluation manifest", paths.evaluation_manifest),
         ("arm manifest", paths.evaluation_arm_manifest),
@@ -130,7 +123,7 @@ def _artifact_index(paths) -> str:
     ]
     lines = ["# Artifact Index", ""]
     for label, path in entries:
-        lines.append(f"- {label}: `{path}`")
+        lines.append(f"- {label}: `{_display_path(path, artifact_root)}`")
     lines.append("")
     return "\n".join(lines)
 
@@ -138,15 +131,20 @@ def _artifact_index(paths) -> str:
 def _results_summary(
     aggregate: dict[str, Any],
     calibration: dict[str, Any],
+    artifact_root: Path,
 ) -> str:
     lines = ["# Results Summary", ""]
     if aggregate:
+        table_path = aggregate.get("table_path")
+        displayed_table_path = (
+            _display_path(Path(table_path), artifact_root) if table_path else None
+        )
         lines.extend(
             [
                 f"Aggregate status: `{aggregate.get('status')}`",
                 "Complete arms: "
                 f"`{aggregate.get('complete_arm_count')}` / `{aggregate.get('arm_count')}`",
-                f"Aggregate table: `{aggregate.get('table_path')}`",
+                f"Aggregate table: `{displayed_table_path}`",
                 "",
             ]
         )
@@ -161,6 +159,18 @@ def _results_summary(
     if not aggregate and not calibration:
         lines.extend(["No calibration or aggregate artifacts were found.", ""])
     return "\n".join(lines)
+
+
+def _display_path(path: Path, artifact_root: Path) -> str:
+    try:
+        relative = path.relative_to(artifact_root)
+    except ValueError:
+        return str(path)
+    return f"<artifact-root>/{relative.as_posix()}"
+
+
+def _display_command(command: str, artifact_root: Path) -> str:
+    return command.replace(str(artifact_root), "<artifact-root>")
 
 
 def _read_json(path: Path) -> dict[str, Any]:

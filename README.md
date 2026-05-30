@@ -38,15 +38,22 @@ uv run ruff check .
 
 ## Current Scope
 
-The initial project skeleton verifies that `big_boy_benchmarking` can import the
-specific `state_collapser` surfaces that benchmarking work will depend on:
+`big_boy_benchmarking` now has the first complete benchmarking slice:
 
-- partition-tower runtime surfaces
-- reward aggregation surfaces
-- fiber-conditioned training input/decision surfaces
+- shared artifact, mode, seed, metric, timing, runner, upstream-smoke, and CLI
+  machinery;
+- a real `counterpoint_symbolic_v001` environment family with tiny and small
+  fixtures;
+- graph, path-volume, schema, reward-fiber, lift-fiber, and tower diagnostics;
+- direct masked-random and direct tabular-Q runners;
+- tower smoke runners for contraction schemas;
+- first serious counterpoint learning evaluation machinery for calibration,
+  budget-locked runs, aggregation, and artifact-local docs.
 
-The next real work is to add benchmark families that measure scaling behavior
-beyond `state_collapser`'s smoke-level in-repo benchmarks.
+The serious-learning default linearization condition is
+`tensor_available_disabled`: the tensorization boundary exists and is recorded,
+but tensor execution is disabled. CPU/CUDA tensor-enabled modes remain reserved
+until explicitly designed, implemented, and validated.
 
 ## Shared Benchmark Machinery
 
@@ -64,15 +71,15 @@ environment families should use:
 Validate contracts with:
 
 ```bash
-python -m big_boy_benchmarking.cli validate-contracts
+uv run python -m big_boy_benchmarking.cli validate-contracts
 ```
 
 Run a harness smoke into an explicit artifact root with:
 
 ```bash
-python -m big_boy_benchmarking.cli run-upstream-smoke \
+uv run python -m big_boy_benchmarking.cli run-upstream-smoke \
   --smoke-id plate_support_env \
-  --artifact-root /private/tmp/bbb-smoke-artifacts
+  --artifact-root <artifact-root>
 ```
 
 The future installed command name `bbb` is reserved, but this slice exposes the
@@ -87,3 +94,57 @@ Human-facing summaries live under:
 
 Machine-readable artifacts remain the source of truth. Smoke artifacts do not
 constitute serious benchmark results.
+
+## Counterpoint Commands
+
+Basic diagnostics and smoke:
+
+```bash
+uv run python -m big_boy_benchmarking.cli counterpoint graph-diagnostics \
+  --artifact-root <artifact-root> \
+  --instance-id tiny
+
+uv run python -m big_boy_benchmarking.cli counterpoint run-direct \
+  --artifact-root <artifact-root> \
+  --instance-id tiny \
+  --policy masked-random \
+  --seed 1 \
+  --episodes 1
+
+uv run python -m big_boy_benchmarking.cli counterpoint tower-smoke \
+  --artifact-root <artifact-root> \
+  --instance-id tiny \
+  --schema-id counterpoint_motion_schema_v001 \
+  --seed 2
+```
+
+First serious-learning surface:
+
+```bash
+uv run python -m big_boy_benchmarking.cli counterpoint serious-learning calibrate \
+  --artifact-root <artifact-root> \
+  --instance-id tiny \
+  --episodes 1 \
+  --replicates 1 \
+  --schema-seeds 1
+
+uv run python -m big_boy_benchmarking.cli counterpoint serious-learning run \
+  --artifact-root <artifact-root> \
+  --episodes <episode-count> \
+  --replicates <replicate-count> \
+  --schema-seeds <schema-seed-count> \
+  --locked-by <operator-or-run-id>
+
+uv run python -m big_boy_benchmarking.cli counterpoint serious-learning summarize \
+  --artifact-root <artifact-root>
+```
+
+`summarize` writes generated human-facing docs into the artifact root by
+default:
+
+```text
+<artifact-root>/evaluations/counterpoint_first_serious_learning_v001/docs/
+```
+
+Pass `--docs-root` only when intentionally writing those generated docs
+somewhere else.

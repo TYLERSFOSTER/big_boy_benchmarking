@@ -42,7 +42,7 @@ def test_serious_learning_tiny_smoke_cli_path_writes_outputs(tmp_path, capsys) -
     ).exists()
 
 
-def test_serious_learning_summarize_cli_writes_docs(tmp_path) -> None:
+def test_serious_learning_summarize_cli_writes_docs(tmp_path, capsys) -> None:
     assert main(
         [
             "counterpoint",
@@ -73,6 +73,28 @@ def test_serious_learning_summarize_cli_writes_docs(tmp_path) -> None:
     ) == 0
 
     assert (tmp_path / "docs" / "README.md").exists()
+    capsys.readouterr()
+
+    assert main(
+        [
+            "counterpoint",
+            "serious-learning",
+            "summarize",
+            "--artifact-root",
+            str(tmp_path),
+        ]
+    ) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    default_readme = (
+        tmp_path
+        / "evaluations"
+        / "counterpoint_first_serious_learning_v001"
+        / "docs"
+        / "README.md"
+    )
+    assert payload["docs"]["README.md"] == str(default_readme)
+    assert default_readme.exists()
 
 
 def test_serious_learning_reserved_linearization_mode_fails(tmp_path) -> None:
