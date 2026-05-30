@@ -5,16 +5,31 @@ from __future__ import annotations
 from typing import TypedDict
 
 import state_collapser
+from state_collapser.tower.control import (
+    ActiveTierController,
+    ActiveTierState,
+    ControlAction,
+    FrozenLowerContext,
+    LiftResolveExecutor,
+    TierLearner,
+    TierSignalState,
+)
 from state_collapser.tower.partition import PartitionTower, RewardAggregator
+from state_collapser.tower.runtime import ExploitExploreTowerRuntime
 from state_collapser.training import (
     ActionDecision,
     ActionSelectionInput,
     EncodingRegistry,
+    FiberConditionedStage,
+    FrozenQuotientBehavior,
     LinearizationConfig,
     LinearizationReport,
     LinearizationState,
     NumericBackend,
+    PathFiber,
+    TabularQLearner,
     TensorDeviceKind,
+    TrainingTransition,
     build_linearization_report,
 )
 
@@ -34,6 +49,19 @@ class DependencyReport(TypedDict):
     numeric_backend_import: str
     tensor_device_kind_import: str
     build_linearization_report_import: str
+    tabular_q_learner_import: str
+    training_transition_import: str
+    fiber_conditioned_stage_import: str
+    frozen_quotient_behavior_import: str
+    path_fiber_import: str
+    active_tier_controller_import: str
+    active_tier_state_import: str
+    control_action_import: str
+    frozen_lower_context_import: str
+    lift_resolve_executor_import: str
+    tier_learner_import: str
+    tier_signal_state_import: str
+    exploit_explore_tower_runtime_import: str
 
 
 def dependency_report() -> DependencyReport:
@@ -52,4 +80,17 @@ def dependency_report() -> DependencyReport:
         "numeric_backend_import": NumericBackend.__name__,
         "tensor_device_kind_import": TensorDeviceKind.__name__,
         "build_linearization_report_import": build_linearization_report.__name__,
+        "tabular_q_learner_import": TabularQLearner.__name__,
+        "training_transition_import": TrainingTransition.__name__,
+        "fiber_conditioned_stage_import": FiberConditionedStage.__name__,
+        "frozen_quotient_behavior_import": FrozenQuotientBehavior.__name__,
+        "path_fiber_import": PathFiber.__name__,
+        "active_tier_controller_import": ActiveTierController.__name__,
+        "active_tier_state_import": ActiveTierState.__name__,
+        "control_action_import": ControlAction.__name__,
+        "frozen_lower_context_import": FrozenLowerContext.__name__,
+        "lift_resolve_executor_import": LiftResolveExecutor.__name__,
+        "tier_learner_import": TierLearner.__name__,
+        "tier_signal_state_import": TierSignalState.__name__,
+        "exploit_explore_tower_runtime_import": ExploitExploreTowerRuntime.__name__,
     }

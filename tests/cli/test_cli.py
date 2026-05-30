@@ -6,7 +6,10 @@ from big_boy_benchmarking.cli.main import main
 
 def test_validate_contracts_command_works(capsys) -> None:
     assert main(["validate-contracts"]) == 0
-    assert "linearization_mode_count" in capsys.readouterr().out
+    output = capsys.readouterr().out
+    assert "linearization_mode_count" in output
+    assert "serious_learning_arm_count" in output
+    assert "tower_exploit_explore_available" in output
 
 
 def test_module_help_works() -> None:

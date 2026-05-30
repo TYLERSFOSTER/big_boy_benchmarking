@@ -18,12 +18,14 @@ def test_unknown_mode_raises() -> None:
         get_mode_contract("unknown")
 
 
-def test_reserved_mode_is_not_runnable_by_default() -> None:
+def test_exploit_explore_mode_is_runnable_for_serious_learning() -> None:
     contract = get_mode_contract("tower_exploit_explore")
 
-    assert not contract.runnable
-    with pytest.raises(ValueError, match="reserved"):
-        require_runnable_mode(contract.mode_id)
+    assert contract.runnable
+    assert contract.controller_regime == "exploit_explore"
+    assert "controller_decision" in contract.online_costs_included
+    assert "compatibility_readout" in contract.online_costs_excluded
+    assert require_runnable_mode(contract.mode_id) == contract
 
 
 def test_direct_and_tower_costs_are_distinct() -> None:

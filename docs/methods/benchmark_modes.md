@@ -27,8 +27,20 @@ has a real tensor-consuming runner and local device validation.
 Reserved modes may appear in the registry before they are runnable. Ordinary
 runners must reject reserved modes unless explicitly allowed by the caller.
 
+The first serious counterpoint learning slice makes this mode runnable:
+
+```text
+tower_exploit_explore
+```
+
+It is the active-tier exploit/explore tower-control mode. It is distinct from
+`tower_empty_schema_tabular` and `tower_nonempty_schema_tabular`, which remain
+smoke/diagnostic tower-construction surfaces rather than the serious online
+control runner.
+
 See also:
 
 ```text
 docs/design/shared_benchmark_machinery/01_001_shared_benchmark_machinery_design.md
+docs/methods/counterpoint_serious_learning.md
 ```

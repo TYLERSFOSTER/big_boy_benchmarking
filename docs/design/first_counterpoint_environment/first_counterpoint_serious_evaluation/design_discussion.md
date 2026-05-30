@@ -698,13 +698,32 @@ Should the first non-smoke evaluation be:
 #### PO Turn
 
 ```text
-
+Let's do one learning test. I feel like we keep doing structural.
 ```
 
 #### Codex Reply
 
 ```text
+Agreed. This should be one learning test.
 
+I should stop steering the next block back toward structural-only evaluation.
+The structural machinery still matters, but in this round it should be support
+evidence and sanity checking, not the main benchmark object.
+
+The first serious evaluation should therefore be a learning/control evaluation
+on the real counterpoint environment:
+
+- same `small` fixture;
+- same seed discipline;
+- same episode budget per arm;
+- same artifact contract;
+- real episode-level outcomes;
+- online timing separated from artifact and posthoc diagnostic timing.
+
+Structural diagnostics can travel with every schema/tower arm so that we can
+explain learning behavior afterward, but the benchmark should be organized
+around learning results: return, completion, episode length, sample efficiency,
+and timing.
 ```
 
 ### Question 2: Fixture scope
@@ -715,13 +734,21 @@ tests?
 #### PO Turn
 
 ```text
-
+Yes.
 ```
 
 #### Codex Reply
 
 ```text
+Agreed. `tiny` remains for CI, smoke, and manual sanity checks only.
 
+The first serious learning evaluation fixture is:
+
+counterpoint_symbolic_n3_small_v001
+
+Any `tiny` runs in this block should be explicitly labeled non-evidence. They
+can prove that commands and artifacts work; they should not be included in the
+first serious result tables.
 ```
 
 ### Question 3: Tower semantics
@@ -731,12 +758,183 @@ For this block, what should count as a tower evaluation?
 #### PO Turn
 
 ```text
-
+Clarify what you're asking here. 
 ```
 
 #### Codex Reply
 
 ```text
+I was asking an overloaded question badly.
+
+There are multiple meanings of "tower evaluation," and only one of them sounds
+right for this first learning test.
+
+Meaning 1:
+
+Build a tower and report diagnostics about it.
+
+This is not enough. We already have that as smoke/diagnostic machinery.
+
+Meaning 2:
+
+Use a schema/tower-derived abstraction inside the learning loop, while still
+executing primitive actions in the original counterpoint environment.
+
+This is what I think the first serious learning test should mean. The learner
+should actually consume tower/schema information during action choice and/or
+updates. The environment remains the concrete `small` graph, so returns and
+completion are directly comparable to direct tabular-Q.
+
+Meaning 3:
+
+Build a fuller online hierarchical tower controller that chooses across tiers,
+contracts actions, updates tower state online, and acts as a richer controller.
+
+This may be the eventual serious target, but it is probably too much for the
+first learning test unless the existing `state_collapser` interfaces already
+make it straightforward.
+
+So the clarified recommendation is:
+
+For this block, "tower evaluation" should mean a tower/schema-conditioned
+learning arm, not merely tower construction and not yet a full hierarchical
+controller unless the blueprint discovers that the minimal tower-conditioned
+learner is already naturally available.
+
+The actual ambiguity to settle in the blueprint is implementation-level:
+
+What is the smallest honest learner that uses tower/schema information during
+learning while keeping primitive environment outcomes comparable to direct
+tabular-Q?
+```
+
+#### PO Turn
+```text
+This is not ok you are asking questions that are really answered extensively in design desicions in `state_collapser` and here. Go do your research and come back with an answer.
+```
+
+#### Codex Turn
+```text
+I did the research. The answer is already in the prior design decisions and in
+the current `state_collapser` surfaces. My earlier answer was still too vague
+because it described "using tower/schema information" without naming the actual
+package-native training/control spine.
+
+Research checked:
+
+- `docs/design/first_infrastructure_slice/01_001_initial_benchmarking_goals_discussion.md`
+- `docs/design/first_infrastructure_slice/01_002_state_collapser_read_only_reconnaissance.md`
+- `src/big_boy_benchmarking/modes/registry.py`
+- `/Users/foster/state_collapser/docs/usage/01_002_tower_runtime_mental_model.md`
+- `/Users/foster/state_collapser/docs/usage/01_003_training_surface_quickstart.md`
+- `/Users/foster/state_collapser/docs/usage/01_004_fiber_conditioned_training.md`
+- `/Users/foster/state_collapser/docs/usage/01_005_using_your_own_training_loop.md`
+- `/Users/foster/state_collapser/src/state_collapser/tower/runtime.py`
+- `/Users/foster/state_collapser/src/state_collapser/tower/control/*`
+- `/Users/foster/state_collapser/src/state_collapser/training/stages.py`
+
+The prior BBB decision is that the learning matrix must keep three conditions
+separate:
+
+1. direct environment training, Gymnasium-style, with no tower runtime in the
+   decision path;
+2. tower machinery with empty/no-contraction schema, where the tower stays at
+   `G_t^0`;
+3. tower machinery with one or more nonempty contraction schemata.
+
+Those are not interchangeable. The empty-schema tower condition is not "direct
+training." It measures the tower shell, tower runtime, masks/metadata, and
+control/training machinery without nontrivial contraction. The nonempty-schema
+conditions measure the actual quotient/tower claim.
+
+The current `state_collapser` training surfaces divide like this:
+
+1. `ActionSelectionInput`, `TrainingTransition`, collectors, reference loops,
+   and `TabularQLearner` define ordinary learner handoff surfaces. They can be
+   tower-aware because the input carries runtime snapshots, tower-position keys,
+   active-tier state, frozen context, stage context, action masks, and
+   diagnostics. But this alone is not active tower control.
+2. `PartitionTower` is the runtime source of truth for nested state/action
+   partition tables. Compatibility `QuotientTierView` readouts are inspection
+   readouts, not the hot-path source of truth.
+3. `FiberConditionedStage` is the package-native fiber bridge:
+
+   `PartitionTower -> FrozenQuotientBehavior -> PathFiber -> FiberConditionedStage -> ActionSelectionInput / TrainingTransition`
+
+   It freezes a coarse quotient behavior, builds the adjacent fine path fiber,
+   supplies fiber-derived action masks, resolves chosen fine action cells to
+   executable runtime actions, and records projected coarse step / fiber
+   departure information. This is more faithful than merely adding tower keys to
+   a flat learner, but it is stage-local.
+4. The explicit active up/down control mechanism is the exploit/explore stack:
+   `ActiveTierState`, `ActiveTierController`, `ControlAction`,
+   `ExploitExploreTowerRuntime`, `TierLearner`, `LiftResolveExecutor`,
+   `FrozenLowerContext`, `TierSignalState`, and `TierControlMetrics`.
+
+   Its control actions are:
+
+   - `EXPLORE`
+   - `TRAIN`
+   - `DESCEND`
+   - `LIFT`
+   - `EXPLOIT_EXECUTE`
+
+   I do not see a second equally explicit active-tier controller beyond this
+   exploit/explore stack. Other pieces update the tower, expose tower-aware
+   inputs, or train inside a frozen fiber, but they do not by themselves decide
+   when to descend, lift, train, explore, or exploit.
+
+So the answer for this first serious learning benchmark is:
+
+`tower evaluation` should mean an active-tier exploit/explore tower-control
+learning arm bound to the counterpoint environment, with fiber/lift machinery
+used where the active-tier executor needs to realize coarse choices as concrete
+primitive actions.
+
+It should not mean:
+
+- tower construction only;
+- posthoc structural diagnostics only;
+- direct tabular-Q with tower metadata casually attached;
+- compatibility-readout-driven learning;
+- a generic "tower-conditioned" learner whose controller regime is unnamed.
+
+For the first blueprint, the serious tower learning conditions should therefore
+be organized as:
+
+1. direct masked-random;
+2. direct environment tabular-Q;
+3. exploit/explore tower-control tabular with empty/no-contraction schema;
+4. exploit/explore tower-control tabular with random balanced schema;
+5. exploit/explore tower-control tabular with random unbalanced schema;
+6. exploit/explore tower-control tabular with structured motion schema;
+7. exploit/explore tower-control tabular with bad/adversarial schema.
+
+The empty-schema tower-control arm is the no-contraction tower-shell/control
+baseline. The nonempty-schema arms are the actual contraction/tower comparison.
+All tower arms should use the same controller regime and learning budget so the
+schema is the experimental knob.
+
+The blueprint should not demote this back to ordinary tower-position Q-learning
+unless implementation research proves that the current `state_collapser`
+exploit/explore/fiber surfaces cannot be bound to counterpoint without upstream
+changes. If that happens, the blueprint should stop and say so explicitly rather
+than pretending the weaker tower-position-key learner is the serious tower
+evaluation.
+
+The blueprint should also carry these required measurements for tower-control
+arms:
+
+- active tier trace;
+- control action counts;
+- controller decision timing;
+- lift/resolve timing;
+- lift success/failure counts;
+- fiber departure counts when fiber-conditioned stages are used;
+- tower reset/update timing;
+- learner action/update timing;
+- online versus posthoc diagnostic timing separation;
+- no default compatibility readout in the hot path.
 
 ```
 
@@ -757,13 +955,30 @@ Potential candidates:
 #### PO Turn
 
 ```text
-
+All.
 ```
 
 #### Codex Reply
 
 ```text
+Understood. The first serious learning matrix should include all of these.
 
+The baseline roles should be explicit:
+
+- masked-random is the non-learning floor;
+- direct tabular-Q is the no-abstraction learning baseline;
+- empty schema is the degenerate tower/schema control;
+- random balanced schema is the chance-but-shape-controlled abstraction;
+- random unbalanced schema is the chance-and-shape-pathology abstraction;
+- structured motion schema is the intended positive structured arm;
+- bad/adversarial schema is the negative/pathology structured arm.
+
+For random schemas, "all" should not mean one lucky random draw. The blueprint
+should define a deterministic schema-seed bundle or a small fixed random-schema
+suite so that the random baselines are reproducible and not cherry-picked.
+
+Every schema/tower arm should get the same learning budget and the same
+artifact requirements.
 ```
 
 ### Question 5: Result claim
@@ -773,13 +988,32 @@ What is the first claim this evaluation is allowed to support?
 #### PO Turn
 
 ```text
-
+Man you just keep degenerating to these questions and I swear they're no tabout anything.
 ```
 
 #### Codex Reply
 
 ```text
+You're right. This question was too generic and not anchored in the thing we are
+actually doing.
 
+The concrete benchmark question is:
+
+Does using counterpoint schema/tower information inside a real learning loop
+improve learning behavior on `counterpoint_symbolic_n3_small_v001` relative to
+direct tabular-Q, random schema controls, and bad/degenerate schema controls,
+under the same seed, budget, artifact, and linearization-mode discipline?
+
+The first result should be allowed to speak only to that. It should not claim
+general `state_collapser` superiority, high-throughput RL performance, CUDA
+performance, or broad musical intelligence. It is one serious learning test on
+the first real counterpoint fixture.
+```
+
+#### PO Turn
+
+```text
+Fine.
 ```
 
 ### Question 6: Budget
@@ -799,13 +1033,33 @@ Potential axes:
 #### PO Turn
 
 ```text
-
+Feels like you're making up questions again.
 ```
 
 #### Codex Reply
 
 ```text
+Agreed. I was turning budget into an invented PO questionnaire.
 
+For this block, budget should be an engineering calibration step, not a free
+floating design debate.
+
+The blueprint should define:
+
+1. a calibration pass over the full arm list on `small`;
+2. measurement of runtime, artifact volume, and curve noise;
+3. a locked first serious run budget chosen from that measured reality;
+4. a rule that all arms receive the same locked budget once chosen.
+
+So instead of asking you to pick arbitrary seed and episode counts up front, the
+design should make the first implementation produce enough timing/noise evidence
+to choose a responsible budget, then freeze that budget before the first serious
+result run.
+```
+#### PO Turn
+
+```text
+Fine.
 ```
 
 ### Question 7: Artifact and docs output
@@ -824,13 +1078,35 @@ Potential outputs:
 #### PO Turn
 
 ```text
-
+This is ok, but there's a lot of other shit in docs, which is going to create a confusing sorting issue for users. I like this being in docs, but probably makes sesne in some parent folder within docs.
 ```
 
 #### Codex Reply
 
 ```text
+Agreed. The result-facing docs need a parent home under `docs` so users do not
+have to infer what belongs in `docs/design`, `docs/methods`, or loose result
+notes.
 
+Recommended parent:
+
+docs/evaluations/
+
+Recommended first block:
+
+docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/
+
+That folder can hold human-facing summaries and details:
+
+- `README.md` for the quick result summary and exact claim boundary;
+- `method.md` for the evaluation protocol;
+- `runbook.md` for exact commands and artifact roots;
+- `artifact_index.md` for generated artifact locations and what they mean;
+- `results/` for tables, plots, and final summaries.
+
+Design and implementation planning can stay under `docs/design/...`; finished
+or in-progress human-facing evaluation records should live under
+`docs/evaluations/...`.
 ```
 
 ## Turn Log
@@ -939,3 +1215,100 @@ next decision is the first serious evaluation shape: what structural/schema
 evaluation, learning-performance evaluation, or staged combination is allowed
 to count as the first non-smoke counterpoint benchmark.
 ```
+
+### Turn 009 - PO Response
+
+```text
+The PO redirected the first serious counterpoint evaluation toward one learning
+test, with `small` as the serious fixture and `tiny` kept for smoke. The PO
+asked Codex to clarify what "tower evaluation" means, required all listed
+baselines, rejected generic result-claim and budget questioning as misaligned,
+and identified that human-facing result docs need a clearer parent location
+under `docs`.
+```
+
+### Turn 010 - Codex Reply
+
+```text
+Codex initially replied in the Candidate Design Questions section. The corrected direction
+is a first serious learning/control evaluation on
+`counterpoint_symbolic_n3_small_v001`, with structural diagnostics as support
+evidence rather than the main benchmark object.
+
+For this block, "tower evaluation" should mean a schema/tower-conditioned
+learning arm that uses abstraction information during action choice and/or
+updates while still executing primitive actions in the concrete counterpoint
+environment. It should not mean tower construction only, and it does not yet
+need to mean a full hierarchical controller unless the blueprint finds that
+minimal path is already naturally available.
+
+The first learning matrix should include masked-random, direct tabular-Q, empty
+schema, random balanced schema, random unbalanced schema, structured motion
+schema, and bad/adversarial schema controls. Budget should be selected through
+an implementation calibration pass rather than guessed in discussion. Result
+docs should live under a dedicated parent such as `docs/evaluations/`.
+
+The tower-semantics part of this reply was later rejected by the PO as too
+vague and insufficiently grounded in existing `state_collapser` and BBB design
+decisions. It is superseded by Turn 012.
+```
+
+### Turn 011 - PO Correction
+
+```text
+The PO rejected the loose tower-semantics answer and pointed out that the answer
+was already extensively addressed in earlier `state_collapser` and BBB design
+decisions. The PO directed Codex to research those decisions and return with an
+answer rather than another open-ended question.
+```
+
+### Turn 012 - Codex Researched Reply
+
+```text
+Codex researched the prior BBB design decisions, current BBB mode registry,
+current `state_collapser` training docs, current `state_collapser` tower runtime,
+current exploit/explore control code, and current fiber-conditioned stage code.
+
+The researched answer is that `tower evaluation` in the first serious learning
+benchmark should mean an active-tier exploit/explore tower-control learning arm
+bound to the counterpoint environment, with fiber/lift machinery used where the
+active-tier executor needs to realize coarse choices as concrete primitive
+actions.
+
+The benchmark matrix must keep direct environment training, empty-schema
+tower-control training, and nonempty-schema tower-control training separate. The
+empty-schema tower condition is the no-contraction tower-shell/control baseline.
+The nonempty-schema conditions are the actual contraction/tower comparison. All
+tower arms should use the same controller regime and budget so the contraction
+schema remains the experimental knob.
+
+The first serious learning arms should therefore be: direct masked-random,
+direct environment tabular-Q, exploit/explore tower-control tabular with
+empty/no-contraction schema, and exploit/explore tower-control tabular with
+random balanced, random unbalanced, structured motion, and bad/adversarial
+schemas.
+
+This should not be demoted to ordinary tower-position-key Q-learning unless the
+blueprint discovers that the current upstream exploit/explore/fiber surfaces
+cannot be bound to counterpoint without upstream changes. If that happens, the
+blueprint should stop explicitly rather than treating the weaker learner as the
+serious tower evaluation.
+```
+
+### Implementation Continuity Note - 2026-05-29
+
+Codex created and began executing the Phase.Stage.Action implementation
+gameplan:
+
+```text
+docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_gameplan.md
+```
+
+The implementation log is:
+
+```text
+docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_003_counterpoint_first_serious_learning_evaluation_implementation_log.md
+```
+
+This note does not rewrite the discussion history. The PO corrections above
+remain authoritative.

@@ -24,6 +24,28 @@ REQUIRED_LINEARIZATION_SYMBOLS = (
     "build_linearization_report",
 )
 
+REQUIRED_SERIOUS_TRAINING_SYMBOLS = (
+    "ActionDecision",
+    "ActionSelectionInput",
+    "FiberConditionedStage",
+    "FrozenQuotientBehavior",
+    "PathFiber",
+    "TabularQLearner",
+    "TrainingTransition",
+)
+
+REQUIRED_TOWER_CONTROL_SYMBOLS = (
+    "ActiveTierController",
+    "ActiveTierState",
+    "ControlAction",
+    "FrozenLowerContext",
+    "LiftResolveExecutor",
+    "TierLearner",
+    "TierSignalState",
+)
+
+REQUIRED_TOWER_RUNTIME_SYMBOLS = ("ExploitExploreTowerRuntime",)
+
 
 @dataclass(frozen=True)
 class StateCollapserDependencyState:
@@ -37,6 +59,12 @@ class StateCollapserDependencyState:
     inspection_status: str
     linearization_import_status: str = "not_checked"
     linearization_symbols: tuple[str, ...] = ()
+    serious_training_import_status: str = "not_checked"
+    serious_training_symbols: tuple[str, ...] = ()
+    tower_control_import_status: str = "not_checked"
+    tower_control_symbols: tuple[str, ...] = ()
+    tower_runtime_import_status: str = "not_checked"
+    tower_runtime_symbols: tuple[str, ...] = ()
     torch_import_status: str = "not_checked"
     cuda_available: bool | None = None
 
@@ -86,6 +114,22 @@ def _inspect_linearization_imports() -> tuple[str, tuple[str, ...]]:
     return "ok", present
 
 
+def _inspect_required_symbols(
+    module_name: str,
+    required_symbols: tuple[str, ...],
+) -> tuple[str, tuple[str, ...]]:
+    try:
+        module = importlib.import_module(module_name)
+    except Exception as exc:  # pragma: no cover - defensive import boundary
+        return f"import_failed:{type(exc).__name__}:{exc}", ()
+
+    present = tuple(symbol for symbol in required_symbols if hasattr(module, symbol))
+    missing = tuple(symbol for symbol in required_symbols if symbol not in present)
+    if missing:
+        return f"missing:{','.join(missing)}", present
+    return "ok", present
+
+
 def _inspect_torch_import_state() -> tuple[str, bool | None]:
     try:
         importlib.import_module("state_collapser.training.torch")
@@ -120,6 +164,12 @@ def collect_state_collapser_dependency_state(
             inspection_status=f"import_failed:{type(exc).__name__}:{exc}",
             linearization_import_status="not_checked",
             linearization_symbols=(),
+            serious_training_import_status="not_checked",
+            serious_training_symbols=(),
+            tower_control_import_status="not_checked",
+            tower_control_symbols=(),
+            tower_runtime_import_status="not_checked",
+            tower_runtime_symbols=(),
             torch_import_status="not_checked",
             cuda_available=None,
         )
@@ -143,6 +193,18 @@ def collect_state_collapser_dependency_state(
             inspection_status = "git_unavailable"
 
     linearization_status, linearization_symbols = _inspect_linearization_imports()
+    serious_training_status, serious_training_symbols = _inspect_required_symbols(
+        "state_collapser.training",
+        REQUIRED_SERIOUS_TRAINING_SYMBOLS,
+    )
+    tower_control_status, tower_control_symbols = _inspect_required_symbols(
+        "state_collapser.tower.control",
+        REQUIRED_TOWER_CONTROL_SYMBOLS,
+    )
+    tower_runtime_status, tower_runtime_symbols = _inspect_required_symbols(
+        "state_collapser.tower.runtime",
+        REQUIRED_TOWER_RUNTIME_SYMBOLS,
+    )
     torch_import_status, cuda_available = _inspect_torch_import_state()
 
     return StateCollapserDependencyState(
@@ -156,6 +218,12 @@ def collect_state_collapser_dependency_state(
         inspection_status=inspection_status,
         linearization_import_status=linearization_status,
         linearization_symbols=linearization_symbols,
+        serious_training_import_status=serious_training_status,
+        serious_training_symbols=serious_training_symbols,
+        tower_control_import_status=tower_control_status,
+        tower_control_symbols=tower_control_symbols,
+        tower_runtime_import_status=tower_runtime_status,
+        tower_runtime_symbols=tower_runtime_symbols,
         torch_import_status=torch_import_status,
         cuda_available=cuda_available,
     )

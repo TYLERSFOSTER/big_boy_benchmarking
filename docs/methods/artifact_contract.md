@@ -34,8 +34,34 @@ flow with tensor-capable-disabled or tensor-enabled benchmark conditions.
 Artifacts are written under an explicit artifact root. The current working
 directory must not change artifact meaning.
 
+The first serious counterpoint learning evaluation adds evaluation-level
+artifacts under:
+
+```text
+evaluations/counterpoint_first_serious_learning_v001/
+```
+
+Core files include:
+
+```text
+evaluation_manifest.json
+evaluation_arm_manifest.json
+evaluation_run_index.csv
+evaluation_budget_lock.json
+calibration_summary.json
+calibration_run_index.csv
+calibration_recommendation.md
+evaluation_aggregate_summary.json
+evaluation_aggregate_table.csv
+results/learning_curves.csv
+results/timing_summary.csv
+results/controller_summary.csv
+results/schema_diagnostic_summary.csv
+```
+
 See also:
 
 ```text
 docs/design/shared_benchmark_machinery/01_001_shared_benchmark_machinery_design.md
+docs/methods/counterpoint_serious_learning.md
 ```

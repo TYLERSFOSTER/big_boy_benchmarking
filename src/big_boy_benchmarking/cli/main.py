@@ -36,6 +36,25 @@ from big_boy_benchmarking.environments.counterpoint.runners import (
     run_tower_schema_smoke,
 )
 from big_boy_benchmarking.environments.counterpoint.schemas import build_schema_for_id
+from big_boy_benchmarking.environments.counterpoint.serious_learning.aggregation import (
+    aggregate_serious_learning_results,
+)
+from big_boy_benchmarking.environments.counterpoint.serious_learning.arms import (
+    REQUIRED_SERIOUS_LEARNING_ARM_IDS,
+)
+from big_boy_benchmarking.environments.counterpoint.serious_learning.budgets import (
+    CalibrationBudget,
+    SchemaSeedSuite,
+    SeedBundleSuite,
+    SeriousLearningBudgetLock,
+)
+from big_boy_benchmarking.environments.counterpoint.serious_learning.docs_writer import (
+    write_serious_learning_docs,
+)
+from big_boy_benchmarking.environments.counterpoint.serious_learning.runner import (
+    run_budget_locked_serious_learning,
+    run_calibration,
+)
 from big_boy_benchmarking.modes.contracts import validate_mode_contract
 from big_boy_benchmarking.modes.linearization import (
     iter_linearization_mode_contracts,
@@ -72,6 +91,11 @@ def _validate_contracts() -> int:
                 "artifact_schema_version": ARTIFACT_SCHEMA_VERSION,
                 "mode_count": len(iter_mode_contracts()),
                 "linearization_mode_count": len(iter_linearization_mode_contracts()),
+                "serious_learning_arm_count": len(REQUIRED_SERIOUS_LEARNING_ARM_IDS),
+                "tower_exploit_explore_available": any(
+                    contract.mode_id == "tower_exploit_explore" and contract.runnable
+                    for contract in iter_mode_contracts()
+                ),
                 "smoke_ids": smoke_ids,
                 "reserved_console_command": RESERVED_CONSOLE_COMMAND,
             },
@@ -154,6 +178,45 @@ def build_parser() -> argparse.ArgumentParser:
         choices=_linearization_mode_ids(),
         default="tensor_available_disabled",
     )
+
+    serious_parser = counterpoint_subparsers.add_parser("serious-learning")
+    serious_subparsers = serious_parser.add_subparsers(
+        dest="serious_learning_command",
+        required=True,
+    )
+
+    calibration_parser = serious_subparsers.add_parser("calibrate")
+    calibration_parser.add_argument("--artifact-root", required=True, type=Path)
+    calibration_parser.add_argument("--instance-id", choices=("tiny", "small"), default="small")
+    calibration_parser.add_argument("--episodes", type=int, default=1)
+    calibration_parser.add_argument("--replicates", type=int, default=1)
+    calibration_parser.add_argument("--schema-seeds", type=int, default=1)
+    calibration_parser.add_argument("--base-seed", type=int, default=0)
+    calibration_parser.add_argument("--horizon", type=int)
+    calibration_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
+
+    serious_run_parser = serious_subparsers.add_parser("run")
+    serious_run_parser.add_argument("--artifact-root", required=True, type=Path)
+    serious_run_parser.add_argument("--instance-id", choices=("small",), default="small")
+    serious_run_parser.add_argument("--episodes", type=int, required=True)
+    serious_run_parser.add_argument("--replicates", type=int, required=True)
+    serious_run_parser.add_argument("--schema-seeds", type=int, required=True)
+    serious_run_parser.add_argument("--base-seed", type=int, default=0)
+    serious_run_parser.add_argument("--locked-by", default="cli")
+    serious_run_parser.add_argument("--horizon", type=int)
+    serious_run_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
+
+    summarize_parser = serious_subparsers.add_parser("summarize")
+    summarize_parser.add_argument("--artifact-root", required=True, type=Path)
+    summarize_parser.add_argument("--docs-root", type=Path)
 
     return parser
 
@@ -305,7 +368,92 @@ def _run_counterpoint_command(args: argparse.Namespace) -> int:
         print(json.dumps({"status": result.status, "run_id": result.run_id}, sort_keys=True))
         return 0 if result.status == "success" else 2
 
+    if args.counterpoint_command == "serious-learning":
+        return _run_counterpoint_serious_learning_command(args)
+
     raise ValueError(f"unknown counterpoint command: {args.counterpoint_command}")
+
+
+def _run_counterpoint_serious_learning_command(args: argparse.Namespace) -> int:
+    if hasattr(args, "linearization_mode"):
+        _require_serious_linearization(args.linearization_mode)
+
+    if args.serious_learning_command == "calibrate":
+        instance_id = (
+            "counterpoint_symbolic_n3_tiny_v001"
+            if args.instance_id == "tiny"
+            else "counterpoint_symbolic_n3_small_v001"
+        )
+        budget = CalibrationBudget(
+            environment_instance_id=instance_id,
+            episode_count=args.episodes,
+            max_steps_per_episode=args.horizon or (4 if args.instance_id == "tiny" else 8),
+            replicate_count=args.replicates,
+            random_schema_seed_count=args.schema_seeds,
+            smoke=args.instance_id == "tiny",
+        )
+        result = run_calibration(
+            artifact_root=args.artifact_root,
+            budget=budget,
+            base_seed=args.base_seed,
+        )
+        print(json.dumps(result, sort_keys=True))
+        return 0
+
+    if args.serious_learning_command == "run":
+        if args.schema_seeds < 2:
+            raise ValueError("serious run requires at least two schema seeds")
+        seed_bundles = generate_seed_bundles(
+            base_seed=args.base_seed,
+            replicate_count=args.replicates,
+        )
+        lock = SeriousLearningBudgetLock(
+            environment_instance_id="counterpoint_symbolic_n3_small_v001",
+            arm_ids=REQUIRED_SERIOUS_LEARNING_ARM_IDS,
+            episode_count=args.episodes,
+            max_steps_per_episode=args.horizon or 8,
+            replicate_count=args.replicates,
+            random_schema_seed_count=args.schema_seeds,
+            schema_seed_suite=SchemaSeedSuite(tuple(range(args.schema_seeds))),
+            seed_bundle_ids=tuple(bundle.seed_bundle_id for bundle in seed_bundles),
+            controller_config_id="exploit_explore_controller_v001",
+            learner_config_id="tabular_q_v001",
+            linearization_mode_id=args.linearization_mode,
+            calibration_artifact_root=str(args.artifact_root),
+            locked_by=args.locked_by,
+        )
+        result = run_budget_locked_serious_learning(
+            artifact_root=args.artifact_root,
+            budget_lock=lock,
+            seed_bundle_suite=SeedBundleSuite(seed_bundles),
+        )
+        print(json.dumps(result, sort_keys=True))
+        return 0 if result["status"] == "complete" else 2
+
+    if args.serious_learning_command == "summarize":
+        summary = aggregate_serious_learning_results(args.artifact_root)
+        docs = write_serious_learning_docs(
+            artifact_root=args.artifact_root,
+            docs_root=args.docs_root
+            if args.docs_root is not None
+            else "docs/evaluations/counterpoint_symbolic_v001/first_serious_learning",
+            command_lines=(
+                "uv run python -m big_boy_benchmarking.cli counterpoint serious-learning "
+                f"summarize --artifact-root {args.artifact_root}",
+            ),
+        )
+        print(json.dumps({"status": summary["status"], "docs": docs}, sort_keys=True))
+        return 0 if summary["status"] == "complete" else 2
+
+    raise ValueError(f"unknown serious learning command: {args.serious_learning_command}")
+
+
+def _require_serious_linearization(linearization_mode_id: str) -> None:
+    if linearization_mode_id != "tensor_available_disabled":
+        raise ValueError(
+            "counterpoint serious-learning uses tensor_available_disabled; "
+            f"reserved linearization mode rejected: {linearization_mode_id}"
+        )
 
 
 def main(argv: Sequence[str] | None = None) -> int:

@@ -1,5 +1,8 @@
 from big_boy_benchmarking.upstream.state_collapser import (
     REQUIRED_LINEARIZATION_SYMBOLS,
+    REQUIRED_SERIOUS_TRAINING_SYMBOLS,
+    REQUIRED_TOWER_CONTROL_SYMBOLS,
+    REQUIRED_TOWER_RUNTIME_SYMBOLS,
     collect_state_collapser_dependency_state,
 )
 
@@ -16,6 +19,18 @@ def test_dependency_state_collects_linearization_imports() -> None:
 
     assert state.linearization_import_status == "ok"
     assert state.linearization_symbols == REQUIRED_LINEARIZATION_SYMBOLS
+
+
+def test_dependency_state_collects_serious_learning_imports() -> None:
+    state = collect_state_collapser_dependency_state()
+
+    assert state.import_version == "0.7.0"
+    assert state.serious_training_import_status == "ok"
+    assert state.serious_training_symbols == REQUIRED_SERIOUS_TRAINING_SYMBOLS
+    assert state.tower_control_import_status == "ok"
+    assert state.tower_control_symbols == REQUIRED_TOWER_CONTROL_SYMBOLS
+    assert state.tower_runtime_import_status == "ok"
+    assert state.tower_runtime_symbols == REQUIRED_TOWER_RUNTIME_SYMBOLS
 
 
 def test_dependency_state_records_optional_torch_state_without_requiring_torch() -> None:

@@ -8,6 +8,12 @@ Implementation gameplan:
 
 - `docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_gameplan.md`
 
+First serious learning design:
+
+- `docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/design_discussion.md`
+- `docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_001_counterpoint_first_serious_learning_evaluation_blueprint.md`
+- `docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_gameplan.md`
+
 ## Family Identity
 
 Family id:
@@ -67,6 +73,9 @@ Implemented first fixtures:
 - `counterpoint_symbolic_n3_tiny_v001`
 - `counterpoint_symbolic_n3_small_v001`
 
+For the first serious learning evaluation, `small` is the serious fixture and
+`tiny` is smoke only.
+
 Reserved future tiers:
 
 - medium
@@ -98,3 +107,26 @@ schemata create useful quotient addresses, lift fibers, and reward-compatible
 cells on the same underlying graph.
 
 Primary artifacts remain the source of truth.
+
+## Serious Learning Surface
+
+The first serious learning/control surface compares direct environment arms
+with active-tier exploit/explore tower-control arms. The tower-control mode id
+is:
+
+```text
+tower_exploit_explore
+```
+
+The matrix keeps these separate:
+
+- direct environment training;
+- empty-schema tower-control training;
+- nonempty-schema tower-control training.
+
+This environment doc does not claim a serious result has been run. Result docs,
+when generated from artifacts, belong under:
+
+```text
+docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/
+```
