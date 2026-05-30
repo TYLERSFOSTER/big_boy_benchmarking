@@ -28,6 +28,56 @@ Protocol applied:
 docs/prime_directive/artifact_table_to_readable_document_protocol.md
 ```
 
+## Summary of Goals Behind this Evaluation
+
+This evaluation asks whether the first real counterpoint benchmark can support a
+meaningful comparison between direct learning on the concrete symbolic graph and
+tower-control learning through contraction schemas.
+
+The environment is `counterpoint_symbolic_n3_small_v001`, a benchmark-owned
+finite symbolic hidden graph. The goal is not to generate beautiful music. The
+goal is to compare learning/control behavior under a fixed legality contract,
+reward bundle, action-mask policy, seed/budget discipline, and artifact
+contract.
+
+The key baselines are direct tabular Q and the empty-schema tower. Direct
+tabular Q is the primary concrete-environment learner baseline. The empty-schema
+tower checks whether the tower runtime and active-tier control path work when no
+nontrivial contraction is present. The non-empty tower arms then test whether
+random, structured motion, and intentionally bad contraction schemas can realize
+valid concrete actions and support learning through the tower interface.
+
+This readout is therefore a diagnostic learning/control evaluation, not a
+musical-quality report, tensor-enabled performance result, CUDA/GPU result,
+production performance result, or general claim that towers are better or worse
+than direct learning.
+
+## Summary of Methodology Behind this Evaluation
+
+This readout summarizes a locked serious-run artifact set followed by
+aggregation and human readout generation. The source binding points at a local
+artifact root under `/private/tmp`, while this directory is the durable
+repo-side readout surface.
+
+The evaluation compares direct environment arms against active-tier
+exploit/explore tower-control arms under shared seed, budget, mask, artifact,
+timing, and linearization discipline. The direct arms are `direct_masked_random`
+and `direct_tabular_q`. The tower arms are the empty-schema tower, random
+balanced and unbalanced contraction towers, structured motion tower, and
+bad/adversarial tower.
+
+The budget lock records `counterpoint_symbolic_n3_small_v001`,
+`tensor_available_disabled`, 16 episodes per run, 4 replicates, 3 random schema
+seeds, and a max horizon of 8 steps per episode. The aggregate tables summarize
+returns, confidence intervals, baseline deltas, learning curves, timing
+categories, controller events, schema diagnostics, and per-run lift/action
+realization evidence.
+
+The methodology can support artifact-completion, behavioral-status, and
+diagnostic claims for this fixture and budget. It cannot support tensor-enabled,
+CUDA/GPU, musical-quality, production-performance, or general tower-superiority
+claims.
+
 ## One-Screen Verdict
 
 All seven required arms produced machine-readable artifacts, and every run row
@@ -66,22 +116,18 @@ performance result.
 
 The source binding for this readout is `readout_source.json`. It identifies the
 source artifact root, source evaluation root, source tables, environment
-instance, linearization mode, and claim boundary. It does not currently encode
-the full expected-file policy for the evaluation.
+instance, linearization mode, claim boundary, goal-summary sources, and
+expected-file policy.
 
-Relative to the first serious learning blueprint, these evaluation-level
-manifest files are expected but absent from the source evaluation root:
+Absent files are classified by expectation status:
 
-- `evaluation_manifest.json`
-- `evaluation_arm_manifest.json`
-
-These calibration files are also absent, but they should be read differently:
-they are expected for the calibration path, not necessarily for a manually
-locked serious run unless the locked run was supposed to be calibration-derived:
-
-- `calibration_summary.json`
-- `calibration_run_index.csv`
-- `calibration_recommendation.md`
+| File | Classification | Expectation source | Interpretation |
+| --- | --- | --- | --- |
+| `evaluation_manifest.json` | `expected_missing_gap` | Serious evaluation artifact contract | Expected evaluation-level provenance is absent. |
+| `evaluation_arm_manifest.json` | `expected_missing_gap` | Serious evaluation artifact contract | Expected arm-contract provenance is absent. |
+| `calibration_summary.json` | `conditional_absent` | Calibration path contract | Expected for calibration, not necessarily for this locked serious run. |
+| `calibration_run_index.csv` | `conditional_absent` | Calibration path contract | Expected for calibration, not necessarily for this locked serious run. |
+| `calibration_recommendation.md` | `conditional_absent` | Calibration path contract | Expected for calibration, not necessarily for this locked serious run. |
 
 The aggregate, run index, budget lock, learning curves, timing summary,
 controller summary, schema diagnostic summary, and per-run diagnostic files were
@@ -89,75 +135,26 @@ available and used for this readout.
 
 ## Clarifying Questions And Turns
 
-### Project Owner / Evaluator Turn
+#### Project Owner / Evaluator Turn
 
-Explain why that stuff is missing.
+> ...
 
-### Embedded Engineering Consultant / Codex Turn
+#### Embedded Engineering Consultant / Codex Turn
 
-Those files are missing because this artifact root appears to represent the
-locked serious-run/summarize path, not the calibration path.
+> ...
 
-In the current implementation, `run_calibration` writes:
+#### Project Owner / Evaluator Turn
 
-- `evaluation_manifest.json`
-- `evaluation_arm_manifest.json`
-- `calibration_summary.json`
-- `calibration_run_index.csv`
-- `calibration_recommendation.md`
+> ...
 
-The locked serious run path, `run_budget_locked_serious_learning`, writes:
+#### Embedded Engineering Consultant / Codex Turn
 
-- `evaluation_budget_lock.json`
-- `evaluation_run_index.csv`
+> ...
 
-Then `summarize` can still aggregate and document the run from the budget lock,
-run index, aggregate table, learning curves, timing summary, controller summary,
-schema diagnostics, and per-run artifacts.
+#### Project Owner / Evaluator Turn
 
-So this is not evidence that those files were deleted or that the run is
-uninterpretable. It is a provenance/contract gap in the current serious-run
-pipeline: the files are part of the intended evaluation-level artifact contract,
-but this particular source artifact root was produced through a path that did
-not create the calibration/setup provenance files.
+> ...
 
-Claim effect: the behavioral readout remains valid as diagnostic evidence, but
-the provenance is weaker than the intended contract. A future implementation
-pass should make the serious-run path write `evaluation_manifest.json` and
-`evaluation_arm_manifest.json`, and should either require calibration artifacts
-for a calibration-derived locked run or explicitly mark calibration files as
-not applicable for a manually locked serious run.
+#### Embedded Engineering Consultant / Codex Turn
 
-
-
-### Project Owner / Evaluator Turn
-
-Is there not a manifest where we pointed the human-readablility protocol that explains enough about the environment and evaluation that we wouldn't say things are "missing" when there was no epectation for them to be there? Or was there an expectation in this case?
-
-### Embedded Engineering Consultant / Codex Turn
-
-Yes, this was a real distinction and the report language was too blunt.
-
-There is a source-binding manifest for the human-readability protocol:
-`readout_source.json`. It tells the readout where the artifact tables live and
-records the evaluation id, environment instance, artifact schema version,
-linearization mode, and claim boundary. That is enough to know what source files
-were used. It is not currently enough to know, by itself, which absent files
-were expected versus not applicable.
-
-The expectation comes from the serious learning blueprint and the evaluation
-path contract:
-
-- `evaluation_manifest.json` and `evaluation_arm_manifest.json` are expected
-  evaluation-level artifacts for this serious evaluation. Their absence is a
-  real provenance gap.
-- `calibration_summary.json`, `calibration_run_index.csv`, and
-  `calibration_recommendation.md` are expected for the calibration path. If this
-  source artifact root was produced as a manually locked serious run without
-  calibration, those files should be described as absent/not applicable, not as
-  missing evidence.
-
-I updated the section above from `Missing Evidence` to `Provenance Status` and
-split those cases. The remaining design gap is that `readout_source.json`
-should probably grow an explicit expected-file policy so future readouts do not
-have to infer this from blueprint/code context.
+> ...

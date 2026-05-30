@@ -153,10 +153,12 @@ Primary evidence:
 - Per-run `lift_fiber_events.csv`: lift/action-realization successes and failures.
 - Per-run `linearization_manifest.json`: tensorization-disabled condition and backend report.
 
-Missing evaluation-level provenance files:
+Provenance status:
 
-- `evaluation_manifest.json`
-- `evaluation_arm_manifest.json`
-- `calibration_summary.json`
-- `calibration_run_index.csv`
-- `calibration_recommendation.md`
+| File | Classification | Interpretation |
+| --- | --- | --- |
+| `evaluation_manifest.json` | `expected_missing_gap` | Expected evaluation-level provenance is absent. |
+| `evaluation_arm_manifest.json` | `expected_missing_gap` | Expected arm-contract provenance is absent. |
+| `calibration_summary.json` | `conditional_absent` | Calibration-path file; not necessarily expected for this locked serious run. |
+| `calibration_run_index.csv` | `conditional_absent` | Calibration-path file; not necessarily expected for this locked serious run. |
+| `calibration_recommendation.md` | `conditional_absent` | Calibration-path file; not necessarily expected for this locked serious run. |

@@ -59,19 +59,22 @@ successful exploit execution or training.
 The failure counts align with the controller `explore` counts for the non-empty
 tower arms. This is the main mechanism behind zero-step episodes.
 
-## Finding 5: Missing Evaluation-Level Provenance Files
+## Finding 5: Provenance Classification
 
-The evaluation root lacks:
+The source evaluation root has absent provenance/calibration files. They are
+not all the same kind of absence:
 
-- `evaluation_manifest.json`
-- `evaluation_arm_manifest.json`
-- `calibration_summary.json`
-- `calibration_run_index.csv`
-- `calibration_recommendation.md`
+| File | Classification | Interpretation |
+| --- | --- | --- |
+| `evaluation_manifest.json` | `expected_missing_gap` | Expected evaluation-level provenance is absent. |
+| `evaluation_arm_manifest.json` | `expected_missing_gap` | Expected arm-contract provenance is absent. |
+| `calibration_summary.json` | `conditional_absent` | Calibration-path file; not necessarily expected for this locked serious run. |
+| `calibration_run_index.csv` | `conditional_absent` | Calibration-path file; not necessarily expected for this locked serious run. |
+| `calibration_recommendation.md` | `conditional_absent` | Calibration-path file; not necessarily expected for this locked serious run. |
 
 The run can still be interpreted from the budget lock, run index, aggregate
 tables, and per-run artifacts, but provenance is less complete than the current
-contract expects.
+contract expects for the two evaluation manifest files.
 
 ## Classification
 

@@ -247,6 +247,39 @@ applicable to this run mode:
 }
 ```
 
+When possible, `readout_source.json` should also record the goal-summary source
+for the README:
+
+```json
+{
+  "goal_summary_sources": [
+    "docs/design/<evaluation-blueprint>.md",
+    "docs/evaluations/<evaluation>/method.md",
+    "readout_source.json"
+  ]
+}
+```
+
+This is not a substitute for the README goal summary. It is an audit pointer
+showing where the generated prose came from.
+
+When possible, `readout_source.json` should also record the methodology-summary
+source for the README:
+
+```json
+{
+  "methodology_summary_sources": [
+    "docs/design/<evaluation-blueprint>.md",
+    "docs/evaluations/<evaluation>/method.md",
+    "docs/evaluations/<evaluation>/runbook.md",
+    "readout_source.json"
+  ]
+}
+```
+
+This is not a substitute for the README methodology summary. It is an audit
+pointer showing where the generated prose came from.
+
 If the source binding lacks expected-file policy, do not flatten all absent
 files into "missing evidence." Use the evaluation design docs, artifact
 contract, run mode, and available manifests to classify each absent file as:
@@ -350,24 +383,38 @@ readouts unless the Project Owner explicitly asks to preserve or migrate them.
 
 ### README Turn Surface
 
-Every generated `README.md` must include a place for human/consultant turns
-when clarification is needed. This is part of the readout surface, not a
-separate design document.
+Every generated `README.md` must end with a place for human/consultant turns.
+This is part of the readout surface, not a separate design document.
 
-Use these headings unless the Project Owner gives different labels:
+On first generation, create this exact section at the bottom of `README.md`
+unless the Project Owner gives different labels:
 
 ```markdown
 ## Clarifying Questions And Turns
 
-### Project Owner / Evaluator Turn
+#### Project Owner / Evaluator Turn
 
-<!-- Record only explicit Project Owner or evaluator text here. Do not invent,
-     smooth, or complete this side of the exchange. Leave blank if unanswered. -->
+> ...
 
-### Embedded Engineering Consultant / Codex Turn
+#### Embedded Engineering Consultant / Codex Turn
 
-<!-- Record Codex's clarifying question, interpretation check, or response
-     here. Keep it tied to the artifact evidence and claim boundary. -->
+> ...
+
+#### Project Owner / Evaluator Turn
+
+> ...
+
+#### Embedded Engineering Consultant / Codex Turn
+
+> ...
+
+#### Project Owner / Evaluator Turn
+
+> ...
+
+#### Embedded Engineering Consultant / Codex Turn
+
+> ...
 ```
 
 Use this section for:
@@ -383,9 +430,41 @@ Use this section for:
 Do not use this section to narrate normal findings that already belong in the
 verdict, result table, diagnostics, or evidence map.
 
-Do not put words in the Project Owner's mouth. If the Project Owner has not
-answered a question, leave the Project Owner / Evaluator turn blank or mark it
-`Pending`.
+Do not put words in the Project Owner's mouth. The placeholder `> ...` means
+"available for a future turn"; it is not content and must not be interpreted as
+an answer.
+
+### README Turn Preservation
+
+On subsequent generations, treat `## Clarifying Questions And Turns` as
+protected conversation state.
+
+Do not:
+
+- delete it;
+- reorder it;
+- rewrite existing turns;
+- summarize existing turns;
+- replace existing turns with generated text;
+- move it away from the bottom of `README.md`;
+- convert `####` turn headings back to `###`;
+- replace `> ...` placeholders with prose.
+
+Regeneration may update sections above `## Clarifying Questions And Turns`.
+The turn section itself must remain byte-for-byte intact whenever it already
+contains at least one Project Owner / Evaluator and Embedded Engineering
+Consultant / Codex turn pair.
+
+If the section is missing, generate the initial three blank turn pairs shown
+above.
+
+If the section exists but contains no complete Project Owner / Evaluator plus
+Embedded Engineering Consultant / Codex turn pair, append the initial three
+blank turn pairs inside the existing section, preserving any existing text.
+
+If the section exists and all blank `> ...` turn pairs have been filled, append
+one new blank Project Owner / Evaluator plus Embedded Engineering Consultant /
+Codex turn pair at the end, preserving all previous turns.
 
 ### Completion Report
 
@@ -493,7 +572,97 @@ Better:
 Counterpoint First Serious Learning Evaluation - Human Readout
 ```
 
-### 2. One-Screen Verdict
+### 2. Summary Of Goals Behind This Evaluation
+
+Every generated `README.md` must include a populated section titled:
+
+```markdown
+## Summary of Goals Behind this Evaluation
+```
+
+This section must appear before the one-screen verdict. It gives the reader the
+why before the result.
+
+Populate it with ordinary engineering prose that answers:
+
+- what question this evaluation exists to answer;
+- what environment or fixture is being used;
+- what arms, baselines, or control conditions matter;
+- what comparison is intended;
+- what the evaluation is not trying to prove;
+- what claim boundary should frame the rest of the report.
+
+Do not leave this section as `[...]`, `TODO`, `TBD`, or any other placeholder.
+
+If the source artifacts do not contain enough goal context, use the repo design
+docs, checked-in evaluation docs, source binding, method file, and runbook to
+write the best supported goal summary. If the goal still cannot be determined,
+the section must still be populated with:
+
+- the known environment/evaluation identity;
+- the known run mode and source files;
+- the specific missing goal context;
+- a clarifying question mirrored in `Clarifying Questions And Turns`.
+
+For the counterpoint first serious learning readout, this section should explain
+that the evaluation compares direct counterpoint learning against tower-control
+learning on `counterpoint_symbolic_n3_small_v001`, with direct tabular Q and
+empty-schema tower as critical baselines, and with non-empty contraction schemas
+tested as the real tower/control comparison. It must also state the non-goals:
+not musical quality, not tensor-enabled performance, not GPU/CUDA performance,
+and not a general tower-superiority claim.
+
+### 3. Summary Of Methodology Behind This Evaluation
+
+Every generated `README.md` must include a populated section titled:
+
+```markdown
+## Summary of Methodology Behind this Evaluation
+```
+
+This section must appear after the goal summary and before the one-screen
+verdict. It gives the reader the how before the result.
+
+Populate it with ordinary engineering prose that answers:
+
+- what evaluation method class or comparison design is being used;
+- what environment fixture is being used and why;
+- what arms, baselines, controls, and comparison groups are included;
+- what budget, seed policy, schema-seed policy, horizon, and replicate policy
+  were used;
+- which path produced the artifacts: calibration, locked run, summarize,
+  readout, or another run mode;
+- what artifact contract and expected-file policy apply;
+- what aggregation or statistical method produced the result tables;
+- what timing categories are included and excluded;
+- what linearization/backend condition applies;
+- what the methodology cannot support as a claim.
+
+Do not leave this section as `[...]`, `TODO`, `TBD`, or any other placeholder.
+
+If the source artifacts do not contain enough methodology context, use the repo
+design docs, checked-in evaluation docs, source binding, method file, runbook,
+and artifact index to write the best supported methodology summary. If the
+methodology still cannot be determined, the section must still be populated
+with:
+
+- the known evaluation method facts;
+- the known run mode and source files;
+- the specific missing methodology context;
+- a clarifying question mirrored in `Clarifying Questions And Turns`.
+
+For the counterpoint first serious learning readout, this section should explain
+that the evaluation compares direct environment arms against active-tier
+exploit/explore tower-control arms under shared seed, budget, mask, artifact,
+timing, and linearization discipline. It should name direct masked random,
+direct tabular Q, empty-schema tower, random balanced/unbalanced tower,
+structured motion tower, and bad/adversarial tower arms. It should say that the
+recorded run is a locked serious-run/summarize artifact set under
+`tensor_available_disabled`, with 16 episodes per run, 4 replicates, 3 random
+schema seeds, and max 8 steps per episode when those facts are present in the
+budget lock.
+
+### 4. One-Screen Verdict
 
 State the result in plain language.
 
@@ -513,7 +682,7 @@ lift/action-realization failures. This run is therefore useful diagnostic
 evidence, but it does not support a positive tower-performance claim.
 ```
 
-### 3. Run Identity
+### 5. Run Identity
 
 Record:
 
@@ -528,7 +697,7 @@ Record:
 - command or runbook path;
 - budget lock path if applicable.
 
-### 4. Claim Boundary
+### 6. Claim Boundary
 
 Say exactly what the report may and may not claim.
 
@@ -540,7 +709,7 @@ The claim boundary must include:
 - whether musical-quality claims are excluded;
 - whether general method superiority claims are excluded.
 
-### 5. Arm Legend
+### 7. Arm Legend
 
 Translate every arm id into a human label.
 
@@ -564,7 +733,7 @@ Tower controller with random balanced contraction schema. Tests whether this
 schema supports action realization and learning under the tower interface.
 ```
 
-### 6. Main Result Table
+### 8. Main Result Table
 
 Do not paste the raw aggregate table as the only table.
 
@@ -582,7 +751,7 @@ Create a reader-facing table with:
 
 Raw statistical columns can follow in a technical appendix.
 
-### 7. Diagnostic Findings
+### 9. Diagnostic Findings
 
 If any arm has surprising, zero, missing, failed, or inconsistent values, write a
 diagnostic section.
@@ -596,7 +765,7 @@ This section should answer:
 - whether it indicates a code bug, environment fact, schema fact, or expected
   negative result.
 
-### 8. Timing Readout
+### 10. Timing Readout
 
 Timing tables must distinguish:
 
@@ -610,7 +779,7 @@ Timing tables must distinguish:
 Do not compare methods on wall-clock timing unless the report says which timing
 categories are included.
 
-### 9. Evidence Map
+### 11. Evidence Map
 
 End with an evidence map that tells the reader where to inspect:
 
@@ -626,7 +795,7 @@ End with an evidence map that tells the reader where to inspect:
 
 The evidence map must say what each file is for.
 
-### 9.1 Provenance Status
+### 11.1 Provenance Status
 
 If any expected or commonly inspected files are absent, write a provenance
 status section instead of a generic "missing evidence" section.
@@ -654,22 +823,16 @@ For the counterpoint first serious learning readout, this means:
   artifact root is a manually locked serious run without calibration, classify
   them as `conditional_absent` or `not_applicable`, not as missing evidence.
 
-### 10. Clarifying Questions And Turns
+### 12. Clarifying Questions And Turns
 
-In `README.md`, include the turn surface defined above. The section may be
-empty, but it must exist so the Project Owner, evaluator, and Codex have a
-stable place to resolve report questions without scattering corrections across
-the conversation.
+In `README.md`, include the protected turn surface defined above as the final
+section. Do not use prose such as "No open clarifying questions recorded" in
+place of the turn-pad. Empty turn slots should be represented by `> ...`.
 
-If the readout has no open ambiguity, write:
-
-```text
-No open clarifying questions recorded for this readout.
-```
-
-If there is an open ambiguity, write the Codex turn as a concrete question or
-interpretation check, and leave the Project Owner / Evaluator turn pending until
-the human answers.
+On first generation, create the three blank turn pairs. On subsequent
+generations, preserve the section intact, except to append blank turn pairs when
+the section is missing, malformed, or has no blank pair available for future
+conversation.
 
 ## All-Cases Protocol
 
@@ -1113,12 +1276,14 @@ sources, not output homes.
 
 If time is short, the minimum acceptable human-readable report is:
 
-1. one-screen verdict;
-2. arm legend;
-3. reader-facing result table;
-4. diagnostic warnings;
-5. claim boundary;
-6. evidence map.
+1. summary of goals behind the evaluation;
+2. summary of methodology behind the evaluation;
+3. one-screen verdict;
+4. arm legend;
+5. reader-facing result table;
+6. diagnostic warnings;
+7. claim boundary;
+8. evidence map.
 
 Anything less is an artifact index, not a result report.
 

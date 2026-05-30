@@ -7,6 +7,19 @@
   "artifact_run_label": "bbb-counterpoint-serious-learning-serious-001",
   "artifact_schema_version": "bbb.v001",
   "linearization_mode_id": "tensor_available_disabled",
+  "run_mode": "locked_serious_run_summarized",
+  "goal_summary_sources": [
+    "docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_001_counterpoint_first_serious_learning_evaluation_blueprint.md",
+    "docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/method.md",
+    "docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/readout_source.json"
+  ],
+  "methodology_summary_sources": [
+    "docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_001_counterpoint_first_serious_learning_evaluation_blueprint.md",
+    "docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/method.md",
+    "docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/runbook.md",
+    "docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifact_index.md",
+    "docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/readout_source.json"
+  ],
   "source_files": {
     "budget_lock": "/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001/evaluation_budget_lock.json",
     "run_index": "/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001/evaluation_run_index.csv",
@@ -16,6 +29,35 @@
     "timing_summary": "/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001/results/timing_summary.csv",
     "controller_summary": "/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001/results/controller_summary.csv",
     "schema_diagnostic_summary": "/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001/results/schema_diagnostic_summary.csv"
+  },
+  "expected_files": {
+    "required": [
+      "evaluation_budget_lock.json",
+      "evaluation_run_index.csv",
+      "evaluation_aggregate_summary.json",
+      "evaluation_aggregate_table.csv",
+      "results/learning_curves.csv",
+      "results/timing_summary.csv",
+      "results/controller_summary.csv",
+      "results/schema_diagnostic_summary.csv"
+    ],
+    "expected_absent_is_gap": [
+      "evaluation_manifest.json",
+      "evaluation_arm_manifest.json"
+    ],
+    "conditional": {
+      "calibration": [
+        "calibration_summary.json",
+        "calibration_run_index.csv",
+        "calibration_recommendation.md"
+      ]
+    },
+    "not_applicable": [],
+    "expectation_sources": [
+      "docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_001_counterpoint_first_serious_learning_evaluation_blueprint.md",
+      "src/big_boy_benchmarking/environments/counterpoint/serious_learning/evaluation_paths.py",
+      "src/big_boy_benchmarking/environments/counterpoint/serious_learning/runner.py"
+    ]
   },
   "claim_boundary": [
     "May compare direct and tower-control arms for this artifact run under tensor_available_disabled.",

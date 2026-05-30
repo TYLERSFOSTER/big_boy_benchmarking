@@ -37,11 +37,11 @@ source location used for this readout, not as a durable artifact archive.
 | `evaluation_run_index.csv` | Run ids, arm ids, schema seeds, replicate indices, run statuses, timestamps. | present |
 | `evaluation_aggregate_summary.json` | Aggregate status and pointers to result tables. | present |
 | `evaluation_aggregate_table.csv` | Per-arm return summaries, confidence intervals, deltas versus baselines. | present |
-| `evaluation_manifest.json` | Intended evaluation-level provenance manifest. | missing |
-| `evaluation_arm_manifest.json` | Intended arm contract manifest. | missing |
-| `calibration_summary.json` | Calibration runtime/artifact/noise summary. | missing |
-| `calibration_run_index.csv` | Calibration run index. | missing |
-| `calibration_recommendation.md` | Calibration-based budget recommendation. | missing |
+| `evaluation_manifest.json` | Intended evaluation-level provenance manifest. | `expected_missing_gap` |
+| `evaluation_arm_manifest.json` | Intended arm contract manifest. | `expected_missing_gap` |
+| `calibration_summary.json` | Calibration runtime/artifact/noise summary. | `conditional_absent` |
+| `calibration_run_index.csv` | Calibration run index. | `conditional_absent` |
+| `calibration_recommendation.md` | Calibration-based budget recommendation. | `conditional_absent` |
 
 ## Result Tables
 
