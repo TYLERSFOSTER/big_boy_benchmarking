@@ -55,6 +55,36 @@ Do not summarize away the evidence.
 The readable document must preserve the path back to the artifacts while
 explaining the artifacts in ordinary engineering language.
 
+## Relationship To The Other Protocols
+
+This is the third protocol in the benchmark workflow.
+
+The environment construction protocol is:
+
+```text
+docs/prime_directive/environment_construction_for_benchmark_evaluations_protocol.md
+```
+
+The evaluation construction protocol is:
+
+```text
+docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md
+```
+
+The three stages are:
+
+```text
+1. Construct an environment that can support evaluations.
+2. Construct evaluations for that environment.
+3. Process run artifacts into repo-side human-readable readouts.
+```
+
+This readout protocol answers:
+
+```text
+How does Codex turn artifacts and source bindings into readable docs?
+```
+
 ## Non-Negotiable Path Invariants
 
 The protocol has three different path roles. Do not merge them.
@@ -595,9 +625,9 @@ Populate it with ordinary engineering prose that answers:
 Do not leave this section as `[...]`, `TODO`, `TBD`, or any other placeholder.
 
 If the source artifacts do not contain enough goal context, use the repo design
-docs, checked-in evaluation docs, source binding, method file, and runbook to
-write the best supported goal summary. If the goal still cannot be determined,
-the section must still be populated with:
+docs, checked-in evaluation readout docs, source binding, method file, and
+runbook to write the best supported goal summary. If the goal still cannot be
+determined, the section must still be populated with:
 
 - the known environment/evaluation identity;
 - the known run mode and source files;
@@ -641,9 +671,9 @@ Populate it with ordinary engineering prose that answers:
 Do not leave this section as `[...]`, `TODO`, `TBD`, or any other placeholder.
 
 If the source artifacts do not contain enough methodology context, use the repo
-design docs, checked-in evaluation docs, source binding, method file, runbook,
-and artifact index to write the best supported methodology summary. If the
-methodology still cannot be determined, the section must still be populated
+design docs, checked-in evaluation readout docs, source binding, method file,
+runbook, and artifact index to write the best supported methodology summary. If
+the methodology still cannot be determined, the section must still be populated
 with:
 
 - the known evaluation method facts;

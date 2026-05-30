@@ -65,18 +65,31 @@ This means the tensorization boundary is present and recorded, but tensor
 execution is disabled. `tensor_enabled_cpu` and `tensor_enabled_cuda` remain
 reserved.
 
-## Result Docs
+## Result Readouts
 
-Generated human-facing evaluation docs live under the artifact root by default:
+Raw serious-learning artifacts live under the explicit artifact root:
 
 ```text
-<artifact-root>/evaluations/counterpoint_first_serious_learning_v001/docs/
+<artifact-root>/evaluations/counterpoint_first_serious_learning_v001/
 ```
 
-Generated docs summarize artifacts and claim boundary. They must not claim a
-serious result exists until the corresponding artifact root exists.
+The summarizer may write artifact-local docs under that tree for immediate
+inspection, but the durable human readout surface lives in the repo:
 
-Checked-in files under
-`docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/` are stable
-guides and templates. They should use `<artifact-root>` placeholders unless a
-durable artifact location is intentionally promoted.
+```text
+docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/
+```
+
+That repo folder must include `readout_source.json`, which binds the readout
+surface to the raw aggregate tables, run index, result tables, goal sources,
+methodology sources, expected-file policy, and claim boundary.
+
+Regenerate the repo-side human readout with:
+
+```text
+execute artifact-table readout pointed at folder docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/
+```
+
+Generated readouts summarize artifacts and claim boundaries. They must not
+claim a serious result exists until the corresponding machine-readable artifact
+set exists and the source binding points to it.

@@ -41,16 +41,13 @@ artifacts under:
 evaluations/counterpoint_first_serious_learning_v001/
 ```
 
-Core files include:
+Required serious-run evaluation files include:
 
 ```text
 evaluation_manifest.json
 evaluation_arm_manifest.json
 evaluation_run_index.csv
 evaluation_budget_lock.json
-calibration_summary.json
-calibration_run_index.csv
-calibration_recommendation.md
 evaluation_aggregate_summary.json
 evaluation_aggregate_table.csv
 results/learning_curves.csv
@@ -59,9 +56,29 @@ results/controller_summary.csv
 results/schema_diagnostic_summary.csv
 ```
 
+Calibration-path files are conditional on calibration runs:
+
+```text
+calibration_summary.json
+calibration_run_index.csv
+calibration_recommendation.md
+```
+
+Human-readable evaluation readouts live in repo-side readout surfaces under:
+
+```text
+docs/evaluations/
+```
+
+Each readout surface should include `readout_source.json` so generated prose
+can point back to the raw artifact root, source evaluation root, aggregate
+tables, run index, expected-file policy, and claim boundary.
+
 See also:
 
 ```text
+docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md
+docs/prime_directive/artifact_table_to_readable_document_protocol.md
 docs/design/shared_benchmark_machinery/01_001_shared_benchmark_machinery_design.md
 docs/methods/counterpoint_serious_learning.md
 ```

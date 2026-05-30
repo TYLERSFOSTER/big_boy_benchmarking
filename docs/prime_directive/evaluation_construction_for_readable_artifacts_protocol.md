@@ -26,14 +26,28 @@ Do not build an evaluation that can run but cannot explain what it was trying
 to test, how it was tested, which files were expected, and which claims are
 allowed.
 
-## Relationship To The Readout Protocol
+## Relationship To The Other Protocols
 
-This is the upstream construction protocol.
+This is the second protocol in the benchmark workflow.
+
+The environment construction protocol is:
+
+```text
+docs/prime_directive/environment_construction_for_benchmark_evaluations_protocol.md
+```
 
 The downstream readout protocol is:
 
 ```text
 docs/prime_directive/artifact_table_to_readable_document_protocol.md
+```
+
+The three stages are:
+
+```text
+1. Construct an environment that can support evaluations.
+2. Construct evaluations for that environment.
+3. Process run artifacts into repo-side human-readable readouts.
 ```
 
 The construction protocol answers:

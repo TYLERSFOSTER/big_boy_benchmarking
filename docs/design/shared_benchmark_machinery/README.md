@@ -2,7 +2,8 @@
 
 ## Status
 
-Design workspace.
+Historical design workspace. The first shared benchmark machinery slice has
+been implemented; this folder remains the design/history record for that work.
 
 ## Scope
 
@@ -20,8 +21,16 @@ and later environment families should build on:
 
 ## Boundary
 
-This folder is for design artifacts only until the Project Owner approves a
-Phase.Stage.Action implementation gameplan.
+This folder is for design artifacts, implementation gameplans, implementation
+logs, and resume notes.
 
-The paused counterpoint implementation should resume only after this shared
-machinery exists and its prerequisite gate passes.
+Current workflow-facing protocols live under:
+
+```text
+docs/prime_directive/
+```
+
+Use those protocols for new environment construction, evaluation construction,
+and artifact-table readout generation. Do not treat old pause wording in this
+folder as current repo state without checking the implementation logs and
+current branch state.

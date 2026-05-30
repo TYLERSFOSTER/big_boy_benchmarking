@@ -13,7 +13,8 @@ As of 2026-05-30, the implemented repo state is:
 - graph, schema, direct, tower-smoke, and serious-learning commands are
   runnable;
 - first serious learning evaluation machinery exists for calibration,
-  budget-locked execution, aggregation, and generated artifact-local docs.
+  budget-locked execution, aggregation, source-bound repo readouts, and
+  human-readable interpretation.
 
 The current serious-learning default linearization condition is:
 
@@ -75,36 +76,62 @@ Use the docs folders this way:
 
 - `docs/design/`: design discussions, blueprints, implementation gameplans,
   and implementation logs.
-- `docs/environments/`: human summaries of environment families and fixtures.
+- `docs/environments/`: human summaries of environment families, fixtures,
+  contracts, diagnostics, and claim boundaries.
 - `docs/methods/`: method, contract, mode, metric, timing, and statistics
   explanations.
 - `docs/experiments/`: planned or runnable experiment matrices.
-- `docs/results/`: durable human result summaries for artifact sets that the
-  repo intentionally records.
-- `docs/evaluations/`: checked-in guides for interpreting generated evaluation
-  docs. Local generated readouts should live under the artifact root by default.
+- `docs/evaluations/`: repo-side readout surfaces for evaluation families.
+  These contain `readout_source.json`, goal/methodology summaries, artifact
+  indexes, and generated human-readable readouts grounded in raw artifact
+  tables.
+- `docs/results/`: promoted durable result summaries when the repo
+  intentionally records a result beyond an evaluation-local readout.
 - `docs/engineer_continuity/`: continuity reports and historical handoff notes.
 - `docs/prime_directive/`: operating protocol directed to the embedded
   engineering consultant.
 
 Machine-readable artifacts are the source of truth for executed runs.
-Human-facing docs must describe claim boundaries and must not invent a result
-that is not backed by recorded artifacts.
+Repo-side human-facing readouts must describe claim boundaries and must not
+invent a result that is not backed by recorded artifacts.
 
-## Generated Evaluation Docs
+## Benchmark Workflow
 
-Evaluation summarization writes generated docs under the artifact root by
-default:
+The repo workflow is:
+
+```text
+1. Construct an environment.
+2. Construct evaluations for that environment.
+3. Process run artifacts into repo-side human-readable readouts.
+```
+
+Follow these protocols:
+
+```text
+docs/prime_directive/environment_construction_for_benchmark_evaluations_protocol.md
+docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md
+docs/prime_directive/artifact_table_to_readable_document_protocol.md
+```
+
+## Evaluation Readouts
+
+Evaluation summarization writes aggregate tables and may write artifact-local
+generated readouts for immediate inspection:
 
 ```text
 <artifact-root>/evaluations/<evaluation-id>/docs/
 ```
 
-Do not commit generated docs that contain machine-local paths such as
-`/private/tmp/...`.
+The durable checked-in readout lives under `docs/evaluations/` and is generated
+by pointing the artifact-table protocol at the repo-side readout surface:
 
-Checked-in evaluation docs should use `<artifact-root>` placeholders unless a
-durable, intentionally preserved artifact location is being recorded.
+```text
+execute artifact-table readout pointed at folder docs/evaluations/<environment>/<evaluation>/
+```
+
+Each repo-side evaluation readout surface should include `readout_source.json`
+so generated readouts can truthfully bind back to the machine-readable artifact
+tables.
 
 ## Validation
 

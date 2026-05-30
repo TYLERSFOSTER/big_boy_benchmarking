@@ -1,14 +1,33 @@
 # Evaluations
 
-Checked-in files in this folder describe how to read evaluation docs and which
-claim boundaries apply.
+Checked-in files in this folder are repo-side evaluation readout surfaces. They
+describe how to interpret evaluation artifacts and which claim boundaries
+apply.
 
-Generated evaluation docs should be written under the artifact root by default:
+This folder is stage 2 and stage 3 of the benchmark workflow:
 
 ```text
-<artifact-root>/evaluations/<evaluation-id>/docs/
+2. Construct evaluations for environments.
+3. Process raw run artifacts into repo-side human-readable readouts.
 ```
 
-Do not commit generated Markdown that contains machine-local artifact paths.
-Use `<artifact-root>` placeholders in checked-in docs unless the repo is
-intentionally recording a durable artifact location.
+Each evaluation readout surface should contain a `readout_source.json` file.
+That file binds the repo-side readout to the raw artifact root and source
+evaluation root.
+
+The command target for human-readable readout generation is the repo-side
+evaluation folder, not the raw artifact root:
+
+```text
+execute artifact-table readout pointed at folder docs/evaluations/<environment>/<evaluation>/
+```
+
+Follow:
+
+```text
+docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md
+docs/prime_directive/artifact_table_to_readable_document_protocol.md
+```
+
+Generated artifact-local docs may still exist for immediate inspection, but the
+durable human interpretation surface lives here.

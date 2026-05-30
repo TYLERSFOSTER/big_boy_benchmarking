@@ -24,3 +24,7 @@ Normally untracked:
 
 Large external artifacts should be referenced from explicit manifest files
 rather than treated as terminal output or hidden local state.
+
+Human-readable readouts are not normally stored here. They live in repo-side
+evaluation surfaces under `docs/evaluations/` and point back to raw artifacts
+through `readout_source.json`.
