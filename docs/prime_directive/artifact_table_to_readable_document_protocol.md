@@ -223,6 +223,42 @@ It should record at least:
 }
 ```
 
+When possible, `readout_source.json` should also record expected-file policy so
+the human readout can distinguish real missing evidence from files that are not
+applicable to this run mode:
+
+```json
+{
+  "expected_files": {
+    "required": ["evaluation_budget_lock.json", "evaluation_run_index.csv"],
+    "expected_absent_is_gap": [
+      "evaluation_manifest.json",
+      "evaluation_arm_manifest.json"
+    ],
+    "conditional": {
+      "calibration": [
+        "calibration_summary.json",
+        "calibration_run_index.csv",
+        "calibration_recommendation.md"
+      ]
+    },
+    "not_applicable": []
+  }
+}
+```
+
+If the source binding lacks expected-file policy, do not flatten all absent
+files into "missing evidence." Use the evaluation design docs, artifact
+contract, run mode, and available manifests to classify each absent file as:
+
+```text
+present
+expected_missing_gap
+conditional_absent
+not_applicable
+unknown_expectation
+```
+
 The source artifact root may live in `/private/tmp`, another local artifact
 directory, or a durable artifact store. That path is evidence metadata. It is
 not the protocol invocation target.
@@ -273,9 +309,16 @@ present:
 If the artifact set is large, inspect representative per-run files for every
 arm class and every anomalous condition before writing the final readout.
 
-If a required source file listed in `readout_source.json` is missing, do not
-silently reuse an older table. Mark the source as missing and apply the relevant
-all-cases rule.
+If a required source file listed in `readout_source.json` is absent, do not
+silently reuse an older table. Classify it as `expected_missing_gap` and apply
+the relevant all-cases rule.
+
+If a source file is absent but not listed as required, classify expectation
+before writing the report. For example, calibration files may be absent because
+the source artifact root came from a manually locked serious run rather than a
+calibration path. In that case, call them `conditional_absent` or
+`not_applicable`; do not call them missing evidence unless the source binding,
+blueprint, or run mode says they were expected for this artifact set.
 
 ### Output Contract
 
@@ -305,6 +348,45 @@ If a prior version of this protocol wrote artifact-local docs under
 `<evaluation-root>/docs/`, treat those files as non-authoritative temporary
 readouts unless the Project Owner explicitly asks to preserve or migrate them.
 
+### README Turn Surface
+
+Every generated `README.md` must include a place for human/consultant turns
+when clarification is needed. This is part of the readout surface, not a
+separate design document.
+
+Use these headings unless the Project Owner gives different labels:
+
+```markdown
+## Clarifying Questions And Turns
+
+### Project Owner / Evaluator Turn
+
+<!-- Record only explicit Project Owner or evaluator text here. Do not invent,
+     smooth, or complete this side of the exchange. Leave blank if unanswered. -->
+
+### Embedded Engineering Consultant / Codex Turn
+
+<!-- Record Codex's clarifying question, interpretation check, or response
+     here. Keep it tied to the artifact evidence and claim boundary. -->
+```
+
+Use this section for:
+
+- unresolved source-binding questions;
+- unclear claim boundaries;
+- ambiguous zero/null/failure interpretation;
+- missing baseline decisions;
+- PO/evaluator corrections to the readout;
+- Codex replies that explain how the report was changed or why a claim was
+  blocked.
+
+Do not use this section to narrate normal findings that already belong in the
+verdict, result table, diagnostics, or evidence map.
+
+Do not put words in the Project Owner's mouth. If the Project Owner has not
+answered a question, leave the Project Owner / Evaluator turn blank or mark it
+`Pending`.
+
 ### Completion Report
 
 After executing this surface, report:
@@ -313,7 +395,7 @@ After executing this surface, report:
 - the resolved source artifact root;
 - the resolved source evaluation root;
 - the files written;
-- any missing artifacts;
+- any absent artifacts, classified by expectation status;
 - any stopped claim decisions;
 - validation performed, if any.
 
@@ -544,6 +626,51 @@ End with an evidence map that tells the reader where to inspect:
 
 The evidence map must say what each file is for.
 
+### 9.1 Provenance Status
+
+If any expected or commonly inspected files are absent, write a provenance
+status section instead of a generic "missing evidence" section.
+
+The provenance status must classify each absent file:
+
+| Classification | Meaning |
+| --- | --- |
+| `expected_missing_gap` | The file is expected by the artifact contract for this run/evaluation and is absent. |
+| `conditional_absent` | The file is expected only under a condition, such as calibration, and that condition is not established for this artifact set. |
+| `not_applicable` | The file does not apply to this run mode or claim boundary. |
+| `unknown_expectation` | The consultant cannot determine whether the file was expected. |
+
+Do not use "missing" alone for files that may be conditional or not applicable.
+Say what the expectation source is: source binding, blueprint, artifact
+contract, CLI/run mode, or explicit Project Owner instruction.
+
+For the counterpoint first serious learning readout, this means:
+
+- `evaluation_manifest.json` and `evaluation_arm_manifest.json` are expected by
+  the serious evaluation artifact contract; if absent, classify them as
+  `expected_missing_gap`.
+- `calibration_summary.json`, `calibration_run_index.csv`, and
+  `calibration_recommendation.md` are calibration-path files; if the source
+  artifact root is a manually locked serious run without calibration, classify
+  them as `conditional_absent` or `not_applicable`, not as missing evidence.
+
+### 10. Clarifying Questions And Turns
+
+In `README.md`, include the turn surface defined above. The section may be
+empty, but it must exist so the Project Owner, evaluator, and Codex have a
+stable place to resolve report questions without scattering corrections across
+the conversation.
+
+If the readout has no open ambiguity, write:
+
+```text
+No open clarifying questions recorded for this readout.
+```
+
+If there is an open ambiguity, write the Codex turn as a concrete question or
+interpretation check, and leave the Project Owner / Evaluator turn pending until
+the human answers.
+
 ## All-Cases Protocol
 
 Use this protocol whenever translating artifact tables to readable documents.
@@ -563,7 +690,8 @@ Required content:
 - source artifact root checked, if known;
 - source evaluation root checked, if known;
 - expected files;
-- missing files;
+- absent files classified as `expected_missing_gap`, `conditional_absent`,
+  `not_applicable`, or `unknown_expectation`;
 - command to generate artifacts if known.
 
 Forbidden:
@@ -700,7 +828,7 @@ Required content:
 - completed arm count;
 - missing arms;
 - failed arms;
-- missing files;
+- absent files with expectation classification;
 - whether rerun/resume is possible.
 
 Forbidden:

@@ -26,6 +26,9 @@ Raw evaluation root:
 The repo surface is the command target. The raw artifact root is evidence
 metadata used by this readout.
 
+The raw artifact root is currently a local `/private/tmp` path. Treat it as the
+source location used for this readout, not as a durable artifact archive.
+
 ## Evaluation-Level Files
 
 | File | Purpose | Status |

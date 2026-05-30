@@ -30,11 +30,13 @@ tower-performance claim.
 
 | Field | Value |
 | --- | --- |
-| Artifact root | `/private/tmp/bbb-counterpoint-serious-learning-serious-001` |
-| Evaluation root | `/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001` |
+| Repo readout surface | `/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning` |
+| Source artifact root | `/private/tmp/bbb-counterpoint-serious-learning-serious-001` |
+| Source evaluation root | `/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001` |
 | Evaluation id | `counterpoint_first_serious_learning_v001` |
 | Environment instance | `counterpoint_symbolic_n3_small_v001` |
 | Artifact schema version | `bbb.v001` |
+| Source durability | local temporary artifact path; not a durable artifact archive |
 | Linearization mode | `tensor_available_disabled` |
 | Linearization state | `PRESENT_DISABLED` |
 | Tensor execution | disabled |

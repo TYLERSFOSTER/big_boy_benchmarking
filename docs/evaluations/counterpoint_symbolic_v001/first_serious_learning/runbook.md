@@ -1,12 +1,12 @@
 # Runbook
 
-## Artifact Root
+## Source Artifact Root
 
 ```text
 /private/tmp/bbb-counterpoint-serious-learning-serious-001
 ```
 
-## Evaluation Root
+## Source Evaluation Root
 
 ```text
 /private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001
