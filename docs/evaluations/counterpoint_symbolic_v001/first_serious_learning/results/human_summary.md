@@ -2,12 +2,12 @@
 
 ## Verdict
 
-The evaluation is artifact-complete for required result tables but
-behaviorally a structural-limit diagnostic.
+The evaluation is artifact-complete for required result tables but behaviorally
+a structural-limit diagnostic.
 
 All `44` runs have run-index status `success`. Direct masked random, direct
-tabular Q, and the empty-schema tower execute 8-step episodes with 100%
-episode success. Non-empty tower arms are dominated by full or near-full
+tabular Q, and the empty-schema tower execute 8-step episodes with 100% episode
+success. Non-empty tower arms are dominated by full or near-full
 first-projection collapse. Random balanced and random unbalanced are
 schema-seed dependent and include zero-step lift/action-realization failures.
 

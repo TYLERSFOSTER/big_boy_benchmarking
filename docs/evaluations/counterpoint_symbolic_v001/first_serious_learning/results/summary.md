@@ -7,8 +7,8 @@ Complete arms: `7` / `7`
 Run count: `44`
 
 Required result tables are present and parse. Expected evaluation-level
-manifest files remain absent, so artifact evidence is classified as partial
-rather than fully contract-complete.
+manifest files and promoted tower summary tables remain absent, so artifact
+evidence is classified as partial rather than fully contract-complete.
 
 ## Main Result
 

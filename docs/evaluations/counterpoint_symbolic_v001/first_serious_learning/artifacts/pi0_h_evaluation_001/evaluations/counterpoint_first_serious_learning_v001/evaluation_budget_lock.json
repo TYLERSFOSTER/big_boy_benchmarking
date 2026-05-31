@@ -1,0 +1,37 @@
+{
+  "arm_ids": [
+    "direct_masked_random",
+    "direct_tabular_q",
+    "tower_empty_exploit_explore_tabular_q",
+    "tower_random_balanced_exploit_explore_tabular_q",
+    "tower_random_unbalanced_exploit_explore_tabular_q",
+    "tower_motion_exploit_explore_tabular_q",
+    "tower_bad_exploit_explore_tabular_q"
+  ],
+  "artifact_schema_version": "bbb.v001",
+  "calibration_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001",
+  "calibration_only": false,
+  "controller_config_id": "exploit_explore_controller_v001",
+  "environment_instance_id": "counterpoint_symbolic_n3_small_v001",
+  "episode_count": 16,
+  "learner_config_id": "tabular_q_v001",
+  "linearization_mode_id": "tensor_available_disabled",
+  "locked_at": "2026-05-31T16:50:08.227034+00:00",
+  "locked_by": "foster",
+  "max_steps_per_episode": 8,
+  "random_schema_seed_count": 3,
+  "replicate_count": 4,
+  "schema_seed_suite": {
+    "schema_seeds": [
+      0,
+      1,
+      2
+    ]
+  },
+  "seed_bundle_ids": [
+    "seed-7fe8666539580bdb",
+    "seed-f2dc11649bc773f7",
+    "seed-3ca872abbb2c8edf",
+    "seed-bdc0a4ee553b5fe0"
+  ]
+}

@@ -1,10 +1,10 @@
 {
   "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning",
-  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_002_clean",
-  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_002_clean/evaluations/counterpoint_first_serious_learning_v001",
+  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001",
+  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001",
   "evaluation_id": "counterpoint_first_serious_learning_v001",
   "environment_instance_id": "counterpoint_symbolic_n3_small_v001",
-  "artifact_run_label": "bbb-counterpoint-serious-learning-v071-002-clean",
+  "artifact_run_label": "pi0_h_evaluation_001",
   "artifact_schema_version": "bbb.v001",
   "linearization_mode_id": "tensor_available_disabled",
   "run_mode": "locked_serious_run_summarized",
@@ -19,14 +19,14 @@
     "docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/readout_source.json"
   ],
   "source_files": {
-    "budget_lock": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_002_clean/evaluations/counterpoint_first_serious_learning_v001/evaluation_budget_lock.json",
-    "run_index": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_002_clean/evaluations/counterpoint_first_serious_learning_v001/evaluation_run_index.csv",
-    "aggregate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_002_clean/evaluations/counterpoint_first_serious_learning_v001/evaluation_aggregate_summary.json",
-    "aggregate_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_002_clean/evaluations/counterpoint_first_serious_learning_v001/evaluation_aggregate_table.csv",
-    "learning_curves": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_002_clean/evaluations/counterpoint_first_serious_learning_v001/results/learning_curves.csv",
-    "timing_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_002_clean/evaluations/counterpoint_first_serious_learning_v001/results/timing_summary.csv",
-    "controller_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_002_clean/evaluations/counterpoint_first_serious_learning_v001/results/controller_summary.csv",
-    "schema_diagnostic_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_002_clean/evaluations/counterpoint_first_serious_learning_v001/results/schema_diagnostic_summary.csv"
+    "budget_lock": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/evaluation_budget_lock.json",
+    "run_index": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/evaluation_run_index.csv",
+    "aggregate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/evaluation_aggregate_summary.json",
+    "aggregate_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/evaluation_aggregate_table.csv",
+    "learning_curves": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/results/learning_curves.csv",
+    "timing_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/results/timing_summary.csv",
+    "controller_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/results/controller_summary.csv",
+    "schema_diagnostic_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/results/schema_diagnostic_summary.csv"
   },
   "expected_files": {
     "required": [
@@ -55,7 +55,8 @@
     },
     "not_applicable": [],
     "expectation_sources": [
-      "docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_001_counterpoint_first_serious_learning_evaluation_blueprint.md",
+      "docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md",
+      "docs/methods/artifact_contract.md",
       "src/big_boy_benchmarking/environments/counterpoint/serious_learning/evaluation_paths.py",
       "src/big_boy_benchmarking/environments/counterpoint/serious_learning/runner.py"
     ]
@@ -65,7 +66,7 @@
       "goal_id": "serious_harness_artifact_contract",
       "question": "Can the first serious counterpoint evaluation produce interpretable locked-run artifacts across all arms?",
       "success_signal": "All required result tables, run index, budget lock, timing, controller, and schema diagnostic summaries exist and parse.",
-      "partial_signal": "Required result tables exist, but expected provenance manifests are absent.",
+      "partial_signal": "Required result tables exist, but expected provenance manifests or promoted tower summary tables are absent.",
       "failure_signal": "Required run or aggregate tables are absent or cannot be parsed.",
       "claim_if_met": "The serious harness can produce interpretable evidence for this fixture and budget.",
       "claim_if_not_met": "The run cannot support serious evaluation interpretation."
@@ -82,8 +83,8 @@
     {
       "goal_id": "nonempty_tower_action_realization",
       "question": "Can non-empty contraction schemas realize valid concrete actions and support learning through tower control?",
-      "success_signal": "Non-empty tower arms execute nonzero-step episodes with valid action realization and nonzero returns.",
-      "partial_signal": "Non-empty tower arms complete artifact runs but expose lift or action-realization failures.",
+      "success_signal": "Non-empty tower arms execute nonzero-step episodes with valid action realization and nonzero returns without structural-limit collapse.",
+      "partial_signal": "Non-empty tower arms complete artifact runs but expose quotient-collapse or lift/action-realization failures.",
       "failure_signal": "Non-empty tower arms fail to produce interpretable tower-control behavior.",
       "claim_if_met": "The evaluated non-empty contraction schemas support tower-control learning under this budget.",
       "claim_if_not_met": "The run does not support a positive tower-performance claim."
@@ -123,7 +124,7 @@
       "label": "Artifacts: Partial",
       "color": "yellow",
       "file": "badges/artifacts_partial.svg",
-      "reason": "Required result tables exist and parse, but expected evaluation and arm manifests are absent."
+      "reason": "Required result tables exist and parse, but expected evaluation manifests and promoted tower summary tables are absent."
     },
     "behavioral_status": {
       "label": "Behavior: Structural Limit",
@@ -147,7 +148,7 @@
       "label": "Provenance: Repo Artifacts",
       "color": "green",
       "file": "badges/provenance_repo_artifacts.svg",
-      "reason": "Source artifacts live under the repo-side evaluation readout surface in artifacts/v071_002_clean."
+      "reason": "Source artifacts live under the repo-side evaluation readout surface in artifacts/pi0_h_evaluation_001."
     }
   },
   "claim_boundary": [

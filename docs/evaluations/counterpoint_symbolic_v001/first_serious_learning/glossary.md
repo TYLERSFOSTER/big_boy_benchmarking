@@ -33,9 +33,6 @@ arms use `tower_exploit_explore`.
 `schema_seed`
 : Seed used to generate a random schema.
 
-`seed_bundle_id`
-: Seed bundle for the environment/learner run.
-
 `mean_return`
 : Average total reward per episode.
 
@@ -52,15 +49,14 @@ arms use `tower_exploit_explore`.
 : Episode-level success flag. In this artifact set, zero-step episodes are
 marked unsuccessful, while 8-step episodes are marked successful.
 
-`control_action`
-: Tower controller action such as `descend`, `explore`, `exploit_execute`, or
-`train`.
+`state_cell_count_by_tier`
+: Tower shape tuple. Tier `0` is the fine/base tier. Later indices are more
+coarsened quotient tiers.
 
-`active_tier`
-: Tower tier used for a control or lift/action-realization event.
-
-`failure_reason`
-: Diagnostic reason for a failed lift/action-realization attempt.
+`structural_limit`
+: Behavior classification used when quotient shape dominates interpretation,
+especially when the first projection fully or nearly fully collapses tier-`0`
+states.
 
 `no_lift_candidate_from_current_state`
 : Lift/action-realization failure where the active tier has an abstract action
@@ -70,27 +66,3 @@ on specific random schema seeds.
 `linearization_mode_id`
 : Numeric/backend discipline label. This run records
 `tensor_available_disabled`.
-
-## Arms
-
-`direct_masked_random`
-: Direct environment random policy constrained by legal action masks.
-
-`direct_tabular_q`
-: Direct environment tabular Q-learning baseline.
-
-`tower_empty_exploit_explore_tabular_q`
-: Tower controller with empty schema. This is a tower-control shell without
-nontrivial contraction.
-
-`tower_random_balanced_exploit_explore_tabular_q`
-: Tower controller with seeded balanced random contraction schema.
-
-`tower_random_unbalanced_exploit_explore_tabular_q`
-: Tower controller with seeded unbalanced random contraction schema.
-
-`tower_motion_exploit_explore_tabular_q`
-: Tower controller with structured motion contraction schema.
-
-`tower_bad_exploit_explore_tabular_q`
-: Tower controller with intentionally bad/adversarial overcompression schema.
