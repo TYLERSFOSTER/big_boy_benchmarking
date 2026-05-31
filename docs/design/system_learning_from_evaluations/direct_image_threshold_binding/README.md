@@ -37,6 +37,35 @@ Those choices can impose effective ceilings or feasibility constraints on the
 whole tower. A coarse policy may look weak, strong, blocked, or safe depending
 on how lower-tier rewards are aggregated upward.
 
+## Explanation Device: Binary Search
+
+Future LLMs and engineers should use binary search as the default explanation
+device for this issue.
+
+Almost every conceptual problem here already occurs in binary search in a form
+early CS students have to confront:
+
+- a coarse decision is only useful if it preserves the right refinement;
+- a threshold can discard the correct half of the search space or accidentally
+  discard the answer;
+- the meaning of "promising" depends on the summary statistic used to choose a
+  branch;
+- a local decision made at a coarse level can bind everything that happens
+  below it;
+- correctness requires knowing what information the coarse test preserves and
+  what information it throws away.
+
+The tower setting is a modified version of that lesson. Instead of asking
+"which half of a sorted list contains the target?", a quotient tier asks "which
+fiber/refinement region is worth pursuing?" The direct-image aggregation rule
+is part of the answer. A `max` rule says that the fiber is promising if some
+refinement is good; a `mean` rule says that the fiber is promising only if the
+typical refinement is good. That choice changes which branches survive.
+
+This analogy should be used to keep future documentation concrete. The issue is
+not mystical hierarchy behavior. It is the familiar problem of making a coarse
+search decision with a lossy summary of the finer search space.
+
 ## Documentation Work Needed
 
 Future docs should explain:
