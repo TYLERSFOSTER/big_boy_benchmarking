@@ -98,7 +98,14 @@ docs/evaluations/
 Each readout surface should include `readout_source.json` so generated prose
 can point back to the repo-resident artifact root, source evaluation root,
 aggregate tables, run index, expected-file policy, goal criteria, badge policy,
-and claim boundary.
+structural limit checks, and claim boundary.
+
+For quotient-schema, tower-control, hidden-graph contraction, and
+lift/action-realization evaluations, the source binding should include
+structural limit checks. Those checks tell the human readout when apparent
+mixed behavior is actually a structural-limit result, such as a first
+projection that collapses `H` to `pi_0(H)` or nearly collapses all tier-`0`
+states into one tier-`1` cell.
 
 See also:
 

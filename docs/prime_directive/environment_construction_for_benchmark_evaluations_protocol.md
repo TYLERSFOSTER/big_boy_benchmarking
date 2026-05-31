@@ -134,6 +134,42 @@ Examples:
 
 Diagnostics must distinguish environment sanity from method performance.
 
+### Structural Limit And Non-Claim Notes
+
+If an environment exposes hidden graphs, quotient/tower methods, contraction
+schemas, or lift/action-realization machinery, its environment docs must record
+known structural limit cases before evaluation design begins.
+
+At minimum, document:
+
+- whether the runtime constructs the full hidden graph up front or discovers
+  edges online;
+- whether a contraction block acts as an edge-induced connected-component
+  collapse;
+- what it means if the first projection collapses `H` to `pi_0(H)` or nearly
+  collapses all reachable concrete states into one quotient cell;
+- which conclusions such a limit case can support;
+- which conclusions such a limit case blocks;
+- which diagnostics must be checked before describing behavior as performance,
+  non-performance, mixed performance, or method failure.
+
+For tower-control environments, do not leave this as an implicit fact of the
+implementation. A full or near-full first-projection collapse can be a valid
+environment/evaluation condition, but it must be presented as a structural
+limit or pathology diagnostic unless the evaluation has explicitly been
+designed to make a performance claim under that collapse.
+
+The environment docs should tell later evaluation and readout work how to
+separate:
+
+- environment sanity;
+- artifact completion;
+- concrete action execution;
+- quotient shape;
+- lift/action-realization;
+- learner performance;
+- allowed claims and non-claims.
+
 ### Artifact Support
 
 Environment runners must be able to write machine-readable artifacts through
@@ -170,6 +206,7 @@ That page must include:
 - fixture ids and roles;
 - legality/reward/action-mask contracts;
 - diagnostics available;
+- known structural limits or pathology cases;
 - non-goals and claim boundaries;
 - links to methods and evaluations that use it.
 
@@ -186,6 +223,7 @@ Before designing an evaluation for an environment, confirm:
 - smoke and serious fixtures are distinct;
 - legality, reward, mask, initial-state, and terminal contracts are documented;
 - diagnostics can be run and interpreted;
+- known structural limits have written interpretation rules;
 - artifacts are machine-readable and use shared machinery;
 - human environment docs exist;
 - non-goals and claim boundaries are explicit;
@@ -203,6 +241,7 @@ An environment implementation should include tests that fail if:
 - reward contracts are undocumented or inconsistent;
 - diagnostics cannot be written as artifacts;
 - environment docs omit fixture roles or claim boundaries;
+- environment docs omit known structural limit cases for quotient/tower use;
 - evaluation construction would need to infer environment intent from code only.
 
 ## Stop Conditions
@@ -214,6 +253,8 @@ if:
 - reward meaning is unclear;
 - legality or action-mask semantics are unresolved;
 - diagnostics are absent or uninterpretable;
+- a known structural limit can change result interpretation but has no written
+  claim boundary;
 - artifact support is incomplete;
 - the environment could support multiple incompatible evaluation meanings;
 - claim boundaries are not known.

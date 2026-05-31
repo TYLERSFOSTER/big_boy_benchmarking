@@ -721,6 +721,27 @@ The badge strip and status bullets must agree with the detailed verdict,
 provenance status, and claim boundary. If they disagree, fix the readout before
 returning it.
 
+The example `Behavior: Mixed` badge is not a default. Use it only when mixed
+behavior is the correct reader-facing classification after structural
+diagnostics have been checked. For quotient-schema or tower-control
+evaluations, first check whether the apparent mixed behavior is dominated by a
+structural limit case such as:
+
+- the first projection collapses all tier-`0` states into one tier-`1` cell;
+- the first projection nearly collapses all tier-`0` states, for example the
+  largest tier-`1` fiber contains at least 90 percent of tier-`0` states;
+- the first contraction block is universal or broad enough to act like an
+  edge-induced connected-component collapse;
+- concrete action execution is blocked by lift/action-realization at the
+  collapsed tier.
+
+If one of these conditions explains the result, the status line must say so in
+the headline status area. Prefer a reader-facing status such as
+`Behavior: Diagnostic`, `Behavior: Structural Limit`, or `Goals: Blocked` over
+plain `Behavior: Mixed`. If the local badge vocabulary has not yet been
+expanded, the prose immediately under the badges must override the coarse badge
+and say that ordinary performance language is blocked by quotient collapse.
+
 ### 3. Summary Of Goals Behind This Evaluation
 
 Every generated `README.md` must include a populated section titled:
@@ -934,6 +955,14 @@ Do not describe a tower arm as simply "better", "worse", "failed", or
 "successful" without saying whether the result came from reward learning,
 active-tier control, quotient shape, lift/action-realization, or missing
 diagnostic evidence.
+
+Do not describe a full or near-full first-projection collapse as ordinary
+non-performance. If `pr^0_1` effectively maps the reachable hidden graph to
+`pi_0(H)`, the diagnostic section must state that the runtime/environment may
+be functioning exactly as constructed while the evaluation has become a
+structural-limit case. In that case, the report may claim diagnostic evidence
+about the schema/runtime combination, but it must block or qualify any ordinary
+learner-performance, tower-advantage, or environment-non-performance claim.
 
 ### 11. Timing Readout
 
@@ -1354,6 +1383,7 @@ behavior_status:
   succeeded
   failed
   mixed
+  structural_limit
   diagnostic_only
   unresolved
 
@@ -1369,6 +1399,11 @@ claim_status:
 
 If the machine artifact has only `status=complete`, the readable document must
 still infer and state whether behavior succeeded or failed.
+
+If behavior is table-mixed but the dominant explanation is quotient collapse,
+lift-realization, or another structural limit, do not stop at
+`behavior_status=mixed`. Use `structural_limit` or `diagnostic_only`, and state
+the narrower mixed facts as supporting detail.
 
 ## Evidence Discipline
 

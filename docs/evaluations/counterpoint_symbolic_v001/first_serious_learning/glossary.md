@@ -12,10 +12,11 @@ episodes.
 `claim status`
 : Whether this artifact set supports a benchmark claim.
 
-In this run, all arms are artifact-complete. Direct, empty-schema,
-structured-motion, and bad/adversarial arms are behavior-successful, while the
-random balanced and random unbalanced tower arms are schema-seed dependent and
-behavior-mixed.
+In this run, all arms are artifact-complete. Direct and empty-schema arms
+execute meaningful episodes. Non-empty tower arms are classified as
+structural-limit diagnostics because full or near-full first-projection
+collapse dominates interpretation; random balanced and random unbalanced also
+show schema-seed-dependent lift/action-realization failures.
 
 ## Fields
 

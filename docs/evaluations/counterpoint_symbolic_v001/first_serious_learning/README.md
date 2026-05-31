@@ -1,8 +1,8 @@
 # Counterpoint First Serious Learning Evaluation Readout
 
 ![Artifacts: Partial](badges/artifacts_partial.svg)
-![Behavior: Mixed](badges/behavior_mixed.svg)
-![Goals: Partial](badges/goals_partial.svg)
+![Behavior: Structural Limit](badges/behavior_structural_limit.svg)
+![Goals: Diagnostic](badges/goals_diagnostic.svg)
 ![Scope: Fixture Only](badges/scope_fixture_only.svg)
 ![Provenance: Repo Artifacts](badges/provenance_repo_artifacts.svg)
 
@@ -10,13 +10,13 @@
 
 - Artifact evidence: partial; required result tables exist and were readable,
   but expected evaluation and arm manifests are absent.
-- Behavioral result: mixed; direct, empty-schema, structured-motion, and
-  bad/adversarial arms execute real 8-step episodes, while random balanced and
-  random unbalanced arms are schema-seed dependent and include zero-step
-  failures.
-- Goal result: partially met; the run validates the serious harness and several
-  tower-control paths, but it does not show tower advantage and leaves
-  random-schema lift candidates plus the bad-control interpretation unresolved.
+- Behavioral result: structural-limit diagnostic; direct and empty-schema arms
+  execute real 8-step episodes, while non-empty tower arms are dominated by
+  full or near-full first-projection collapse and schema-dependent
+  lift/action-realization behavior.
+- Goal result: diagnostic; the run validates the serious harness and exposes a
+  quotient-collapse/lift-realization limit, but it blocks ordinary
+  tower-performance and environment-non-performance claims.
 - Claim scope: fixture-only; claims apply only to
   `counterpoint_symbolic_n3_small_v001`, the locked budget,
   `tensor_available_disabled`, and this artifact set.
@@ -106,9 +106,11 @@ All seven required arms produced machine-readable artifacts, and all `44` run
 rows are marked `success`. That means the harness ran and wrote the expected
 evaluation tables. It does not, by itself, mean every arm behaved equally well.
 
-The direct baselines, empty-schema tower, structured-motion tower, and
-bad/adversarial tower all executed 8-step episodes with 100% episode success
-and mean returns around `12.7`.
+The direct baselines and empty-schema tower executed 8-step episodes with 100%
+episode success and mean returns around `12.7`. Structured-motion and
+bad/adversarial tower arms also execute 8-step episodes, but they do so under
+fully collapsed first projections; their returns are diagnostic evidence about
+the collapsed schema/runtime condition, not evidence of useful tower control.
 
 The random tower arms are schema-seed dependent. Random balanced succeeds only
 on schema seed `2`; seeds `0` and `1` produce zero-step episodes with
@@ -118,9 +120,11 @@ mean returns of `4.237` for random balanced and `8.473` for random unbalanced,
 not because those arms partially learn within each run, but because some schema
 seeds execute and others do not.
 
-This run does not support a positive tower-performance claim. Structured motion
-matches the empty-schema tower rather than beating it, random schemas remain
-brittle, and the bad/adversarial control does not degrade under this budget.
+This run does not support a positive tower-performance claim, and it should not
+be summarized as ordinary mixed non-performance. It supports a structural-limit
+claim: broad/full-graph contraction schemas over this fixture can collapse the
+first quotient projection so aggressively that learner-performance language is
+blocked unless the evaluation explicitly controls for that collapse.
 
 ## Files
 
@@ -698,15 +702,88 @@ available and used for this readout.
 
 #### Project Owner / Evaluator Turn
 
-> ...
+> Uuuuh. Ok. ok. Do I understand correctly that the runtime for this environment does what amounts to full $H\mapsto\pi_{0}(H)$ contraction with $\text{pr}^{0}_{1}$? That's perfectly fine for a environment and an evaluation. I like that as a first pass. *However*, it is irresponsible as an engineer, as an assistant, and as a consultant to evaluate runs of this sort by describing the seeming non-performance of the environment/runtime as "mixed." The problem is that the creatino of the environment didn't record the limit conclusions we might draw from it, or the protocol for generating human readablility doesn't look at the right things or trigger the right double checks. Does this sound right? Please investigate thoroughly and report.
 
 #### Embedded Engineering Consultant / Codex Turn
 
-> ...
+> Yes. That is the right correction, with one nuance.
+>
+> For the structured-motion and bad/adversarial tower arms, the runtime is
+> effectively doing the first-step contraction
+> $H \mapsto \pi_0(H)$ through $\text{pr}^{0}_{1}$, because the first
+> contraction block contains all `1140` legal edges of the reachable hidden
+> graph. Since this `n = 3` fixture's reachable graph is connected, tier `1`
+> becomes one state cell. For the random tower arms, the statement is not
+> literally "all of `H`" in every seed, but it is operationally close in the
+> important cases: the first random block creates a giant connected component
+> such as `106/108`, `101/108`, `107/108`, or `108/108` tier-`0` states in one
+> tier-`1` fiber.
+>
+> So the runtime/environment is not simply "underperforming." It is running a
+> valid first-pass quotient experiment whose non-empty tower arms are dominated
+> by full or near-full first-projection collapse. That makes the earlier
+> headline word "mixed" too coarse and, in the way you are objecting to,
+> misleading. There is a narrow table fact that behavior is mixed across schema
+> seeds, because some random seeds execute and others fail with
+> `no_lift_candidate_from_current_state`. But the reader-facing conclusion is
+> not ordinary mixed performance. The correct conclusion is structural-limit
+> diagnostic evidence: broad/full-graph contraction schemas can collapse the
+> quotient so hard that ordinary learner-performance and tower-advantage
+> language is blocked.
+>
+> I checked the documentation/protocol path, and the failure was exactly where
+> you suspected. The environment protocol required diagnostics and claim
+> boundaries, and the readout protocol required tower-shape/tier-occupancy
+> explanations, but neither one forced a structural-limit classification before
+> choosing the headline behavior status. That allowed "artifact complete plus
+> some zero-step failures" to get compressed into "mixed" without first asking:
+> "Did $\text{pr}^{0}_{1}$ already collapse almost everything?"
+>
+> I corrected that in three places:
+>
+> - `docs/prime_directive/environment_construction_for_benchmark_evaluations_protocol.md`
+>   now requires hidden-graph/tower environments to record known structural
+>   limit cases and non-claims before evaluation design.
+> - `docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md`
+>   now requires quotient/tower evaluations to declare structural limit checks,
+>   including full/near-full first-projection collapse, universal/broad first
+>   blocks, and lift/action-realization failures.
+> - `docs/prime_directive/artifact_table_to_readable_document_protocol.md`
+>   now says the readout must not stop at `Behavior: Mixed` when quotient
+>   collapse is the dominant explanation. It must classify the result as
+>   `structural_limit`, `diagnostic_only`, or an equivalent reader-facing
+>   status, and then state which claims are blocked.
+>
+> I also corrected this generated readout's top-level status from
+> `Behavior: Mixed` / `Goals: Partial` to `Behavior: Structural Limit` /
+> `Goals: Diagnostic`, and tightened the one-screen verdict and full
+> `result_readout.md` so they no longer imply ordinary tower non-performance.
+>
+> The sharper interpretation is:
+>
+> - artifacts completed enough to be useful, with known provenance gaps;
+> - direct and empty-schema arms validate concrete execution and the tower shell;
+> - non-empty tower arms are dominated by first-projection quotient collapse;
+> - random arms expose schema-seed-dependent lift/action-realization failure;
+> - structured-motion and bad/adversarial arms executing does not prove useful
+>   tower control, because their first quotient is already fully collapsed;
+> - this run is good diagnostic evidence for the next schema/evaluation design,
+>   but it blocks ordinary learner-performance, environment-non-performance,
+>   and tower-advantage claims.
+>
+> So yes: the first version did not carry enough limit-conclusion discipline.
+> The data were there, but the protocol did not force the right double checks
+> before translating the tables into human language. That is now recorded as a
+> protocol obligation instead of an optional act of carefulness by whoever is
+> reading the artifacts next.
 
 #### Project Owner / Evaluator Turn
 
-> ...
+> Great. I think we're done with this particular evaluation then. I think we're seeing basic system performance, but for a runtime that wouldn't show much of the full system capability in the first place anyway. First, just give me a short confirmation or correction. Next, we need to do a bit more clean-up before moving on to next evaluation. First, I want to preserve the conversation here in this README, masically verbaitim, in some other folder in the repo where we design documentation for engineer/user and where we think about system corrections. A subfolder in `docs/design` seems like the right place. My reasoning here is that the main architectural things we're doing here, aside from benchmarking, are:
+>   1. `state_collapser` and `big_boy_benchmarking` trouble-shooting with fixes, by discovering problems in environment runs
+>   2. discovering places where users/engineers will have natural points of confusion
+>
+> Do you understabd what I'm after here? Part of the idea is that the way the present repo protocols are set up, we can easily overwrite `docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/README.md`, for instance if we redesign that environment or evaluation or whatever. So I want a place in design docs where we can really record some of the issue that come u, even if just in conversation `cp` or somethign comparable.
 
 #### Embedded Engineering Consultant / Codex Turn
 

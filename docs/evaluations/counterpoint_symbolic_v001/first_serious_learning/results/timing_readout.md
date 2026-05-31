@@ -10,7 +10,8 @@ The available timing categories are:
 
 This timing readout is descriptive only. It should not be used as a speed claim
 because the run is fixture-local, tensor execution is disabled, and random
-schema arms are behavior-mixed.
+schema arms are structural-limit diagnostics rather than ordinary performance
+comparisons.
 
 ## Mean Timing By Arm
 

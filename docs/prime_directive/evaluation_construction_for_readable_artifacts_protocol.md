@@ -184,6 +184,14 @@ The source binding must include:
   },
   "goal_summary_sources": ["<path documenting evaluation goals>"],
   "methodology_summary_sources": ["<path documenting evaluation methodology>"],
+  "structural_limit_checks": [
+    {
+      "check_id": "<stable structural limit check id>",
+      "trigger": "<artifact/table condition that triggers the check>",
+      "interpretation_if_triggered": "<reader-facing interpretation>",
+      "claim_effect": "<claim supported, blocked, or diagnostic-only>"
+    }
+  ],
   "claim_boundary": ["<allowed or excluded claim>"]
 }
 ```
@@ -231,6 +239,50 @@ After readout generation, `readout_source.json` may also contain
 `readout_badges`. Treat that as cached derived readout state. It is useful for
 regeneration, but it is not a substitute for `goal_criteria` or artifact
 evidence.
+
+## Structural Limit Checks
+
+Every quotient-schema, tower-control, hidden-graph contraction, or
+lift/action-realization evaluation must declare structural limit checks before
+the readout exists.
+
+The evaluation must say how the readout should interpret cases where the
+runtime is valid but the quotient structure changes the meaning of the result.
+This is especially important when a contraction block can behave like:
+
+```text
+H -> pi_0(H)
+```
+
+under the first projection.
+
+At minimum, tower-control evaluations must define checks for:
+
+- full first-projection collapse, for example tier `1` has one state cell;
+- near-full first-projection collapse, for example the largest tier-`1` fiber
+  contains at least 90 percent of tier-`0` states;
+- universal or overly broad first contraction blocks;
+- zero-step or low-step tower episodes caused by lift/action-realization
+  failures;
+- cases where artifact completion succeeds but performance claims are blocked.
+
+These checks must identify the source tables or per-run files that support the
+classification. For the current counterpoint tower work, the relevant sources
+include:
+
+- `results/tower_shape_summary.csv`;
+- `results/tier_occupancy_summary.csv`;
+- `results/lift_failure_by_tier.csv`;
+- `results/schema_diagnostic_summary.csv`;
+- per-run `quotient_summary.json`, `control_events.csv`, `step_events.csv`, and
+  `lift_fiber_events.csv` when evaluation-level summaries are not sufficient.
+
+Do not let `mixed` become the default label for a structural limit case. A run
+may be behaviorally mixed in the narrow table sense while still requiring a
+reader-facing classification such as diagnostic-only, structural-limit case,
+claim-blocking quotient collapse, or lift-realization failure. The construction
+contract must give the readout protocol enough context to choose that language
+without guessing.
 
 ## Expected-File Policy
 

@@ -3,12 +3,13 @@
 ## Verdict
 
 The evaluation is artifact-complete for required result tables but
-behavior-mixed.
+behaviorally a structural-limit diagnostic.
 
 All `44` runs have run-index status `success`. Direct masked random, direct
-tabular Q, empty-schema tower, structured-motion tower, and bad/adversarial
-tower all execute 8-step episodes with 100% episode success. Random balanced
-and random unbalanced are schema-seed dependent and include zero-step failures.
+tabular Q, and the empty-schema tower execute 8-step episodes with 100%
+episode success. Non-empty tower arms are dominated by full or near-full
+first-projection collapse. Random balanced and random unbalanced are
+schema-seed dependent and include zero-step lift/action-realization failures.
 
 ## Main Numbers
 
@@ -24,14 +25,15 @@ and random unbalanced are schema-seed dependent and include zero-step failures.
 
 ## Explanation
 
-The only behavioral failures in the aggregate are concentrated in random schema
+The zero-step failures in the aggregate are concentrated in random schema
 seeds. Random balanced fails on schema seeds `0` and `1`; random unbalanced
 fails on schema seed `1`. The recorded reason is
-`no_lift_candidate_from_current_state`.
+`no_lift_candidate_from_current_state`. Structured-motion and bad/adversarial
+arms execute, but under fully collapsed first projections, so their execution
+does not support ordinary tower-control performance claims.
 
 ## Claim
 
 This artifact set is useful diagnostic evidence. It does not support a positive
-tower-performance claim, because structured motion does not beat the empty
-tower, random schemas remain seed-sensitive, and the bad/adversarial control
-does not degrade under this budget.
+tower-performance claim, because non-empty tower behavior is dominated by
+first-projection quotient collapse and lift/action-realization effects.

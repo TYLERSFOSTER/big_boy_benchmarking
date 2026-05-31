@@ -41,7 +41,10 @@
     ],
     "expected_absent_is_gap": [
       "evaluation_manifest.json",
-      "evaluation_arm_manifest.json"
+      "evaluation_arm_manifest.json",
+      "results/tower_shape_summary.csv",
+      "results/tier_occupancy_summary.csv",
+      "results/lift_failure_by_tier.csv"
     ],
     "conditional": {
       "calibration": [
@@ -95,6 +98,26 @@
       "provenance_status"
     ]
   },
+  "structural_limit_checks": [
+    {
+      "check_id": "first_projection_full_collapse",
+      "trigger": "Tier 1 has one state cell, or the first contraction block connects all 108 tier-0 states.",
+      "interpretation_if_triggered": "Treat non-empty tower behavior as a structural-limit diagnostic rather than ordinary learner performance.",
+      "claim_effect": "Blocks tower-performance and environment-non-performance claims for affected arms."
+    },
+    {
+      "check_id": "first_projection_near_full_collapse",
+      "trigger": "Largest tier-1 fiber contains at least 90 percent of tier-0 states.",
+      "interpretation_if_triggered": "Treat seed-level success/failure as quotient-shape and lift/action-realization evidence, not ordinary mixed learning.",
+      "claim_effect": "Blocks unqualified performance language and requires quotient-shape explanation."
+    },
+    {
+      "check_id": "lift_realization_after_collapse",
+      "trigger": "Zero-step episodes or failed tower actions record no_lift_candidate_from_current_state.",
+      "interpretation_if_triggered": "Attribute failure to action realization under the quotient/control condition unless contrary evidence is present.",
+      "claim_effect": "Supports diagnostic action-realization claims, not positive tower-control claims."
+    }
+  ],
   "readout_badges": {
     "artifact_status": {
       "label": "Artifacts: Partial",
@@ -103,16 +126,16 @@
       "reason": "Required result tables exist and parse, but expected evaluation and arm manifests are absent."
     },
     "behavioral_status": {
-      "label": "Behavior: Mixed",
-      "color": "yellow",
-      "file": "badges/behavior_mixed.svg",
-      "reason": "Direct, empty-schema, structured-motion, and bad/adversarial arms execute real steps; random balanced and random unbalanced arms are schema-seed dependent and include zero-step failures."
+      "label": "Behavior: Structural Limit",
+      "color": "purple",
+      "file": "badges/behavior_structural_limit.svg",
+      "reason": "Direct and empty-schema arms execute real steps, while non-empty tower arms are dominated by full or near-full first-projection collapse and schema-dependent lift/action-realization behavior."
     },
     "goal_status": {
-      "label": "Goals: Partial",
-      "color": "yellow",
-      "file": "badges/goals_partial.svg",
-      "reason": "The run validates the serious harness and several tower-control paths, but random schema failures, the non-degrading bad control, and lack of tower advantage keep the learning claim partial."
+      "label": "Goals: Diagnostic",
+      "color": "blue",
+      "file": "badges/goals_diagnostic.svg",
+      "reason": "The run validates the serious harness and exposes a quotient-collapse/lift-realization limit, but it blocks ordinary tower-performance and environment-non-performance claims."
     },
     "claim_scope": {
       "label": "Scope: Fixture Only",
@@ -131,6 +154,8 @@
     "May compare direct and tower-control arms only for this artifact run under tensor_available_disabled.",
     "May claim required-table artifact completion and observed behavior status for counterpoint_symbolic_n3_small_v001 under the recorded budget.",
     "May claim random balanced and random unbalanced are schema-seed dependent under this budget.",
+    "May claim broad/full-graph contraction schemas in this artifact set produce full or near-full first-projection collapse and structural-limit diagnostic evidence.",
+    "May not describe non-empty tower arms as ordinary mixed learner performance without controlling for first-projection collapse.",
     "May not claim tensor-enabled, CUDA, GPU, musical-quality, production, or general tower-performance results."
   ]
 }

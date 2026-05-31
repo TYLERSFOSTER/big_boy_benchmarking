@@ -10,19 +10,24 @@ The direct arms, empty-schema tower, structured-motion tower, and
 bad/adversarial tower all executed real 8-step episodes with 100% episode
 success. Their mean returns sit in the same narrow band: direct masked random
 at `12.790`, direct tabular Q at `12.696`, and empty/schema-motion/bad tower
-arms at `12.710`.
+arms at `12.710`. The structured-motion and bad/adversarial tower arms should
+not be read as ordinary successful tower-control comparisons, because their
+first projections are fully collapsed structural-limit cases.
 
-The random tower arms are mixed because behavior depends on schema seed. Random
-balanced has 33% episode success: schema seeds `0` and `1` produce zero-step
-episodes, while schema seed `2` executes normally. Random unbalanced has 67%
-episode success: schema seed `1` fails, while schema seeds `0` and `2` execute
-normally. The failing random-schema runs record
+The random tower arms are schema-seed dependent structural diagnostics, not
+ordinary mixed learning results. Random balanced has 33% episode success:
+schema seeds `0` and `1` produce zero-step episodes, while schema seed `2`
+executes normally. Random unbalanced has 67% episode success: schema seed `1`
+fails, while schema seeds `0` and `2` execute normally. The failing
+random-schema runs record
 `no_lift_candidate_from_current_state`.
 
 This artifact set supports a bounded diagnostic claim. It does not support a
-tower-superiority claim. Structured motion does not beat the empty-schema tower,
-random schemas are seed-sensitive, and the bad/adversarial control does not
-degrade under this budget.
+tower-superiority claim, and it should not be summarized as ordinary mixed
+non-performance. Broad/full-graph contraction schemas over this fixture can
+collapse the first quotient projection so aggressively that learner-performance
+language is blocked unless the evaluation explicitly controls for that
+collapse.
 
 ## Run Identity
 
@@ -61,6 +66,9 @@ This readout may claim:
 - the random balanced and random unbalanced tower arms are schema-seed
   dependent under this budget;
 - failing random-schema runs show `no_lift_candidate_from_current_state`.
+- non-empty tower behavior in this artifact set is dominated by full or
+  near-full first-projection quotient collapse and lift/action-realization
+  effects.
 
 This readout may not claim:
 
@@ -69,6 +77,8 @@ This readout may not claim:
 - general tower superiority or inferiority;
 - structured-motion advantage over the empty-schema tower;
 - that the bad/adversarial arm is currently a useful negative control;
+- ordinary learner-performance conclusions for non-empty tower arms without
+  controlling for first-projection collapse;
 - musical quality;
 - production performance;
 - a result beyond `counterpoint_symbolic_n3_small_v001`;
@@ -93,17 +103,18 @@ This readout may not claim:
 | Direct masked random | complete | succeeded | 4 | 64 | 12.790 | 8.0 | 100% | +0.094 | Non-learning floor is slightly above direct Q in this short budget. |
 | Direct tabular Q | complete | succeeded | 4 | 64 | 12.696 | 8.0 | 100% | +0.000 | Primary direct baseline; no advantage over masked random here. |
 | Empty-schema tower | complete | succeeded | 4 | 64 | 12.710 | 8.0 | 100% | +0.013 | Tower shell baseline; matches motion and bad arms. |
-| Random balanced tower | complete | mixed | 12 | 192 | 4.237 | 2.7 | 33% | -8.460 | Seeds `0` and `1` fail with no lift candidate; seed `2` executes. |
-| Random unbalanced tower | complete | mixed | 12 | 192 | 8.473 | 5.3 | 67% | -4.223 | Seed `1` fails with no lift candidate; seeds `0` and `2` execute. |
-| Structured motion tower | complete | succeeded | 4 | 64 | 12.710 | 8.0 | 100% | +0.013 | Matches empty-schema tower; no advantage shown. |
-| Bad/adversarial tower | complete | succeeded | 4 | 64 | 12.710 | 8.0 | 100% | +0.013 | Negative control did not degrade; control semantics need scrutiny. |
+| Random balanced tower | complete | structural_limit | 12 | 192 | 4.237 | 2.7 | 33% | -8.460 | Seeds `0` and `1` fail with no lift candidate; seed `2` executes. |
+| Random unbalanced tower | complete | structural_limit | 12 | 192 | 8.473 | 5.3 | 67% | -4.223 | Seed `1` fails with no lift candidate; seeds `0` and `2` execute. |
+| Structured motion tower | complete | structural_limit | 4 | 64 | 12.710 | 8.0 | 100% | +0.013 | Executes under full first-projection collapse; no advantage shown. |
+| Bad/adversarial tower | complete | structural_limit | 4 | 64 | 12.710 | 8.0 | 100% | +0.013 | Executes under full first-projection collapse; not a valid negative-control result here. |
 
 ## Diagnostic Findings
 
 ### Finding 1: Random Schemas Are Schema-Seed Dependent
 
-Random balanced and random unbalanced arms are mixed because schema seeds
-produce different execution surfaces.
+Random balanced and random unbalanced arms are schema-seed dependent inside a
+structural-limit condition. Their aggregate means are mixtures over successful
+and failed schema seeds, not smooth learning curves within each schema.
 
 | Arm | Schema seed | Mean return | Mean steps | Episode success | Lift failure |
 | --- | ---: | ---: | ---: | ---: | --- |
@@ -114,8 +125,8 @@ produce different execution surfaces.
 | Random unbalanced tower | 1 | 0.000 | 0.0 | 0% | `no_lift_candidate_from_current_state` |
 | Random unbalanced tower | 2 | 12.710 | 8.0 | 100% | none observed |
 
-This means the random-arm means are mixtures over successful and failed schema
-seeds, not smooth learning curves within each schema.
+This should be read as lift/action-realization evidence under collapsed or
+near-collapsed quotient structure, not as ordinary mixed learner performance.
 
 ### Finding 2: Structured Motion And Bad/Adversarial Match Empty Schema
 
@@ -126,10 +137,11 @@ aggregate means in this run:
 12.709722222222222
 ```
 
-That is good news for executability, but it is not evidence that the
-structured-motion contraction improves learning. It also weakens the current
-bad/adversarial arm as a negative control: under this budget, it does not
-behave worse than the empty tower.
+That is good news for executability, but the structured-motion and
+bad/adversarial arms execute under fully collapsed first projections. This is
+not evidence that the structured-motion contraction improves learning. It also
+weakens the current bad/adversarial arm as a negative control: under this
+budget and collapse condition, it does not behave worse than the empty tower.
 
 ### Finding 3: Artifact Provenance Is Still Partial
 
@@ -147,8 +159,9 @@ missing these evaluation-level manifests.
 
 The timing table records `algorithm_online`, `linearization_setup`, and `total`
 categories. It is descriptive only. It should not be used as a speed claim
-because this run is fixture-local, tensor execution is disabled, and some arms
-are behavior-mixed.
+because this run is fixture-local, tensor execution is disabled, and non-empty
+tower arms are structural-limit diagnostics rather than ordinary performance
+comparisons.
 
 Mean total seconds by arm:
 

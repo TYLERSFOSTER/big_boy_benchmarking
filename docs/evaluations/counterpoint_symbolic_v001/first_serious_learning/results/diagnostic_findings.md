@@ -1,6 +1,16 @@
 # Diagnostic Findings
 
-## Finding 1: Random Balanced Is Mixed By Schema Seed
+## Finding 1: First Projection Collapse Controls Interpretation
+
+The central diagnostic is structural. Non-empty tower arms either fully collapse
+the first quotient projection or create a giant tier-`1` fiber that contains
+most tier-`0` states. That means ordinary learner-performance language is
+blocked unless a later evaluation explicitly controls for quotient collapse.
+
+This readout should therefore classify the non-empty tower result as a
+structural-limit diagnostic, not as ordinary mixed non-performance.
+
+## Finding 2: Random Balanced Is Schema-Seed Dependent Under The Structural Limit
 
 Random balanced tower behavior:
 
@@ -13,7 +23,7 @@ Random balanced tower behavior:
 Across all schema seeds this becomes mean return `4.237`, mean step count
 `2.7`, and 33% episode success.
 
-## Finding 2: Random Unbalanced Is Also Mixed By Schema Seed
+## Finding 3: Random Unbalanced Is Also Schema-Seed Dependent
 
 Random unbalanced tower behavior:
 
@@ -26,10 +36,12 @@ Random unbalanced tower behavior:
 Across all schema seeds this becomes mean return `8.473`, mean step count
 `5.3`, and 67% episode success.
 
-## Finding 3: Structured Motion And Bad/Adversarial Match Empty Schema
+## Finding 4: Structured Motion And Bad/Adversarial Execute Under Full Collapse
 
-The structured-motion and bad/adversarial arms execute successfully, but they
-do not separate from the empty-schema tower under this budget.
+The structured-motion and bad/adversarial arms execute 8-step episodes, but
+they do so under fully collapsed first projections. Their execution therefore
+does not separate useful tower control from the collapsed schema/runtime
+condition.
 
 | Arm | Mean return | Delta vs empty tower |
 | --- | ---: | ---: |
@@ -39,9 +51,10 @@ do not separate from the empty-schema tower under this budget.
 
 This means the benchmark cannot claim that structured motion is a better
 contraction, and it also cannot treat the bad/adversarial arm as an effective
-negative control for this budget.
+negative control for this budget. The claim boundary is structural: the first
+projection has already collapsed too much for ordinary performance comparison.
 
-## Finding 4: Provenance Classification
+## Finding 5: Provenance Classification
 
 The source evaluation root has absent provenance/calibration files. They are
 not all the same kind of absence:
@@ -62,6 +75,6 @@ contract expects for the two evaluation manifest files.
 
 ```text
 artifact_status: partial
-behavior_status: mixed
+behavior_status: structural_limit
 claim_status: diagnostic_evidence / no positive tower-performance claim
 ```
