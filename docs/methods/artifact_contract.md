@@ -58,6 +58,29 @@ results/controller_summary.csv
 results/schema_diagnostic_summary.csv
 ```
 
+Tower-control and quotient-schema serious runs should additionally promote
+raw tower evidence into evaluation-level tables:
+
+```text
+results/tower_shape_summary.csv
+results/tier_occupancy_summary.csv
+results/lift_failure_by_tier.csv
+```
+
+The raw per-run tower files remain source evidence:
+
+```text
+quotient_summary.json
+control_events.csv
+step_events.csv
+lift_fiber_events.csv
+```
+
+But raw files alone are not sufficient for a serious human-readable tower
+readout. The evaluation-level tower tables make quotient shape, active-tier
+occupancy, concrete-step tier usage, and lift failures inspectable without
+requiring a reader to reconstruct them from every run directory.
+
 Calibration-path files are conditional on calibration runs:
 
 ```text

@@ -360,14 +360,31 @@ present:
 - `results/timing_summary.csv`;
 - `results/controller_summary.csv`;
 - `results/schema_diagnostic_summary.csv`;
+- `results/tower_shape_summary.csv`, when the evaluation uses towers or
+  quotient schemas;
+- `results/tier_occupancy_summary.csv`, when the evaluation uses active-tier
+  control;
+- `results/lift_failure_by_tier.csv`, when the evaluation performs
+  lift/action-realization;
 - representative per-run `episodes.csv`;
+- representative per-run `quotient_summary.json`, when present;
 - representative per-run `control_events.csv`;
+- representative per-run `step_events.csv`;
 - representative per-run `lift_fiber_events.csv`;
 - representative per-run `warnings.jsonl`;
 - representative per-run manifests needed to interpret claim boundaries.
 
 If the artifact set is large, inspect representative per-run files for every
 arm class and every anomalous condition before writing the final readout.
+
+For tower-control evaluations, do not stop at arm-level means. The readout must
+translate tower shape and active-tier occupancy into human language. If
+evaluation-level tower tables exist, use them. If they are absent but per-run
+raw files exist, reconstruct the minimum supported shape/occupancy story from
+`quotient_summary.json`, `control_events.csv`, `step_events.csv`, and
+`lift_fiber_events.csv`, then classify the missing evaluation-level tables as
+an artifact/readout gap. Do not make a reader infer lower-tier behavior from
+raw ids alone.
 
 If a required source file listed in `readout_source.json` is absent, do not
 silently reuse an older table. Classify it as `expected_missing_gap` and apply
@@ -896,6 +913,27 @@ This section should answer:
 - whether it invalidates a claim;
 - whether it indicates a code bug, environment fact, schema fact, or expected
   negative result.
+
+For tower-control or quotient-schema evaluations, diagnostic findings must
+include a reader-facing tower structure and tier-occupancy explanation whenever
+those facts affect interpretation.
+
+At minimum, explain:
+
+- what each reported tower-shape tuple means, for example
+  `state_cell_count_by_tier = (108, 3, 1, 1, 1)`;
+- which tier index is the base/fine tier and which direction is more
+  coarsened for this repo's runtime convention;
+- which tiers actually received controller events;
+- which tiers actually executed concrete environment steps;
+- which tiers produced lift/action-realization failures and why;
+- whether deeper/coarser tiers were genuinely used or merely present in the
+  constructed tower.
+
+Do not describe a tower arm as simply "better", "worse", "failed", or
+"successful" without saying whether the result came from reward learning,
+active-tier control, quotient shape, lift/action-realization, or missing
+diagnostic evidence.
 
 ### 11. Timing Readout
 

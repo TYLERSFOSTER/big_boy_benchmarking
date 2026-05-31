@@ -108,6 +108,29 @@ At minimum, specify:
 - result-table paths;
 - per-run event paths.
 
+If the evaluation uses `state_collapser` towers, active-tier control, quotient
+schemas, or lift/action-realization, do not leave tower structure only in
+per-run raw files. Promote the relevant evidence into evaluation-level result
+tables that a human-readable readout can render directly.
+
+At minimum, tower-control evaluations must provide:
+
+- `results/tower_shape_summary.csv`: one row per arm/run/schema seed, including
+  tier count and the state/action cell shape needed to interpret quotient
+  collapse;
+- `results/tier_occupancy_summary.csv`: active-tier dwell/controller counts
+  by arm/run/schema seed/tier/action, including successful concrete steps by
+  tier when available;
+- `results/lift_failure_by_tier.csv`: lift/action-realization successes and
+  failures by arm/run/schema seed/tier/reason.
+
+Per-run raw files such as `quotient_summary.json`, `control_events.csv`,
+`step_events.csv`, and `lift_fiber_events.csv` remain required evidence, but
+they are not sufficient by themselves for a serious human-readable tower
+evaluation. The evaluation-level tables are the surface that prevents future
+readouts from needing to reverse-engineer tower shape and lower-tier time from
+scratch.
+
 ### Source Binding
 
 Every evaluation readout surface must include or be able to generate:
@@ -322,6 +345,18 @@ evaluation_aggregate_summary.json
 evaluation_aggregate_table.csv
 ```
 
+Tower-control or quotient-schema evaluations should additionally write:
+
+```text
+results/tower_shape_summary.csv
+results/tier_occupancy_summary.csv
+results/lift_failure_by_tier.csv
+```
+
+These are not optional niceties for active-tier evaluations. They are the
+machine-readable bridge between raw tower artifacts and human-readable
+interpretation.
+
 Calibration paths should additionally write:
 
 ```text
@@ -364,6 +399,8 @@ An evaluation implementation should include tests that fail if:
 - README generation would leave `[...]`, `TODO`, or `TBD`;
 - calibration-only files are treated as required for every run mode;
 - serious evaluation manifests are omitted without explicit policy.
+- tower-control evaluations omit tower shape, tier occupancy, or lift failure
+  summary tables while still expecting human-readable interpretation.
 
 ## Stop Conditions
 
