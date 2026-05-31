@@ -67,14 +67,15 @@ reserved.
 
 ## Result Readouts
 
-Raw serious-learning artifacts live under the explicit artifact root:
+Raw serious-learning artifacts live under the explicit artifact root. For
+durable serious counterpoint evaluations, that root is repo-resident:
 
 ```text
-<artifact-root>/evaluations/counterpoint_first_serious_learning_v001/
+docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/<run-label>/evaluations/counterpoint_first_serious_learning_v001/
 ```
 
-The summarizer may write artifact-local docs under that tree for immediate
-inspection, but the durable human readout surface lives in the repo:
+The summarizer may write generated docs under that artifact tree for immediate
+inspection, but the durable human readout surface remains:
 
 ```text
 docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/

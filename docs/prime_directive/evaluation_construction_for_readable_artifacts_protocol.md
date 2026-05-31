@@ -91,7 +91,13 @@ It is not the raw artifact root.
 
 ### Source Artifact Shape
 
-Define the raw artifact root and source evaluation root shape.
+Define the artifact root and source evaluation root shape. For durable serious
+evaluations, the artifact root must be repo-resident under the repo readout
+surface:
+
+```text
+<repo-readout-surface>/artifacts/<run-label>/
+```
 
 At minimum, specify:
 

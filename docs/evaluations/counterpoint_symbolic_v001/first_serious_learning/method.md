@@ -21,7 +21,7 @@ This checked-in folder is the repo-side human readout surface. The source
 machine-readable tables for this run are read from:
 
 ```text
-/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001/
+/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_001/evaluations/counterpoint_first_serious_learning_v001/
 ```
 
 The source binding for the repo readout is recorded in `readout_source.json`.

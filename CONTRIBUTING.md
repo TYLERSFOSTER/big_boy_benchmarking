@@ -91,9 +91,12 @@ Use the docs folders this way:
 - `docs/prime_directive/`: operating protocol directed to the embedded
   engineering consultant.
 
-Machine-readable artifacts are the source of truth for executed runs.
-Repo-side human-facing readouts must describe claim boundaries and must not
-invent a result that is not backed by recorded artifacts.
+Machine-readable artifacts are the source of truth for executed runs. For
+serious evaluations that will receive a durable human-facing readout, write the
+raw artifact root inside the repo-side evaluation surface under
+`docs/evaluations/.../artifacts/`. Repo-side human-facing readouts must describe
+claim boundaries and must not invent a result that is not backed by recorded
+artifacts.
 
 ## Benchmark Workflow
 
@@ -115,11 +118,13 @@ docs/prime_directive/artifact_table_to_readable_document_protocol.md
 
 ## Evaluation Readouts
 
-Evaluation summarization writes aggregate tables and may write artifact-local
-generated readouts for immediate inspection:
+Evaluation summarization writes aggregate tables under the explicit artifact
+root and may write generated docs there for immediate inspection. For durable
+serious evaluations, that artifact root belongs under the repo-side evaluation
+surface:
 
 ```text
-<artifact-root>/evaluations/<evaluation-id>/docs/
+docs/evaluations/<environment>/<evaluation>/artifacts/<run-label>/evaluations/<evaluation-id>/docs/
 ```
 
 The durable checked-in readout lives under `docs/evaluations/` and is generated
@@ -169,21 +174,23 @@ Counterpoint serious-learning commands:
 
 ```bash
 uv run python -m big_boy_benchmarking.cli counterpoint serious-learning calibrate \
-  --artifact-root <artifact-root> \
+  --artifact-root docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/<run-label> \
   --instance-id tiny \
   --episodes 1 \
   --replicates 1 \
   --schema-seeds 1
 
 uv run python -m big_boy_benchmarking.cli counterpoint serious-learning run \
-  --artifact-root <artifact-root> \
+  --artifact-root docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/<run-label> \
+  --instance-id small \
   --episodes <episode-count> \
   --replicates <replicate-count> \
   --schema-seeds <schema-seed-count> \
-  --locked-by <operator-or-run-id>
+  --locked-by <operator-or-run-id> \
+  --linearization-mode tensor_available_disabled
 
 uv run python -m big_boy_benchmarking.cli counterpoint serious-learning summarize \
-  --artifact-root <artifact-root>
+  --artifact-root docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/<run-label>
 ```
 
 The `tiny` serious-learning path is smoke/non-evidence. The `small` path is the

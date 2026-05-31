@@ -3,13 +3,13 @@
 ## Source Artifact Root
 
 ```text
-/private/tmp/bbb-counterpoint-serious-learning-serious-001
+/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_001
 ```
 
 ## Source Evaluation Root
 
 ```text
-/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001
+/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_001/evaluations/counterpoint_first_serious_learning_v001
 ```
 
 ## Reconstructed Serious Run Command
@@ -21,22 +21,20 @@ budget lock records the budget. A reconstruction from the budget lock is:
 
 ```bash
 uv run python -m big_boy_benchmarking.cli counterpoint serious-learning run \
-  --artifact-root /private/tmp/bbb-counterpoint-serious-learning-serious-001 \
+  --artifact-root /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_001 \
+  --instance-id small \
   --episodes 16 \
   --replicates 4 \
   --schema-seeds 3 \
-  --locked-by foster
+  --locked-by foster \
+  --linearization-mode tensor_available_disabled
 ```
-
-The default serious-learning linearization mode is
-`tensor_available_disabled`, which is the mode recorded in the budget lock and
-run manifests.
 
 ## Regenerate Aggregate Tables
 
 ```bash
 uv run python -m big_boy_benchmarking.cli counterpoint serious-learning summarize \
-  --artifact-root /private/tmp/bbb-counterpoint-serious-learning-serious-001
+  --artifact-root /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_001
 ```
 
 ## Regenerate Human Readout

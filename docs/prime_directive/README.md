@@ -37,3 +37,8 @@ evaluation readout surface that contains `readout_source.json`. Generated
 evaluation READMEs should begin with local SVG status badges and a compact
 `Status At A Glance` section derived from the same evidence as the detailed
 readout.
+
+For durable serious evaluations, raw artifact tables should also be generated
+inside the repo readout surface under `artifacts/<run-label>/`, so the
+checked-in readout is bound to repo-resident evidence rather than a temporary
+local path.

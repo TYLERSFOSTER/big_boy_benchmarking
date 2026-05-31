@@ -1,10 +1,10 @@
 {
   "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning",
-  "source_artifact_root": "/private/tmp/bbb-counterpoint-serious-learning-serious-001",
-  "source_evaluation_root": "/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001",
+  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_001",
+  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_001/evaluations/counterpoint_first_serious_learning_v001",
   "evaluation_id": "counterpoint_first_serious_learning_v001",
   "environment_instance_id": "counterpoint_symbolic_n3_small_v001",
-  "artifact_run_label": "bbb-counterpoint-serious-learning-serious-001",
+  "artifact_run_label": "bbb-counterpoint-serious-learning-v071-001",
   "artifact_schema_version": "bbb.v001",
   "linearization_mode_id": "tensor_available_disabled",
   "run_mode": "locked_serious_run_summarized",
@@ -21,14 +21,14 @@
     "docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/readout_source.json"
   ],
   "source_files": {
-    "budget_lock": "/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001/evaluation_budget_lock.json",
-    "run_index": "/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001/evaluation_run_index.csv",
-    "aggregate_summary": "/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001/evaluation_aggregate_summary.json",
-    "aggregate_table": "/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001/evaluation_aggregate_table.csv",
-    "learning_curves": "/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001/results/learning_curves.csv",
-    "timing_summary": "/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001/results/timing_summary.csv",
-    "controller_summary": "/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001/results/controller_summary.csv",
-    "schema_diagnostic_summary": "/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001/results/schema_diagnostic_summary.csv"
+    "budget_lock": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_001/evaluations/counterpoint_first_serious_learning_v001/evaluation_budget_lock.json",
+    "run_index": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_001/evaluations/counterpoint_first_serious_learning_v001/evaluation_run_index.csv",
+    "aggregate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_001/evaluations/counterpoint_first_serious_learning_v001/evaluation_aggregate_summary.json",
+    "aggregate_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_001/evaluations/counterpoint_first_serious_learning_v001/evaluation_aggregate_table.csv",
+    "learning_curves": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_001/evaluations/counterpoint_first_serious_learning_v001/results/learning_curves.csv",
+    "timing_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_001/evaluations/counterpoint_first_serious_learning_v001/results/timing_summary.csv",
+    "controller_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_001/evaluations/counterpoint_first_serious_learning_v001/results/controller_summary.csv",
+    "schema_diagnostic_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_001/evaluations/counterpoint_first_serious_learning_v001/results/schema_diagnostic_summary.csv"
   },
   "expected_files": {
     "required": [
@@ -123,10 +123,10 @@
       "reason": "Claims are limited to counterpoint_symbolic_n3_small_v001 under the locked budget and tensor_available_disabled."
     },
     "provenance_status": {
-      "label": "Provenance: Local Tmp",
+      "label": "Provenance: Repo Artifacts",
       "color": "orange",
-      "file": "badges/provenance_local_tmp.svg",
-      "reason": "Source artifacts live under /private/tmp and have not been promoted as a durable artifact bundle."
+      "file": "badges/provenance_repo_artifacts.svg",
+      "reason": "Source artifacts live under the repo-side evaluation readout surface in artifacts/v071_001."
     }
   },
   "claim_boundary": [

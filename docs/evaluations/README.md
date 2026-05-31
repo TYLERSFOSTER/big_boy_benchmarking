@@ -15,6 +15,13 @@ Each evaluation readout surface should contain a `readout_source.json` file.
 That file binds the repo-side readout to the raw artifact root and source
 evaluation root.
 
+For durable serious evaluations, the raw artifact root also lives inside the
+repo readout surface:
+
+```text
+docs/evaluations/<environment>/<evaluation>/artifacts/<run-label>/
+```
+
 Generated evaluation READMEs should start with local SVG status badges and a
 compact `Status At A Glance` section. The badges are visual summaries only; they
 must agree with the source binding, expected-file policy, goal criteria,

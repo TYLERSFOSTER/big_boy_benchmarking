@@ -32,7 +32,9 @@ The manifest exists so future results do not blur pre-linearization control
 flow with tensor-capable-disabled or tensor-enabled benchmark conditions.
 
 Artifacts are written under an explicit artifact root. The current working
-directory must not change artifact meaning.
+directory must not change artifact meaning. For serious evaluation runs that
+will receive durable readouts, the artifact root should be inside the repo-side
+evaluation surface under `docs/evaluations/.../artifacts/`.
 
 The first serious counterpoint learning evaluation adds evaluation-level
 artifacts under:
@@ -71,9 +73,9 @@ docs/evaluations/
 ```
 
 Each readout surface should include `readout_source.json` so generated prose
-can point back to the raw artifact root, source evaluation root, aggregate
-tables, run index, expected-file policy, goal criteria, badge policy, and claim
-boundary.
+can point back to the repo-resident artifact root, source evaluation root,
+aggregate tables, run index, expected-file policy, goal criteria, badge policy,
+and claim boundary.
 
 See also:
 

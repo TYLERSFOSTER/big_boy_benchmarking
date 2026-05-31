@@ -14,20 +14,21 @@ Repo readout surface:
 Raw artifact root:
 
 ```text
-/private/tmp/bbb-counterpoint-serious-learning-serious-001
+/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_001
 ```
 
 Raw evaluation root:
 
 ```text
-/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001
+/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_001/evaluations/counterpoint_first_serious_learning_v001
 ```
 
 The repo surface is the command target. The raw artifact root is evidence
 metadata used by this readout.
 
-The raw artifact root is currently a local `/private/tmp` path. Treat it as the
-source location used for this readout, not as a durable artifact archive.
+The raw artifact root is repo-resident under `artifacts/v071_001`. Treat it as
+the source location used for this readout and keep the human-facing files in
+the repo readout surface above it.
 
 ## Evaluation-Level Files
 

@@ -97,7 +97,9 @@ repo_readout_surface:
 
 source_artifact_root:
   The raw benchmark artifact root.
-  This may be temporary, such as /private/tmp/...
+  For generated evaluation readouts, this must be inside the repository under
+  the repo readout surface, usually
+  <repo_readout_surface>/artifacts/<run-label>/.
   This is evidence metadata, not the invocation target.
 
 source_evaluation_root:
@@ -109,8 +111,7 @@ The invocation folder always means `repo_readout_surface`.
 
 If the Project Owner accidentally points the command at `source_artifact_root`
 or `source_evaluation_root`, stop and ask for the repo-side readout surface.
-Do not write generated readouts into the raw artifact tree unless the Project
-Owner explicitly asks for an artifact-local temporary dump.
+Do not write generated readouts into the artifact tree.
 
 ## Consultant Invocation Surface
 
@@ -322,14 +323,10 @@ not_applicable
 unknown_expectation
 ```
 
-The source artifact root may live in `/private/tmp`, another local artifact
-directory, or a durable artifact store. That path is evidence metadata. It is
-not the protocol invocation target.
-
-If the source path is temporary, say so in the readable documents. Do not imply
-that a `/private/tmp` source is a durable artifact archive. The repo readout is
-durable documentation of the interpretation; the raw machine evidence remains
-where the source binding says it remains.
+The source artifact root for an evaluation readout must live inside the repo
+readout surface under `artifacts/<run-label>/`. Do not bind a generated
+evaluation report to an outside-repo scratch location; rerun or copy the source
+tables into the repo-resident artifact root first.
 
 ### Output Location
 
@@ -344,8 +341,8 @@ For example:
 Do not write under `docs/results/` unless the Project Owner explicitly asks to
 promote a final result summary there.
 
-Do not write under `/private/tmp`, an artifact root, or a raw evaluation root
-unless the Project Owner explicitly asks for an artifact-local temporary dump.
+Do not write human-readable readouts under an outside-repo scratch location, an
+artifact root, or a raw evaluation root.
 
 ### Execution Contract
 
@@ -683,7 +680,7 @@ Example:
 ![Behavior: Mixed](badges/behavior_mixed.svg)
 ![Goals: Partial](badges/goals_partial.svg)
 ![Scope: Fixture Only](badges/scope_fixture_only.svg)
-![Provenance: Local Tmp](badges/provenance_local_tmp.svg)
+![Provenance: Repo Artifacts](badges/provenance_repo_artifacts.svg)
 ```
 
 Then include:
@@ -699,8 +696,8 @@ Then include:
   a tower-control failure mechanism, but does not show tower advantage.
 - Claim scope: fixture-only; claims apply only to the named environment,
   budget, seeds, and linearization condition.
-- Provenance: local temporary artifact root; evidence is source-bound but not a
-  promoted durable artifact bundle.
+- Provenance: repo-resident artifact root; evidence is source-bound from this
+  repo readout surface.
 ```
 
 The badge strip and status bullets must agree with the detailed verdict,

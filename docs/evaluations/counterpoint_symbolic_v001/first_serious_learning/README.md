@@ -4,7 +4,7 @@
 ![Behavior: Mixed](badges/behavior_mixed.svg)
 ![Goals: Partial](badges/goals_partial.svg)
 ![Scope: Fixture Only](badges/scope_fixture_only.svg)
-![Provenance: Local Tmp](badges/provenance_local_tmp.svg)
+![Provenance: Repo Artifacts](badges/provenance_repo_artifacts.svg)
 
 ## Status At A Glance
 
@@ -18,7 +18,7 @@
 - Claim scope: fixture-only; claims apply only to
   `counterpoint_symbolic_n3_small_v001`, the locked budget,
   `tensor_available_disabled`, and this artifact set.
-- Provenance: local temporary artifact root; the evidence is source-bound from
+- Provenance: repo-resident artifact root; the evidence is source-bound from
   this repo readout but has not been promoted as a durable artifact bundle.
 
 This repository directory is the human-readable readout surface for the
@@ -27,7 +27,7 @@ counterpoint first serious learning evaluation.
 Source evaluation root:
 
 ```text
-/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001
+/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_001/evaluations/counterpoint_first_serious_learning_v001
 ```
 
 Source binding:
@@ -76,9 +76,8 @@ than direct learning.
 ## Summary of Methodology Behind this Evaluation
 
 This readout summarizes a locked serious-run artifact set followed by
-aggregation and human readout generation. The source binding points at a local
-artifact root under `/private/tmp`, while this directory is the durable
-repo-side readout surface.
+aggregation and human readout generation. The source binding points at a
+repo-resident artifact root under this evaluation readout surface.
 
 The evaluation compares direct environment arms against active-tier
 exploit/explore tower-control arms under shared seed, budget, mask, artifact,
