@@ -1,0 +1,148 @@
+{
+  "reward_bundle_id": "counterpoint_reward_local_v001",
+  "terms": [
+    {
+      "diagnostic_fields": [
+        "is_legal"
+      ],
+      "enabled": true,
+      "input_scope": [
+        "state",
+        "action",
+        "next_state"
+      ],
+      "locality_class": "action_local",
+      "output_range": [
+        0.0,
+        1.0
+      ],
+      "reward_term_id": "valid_transition_bonus",
+      "reward_term_version": "v001",
+      "weight": 1.0
+    },
+    {
+      "diagnostic_fields": [
+        "allowed_adjacent_fraction"
+      ],
+      "enabled": true,
+      "input_scope": [
+        "next_state",
+        "instance_parameters"
+      ],
+      "locality_class": "action_local",
+      "output_range": [
+        0.0,
+        1.0
+      ],
+      "reward_term_id": "adjacent_interval_preference",
+      "reward_term_version": "v001",
+      "weight": 0.4
+    },
+    {
+      "diagnostic_fields": [
+        "outer_interval_class"
+      ],
+      "enabled": true,
+      "input_scope": [
+        "next_state",
+        "instance_parameters"
+      ],
+      "locality_class": "action_local",
+      "output_range": [
+        0.0,
+        1.0
+      ],
+      "reward_term_id": "outer_interval_preference",
+      "reward_term_version": "v001",
+      "weight": 0.3
+    },
+    {
+      "diagnostic_fields": [
+        "mean_abs_delta"
+      ],
+      "enabled": true,
+      "input_scope": [
+        "action",
+        "instance_parameters"
+      ],
+      "locality_class": "action_local",
+      "output_range": [
+        -1.0,
+        0.0
+      ],
+      "reward_term_id": "movement_size_preference",
+      "reward_term_version": "v001",
+      "weight": 0.35
+    },
+    {
+      "diagnostic_fields": [
+        "direction_pattern"
+      ],
+      "enabled": true,
+      "input_scope": [
+        "action"
+      ],
+      "locality_class": "action_local",
+      "output_range": [
+        -1.0,
+        1.0
+      ],
+      "reward_term_id": "motion_shape_preference",
+      "reward_term_version": "v001",
+      "weight": 0.2
+    },
+    {
+      "diagnostic_fields": [
+        "mean_center_distance"
+      ],
+      "enabled": true,
+      "input_scope": [
+        "next_state",
+        "instance_parameters"
+      ],
+      "locality_class": "action_local",
+      "output_range": [
+        -1.0,
+        0.0
+      ],
+      "reward_term_id": "range_comfort_penalty",
+      "reward_term_version": "v001",
+      "weight": 0.2
+    },
+    {
+      "diagnostic_fields": [
+        "beat_index"
+      ],
+      "enabled": true,
+      "input_scope": [
+        "next_state",
+        "beat_index"
+      ],
+      "locality_class": "action_local",
+      "output_range": [
+        0.0,
+        1.0
+      ],
+      "reward_term_id": "beat_phase_local_preference",
+      "reward_term_version": "v001",
+      "weight": 0.1
+    },
+    {
+      "diagnostic_fields": [
+        "terminated"
+      ],
+      "enabled": true,
+      "input_scope": [
+        "terminal_flag"
+      ],
+      "locality_class": "action_local",
+      "output_range": [
+        0.0,
+        1.0
+      ],
+      "reward_term_id": "terminal_completion_bonus",
+      "reward_term_version": "v001",
+      "weight": 1.0
+    }
+  ]
+}

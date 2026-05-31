@@ -1,0 +1,10 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "artifacts": [
+    {
+      "artifact_id": "counterpoint_environment_instance_manifest",
+      "kind": "environment_contract"
+    }
+  ],
+  "run_id": "counterpoint_symbolic_n3_small_v001-direct_masked_random-rep2"
+}

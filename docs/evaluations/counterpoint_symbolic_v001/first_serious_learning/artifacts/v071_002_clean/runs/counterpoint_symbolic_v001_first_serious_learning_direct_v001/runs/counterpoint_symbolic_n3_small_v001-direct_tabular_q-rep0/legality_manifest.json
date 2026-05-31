@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "pitch_band",
+    "strict_voice_order",
+    "adjacent_interval_class",
+    "outer_interval_class",
+    "root_interval_class",
+    "forbidden_parallel_interval_class"
+  ],
+  "legality_contract_id": "counterpoint_legality_local_v001"
+}

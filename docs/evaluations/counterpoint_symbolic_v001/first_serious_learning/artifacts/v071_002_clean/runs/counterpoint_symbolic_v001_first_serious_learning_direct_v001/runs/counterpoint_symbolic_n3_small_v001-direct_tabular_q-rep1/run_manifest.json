@@ -1,0 +1,30 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "budget": {
+    "episodes": 16,
+    "horizon": 8,
+    "learner_config": {
+      "action_count_policy": "counterpoint_raw_action_count",
+      "alpha": 0.4,
+      "epsilon": 0.2,
+      "gamma": 0.9,
+      "learner_config_id": "tabular_q_v001"
+    },
+    "upstream_learner": "state_collapser.training.TabularQLearner"
+  },
+  "command": "python -m big_boy_benchmarking.cli counterpoint serious-learning run",
+  "controller_id": "none",
+  "diagnostic_profile": "smoke",
+  "environment_id": "counterpoint_symbolic_n3_small_v001",
+  "learner_id": "tabular_q",
+  "linearization_benchmark_label": "tensor_available_disabled",
+  "linearization_enabled": false,
+  "linearization_mode_id": "tensor_available_disabled",
+  "mode_id": "direct_env_tabular",
+  "run_family_id": "counterpoint_symbolic_v001_first_serious_learning_direct_v001",
+  "run_id": "counterpoint_symbolic_n3_small_v001-direct_tabular_q-rep1",
+  "schema_id": "none",
+  "seed_bundle_id": "seed-f2dc11649bc773f7",
+  "status": "success",
+  "timing_profile": "default_online"
+}

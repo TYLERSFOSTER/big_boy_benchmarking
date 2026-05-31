@@ -1,0 +1,16 @@
+{
+  "arm_id": "direct_tabular_q",
+  "artifact_schema_version": "bbb.v001",
+  "environment_instance_id": "counterpoint_symbolic_n3_small_v001",
+  "episode_count": 16,
+  "evaluation_id": "counterpoint_first_serious_learning_v001",
+  "learner_id": "tabular_q",
+  "linearization_benchmark_label": "tensor_available_disabled",
+  "linearization_mode_id": "tensor_available_disabled",
+  "mean_return": 12.626736111111109,
+  "mode_id": "direct_env_tabular",
+  "run_family_id": "counterpoint_symbolic_v001_first_serious_learning_direct_v001",
+  "run_id": "counterpoint_symbolic_n3_small_v001-direct_tabular_q-rep3",
+  "uses_compatibility_readout": false,
+  "uses_morphism": false
+}

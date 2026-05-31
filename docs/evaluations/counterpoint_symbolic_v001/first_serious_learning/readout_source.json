@@ -95,9 +95,42 @@
       "provenance_status"
     ]
   },
+  "readout_badges": {
+    "artifact_status": {
+      "label": "Artifacts: Partial",
+      "color": "yellow",
+      "file": "badges/artifacts_partial.svg",
+      "reason": "Required result tables exist and parse, but expected evaluation and arm manifests are absent."
+    },
+    "behavioral_status": {
+      "label": "Behavior: Mixed",
+      "color": "yellow",
+      "file": "badges/behavior_mixed.svg",
+      "reason": "Direct, empty-schema, structured-motion, and bad/adversarial arms execute real steps; random balanced and random unbalanced arms are schema-seed dependent and include zero-step failures."
+    },
+    "goal_status": {
+      "label": "Goals: Partial",
+      "color": "yellow",
+      "file": "badges/goals_partial.svg",
+      "reason": "The run validates the serious harness and several tower-control paths, but random schema failures, the non-degrading bad control, and lack of tower advantage keep the learning claim partial."
+    },
+    "claim_scope": {
+      "label": "Scope: Fixture Only",
+      "color": "blue",
+      "file": "badges/scope_fixture_only.svg",
+      "reason": "Claims are limited to counterpoint_symbolic_n3_small_v001 under the locked budget and tensor_available_disabled."
+    },
+    "provenance_status": {
+      "label": "Provenance: Repo Artifacts",
+      "color": "green",
+      "file": "badges/provenance_repo_artifacts.svg",
+      "reason": "Source artifacts live under the repo-side evaluation readout surface in artifacts/v071_002_clean."
+    }
+  },
   "claim_boundary": [
     "May compare direct and tower-control arms only for this artifact run under tensor_available_disabled.",
-    "May claim artifact completion and observed behavior status only after reading the current artifact tables.",
+    "May claim required-table artifact completion and observed behavior status for counterpoint_symbolic_n3_small_v001 under the recorded budget.",
+    "May claim random balanced and random unbalanced are schema-seed dependent under this budget.",
     "May not claim tensor-enabled, CUDA, GPU, musical-quality, production, or general tower-performance results."
   ]
 }

@@ -1,0 +1,66 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "linearization_mode_contract": {
+    "artifact_claim_level": "tensor_capable_disabled_smoke",
+    "constructs_linearized_records": false,
+    "constructs_torch_batches": false,
+    "conversion_timing_required": true,
+    "debug_record_export_allowed": false,
+    "expected_benchmark_label": "tensor_available_disabled",
+    "linearization_mode_id": "tensor_available_disabled",
+    "linearization_state": "PRESENT_DISABLED",
+    "numeric_backend": "NUMPY",
+    "report_required": true,
+    "requires_cuda": false,
+    "requires_numpy": true,
+    "requires_torch": false,
+    "reserved_reason": null,
+    "runnable": true,
+    "tensor_device_kind": "NONE"
+  },
+  "mode_contract": {
+    "controller_regime": "none",
+    "diagnostic_profile": {
+      "profile_id": "smoke",
+      "structural_diagnostics": "none"
+    },
+    "environment_coupling": "direct_env",
+    "learner_id": "tabular_q",
+    "mode_id": "direct_env_tabular",
+    "morphism_policy": {
+      "allowed": false,
+      "reason": "default hot path excludes morphism construction",
+      "requested": false
+    },
+    "online_costs_excluded": [
+      "tower_reset",
+      "tower_update",
+      "compatibility_readout",
+      "morphism_construction"
+    ],
+    "online_costs_included": [
+      "environment_reset",
+      "environment_step",
+      "learner_act"
+    ],
+    "readout_policy": {
+      "allowed": false,
+      "reason": "default hot path excludes compatibility readouts",
+      "requested": false
+    },
+    "reserved_reason": null,
+    "runnable": true,
+    "schema_mode": "none",
+    "timing_profile": {
+      "include_morphism": false,
+      "include_readout": false,
+      "profile_id": "default_online"
+    },
+    "training_surface": "environment"
+  },
+  "mode_id": "direct_env_tabular",
+  "morphism_requested": false,
+  "readout_requested": false,
+  "uses_compatibility_readout": false,
+  "uses_morphism": false
+}

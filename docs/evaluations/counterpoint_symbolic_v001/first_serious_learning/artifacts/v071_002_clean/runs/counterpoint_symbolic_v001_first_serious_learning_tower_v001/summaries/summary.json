@@ -1,0 +1,17 @@
+{
+  "arm_id": "tower_bad_exploit_explore_tabular_q",
+  "artifact_schema_version": "bbb.v001",
+  "environment_instance_id": "counterpoint_symbolic_n3_small_v001",
+  "episode_count": 16,
+  "evaluation_id": "counterpoint_first_serious_learning_v001",
+  "linearization_benchmark_label": "tensor_available_disabled",
+  "linearization_mode_id": "tensor_available_disabled",
+  "mean_return": 12.467881944444445,
+  "mode_id": "tower_exploit_explore",
+  "run_family_id": "counterpoint_symbolic_v001_first_serious_learning_tower_v001",
+  "run_id": "counterpoint_symbolic_n3_small_v001-tower_bad_exploit_explore_tabular_q-schema846157733-rep3",
+  "schema_id": "counterpoint_bad_schema_v001",
+  "schema_seed": null,
+  "uses_compatibility_readout": false,
+  "uses_morphism": false
+}
