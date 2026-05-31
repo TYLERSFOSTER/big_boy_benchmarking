@@ -87,7 +87,7 @@ The completed serious readout supports these claims:
 - random tower schemas expose schema-seed-dependent
   `no_lift_candidate_from_current_state` lift/action-realization failures.
 
-The current readouts do **not** support:
+The current readouts do **not yet** support:
 
 - general tower superiority or inferiority;
 - tensor-enabled, CUDA, or GPU performance claims;
