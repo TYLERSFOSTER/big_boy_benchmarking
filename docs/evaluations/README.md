@@ -27,11 +27,12 @@ compact `Status At A Glance` section. The badges are visual summaries only; they
 must agree with the source binding, expected-file policy, goal criteria,
 provenance status, and detailed verdict.
 
-The command target for human-readable readout generation is the repo-side
-evaluation folder, not the raw artifact root:
+The command target for human-readable readout generation is the checked-in
+`readout_source.json` file inside the repo-side evaluation folder, not the
+README, the raw artifact root, or the raw evaluation root:
 
 ```text
-execute artifact-table readout pointed at folder docs/evaluations/<environment>/<evaluation>/
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/<environment>/<evaluation>/readout_source.json
 ```
 
 Follow:

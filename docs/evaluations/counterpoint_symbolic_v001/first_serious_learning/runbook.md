@@ -46,14 +46,14 @@ are evidence, not the repo-side human readout surface.
 
 ## Regenerate Human Readout
 
-Point the artifact-table readout protocol at the repo-side evaluation folder:
+Point the artifact-table readout protocol at the repo-side source binding:
 
 ```text
-execute artifact-table readout pointed at folder /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/readout_source.json
 ```
 
-The protocol should read `readout_source.json`, use the source paths inside it,
-and write the human-readable docs in this folder.
+The protocol should use the source paths inside `readout_source.json` and write
+the human-readable docs into its `repo_readout_surface`.
 
 ## Interpretation Guardrail
 

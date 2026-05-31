@@ -122,24 +122,25 @@ separate shell script.
 The canonical invocation is:
 
 ```text
-execute artifact-table readout pointed at folder <folder>
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-readout-surface>/readout_source.json
 ```
 
 Equivalent accepted invocations:
 
 ```text
-execute human-readable evaluation readout pointed at folder <folder>
-apply artifact-table-to-readable-document protocol to folder <folder>
-apply the readable-doc protocol to this repo readout folder: <folder>
-make the human readout in <folder>
+execute artifact-table-to-readable-document protocol at <repo-readout-surface>/readout_source.json
+apply docs/prime_directive/artifact_table_to_readable_document_protocol.md to <repo-readout-surface>/readout_source.json
+generate the human readout from <repo-readout-surface>/readout_source.json using docs/prime_directive/artifact_table_to_readable_document_protocol.md
 ```
 
 When the Project Owner gives one of these commands, the consultant must treat it
 as an instruction to:
 
 1. read this protocol;
-2. resolve the supplied folder as a repository-side readout surface;
-3. read that surface's source binding to find the machine-readable artifacts;
+2. resolve the supplied file as a repository-side `readout_source.json` source
+   binding;
+3. read that source binding to find the repo readout surface and the
+   machine-readable artifacts;
 4. write the human-readable files required by this protocol;
 5. report exactly what was written and what could not be interpreted.
 
@@ -165,7 +166,7 @@ When the conversation touches any of the following:
 the consultant should remind the Project Owner of the invocation surface:
 
 ```text
-execute artifact-table readout pointed at folder <folder>
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-readout-surface>/readout_source.json
 ```
 
 The reminder should be short and optional, not a derailment.
@@ -174,11 +175,12 @@ Good reminder:
 
 ```text
 For this repo, the protocol surface is:
-execute artifact-table readout pointed at folder <folder>
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-readout-surface>/readout_source.json
 ```
 
-Here `<folder>` means the repo-side readout surface, usually somewhere under
-`docs/evaluations/`. It does not mean the raw artifact directory.
+Here `<repo-readout-surface>/readout_source.json` is the checked-in source
+binding, usually somewhere under `docs/evaluations/`. It is not the README, the
+raw artifact directory, or the raw evaluation directory.
 
 Bad reminder:
 
@@ -189,45 +191,44 @@ Here is a new multi-step workflow you should follow...
 Do not repeatedly remind the Project Owner inside the same local conversation
 unless the Project Owner appears to be searching for the command again.
 
-### Folder Resolution
+### Source Binding Resolution
 
-The invocation must include an explicit repository folder. Relative folders are
-resolved from the repository root. Do not infer "last run" unless the Project
-Owner explicitly adds a reliable repo surface or marker.
+The invocation must include an explicit repository `readout_source.json` file.
+Relative paths are resolved from the repository root. Do not infer "last run"
+unless the Project Owner explicitly adds a reliable source binding.
 
-The supplied `<folder>` is the repo-side readout surface. It is not the raw
-artifact root and it is not the raw evaluation root.
+The supplied `<file>` is the source binding. It is not the README, the raw
+artifact root, and it is not the raw evaluation root. The repo-side readout
+surface is read from the `repo_readout_surface` field in that source binding.
 
 For this repository's first serious counterpoint evaluation, the normal command
 target is:
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/readout_source.json
 ```
 
-Resolve the supplied folder as follows:
+Resolve the supplied source binding as follows:
 
-1. If the folder is outside the repository, stop. Tell the Project Owner that
-   the protocol must be pointed at a repo-side readout surface, not the raw
-   artifact directory.
-2. If the folder does not exist but its parent exists inside the repository,
-   create it only when the Project Owner's command clearly names the intended
-   repo readout surface.
-3. If the folder contains `readout_source.json`, read it and use its source
-   paths to find the raw artifact tables.
-4. If the folder contains `artifact_index.md` with concrete source paths, use
-   those paths only if no `readout_source.json` exists, and write
-   `readout_source.json` as part of the readout.
-5. If the folder contains only placeholder paths such as `<artifact-root>`,
-   stop and ask for the source artifact root, unless the source can be
-   established from explicit Project Owner context already present in the
-   conversation. If that context is used, record it in `readout_source.json`.
-6. If the folder itself contains raw tables such as
-   `evaluation_aggregate_table.csv`, treat that as copied source evidence inside
-   the repo surface, not as a reason to move the readout elsewhere. Write
-   `readout_source.json` with repo-local source file paths.
-7. If no source binding or copied source tables are found, apply Case 1: No
-   Artifacts Found.
+1. If the file is outside the repository, stop. Tell the Project Owner that the
+   protocol must be pointed at a checked-in repo-side `readout_source.json`.
+2. If the file is not named `readout_source.json`, stop and ask for the source
+   binding unless the Project Owner explicitly says the file is a compatible
+   source binding.
+3. If the file does not exist, stop and ask for the correct source binding. Do
+   not create a source binding from memory unless the Project Owner explicitly
+   asks for source-binding construction.
+4. Read `repo_readout_surface`, `source_artifact_root`,
+   `source_evaluation_root`, and `source_files` from `readout_source.json`.
+5. If `repo_readout_surface` is outside the repository, stop.
+6. If `source_artifact_root` is outside the repository for a durable evaluation
+   readout, stop and ask whether to rerun or copy source tables into a
+   repo-resident artifact root.
+7. If required source files listed in `readout_source.json` are missing, apply
+   the expected-file classification rules. Do not silently reuse older tables.
+8. If the Project Owner uses the old folder-based command, treat it as
+   ambiguous. Ask them to run the explicit command against that folder's
+   `readout_source.json`.
 
 ### Source Binding
 

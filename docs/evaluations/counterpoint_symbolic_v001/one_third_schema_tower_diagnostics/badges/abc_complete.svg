@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="132" height="20" role="img" aria-label="ABC: Complete">
+  <rect width="44" height="20" fill="#555"/>
+  <rect x="44" width="88" height="20" fill="#2e7d32"/>
+  <text x="22" y="14" fill="#fff" font-family="Verdana,Arial,sans-serif" font-size="11" text-anchor="middle">ABC</text>
+  <text x="88" y="14" fill="#fff" font-family="Verdana,Arial,sans-serif" font-size="11" text-anchor="middle">Complete</text>
+</svg>

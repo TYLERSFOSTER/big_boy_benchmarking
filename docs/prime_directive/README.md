@@ -26,17 +26,16 @@ The core collaboration and execution discipline lives in:
 - `common_failure_mode_003_gameplan_rewrite_during_implementation.md`
 
 When the Project Owner asks for a human-readable run report, remind them of the
-repo-side readout surface:
+explicit protocol/source-binding command:
 
 ```text
-execute artifact-table readout pointed at folder docs/evaluations/<environment>/<evaluation>/
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/<environment>/<evaluation>/readout_source.json
 ```
 
-The folder in that command is not the raw artifact root. It is the checked-in
-evaluation readout surface that contains `readout_source.json`. Generated
-evaluation READMEs should begin with local SVG status badges and a compact
-`Status At A Glance` section derived from the same evidence as the detailed
-readout.
+The file in that command is the checked-in source binding. It is not the README,
+the raw artifact root, or the raw evaluation root. Generated evaluation READMEs
+should begin with local SVG status badges and a compact `Status At A Glance`
+section derived from the same evidence as the detailed readout.
 
 For durable serious evaluations, raw artifact tables should also be generated
 inside the repo readout surface under `artifacts/<run-label>/`, so the

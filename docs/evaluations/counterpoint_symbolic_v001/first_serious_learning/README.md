@@ -39,11 +39,12 @@ Source binding:
 readout_source.json
 ```
 
-To regenerate this repo-side readout, point the protocol at this directory, not
-at the raw artifact root:
+To regenerate this repo-side readout, execute the protocol against this
+directory's checked-in source binding, not the README, raw artifact root, or raw
+evaluation root:
 
 ```text
-execute artifact-table readout pointed at folder /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/readout_source.json
 ```
 
 Protocol applied:

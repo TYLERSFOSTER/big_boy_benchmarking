@@ -148,8 +148,9 @@ def _runbook(artifact_root: Path, command_lines: tuple[str, ...]) -> str:
         "--artifact-root <artifact-root> --instance-ids small,medium",
         "uv run python -m big_boy_benchmarking.cli counterpoint one-third-diagnostics "
         "summarize --artifact-root <artifact-root>",
-        "execute artifact-table readout pointed at folder "
-        "docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics",
+        "execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at "
+        "docs/evaluations/counterpoint_symbolic_v001/"
+        "one_third_schema_tower_diagnostics/readout_source.json",
     )
     lines = ["# Runbook", ""]
     for command in commands:

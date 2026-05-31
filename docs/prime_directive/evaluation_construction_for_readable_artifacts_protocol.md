@@ -81,13 +81,15 @@ Example:
 docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/
 ```
 
-This folder is the command target for:
+This folder owns the command target for the artifact-table readout protocol:
 
 ```text
-execute artifact-table readout pointed at folder <repo-readout-surface>
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-readout-surface>/readout_source.json
 ```
 
-It is not the raw artifact root.
+The target is the checked-in `readout_source.json` file inside the repo readout
+surface. It is not the README, the raw artifact root, or the raw evaluation
+root.
 
 ### Source Artifact Shape
 
