@@ -2,7 +2,7 @@
   <picture>
     <source srcset="assets/images/BBB_dark.png" media="(prefers-color-scheme: dark)">
     <source srcset="assets/images/BBB_light.png" media="(prefers-color-scheme: light)">
-    <img src="assets/images/BBB_light.png" alt="BBB" width="375">
+    <img src="assets/images/BBB_light.png" alt="BBB" width="395">
   </picture>
 </p>
 
