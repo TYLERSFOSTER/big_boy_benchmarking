@@ -1,3 +1,23 @@
+# Counterpoint First Serious Learning V001 - Readout Conversation Archive
+
+This file preserves a generated README snapshot from:
+
+```text
+docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/README.md
+```
+
+The clarifying-turn conversation begins at:
+
+```text
+## Clarifying Questions And Turns
+```
+
+This archive exists because the source README is a generated/readout surface
+and may be regenerated. The copy below is intentionally mostly verbatim so that
+Project Owner and Codex attribution remains intact.
+
+---
+
 # Counterpoint First Serious Learning Evaluation Readout
 
 ![Artifacts: Partial](badges/artifacts_partial.svg)
