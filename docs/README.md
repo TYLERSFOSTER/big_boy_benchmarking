@@ -44,11 +44,14 @@ without recorded artifacts.
 
 ## Current Completed Readouts
 
-The current completed serious evaluation readout is:
+The current completed serious evaluation readouts are:
 
 - [Counterpoint first serious learning v001](evaluations/counterpoint_symbolic_v001/first_serious_learning/README.md):
   structural-limit diagnostic for `counterpoint_symbolic_n3_small_v001` under
   `tensor_available_disabled`.
+- [Counterpoint one-third schema tower diagnostics v001](evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/README.md):
+  source-local one-third contraction diagnostic for `small` and `medium` under
+  upstream ABC control and `tensor_available_disabled`.
 
 The key design-learning archive from that readout is:
 

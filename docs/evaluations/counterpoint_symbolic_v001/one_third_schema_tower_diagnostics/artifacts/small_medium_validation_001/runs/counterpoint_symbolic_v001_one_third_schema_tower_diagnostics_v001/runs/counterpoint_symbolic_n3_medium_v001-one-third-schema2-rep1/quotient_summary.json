@@ -1,0 +1,139 @@
+{
+  "action_cell_count_by_tier": [
+    2732,
+    71873,
+    0,
+    0
+  ],
+  "edge_count": 2732,
+  "evaluation_id": "counterpoint_one_third_schema_tower_diagnostics_v001",
+  "partition_tier_count": 4,
+  "schema_block_summary": [
+    {
+      "block_id": "one_third_block_0",
+      "construction_rule": "seeded_source_local_recursive_ceil_one_third",
+      "evaluation_id": "counterpoint_one_third_schema_tower_diagnostics_v001",
+      "instance_id": "counterpoint_symbolic_n3_medium_v001",
+      "mean_source_local_edge_count": 4.298245614035087,
+      "scheduled_edge_count": 980,
+      "scheduled_edge_share": 0.35871156661786235,
+      "schema_id": "counterpoint_one_third_outgoing_schema_v001",
+      "schema_seed": 2,
+      "source_count_with_block": 228
+    },
+    {
+      "block_id": "one_third_block_1",
+      "construction_rule": "seeded_source_local_recursive_ceil_one_third",
+      "evaluation_id": "counterpoint_one_third_schema_tower_diagnostics_v001",
+      "instance_id": "counterpoint_symbolic_n3_medium_v001",
+      "mean_source_local_edge_count": 2.824561403508772,
+      "scheduled_edge_count": 644,
+      "scheduled_edge_share": 0.23572474377745242,
+      "schema_id": "counterpoint_one_third_outgoing_schema_v001",
+      "schema_seed": 2,
+      "source_count_with_block": 228
+    },
+    {
+      "block_id": "one_third_block_2",
+      "construction_rule": "seeded_source_local_recursive_ceil_one_third",
+      "evaluation_id": "counterpoint_one_third_schema_tower_diagnostics_v001",
+      "instance_id": "counterpoint_symbolic_n3_medium_v001",
+      "mean_source_local_edge_count": 1.9473684210526316,
+      "scheduled_edge_count": 444,
+      "scheduled_edge_share": 0.16251830161054173,
+      "schema_id": "counterpoint_one_third_outgoing_schema_v001",
+      "schema_seed": 2,
+      "source_count_with_block": 228
+    },
+    {
+      "block_id": "one_third_unscheduled",
+      "construction_rule": "seeded_source_local_recursive_ceil_one_third",
+      "evaluation_id": "counterpoint_one_third_schema_tower_diagnostics_v001",
+      "instance_id": "counterpoint_symbolic_n3_medium_v001",
+      "mean_source_local_edge_count": 3.1923076923076925,
+      "scheduled_edge_count": 664,
+      "scheduled_edge_share": 0.2430453879941435,
+      "schema_id": "counterpoint_one_third_outgoing_schema_v001",
+      "schema_seed": 2,
+      "source_count_with_block": 208
+    }
+  ],
+  "schema_id": "counterpoint_one_third_outgoing_schema_v001",
+  "schema_seed": 2,
+  "state_cell_count_by_tier": [
+    228,
+    1,
+    1,
+    1
+  ],
+  "tower_shape_summary": [
+    {
+      "action_cell_count": 2732,
+      "base_edge_count": 2732,
+      "base_state_count": 228,
+      "degeneracy_class": "identity_or_base",
+      "evaluation_id": "counterpoint_one_third_schema_tower_diagnostics_v001",
+      "instance_id": "counterpoint_symbolic_n3_medium_v001",
+      "largest_state_fiber_share": 0.0043859649122807015,
+      "replicate_index": 1,
+      "run_id": "counterpoint_symbolic_n3_medium_v001-one-third-schema2-rep1",
+      "schema_id": "counterpoint_one_third_outgoing_schema_v001",
+      "schema_seed": 2,
+      "singleton_state_fiber_share": 1.0,
+      "state_cell_count": 228,
+      "state_compression_ratio": 1.0,
+      "tier_index": 0
+    },
+    {
+      "action_cell_count": 71873,
+      "base_edge_count": 2732,
+      "base_state_count": 228,
+      "degeneracy_class": "full_collapse",
+      "evaluation_id": "counterpoint_one_third_schema_tower_diagnostics_v001",
+      "instance_id": "counterpoint_symbolic_n3_medium_v001",
+      "largest_state_fiber_share": 1.0,
+      "replicate_index": 1,
+      "run_id": "counterpoint_symbolic_n3_medium_v001-one-third-schema2-rep1",
+      "schema_id": "counterpoint_one_third_outgoing_schema_v001",
+      "schema_seed": 2,
+      "singleton_state_fiber_share": 0.0,
+      "state_cell_count": 1,
+      "state_compression_ratio": 0.0043859649122807015,
+      "tier_index": 1
+    },
+    {
+      "action_cell_count": 0,
+      "base_edge_count": 2732,
+      "base_state_count": 228,
+      "degeneracy_class": "full_collapse",
+      "evaluation_id": "counterpoint_one_third_schema_tower_diagnostics_v001",
+      "instance_id": "counterpoint_symbolic_n3_medium_v001",
+      "largest_state_fiber_share": 1.0,
+      "replicate_index": 1,
+      "run_id": "counterpoint_symbolic_n3_medium_v001-one-third-schema2-rep1",
+      "schema_id": "counterpoint_one_third_outgoing_schema_v001",
+      "schema_seed": 2,
+      "singleton_state_fiber_share": 0.0,
+      "state_cell_count": 1,
+      "state_compression_ratio": 0.0043859649122807015,
+      "tier_index": 2
+    },
+    {
+      "action_cell_count": 0,
+      "base_edge_count": 2732,
+      "base_state_count": 228,
+      "degeneracy_class": "full_collapse",
+      "evaluation_id": "counterpoint_one_third_schema_tower_diagnostics_v001",
+      "instance_id": "counterpoint_symbolic_n3_medium_v001",
+      "largest_state_fiber_share": 1.0,
+      "replicate_index": 1,
+      "run_id": "counterpoint_symbolic_n3_medium_v001-one-third-schema2-rep1",
+      "schema_id": "counterpoint_one_third_outgoing_schema_v001",
+      "schema_seed": 2,
+      "singleton_state_fiber_share": 0.0,
+      "state_cell_count": 1,
+      "state_compression_ratio": 0.0043859649122807015,
+      "tier_index": 3
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "conversion_records_exported": false,
+  "debug_record_artifacts": [],
+  "linearization_config": {
+    "debug_export_records": false,
+    "derived_benchmark_label": "tensor_available_disabled",
+    "device_kind": "NONE",
+    "dtype": null,
+    "encoder_registry_id": "5169447e1c9fd98dafc09ca95a6b58008f764dfc0f711b6549ca5d950c9d9513",
+    "include_diagnostics": false,
+    "linearization_state": "PRESENT_DISABLED",
+    "mask_dtype": "bool",
+    "max_action_count": 22,
+    "max_tower_depth": 4,
+    "numeric_backend": "NUMPY",
+    "sequence_length": null,
+    "strict": true
+  },
+  "linearization_mode_id": "tensor_available_disabled",
+  "linearization_report": {
+    "backend_available": true,
+    "benchmark_label": "tensor_available_disabled",
+    "conversion_count": 0,
+    "conversion_elapsed_seconds": 0.0,
+    "cuda_available": false,
+    "debug_record_exported": false,
+    "device_kind": "NONE",
+    "dtype": null,
+    "enabled": false,
+    "encoder_registry_id": "5169447e1c9fd98dafc09ca95a6b58008f764dfc0f711b6549ca5d950c9d9513",
+    "linearization_state": "PRESENT_DISABLED",
+    "mask_dtype": "bool",
+    "max_action_count": 22,
+    "max_tower_depth": 4,
+    "metadata": {
+      "environment_instance_id": "counterpoint_symbolic_n3_medium_v001",
+      "evaluation_id": "counterpoint_one_third_schema_tower_diagnostics_v001",
+      "mode_id": "tower_exploit_explore",
+      "runner": "counterpoint_one_third_diagnostics",
+      "schema_id": "counterpoint_one_third_outgoing_schema_v001"
+    },
+    "numeric_backend": "NUMPY",
+    "numpy_available": true,
+    "numpy_version": "2.4.6",
+    "schema_fingerprint": "01986c6101aaed4731bd5ac3eba48e621e6838aed422a78bcbf4c30e5dda715c",
+    "torch_available": false,
+    "torch_version": null,
+    "tower_fingerprint": "5169447e1c9fd98dafc09ca95a6b58008f764dfc0f711b6549ca5d950c9d9513"
+  },
+  "report_source": "state_collapser.training.build_linearization_report",
+  "run_id": "counterpoint_symbolic_n3_medium_v001-one-third-schema0-rep1"
+}

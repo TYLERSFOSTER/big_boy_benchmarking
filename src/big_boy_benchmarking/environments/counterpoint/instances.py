@@ -13,6 +13,7 @@ from big_boy_benchmarking.environments.counterpoint.state import CounterpointSta
 
 TINY_INSTANCE_ID = "counterpoint_symbolic_n3_tiny_v001"
 SMALL_INSTANCE_ID = "counterpoint_symbolic_n3_small_v001"
+MEDIUM_INSTANCE_ID = "counterpoint_symbolic_n3_medium_v001"
 
 
 def tiny_candidate_specs() -> tuple[CounterpointInstanceSpec, ...]:
@@ -65,12 +66,31 @@ def small_candidate_specs() -> tuple[CounterpointInstanceSpec, ...]:
     )
 
 
+def medium_candidate_specs() -> tuple[CounterpointInstanceSpec, ...]:
+    return (
+        make_instance_spec(
+            environment_instance_id=MEDIUM_INSTANCE_ID,
+            voice_count=3,
+            pitch_min=58,
+            pitch_max=74,
+            measure_size=4,
+            horizon_steps=12,
+            max_step_size=2,
+            max_outer_span=16,
+        ),
+    )
+
+
 def default_tiny_spec() -> CounterpointInstanceSpec:
     return tiny_candidate_specs()[0]
 
 
 def default_small_spec() -> CounterpointInstanceSpec:
     return small_candidate_specs()[0]
+
+
+def default_medium_spec() -> CounterpointInstanceSpec:
+    return medium_candidate_specs()[0]
 
 
 def candidate_initial_states(spec: CounterpointInstanceSpec) -> tuple[CounterpointState, ...]:

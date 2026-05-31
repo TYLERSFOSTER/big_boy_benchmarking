@@ -38,7 +38,7 @@ uv run ruff check .
 
 ## Current Status
 
-`big_boy_benchmarking` has one complete serious evaluation readout and several
+`big_boy_benchmarking` has two complete serious evaluation readouts and several
 supporting smoke/diagnostic surfaces.
 
 Implemented infrastructure:
@@ -46,7 +46,8 @@ Implemented infrastructure:
 - shared artifact, mode, seed, metric, timing, runner, upstream-smoke, and CLI
   machinery;
 - `counterpoint_symbolic_v001`, a benchmark-owned symbolic hidden-graph
-  environment family with `tiny` smoke and `small` serious fixtures;
+  environment family with `tiny` smoke, `small` serious, and `medium`
+  diagnostic fixtures;
 - graph, path-volume, schema, reward-fiber, lift-fiber, and tower diagnostics;
 - direct masked-random and direct tabular-Q runners;
 - tower smoke and serious-learning runners for contraction-schema arms;
@@ -62,6 +63,7 @@ until explicitly designed, implemented, and validated.
 | Evaluation | Status | Human-readable report | What we can conclude |
 | --- | --- | --- | --- |
 | Counterpoint first serious learning v001, artifact run `pi0_h_evaluation_001` | Complete structural-limit diagnostic | [README](docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/result_readout.md), [diagnostics](docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/results/diagnostic_findings.md) | The harness, artifact pipeline, direct baselines, empty tower shell, and human readout path work on `counterpoint_symbolic_n3_small_v001`; non-empty tower arms are dominated by full or near-full first-projection collapse and lift/action-realization effects. |
+| Counterpoint one-third schema tower diagnostics v001, artifact run `small_medium_validation_001` | Complete structural-limit diagnostic | [README](docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/result_readout.md), [summary](docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/results/summary.md) | The source-local one-third schema runs through upstream ABC control on `small` and `medium`; all 24 locked runs fully collapse at the first projection, but runtime execution itself does not stall: 3,840 concrete steps and 3,840 / 3,840 successful lift attempts. |
 
 Supporting smoke/diagnostic result notes:
 
@@ -73,10 +75,12 @@ Supporting smoke/diagnostic result notes:
 
 ## Current Conclusions
 
-The completed serious readout supports these claims:
+The completed serious readouts support these claims:
 
 - the counterpoint small fixture can be run through the shared BBB artifact and
   readout machinery;
+- the counterpoint medium fixture is implemented and can run the one-third
+  diagnostic budget;
 - direct masked-random, direct tabular-Q, and empty-schema tower arms execute
   real 8-step episodes under the locked budget;
 - the current non-empty tower schemas are a useful structural diagnostic, not a
@@ -84,6 +88,9 @@ The completed serious readout supports these claims:
 - broad/full-graph contraction schemas can collapse the first quotient
   projection so aggressively that ordinary learner-performance language is
   blocked;
+- the source-local one-third contraction schema also fully collapses the first
+  projection on the current `small` and `medium` fixtures, while preserving
+  concrete execution and lift success in the recorded diagnostic budget;
 - random tower schemas expose schema-seed-dependent
   `no_lift_candidate_from_current_state` lift/action-realization failures.
 
@@ -93,16 +100,16 @@ The current readouts do **not yet** support:
 - tensor-enabled, CUDA, or GPU performance claims;
 - musical-quality claims;
 - production performance claims;
-- claims beyond `counterpoint_symbolic_n3_small_v001`, the recorded budget, and
-  the `tensor_available_disabled` condition.
+- claims beyond the recorded `small` and `medium` counterpoint budgets and the
+  `tensor_available_disabled` condition.
 
-Known documentation/artifact gaps:
+Known documentation/artifact notes:
 
-- promoted tower summary tables are still missing from the evaluation artifact
-  root: `tower_shape_summary.csv`, `tier_occupancy_summary.csv`, and
-  `lift_failure_by_tier.csv`;
-- the current readout reconstructs those facts from per-run artifacts;
-- design learning from this evaluation is preserved under
+- the first serious learning readout predates promoted tower summary tables and
+  reconstructs some facts from per-run artifacts;
+- the one-third diagnostics readout includes promoted tower-shape, tier
+  occupancy, lift, concrete-step, and ABC summary tables;
+- design learning from these evaluations is preserved under
   [system learning from evaluations](docs/design/system_learning_from_evaluations/README.md).
 
 ## Benchmark Workflow
@@ -247,4 +254,23 @@ protocol at the checked-in evaluation surface:
 
 ```text
 execute artifact-table readout pointed at folder docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/
+```
+
+One-third schema tower diagnostics:
+
+```bash
+export BBB_ONE_THIRD_ROOT="$PWD/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/<run-label>"
+
+uv run python -m big_boy_benchmarking.cli counterpoint one-third-diagnostics run \
+  --artifact-root "$BBB_ONE_THIRD_ROOT" \
+  --instance-ids small,medium
+
+uv run python -m big_boy_benchmarking.cli counterpoint one-third-diagnostics summarize \
+  --artifact-root "$BBB_ONE_THIRD_ROOT"
+```
+
+Durable repo-side readout target:
+
+```text
+execute artifact-table readout pointed at folder docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/
 ```

@@ -13,6 +13,8 @@ RANDOM_UNBALANCED_SCHEMA_FAMILY_ID = "counterpoint_random_unbalanced_schema_v001
 STRUCTURED_MOTION_SCHEMA_ID = "counterpoint_motion_schema_v001"
 PROJECTION_AUDIT_SCHEMA_ID = "counterpoint_projection_audit_schema_v001"
 BAD_SCHEMA_ID = "counterpoint_bad_schema_v001"
+ONE_THIRD_SCHEMA_FAMILY_ID = "counterpoint_one_third_schema_v001"
+ONE_THIRD_OUTGOING_SCHEMA_ID = "counterpoint_one_third_outgoing_schema_v001"
 
 CANONICAL_IDS = {
     "environment_family_id": ENVIRONMENT_FAMILY_ID,
@@ -28,4 +30,6 @@ CANONICAL_IDS = {
     "structured_motion_schema_id": STRUCTURED_MOTION_SCHEMA_ID,
     "projection_audit_schema_id": PROJECTION_AUDIT_SCHEMA_ID,
     "bad_schema_id": BAD_SCHEMA_ID,
+    "one_third_schema_family_id": ONE_THIRD_SCHEMA_FAMILY_ID,
+    "one_third_outgoing_schema_id": ONE_THIRD_OUTGOING_SCHEMA_ID,
 }

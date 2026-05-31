@@ -49,3 +49,4 @@ durable human interpretation surface lives here.
 | Evaluation | Status | Readout | Claim boundary |
 | --- | --- | --- | --- |
 | `counterpoint_first_serious_learning_v001` | Complete structural-limit diagnostic | [counterpoint first serious learning](counterpoint_symbolic_v001/first_serious_learning/README.md) | Fixture-only claims for `counterpoint_symbolic_n3_small_v001`, locked budget, and `tensor_available_disabled`; no general tower-performance claim. |
+| `counterpoint_one_third_schema_tower_diagnostics_v001` | Complete structural-limit diagnostic | [counterpoint one-third schema tower diagnostics](counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/README.md) | Diagnostic claims for source-local one-third contraction on `small` and `medium`; no direct-vs-tower performance claim and no tensor-enabled claim. |

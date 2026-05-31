@@ -1,0 +1,35 @@
+{
+  "badges": [
+    {
+      "color": "green",
+      "label": "artifact_status",
+      "status": "complete"
+    },
+    {
+      "color": "yellow",
+      "label": "schema_geometry_status",
+      "status": "structural-limit"
+    },
+    {
+      "color": "green",
+      "label": "abc_runtime_status",
+      "status": "complete"
+    },
+    {
+      "color": "green",
+      "label": "lift_executability_status",
+      "status": "observed"
+    },
+    {
+      "color": "yellow",
+      "label": "claim_scope",
+      "status": "diagnostic-only"
+    },
+    {
+      "color": "green",
+      "label": "provenance_status",
+      "status": "repo-bound"
+    }
+  ],
+  "missing_required_files": []
+}

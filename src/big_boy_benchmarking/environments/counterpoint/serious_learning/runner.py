@@ -10,7 +10,9 @@ from typing import Any
 
 from big_boy_benchmarking.artifacts.writers import write_csv, write_json
 from big_boy_benchmarking.environments.counterpoint.instances import (
+    MEDIUM_INSTANCE_ID,
     SMALL_INSTANCE_ID,
+    default_medium_spec,
     default_small_spec,
     default_tiny_spec,
 )
@@ -68,6 +70,8 @@ def counterpoint_spec_for_instance(instance_id: str) -> CounterpointInstanceSpec
         return default_tiny_spec()
     if instance_id == "small" or instance_id == SMALL_INSTANCE_ID:
         return default_small_spec()
+    if instance_id == "medium" or instance_id == MEDIUM_INSTANCE_ID:
+        return default_medium_spec()
     raise ValueError(f"unknown counterpoint serious-learning instance: {instance_id}")
 
 

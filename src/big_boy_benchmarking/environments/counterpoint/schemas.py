@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import math
 import random
+from collections import defaultdict
 from dataclasses import asdict, dataclass
 from typing import Any
 
@@ -81,6 +83,7 @@ def _schema_spec(
     intended_role: str,
     online_eligible: bool,
     diagnostic_only: bool,
+    expected_tower_depth: int = 1,
 ) -> SchemaSpec:
     return SchemaSpec(
         schema_id=schema_id,
@@ -93,7 +96,7 @@ def _schema_spec(
         source_label_families=source_label_families,
         state_partition_description=state_partition_description,
         action_partition_description=action_partition_description,
-        expected_tower_depth=1,
+        expected_tower_depth=expected_tower_depth,
         expected_compression_target=expected_compression_target,
         leakage_risk_statement=leakage_risk_statement,
         intended_role=intended_role,
@@ -323,6 +326,59 @@ def build_bad_schema(graph: ReachableGraph) -> SchemaConstruction:
     )
 
 
+def build_one_third_outgoing_schema(
+    graph: ReachableGraph,
+    *,
+    schema_seed: int,
+) -> SchemaConstruction:
+    spec = _schema_spec(
+        graph,
+        schema_id=ids.ONE_THIRD_OUTGOING_SCHEMA_ID,
+        schema_family_id=ids.ONE_THIRD_SCHEMA_FAMILY_ID,
+        schema_seed=schema_seed,
+        construction_method="seeded_source_local_outgoing_one_third_contraction",
+        source_label_families=(),
+        state_partition_description="identity state keys; runtime contraction is edge-driven",
+        action_partition_description=(
+            "seeded source-local recursive one-third partition of outgoing edge keys"
+        ),
+        expected_compression_target="three one-third contraction blocks plus base tier",
+        leakage_risk_statement=(
+            "Uses only stable source states and outgoing edge identities, not rewards, "
+            "terminal outcomes, learned values, or future episode results."
+        ),
+        intended_role="one_third_tower_diagnostic",
+        online_eligible=True,
+        diagnostic_only=False,
+        expected_tower_depth=4,
+    )
+    edges_by_source: dict[str, list[GraphEdge]] = defaultdict(list)
+    for edge in graph.edges:
+        edges_by_source[state_key(edge.source)].append(edge)
+
+    edge_partition: dict[str, str] = {}
+    for source, source_edges in sorted(edges_by_source.items()):
+        shuffled = sorted(source_edges, key=edge_key)
+        random.Random(f"{schema_seed}:{source}").shuffle(shuffled)
+        remaining = list(shuffled)
+        for block_index in range(3):
+            if not remaining:
+                break
+            block_size = max(1, math.ceil(len(remaining) / 3))
+            current_block = remaining[:block_size]
+            for edge in current_block:
+                edge_partition[edge_key(edge)] = f"one_third_block_{block_index}"
+            remaining = remaining[block_size:]
+        for edge in remaining:
+            edge_partition[edge_key(edge)] = "one_third_unscheduled"
+
+    return SchemaConstruction(
+        spec=spec,
+        state_partition={state_key(state): state_key(state) for state in graph.states},
+        edge_partition=edge_partition,
+    )
+
+
 def build_schema_for_id(
     graph: ReachableGraph,
     *,
@@ -344,6 +400,11 @@ def build_schema_for_id(
         )
     if schema_id.startswith(ids.RANDOM_UNBALANCED_SCHEMA_FAMILY_ID):
         return build_random_unbalanced_schema(
+            graph,
+            schema_seed=0 if schema_seed is None else schema_seed,
+        )
+    if schema_id == ids.ONE_THIRD_OUTGOING_SCHEMA_ID:
+        return build_one_third_outgoing_schema(
             graph,
             schema_seed=0 if schema_seed is None else schema_seed,
         )

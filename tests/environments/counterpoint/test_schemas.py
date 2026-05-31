@@ -10,6 +10,7 @@ from big_boy_benchmarking.environments.counterpoint.schemas import (
     SchemaSpec,
     build_bad_schema,
     build_empty_schema,
+    build_one_third_outgoing_schema,
     build_projection_audit_schema,
     build_random_balanced_schema,
     build_random_unbalanced_schema,
@@ -74,3 +75,25 @@ def test_structured_projection_and_bad_schema_roles() -> None:
     assert not projection.spec.online_eligible
     assert bad.spec.intended_role == "bad_control"
     assert balanced_addressability_diagnostics(bad).largest_cell_share == 1.0
+
+
+def test_one_third_outgoing_schema_records_diagnostic_contract() -> None:
+    graph = enumerate_reachable_graph(default_tiny_spec())
+    first = build_one_third_outgoing_schema(graph, schema_seed=1)
+    second = build_one_third_outgoing_schema(graph, schema_seed=1)
+    third = build_one_third_outgoing_schema(graph, schema_seed=2)
+
+    assert first == second
+    assert first.edge_partition != third.edge_partition
+    assert first.spec.schema_id == "counterpoint_one_third_outgoing_schema_v001"
+    assert first.spec.schema_family_id == "counterpoint_one_third_schema_v001"
+    assert first.spec.expected_tower_depth == 4
+    assert first.spec.online_eligible
+    assert not first.spec.diagnostic_only
+    assert "not rewards" in first.spec.leakage_risk_statement
+    assert set(first.edge_partition.values()) <= {
+        "one_third_block_0",
+        "one_third_block_1",
+        "one_third_block_2",
+        "one_third_unscheduled",
+    }

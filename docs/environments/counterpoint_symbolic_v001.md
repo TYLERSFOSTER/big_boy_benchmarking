@@ -72,17 +72,20 @@ Implemented first fixtures:
 
 - `counterpoint_symbolic_n3_tiny_v001`
 - `counterpoint_symbolic_n3_small_v001`
+- `counterpoint_symbolic_n3_medium_v001`
 
 For the first serious learning evaluation, `small` is the serious fixture and
 `tiny` is smoke only.
 
+For the one-third schema tower diagnostics evaluation, `small` and `medium`
+are the diagnostic fixtures. `tiny` is deliberately not part of that evaluation.
+
 Reserved future tiers:
 
-- medium
 - large
 - stress
 
-This implementation does not make medium, large, or stress performance claims.
+This implementation does not make large or stress performance claims.
 
 ## Schema Candidates
 
@@ -94,6 +97,7 @@ Implemented schema families:
 - `counterpoint_motion_schema_v001`
 - `counterpoint_projection_audit_schema_v001`
 - `counterpoint_bad_schema_v001`
+- `counterpoint_one_third_outgoing_schema_v001`
 
 Leakage discipline: online-eligible schemata must not read reward outcomes,
 terminal outcomes, learned values, or future episode results. The projection
@@ -129,4 +133,23 @@ when generated from artifacts, belong under:
 
 ```text
 docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/
+```
+
+## One-Third Tower Diagnostic Surface
+
+The one-third diagnostic surface runs upstream active-tier ABC control against
+the source-local one-third outgoing contraction schema:
+
+```text
+counterpoint_one_third_outgoing_schema_v001
+```
+
+The recorded validation budget covers `small` and `medium` fixtures, three
+schema seeds, four replicates per schema seed, sixteen episodes per replicate,
+and `tensor_available_disabled`.
+
+Result docs belong under:
+
+```text
+docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/
 ```

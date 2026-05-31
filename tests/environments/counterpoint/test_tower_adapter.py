@@ -7,7 +7,9 @@ from big_boy_benchmarking.environments.counterpoint.instances import default_tin
 from big_boy_benchmarking.environments.counterpoint.state import CounterpointState
 from big_boy_benchmarking.environments.counterpoint.tower_adapter import (
     CounterpointHiddenGraph,
+    CounterpointOutgoingThirdsSchema,
     build_counterpoint_partition_tower,
+    contraction_schema_for_id,
     counterpoint_action_to_primitive_action,
     counterpoint_state_to_core_state,
     graph_edge_to_base_edge,
@@ -66,3 +68,55 @@ def test_base_edge_labels_are_hashable() -> None:
 
     assert hash(edge)
     assert "counterpoint_transition" in edge.labels
+
+
+def test_one_third_runtime_schema_exposes_three_ordered_blocks() -> None:
+    schema = contraction_schema_for_id(ids.ONE_THIRD_OUTGOING_SCHEMA_ID, schema_seed=7)
+
+    assert isinstance(schema, CounterpointOutgoingThirdsSchema)
+    assert [block.value for block in schema.ordered_blocks()] == [
+        ("counterpoint_one_third", 0),
+        ("counterpoint_one_third", 1),
+        ("counterpoint_one_third", 2),
+    ]
+
+
+def test_one_third_tower_assignments_are_seeded_and_source_local() -> None:
+    first = build_counterpoint_partition_tower(
+        default_tiny_spec(),
+        schema_id=ids.ONE_THIRD_OUTGOING_SCHEMA_ID,
+        schema_seed=1,
+    )
+    second = build_counterpoint_partition_tower(
+        default_tiny_spec(),
+        schema_id=ids.ONE_THIRD_OUTGOING_SCHEMA_ID,
+        schema_seed=1,
+    )
+    third = build_counterpoint_partition_tower(
+        default_tiny_spec(),
+        schema_id=ids.ONE_THIRD_OUTGOING_SCHEMA_ID,
+        schema_seed=2,
+    )
+
+    first_assignments = first.tower.schema_assignment_store.assignment_by_edge_id
+    second_assignments = second.tower.schema_assignment_store.assignment_by_edge_id
+    third_assignments = third.tower.schema_assignment_store.assignment_by_edge_id
+
+    assert len(first.tower.state_layers) == 4
+    assert first_assignments == second_assignments
+    assert first_assignments != third_assignments
+
+    for state_id in first.tower.registry.state_ids:
+        outgoing = first.tower.registry.outgoing_edge_ids(state_id)
+        if not outgoing:
+            continue
+        assigned = {
+            first_assignments[edge_id].value
+            for edge_id in outgoing
+            if first_assignments[edge_id] is not None
+        }
+        assert assigned <= {
+            ("counterpoint_one_third", 0),
+            ("counterpoint_one_third", 1),
+            ("counterpoint_one_third", 2),
+        }

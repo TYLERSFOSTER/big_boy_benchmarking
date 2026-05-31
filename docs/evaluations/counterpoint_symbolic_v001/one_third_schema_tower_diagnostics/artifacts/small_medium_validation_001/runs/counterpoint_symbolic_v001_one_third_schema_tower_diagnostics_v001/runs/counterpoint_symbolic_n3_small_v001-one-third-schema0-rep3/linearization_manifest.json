@@ -1,0 +1,53 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "conversion_records_exported": false,
+  "debug_record_artifacts": [],
+  "linearization_config": {
+    "debug_export_records": false,
+    "derived_benchmark_label": "tensor_available_disabled",
+    "device_kind": "NONE",
+    "dtype": null,
+    "encoder_registry_id": "065b3e5d085468aa6194ed25b05340eb3ad01a7592605d081af843a5adfcb8e1",
+    "include_diagnostics": false,
+    "linearization_state": "PRESENT_DISABLED",
+    "mask_dtype": "bool",
+    "max_action_count": 19,
+    "max_tower_depth": 4,
+    "numeric_backend": "NUMPY",
+    "sequence_length": null,
+    "strict": true
+  },
+  "linearization_mode_id": "tensor_available_disabled",
+  "linearization_report": {
+    "backend_available": true,
+    "benchmark_label": "tensor_available_disabled",
+    "conversion_count": 0,
+    "conversion_elapsed_seconds": 0.0,
+    "cuda_available": false,
+    "debug_record_exported": false,
+    "device_kind": "NONE",
+    "dtype": null,
+    "enabled": false,
+    "encoder_registry_id": "065b3e5d085468aa6194ed25b05340eb3ad01a7592605d081af843a5adfcb8e1",
+    "linearization_state": "PRESENT_DISABLED",
+    "mask_dtype": "bool",
+    "max_action_count": 19,
+    "max_tower_depth": 4,
+    "metadata": {
+      "environment_instance_id": "counterpoint_symbolic_n3_small_v001",
+      "evaluation_id": "counterpoint_one_third_schema_tower_diagnostics_v001",
+      "mode_id": "tower_exploit_explore",
+      "runner": "counterpoint_one_third_diagnostics",
+      "schema_id": "counterpoint_one_third_outgoing_schema_v001"
+    },
+    "numeric_backend": "NUMPY",
+    "numpy_available": true,
+    "numpy_version": "2.4.6",
+    "schema_fingerprint": "01986c6101aaed4731bd5ac3eba48e621e6838aed422a78bcbf4c30e5dda715c",
+    "torch_available": false,
+    "torch_version": null,
+    "tower_fingerprint": "065b3e5d085468aa6194ed25b05340eb3ad01a7592605d081af843a5adfcb8e1"
+  },
+  "report_source": "state_collapser.training.build_linearization_report",
+  "run_id": "counterpoint_symbolic_n3_small_v001-one-third-schema0-rep3"
+}

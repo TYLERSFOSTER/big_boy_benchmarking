@@ -1,0 +1,147 @@
+{
+  "artifact_run_label": "medium_validation_001",
+  "artifact_schema_version": "bbb.v001",
+  "badge_policy": {
+    "dimensions": [
+      "artifact_status",
+      "schema_geometry_status",
+      "abc_runtime_status",
+      "lift_executability_status",
+      "claim_scope",
+      "provenance_status"
+    ]
+  },
+  "claim_boundary": [
+    "diagnostic tower-geometry and ABC-runtime evidence only",
+    "no direct-vs-tower performance claim",
+    "no tensor-enabled runtime claim"
+  ],
+  "environment_instance_ids": [
+    "counterpoint_symbolic_n3_medium_v001"
+  ],
+  "evaluation_id": "counterpoint_one_third_schema_tower_diagnostics_v001",
+  "expected_files": {
+    "conditional": {},
+    "expectation_sources": [
+      "docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/01_002_counterpoint_one_third_schema_tower_diagnostics_implementation_gameplan.md"
+    ],
+    "expected_absent_is_gap": [],
+    "not_applicable": [
+      "direct arm comparison tables",
+      "tensor-enabled conversion records"
+    ],
+    "required": [
+      "evaluation_manifest.json",
+      "evaluation_budget_lock.json",
+      "evaluation_run_index.csv",
+      "evaluation_aggregate_table.csv",
+      "evaluation_aggregate_summary.json",
+      "results/schema_block_summary.csv",
+      "results/tower_shape_summary.csv",
+      "results/tier_executability_summary.csv",
+      "results/control_action_summary.csv",
+      "results/abc_selection_summary.csv",
+      "results/abc_tier_signal_summary.csv",
+      "results/tier_occupancy_summary.csv",
+      "results/lift_failure_by_tier.csv",
+      "results/concrete_step_summary.csv"
+    ]
+  },
+  "goal_criteria": [
+    {
+      "claim_if_met": "BBB can describe one-third quotient geometry for the run budget.",
+      "claim_if_not_met": "BBB cannot yet interpret one-third quotient geometry.",
+      "failure_signal": "tower_shape_summary.csv is missing or empty",
+      "goal_id": "schema_geometry_observed",
+      "partial_signal": "tower_shape_summary.csv exists for only part of the locked budget",
+      "question": "What tower geometry does source-local one-third contraction produce?",
+      "success_signal": "tower_shape_summary.csv has rows for small and medium tiers"
+    },
+    {
+      "claim_if_met": "BBB can inspect upstream ABC tier selection behavior.",
+      "claim_if_not_met": "BBB lacks the controller evidence needed for this diagnostic.",
+      "failure_signal": "ABC rows are absent",
+      "goal_id": "abc_runtime_observed",
+      "partial_signal": "ABC rows are present but missing for some controller events",
+      "question": "How does upstream ABC choose active tiers under this schema?",
+      "success_signal": "abc_selection_summary.csv and abc_tier_signal_summary.csv are present"
+    },
+    {
+      "claim_if_met": "BBB can separate quotient geometry from lift/execution behavior.",
+      "claim_if_not_met": "BBB cannot distinguish geometry from lift failure.",
+      "failure_signal": "lift and concrete step evidence is missing",
+      "goal_id": "lift_executability_observed",
+      "partial_signal": "some lift data exists but structural-limit classifications are triggered",
+      "question": "Do selected abstract actions lift to concrete counterpoint steps?",
+      "success_signal": "lift_failure_by_tier.csv and concrete_step_summary.csv are present"
+    }
+  ],
+  "goal_summary_sources": [
+    "docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/01_001_counterpoint_one_third_schema_tower_diagnostics_blueprint.md"
+  ],
+  "methodology_summary_sources": [
+    "docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md"
+  ],
+  "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics",
+  "run_mode": "diagnostic_one_third_tower_abc",
+  "schema_id": "counterpoint_one_third_outgoing_schema_v001",
+  "schema_seeds": [
+    0,
+    1,
+    2
+  ],
+  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/medium_validation_001",
+  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/medium_validation_001/evaluations/counterpoint_one_third_schema_tower_diagnostics_v001",
+  "source_files": {
+    "abc_selection_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/medium_validation_001/evaluations/counterpoint_one_third_schema_tower_diagnostics_v001/results/abc_selection_summary.csv",
+    "abc_tier_signal_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/medium_validation_001/evaluations/counterpoint_one_third_schema_tower_diagnostics_v001/results/abc_tier_signal_summary.csv",
+    "aggregate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/medium_validation_001/evaluations/counterpoint_one_third_schema_tower_diagnostics_v001/evaluation_aggregate_summary.json",
+    "aggregate_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/medium_validation_001/evaluations/counterpoint_one_third_schema_tower_diagnostics_v001/evaluation_aggregate_table.csv",
+    "concrete_step_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/medium_validation_001/evaluations/counterpoint_one_third_schema_tower_diagnostics_v001/results/concrete_step_summary.csv",
+    "control_action_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/medium_validation_001/evaluations/counterpoint_one_third_schema_tower_diagnostics_v001/results/control_action_summary.csv",
+    "lift_failure_by_tier": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/medium_validation_001/evaluations/counterpoint_one_third_schema_tower_diagnostics_v001/results/lift_failure_by_tier.csv",
+    "run_index": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/medium_validation_001/evaluations/counterpoint_one_third_schema_tower_diagnostics_v001/evaluation_run_index.csv",
+    "schema_block_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/medium_validation_001/evaluations/counterpoint_one_third_schema_tower_diagnostics_v001/results/schema_block_summary.csv",
+    "tier_executability_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/medium_validation_001/evaluations/counterpoint_one_third_schema_tower_diagnostics_v001/results/tier_executability_summary.csv",
+    "tier_occupancy_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/medium_validation_001/evaluations/counterpoint_one_third_schema_tower_diagnostics_v001/results/tier_occupancy_summary.csv",
+    "tower_shape_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/medium_validation_001/evaluations/counterpoint_one_third_schema_tower_diagnostics_v001/results/tower_shape_summary.csv"
+  },
+  "structural_limit_checks": [
+    {
+      "check_id": "full_first_projection_collapse",
+      "claim_effect": "blocks ordinary performance interpretation; diagnostic remains valid",
+      "interpretation_if_triggered": "The first projection has collapsed all base states into one state cell.",
+      "trigger": "tier 1 largest_state_fiber_share == 1.0"
+    },
+    {
+      "check_id": "near_full_first_projection_collapse",
+      "claim_effect": "marks quotient geometry as structurally limiting",
+      "interpretation_if_triggered": "One tier-1 cell contains at least 90 percent of base states.",
+      "trigger": "tier 1 largest_state_fiber_share >= 0.90"
+    },
+    {
+      "check_id": "selected_tier_non_executability",
+      "claim_effect": "diagnostic-only; requires lift/executability follow-up",
+      "interpretation_if_triggered": "The controller is targeting a tier that cannot emit concrete actions.",
+      "trigger": "ABC selected tier is recorded as non-executable"
+    },
+    {
+      "check_id": "no_available_action",
+      "claim_effect": "blocks learning-performance interpretation for affected runs",
+      "interpretation_if_triggered": "The runtime could not find an executable tier/action at that point.",
+      "trigger": "control_action == no_available_action"
+    },
+    {
+      "check_id": "zero_concrete_steps",
+      "claim_effect": "runtime/geometry diagnostic only",
+      "interpretation_if_triggered": "The controller loop ran without producing concrete environment steps.",
+      "trigger": "concrete_step_count == 0"
+    },
+    {
+      "check_id": "missing_abc_context",
+      "claim_effect": "blocks ABC-selection claims",
+      "interpretation_if_triggered": "The run is missing the ABC evidence needed for tier-selection interpretation.",
+      "trigger": "controller events exist without ABC diagnostic rows"
+    }
+  ]
+}

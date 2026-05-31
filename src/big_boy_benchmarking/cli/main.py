@@ -29,6 +29,23 @@ from big_boy_benchmarking.environments.counterpoint.instances import (
     small_candidate_specs,
     tiny_candidate_specs,
 )
+from big_boy_benchmarking.environments.counterpoint.one_third_diagnostics.aggregation import (
+    aggregate_one_third_diagnostics_results,
+)
+from big_boy_benchmarking.environments.counterpoint.one_third_diagnostics.config import (
+    DEFAULT_EPISODES_PER_REPLICATE,
+    DEFAULT_REPLICATES_PER_SCHEMA_SEED,
+    DEFAULT_SCHEMA_SEEDS,
+)
+from big_boy_benchmarking.environments.counterpoint.one_third_diagnostics.docs_writer import (
+    write_one_third_diagnostics_docs,
+)
+from big_boy_benchmarking.environments.counterpoint.one_third_diagnostics.paths import (
+    default_artifact_root,
+)
+from big_boy_benchmarking.environments.counterpoint.one_third_diagnostics.runner import (
+    run_one_third_diagnostics,
+)
 from big_boy_benchmarking.environments.counterpoint.path_volume import exact_path_volume
 from big_boy_benchmarking.environments.counterpoint.runners import (
     run_direct_masked_random,
@@ -218,6 +235,47 @@ def build_parser() -> argparse.ArgumentParser:
     summarize_parser.add_argument("--artifact-root", required=True, type=Path)
     summarize_parser.add_argument("--docs-root", type=Path)
 
+    one_third_parser = counterpoint_subparsers.add_parser("one-third-diagnostics")
+    one_third_subparsers = one_third_parser.add_subparsers(
+        dest="one_third_diagnostics_command",
+        required=True,
+    )
+
+    one_third_run_parser = one_third_subparsers.add_parser("run")
+    one_third_run_parser.add_argument(
+        "--artifact-root",
+        type=Path,
+        default=default_artifact_root("run_001"),
+    )
+    one_third_run_parser.add_argument("--instance-ids", default="small,medium")
+    one_third_run_parser.add_argument(
+        "--schema-seeds",
+        default=",".join(map(str, DEFAULT_SCHEMA_SEEDS)),
+    )
+    one_third_run_parser.add_argument(
+        "--replicates",
+        type=int,
+        default=DEFAULT_REPLICATES_PER_SCHEMA_SEED,
+    )
+    one_third_run_parser.add_argument(
+        "--episodes",
+        type=int,
+        default=DEFAULT_EPISODES_PER_REPLICATE,
+    )
+    one_third_run_parser.add_argument("--base-seed", type=int, default=0)
+    one_third_run_parser.add_argument("--locked-by", default="cli")
+    one_third_run_parser.add_argument("--horizon", type=int)
+    one_third_run_parser.add_argument("--controller-event-ceiling", type=int)
+    one_third_run_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
+
+    one_third_summarize_parser = one_third_subparsers.add_parser("summarize")
+    one_third_summarize_parser.add_argument("--artifact-root", required=True, type=Path)
+    one_third_summarize_parser.add_argument("--docs-root", type=Path)
+
     return parser
 
 
@@ -371,6 +429,9 @@ def _run_counterpoint_command(args: argparse.Namespace) -> int:
     if args.counterpoint_command == "serious-learning":
         return _run_counterpoint_serious_learning_command(args)
 
+    if args.counterpoint_command == "one-third-diagnostics":
+        return _run_counterpoint_one_third_diagnostics_command(args)
+
     raise ValueError(f"unknown counterpoint command: {args.counterpoint_command}")
 
 
@@ -446,12 +507,74 @@ def _run_counterpoint_serious_learning_command(args: argparse.Namespace) -> int:
     raise ValueError(f"unknown serious learning command: {args.serious_learning_command}")
 
 
+def _run_counterpoint_one_third_diagnostics_command(args: argparse.Namespace) -> int:
+    if hasattr(args, "linearization_mode"):
+        _require_one_third_linearization(args.linearization_mode)
+
+    if args.one_third_diagnostics_command == "run":
+        instance_ids = _parse_csv_strings(args.instance_ids)
+        schema_seeds = _parse_csv_ints(args.schema_seeds)
+        result = run_one_third_diagnostics(
+            artifact_root=args.artifact_root,
+            instance_ids=instance_ids,
+            schema_seeds=schema_seeds,
+            replicates_per_schema_seed=args.replicates,
+            episodes_per_replicate=args.episodes,
+            base_seed=args.base_seed,
+            locked_by=args.locked_by,
+            horizon_override=args.horizon,
+            controller_event_ceiling=args.controller_event_ceiling,
+            linearization_mode_id=args.linearization_mode,
+        )
+        print(json.dumps(result, sort_keys=True))
+        return 0 if result["status"] == "complete" else 2
+
+    if args.one_third_diagnostics_command == "summarize":
+        summary = aggregate_one_third_diagnostics_results(
+            args.artifact_root,
+            docs_root=args.docs_root,
+        )
+        docs = write_one_third_diagnostics_docs(
+            artifact_root=args.artifact_root,
+            docs_root=args.docs_root,
+            command_lines=(
+                "uv run python -m big_boy_benchmarking.cli counterpoint "
+                "one-third-diagnostics summarize --artifact-root <artifact-root>",
+            ),
+        )
+        print(json.dumps({"status": summary["status"], "docs": docs}, sort_keys=True))
+        return 0 if summary["status"] == "complete" else 2
+
+    raise ValueError(
+        f"unknown one-third diagnostics command: {args.one_third_diagnostics_command}"
+    )
+
+
 def _require_serious_linearization(linearization_mode_id: str) -> None:
     if linearization_mode_id != "tensor_available_disabled":
         raise ValueError(
             "counterpoint serious-learning uses tensor_available_disabled; "
             f"reserved linearization mode rejected: {linearization_mode_id}"
         )
+
+
+def _require_one_third_linearization(linearization_mode_id: str) -> None:
+    if linearization_mode_id != "tensor_available_disabled":
+        raise ValueError(
+            "counterpoint one-third diagnostics uses tensor_available_disabled; "
+            f"reserved linearization mode rejected: {linearization_mode_id}"
+        )
+
+
+def _parse_csv_strings(value: str) -> tuple[str, ...]:
+    items = tuple(item.strip() for item in value.split(",") if item.strip())
+    if not items:
+        raise ValueError("expected at least one comma-separated value")
+    return items
+
+
+def _parse_csv_ints(value: str) -> tuple[int, ...]:
+    return tuple(int(item) for item in _parse_csv_strings(value))
 
 
 def main(argv: Sequence[str] | None = None) -> int:

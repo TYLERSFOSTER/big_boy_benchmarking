@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import math
+import random
 from collections.abc import Hashable, Iterable
 from dataclasses import dataclass
 
@@ -10,6 +12,8 @@ from state_collapser.core.edges import BaseEdge
 from state_collapser.core.state import State
 from state_collapser.graph.hidden_graph import HiddenGraph
 from state_collapser.tower.partition import PartitionTower, RewardAggregator
+from state_collapser.tower.partition.base_registry import BaseGraphRegistry
+from state_collapser.tower.partition.ids import EdgeId, SchemaBlockId
 from state_collapser.tower.partition.schema import (
     ContractionSchema,
     DimensionwiseSchema,
@@ -159,6 +163,46 @@ class CounterpointHiddenGraph(HiddenGraph):
         return tuple(edges)
 
 
+@dataclass(frozen=True, slots=True)
+class CounterpointOutgoingThirdsSchema:
+    """Source-local one-third contraction schema for counterpoint diagnostics."""
+
+    schema_seed: int = 0
+    block_count: int = 3
+
+    def __post_init__(self) -> None:
+        if self.block_count != 3:
+            raise ValueError("CounterpointOutgoingThirdsSchema.block_count must be exactly 3")
+
+    def assign_edge(
+        self,
+        edge_id: EdgeId,
+        registry: BaseGraphRegistry,
+    ) -> SchemaBlockId | None:
+        source_id = registry.source_state_id(edge_id)
+        outgoing = sorted(registry.outgoing_edge_ids(source_id), key=lambda item: item.value)
+        shuffled = list(outgoing)
+        random.Random(f"{self.schema_seed}:{source_id.value}").shuffle(shuffled)
+
+        remaining = list(shuffled)
+        for block_index in range(self.block_count):
+            if not remaining:
+                return None
+            block_size = max(1, math.ceil(len(remaining) / 3))
+            current_block = remaining[:block_size]
+            if edge_id in current_block:
+                return self._block_id(block_index)
+            remaining = remaining[block_size:]
+        return None
+
+    def ordered_blocks(self) -> tuple[SchemaBlockId, ...]:
+        return tuple(self._block_id(index) for index in range(self.block_count))
+
+    @staticmethod
+    def _block_id(block_index: int) -> SchemaBlockId:
+        return SchemaBlockId(("counterpoint_one_third", block_index))
+
+
 def contraction_schema_for_id(
     schema_id: str,
     *,
@@ -179,6 +223,10 @@ def contraction_schema_for_id(
         return SeededRandomRateSchema(seed=0 if schema_seed is None else schema_seed, block_count=4)
     if schema_id.startswith(ids.RANDOM_UNBALANCED_SCHEMA_FAMILY_ID):
         return SeededRandomRateSchema(seed=0 if schema_seed is None else schema_seed, block_count=2)
+    if schema_id == ids.ONE_THIRD_OUTGOING_SCHEMA_ID:
+        return CounterpointOutgoingThirdsSchema(
+            schema_seed=0 if schema_seed is None else schema_seed
+        )
     if schema_id == ids.BAD_SCHEMA_ID:
         return DimensionwiseSchema(("counterpoint_transition",))
     raise ValueError(f"unsupported tower schema id: {schema_id}")
