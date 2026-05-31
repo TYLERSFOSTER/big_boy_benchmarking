@@ -8,7 +8,7 @@ counterpoint evaluation.
 As of 2026-05-30, the implemented repo state is:
 
 - shared benchmark machinery exists;
-- `state_collapser` is pinned through the `v0.7.0` tensorization integration;
+- `state_collapser` is pinned through the `v0.7.1` active-tier integration;
 - `counterpoint_symbolic_v001` has tiny and small fixtures;
 - graph, schema, direct, tower-smoke, and serious-learning commands are
   runnable;
@@ -82,9 +82,9 @@ Use the docs folders this way:
   explanations.
 - `docs/experiments/`: planned or runnable experiment matrices.
 - `docs/evaluations/`: repo-side readout surfaces for evaluation families.
-  These contain `readout_source.json`, goal/methodology summaries, artifact
-  indexes, and generated human-readable readouts grounded in raw artifact
-  tables.
+  These contain `readout_source.json`, status badges, goal/methodology
+  summaries, artifact indexes, and generated human-readable readouts grounded
+  in raw artifact tables.
 - `docs/results/`: promoted durable result summaries when the repo
   intentionally records a result beyond an evaluation-local readout.
 - `docs/engineer_continuity/`: continuity reports and historical handoff notes.
@@ -131,7 +131,8 @@ execute artifact-table readout pointed at folder docs/evaluations/<environment>/
 
 Each repo-side evaluation readout surface should include `readout_source.json`
 so generated readouts can truthfully bind back to the machine-readable artifact
-tables.
+tables. Generated evaluation READMEs should start with local SVG badges and a
+compact `Status At A Glance` section.
 
 ## Validation
 

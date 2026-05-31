@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import random
+from collections.abc import Callable
 from dataclasses import dataclass, replace
 from datetime import UTC, datetime
 from pathlib import Path
@@ -198,6 +199,14 @@ class CounterpointTowerControlAdapter:
             return None
         return self.build.tower.current_state_cell(tier, self.current_core_state)
 
+    def tier_is_executable(self, tier: int) -> bool:
+        if tier < 0 or tier >= self.tower_depth:
+            return False
+        state_cell = self.current_tier_state(tier)
+        if state_cell is None:
+            return False
+        return bool(self.build.tower.outgoing_action_cells(tier, state_cell))
+
     def move_down(self, active_tier_state: ActiveTierState) -> ActiveTierState:
         next_tier = active_tier_state.downstairs_tier()
         return replace(
@@ -242,6 +251,7 @@ class TimedActiveTierController:
         tier_configs: dict[int, TierControlConfig],
         frozen_context: FrozenLowerContext,
         training_due: bool,
+        tier_is_executable: Callable[[int], bool] | None = None,
     ) -> ControllerDecision:
         with self._recorder.segment("controller_decision"):
             return self._delegate.decide(
@@ -252,6 +262,7 @@ class TimedActiveTierController:
                 tier_configs=tier_configs,
                 frozen_context=frozen_context,
                 training_due=training_due,
+                tier_is_executable=tier_is_executable,
             )
 
 
@@ -690,6 +701,7 @@ def _run_tower_control_episode(
         },
         move_down=adapter.move_down,
         move_up=adapter.move_up,
+        tier_is_executable=adapter.tier_is_executable,
     )
     steps: list[TowerControlStepTrace] = []
     controller_rows: list[ControllerEventRow] = []

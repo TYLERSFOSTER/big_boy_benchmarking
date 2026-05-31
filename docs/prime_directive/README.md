@@ -33,4 +33,7 @@ execute artifact-table readout pointed at folder docs/evaluations/<environment>/
 ```
 
 The folder in that command is not the raw artifact root. It is the checked-in
-evaluation readout surface that contains `readout_source.json`.
+evaluation readout surface that contains `readout_source.json`. Generated
+evaluation READMEs should begin with local SVG status badges and a compact
+`Status At A Glance` section derived from the same evidence as the detailed
+readout.

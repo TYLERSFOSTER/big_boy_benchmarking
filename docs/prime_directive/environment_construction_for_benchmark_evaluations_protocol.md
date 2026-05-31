@@ -173,6 +173,11 @@ That page must include:
 - non-goals and claim boundaries;
 - links to methods and evaluations that use it.
 
+Environment docs may include readiness/status cues, but they must not use
+evaluation-result badges unless those badges are backed by an executed
+evaluation readout. Result badges belong to repo-side evaluation readout
+surfaces under `docs/evaluations/`.
+
 ## Evaluation-Readiness Checklist
 
 Before designing an evaluation for an environment, confirm:

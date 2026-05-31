@@ -133,6 +133,26 @@ The source binding must include:
     "not_applicable": [],
     "expectation_sources": ["<path documenting expectation policy>"]
   },
+  "goal_criteria": [
+    {
+      "goal_id": "<stable goal id>",
+      "question": "<question this goal answers>",
+      "success_signal": "<artifact/table signal for success>",
+      "partial_signal": "<artifact/table signal for partial or mixed result>",
+      "failure_signal": "<artifact/table signal for failure>",
+      "claim_if_met": "<claim supported if met>",
+      "claim_if_not_met": "<claim blocked if not met>"
+    }
+  ],
+  "badge_policy": {
+    "dimensions": [
+      "artifact_status",
+      "behavioral_status",
+      "goal_status",
+      "claim_scope",
+      "provenance_status"
+    ]
+  },
   "goal_summary_sources": ["<path documenting evaluation goals>"],
   "methodology_summary_sources": ["<path documenting evaluation methodology>"],
   "claim_boundary": ["<allowed or excluded claim>"]
@@ -142,6 +162,46 @@ The source binding must include:
 Do not omit `run_mode`. It is needed to distinguish calibration, smoke,
 manually locked serious runs, calibration-derived serious runs, diagnostic
 runs, and final result runs.
+
+## Status Badge Inputs
+
+Every evaluation must provide enough structured context for the readout
+protocol to create a badge strip at the top of generated evaluation READMEs.
+
+The default badge dimensions are:
+
+| Dimension | Question |
+| --- | --- |
+| `artifact_status` | Did the expected machine-readable evidence exist? |
+| `behavioral_status` | Did the evaluated system behavior succeed, fail, or mix? |
+| `goal_status` | Were the evaluation goals met, partially met, blocked, or unknown? |
+| `claim_scope` | What scope is the result allowed to claim? |
+| `provenance_status` | Is the evidence durable, local, partial, or missing? |
+
+Evaluation construction should not hard-code the final badge colors unless the
+status is known before execution. It should define the evidence and goal
+criteria needed to derive them.
+
+At minimum, include `goal_criteria` in `readout_source.json` or in a source doc
+referenced by `goal_summary_sources`.
+
+Use stable goal ids. Each goal should say:
+
+- the question being tested;
+- the artifact/table fields that indicate success;
+- the artifact/table fields that indicate partial or mixed behavior;
+- the artifact/table fields that indicate failure;
+- the claim supported if the goal is met;
+- the claim blocked if the goal is not met.
+
+The readout protocol may derive badges from artifacts, `expected_files`,
+`goal_criteria`, `claim_boundary`, `run_mode`, and provenance paths. It must not
+invent a green badge from prose optimism.
+
+After readout generation, `readout_source.json` may also contain
+`readout_badges`. Treat that as cached derived readout state. It is useful for
+regeneration, but it is not a substitute for `goal_criteria` or artifact
+evidence.
 
 ## Expected-File Policy
 

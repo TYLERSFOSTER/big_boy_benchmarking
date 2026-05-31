@@ -28,8 +28,9 @@ Use the folders this way:
 - `experiments/`: planned or runnable matrices that name environments, arms,
   budgets, seeds, and claim boundaries.
 - `evaluations/`: repo-side readout surfaces for evaluation families. These
-  contain `readout_source.json`, goal/methodology summaries, artifact indexes,
-  and generated human-readable readouts grounded in raw artifact tables.
+  contain `readout_source.json`, status badges, goal/methodology summaries,
+  artifact indexes, and generated human-readable readouts grounded in raw
+  artifact tables.
 - `results/`: promoted durable result summaries when the repo intentionally
   records a result beyond an evaluation-local readout.
 - `engineer_continuity/`: session reports, pause notes, and handoff records.

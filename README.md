@@ -18,7 +18,7 @@ adapters live in [`state_collapser`](https://github.com/TYLERSFOSTER/state_colla
 
 This project uses [`uv`](https://docs.astral.sh/uv/) for dependency management.
 `state_collapser` is a first-class dependency, pinned to the public
-`state_collapser` `v0.7.0` release tag:
+`state_collapser` `v0.7.1` release tag:
 
 ```bash
 uv sync --group dev
@@ -77,7 +77,8 @@ This repo now uses a three-stage benchmark workflow.
 3. **Process run artifacts into repo-side human-readable readouts.**
    Point Codex at the repo-side evaluation readout surface. The readout surface
    uses `readout_source.json` to find raw artifact tables and writes
-   human-readable Markdown back into the repo.
+   human-readable Markdown back into the repo, including local status badges
+   and a compact `Status At A Glance` section.
    Protocol:
    `docs/prime_directive/artifact_table_to_readable_document_protocol.md`
 

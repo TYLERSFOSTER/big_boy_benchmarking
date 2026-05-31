@@ -72,7 +72,8 @@ docs/evaluations/
 
 Each readout surface should include `readout_source.json` so generated prose
 can point back to the raw artifact root, source evaluation root, aggregate
-tables, run index, expected-file policy, and claim boundary.
+tables, run index, expected-file policy, goal criteria, badge policy, and claim
+boundary.
 
 See also:
 

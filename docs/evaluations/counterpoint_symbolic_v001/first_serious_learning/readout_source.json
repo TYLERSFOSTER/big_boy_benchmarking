@@ -59,6 +59,76 @@
       "src/big_boy_benchmarking/environments/counterpoint/serious_learning/runner.py"
     ]
   },
+  "goal_criteria": [
+    {
+      "goal_id": "serious_harness_artifact_contract",
+      "question": "Can the first serious counterpoint evaluation produce interpretable locked-run artifacts across all arms?",
+      "success_signal": "All required result tables, run index, budget lock, timing, controller, and schema diagnostic summaries exist and parse.",
+      "partial_signal": "Required result tables exist, but expected provenance manifests are absent.",
+      "failure_signal": "Required run or aggregate tables are absent or cannot be parsed.",
+      "claim_if_met": "The serious harness can produce interpretable evidence for this fixture and budget.",
+      "claim_if_not_met": "The run cannot support serious evaluation interpretation."
+    },
+    {
+      "goal_id": "direct_and_empty_tower_behavior",
+      "question": "Do direct baselines and the empty-schema tower execute real environment steps under the shared budget?",
+      "success_signal": "Direct arms and empty-schema tower have nonzero step counts and nonzero returns.",
+      "partial_signal": "Some baseline/control arms execute, but at least one is behaviorally degenerate.",
+      "failure_signal": "Direct baselines or the empty-schema tower cannot execute meaningful episodes.",
+      "claim_if_met": "The direct baseline and active-tier shell are usable comparison controls for this fixture.",
+      "claim_if_not_met": "The evaluation cannot isolate non-empty contraction behavior from baseline/runtime failure."
+    },
+    {
+      "goal_id": "nonempty_tower_action_realization",
+      "question": "Can non-empty contraction schemas realize valid concrete actions and support learning through tower control?",
+      "success_signal": "Non-empty tower arms execute nonzero-step episodes with valid action realization and nonzero returns.",
+      "partial_signal": "Non-empty tower arms complete artifact runs but expose lift or action-realization failures.",
+      "failure_signal": "Non-empty tower arms fail to produce interpretable tower-control behavior.",
+      "claim_if_met": "The evaluated non-empty contraction schemas support tower-control learning under this budget.",
+      "claim_if_not_met": "The run does not support a positive tower-performance claim."
+    }
+  ],
+  "badge_policy": {
+    "dimensions": [
+      "artifact_status",
+      "behavioral_status",
+      "goal_status",
+      "claim_scope",
+      "provenance_status"
+    ]
+  },
+  "readout_badges": {
+    "artifact_status": {
+      "label": "Artifacts: Partial",
+      "color": "yellow",
+      "file": "badges/artifacts_partial.svg",
+      "reason": "Required result tables exist, but expected evaluation and arm manifests are absent."
+    },
+    "behavioral_status": {
+      "label": "Behavior: Mixed",
+      "color": "yellow",
+      "file": "badges/behavior_mixed.svg",
+      "reason": "Direct and empty-schema arms execute real steps; non-empty tower arms complete artifacts but fail action realization."
+    },
+    "goal_status": {
+      "label": "Goals: Partial",
+      "color": "yellow",
+      "file": "badges/goals_partial.svg",
+      "reason": "The run validates the serious harness and exposes the tower-control failure mechanism, but does not show tower advantage."
+    },
+    "claim_scope": {
+      "label": "Scope: Fixture Only",
+      "color": "blue",
+      "file": "badges/scope_fixture_only.svg",
+      "reason": "Claims are limited to counterpoint_symbolic_n3_small_v001 under the locked budget and tensor_available_disabled."
+    },
+    "provenance_status": {
+      "label": "Provenance: Local Tmp",
+      "color": "orange",
+      "file": "badges/provenance_local_tmp.svg",
+      "reason": "Source artifacts live under /private/tmp and have not been promoted as a durable artifact bundle."
+    }
+  },
   "claim_boundary": [
     "May compare direct and tower-control arms for this artifact run under tensor_available_disabled.",
     "May claim artifact completion and observed behavior status for counterpoint_symbolic_n3_small_v001.",

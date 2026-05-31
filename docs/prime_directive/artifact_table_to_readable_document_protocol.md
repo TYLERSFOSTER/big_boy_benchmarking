@@ -395,6 +395,12 @@ The default output set is:
   runbook.md
   artifact_index.md
   glossary.md
+  badges/
+    artifacts_<status>.svg
+    behavior_<status>.svg
+    goals_<status>.svg
+    scope_<status>.svg
+    provenance_<status>.svg
   results/
     summary.md
     human_summary.md
@@ -410,6 +416,69 @@ existing runbook or artifact-index information.
 If a prior version of this protocol wrote artifact-local docs under
 `<evaluation-root>/docs/`, treat those files as non-authoritative temporary
 readouts unless the Project Owner explicitly asks to preserve or migrate them.
+
+### README Badge Surface
+
+Every generated evaluation `README.md` must include a visual badge strip near
+the top of the file, immediately after the title and before the long prose
+summary.
+
+The default badge dimensions are:
+
+| Badge | Meaning |
+| --- | --- |
+| `Artifacts` | Whether expected machine-readable evidence exists. |
+| `Behavior` | Whether evaluated behavior succeeded, failed, mixed, or was not tested. |
+| `Goals` | Whether evaluation goals were met, partially met, blocked, or unknown. |
+| `Scope` | The strongest allowed claim scope, such as smoke, fixture-only, or promoted result. |
+| `Provenance` | Whether evidence is durable, local, partial, or missing. |
+
+Do not create one global pass/fail badge. Artifact completion, behavioral
+success, goal satisfaction, claim scope, and provenance are different facts.
+
+Badges must be local generated SVG files under:
+
+```text
+<repo-readout-surface>/badges/
+```
+
+Do not use remote badge services. A readout must remain inspectable offline and
+must not depend on network access.
+
+Use this color policy:
+
+| Color | Meaning |
+| --- | --- |
+| green | Satisfied, complete, passed, or supports the bounded claim. |
+| yellow | Partial, mixed, warning, or limited. |
+| orange | Gap, degraded evidence, local-only provenance, or interpretation risk. |
+| red | Failed, missing required evidence, or claim unsupported. |
+| gray | Not applicable, not evaluated, or unknown. |
+| blue | Informational scope badge. |
+
+Each badge label must be derivable from artifacts and source binding context:
+
+- `readout_source.json`;
+- `expected_files`;
+- `goal_criteria`;
+- aggregate/result tables;
+- run index;
+- diagnostics;
+- claim boundary;
+- run mode and provenance paths.
+
+If `readout_source.json` contains `readout_badges`, treat those entries as
+cached derived readout state, not as evidence. Verify them against the current
+artifact tables and update stale labels, colors, file paths, and reasons.
+
+If a badge cannot be derived, use an `Unknown` gray badge and mirror the missing
+context into `Clarifying Questions And Turns`.
+
+Every generated evaluation `README.md` must also include a short
+`Status At A Glance` section immediately after the badge strip. Use bullets.
+The bullets must explain the badge labels in ordinary engineering language.
+This section is intentionally compact; detailed evidence belongs in the main
+readout and result files.
 
 ### README Turn Surface
 
@@ -602,7 +671,43 @@ Better:
 Counterpoint First Serious Learning Evaluation - Human Readout
 ```
 
-### 2. Summary Of Goals Behind This Evaluation
+### 2. Badge Strip And Status At A Glance
+
+Every generated evaluation `README.md` must place local SVG badges immediately
+under the title.
+
+Example:
+
+```markdown
+![Artifacts: Partial](badges/artifacts_partial.svg)
+![Behavior: Mixed](badges/behavior_mixed.svg)
+![Goals: Partial](badges/goals_partial.svg)
+![Scope: Fixture Only](badges/scope_fixture_only.svg)
+![Provenance: Local Tmp](badges/provenance_local_tmp.svg)
+```
+
+Then include:
+
+```markdown
+## Status At A Glance
+
+- Artifact evidence: partial; required result tables exist, but expected
+  provenance manifests are absent.
+- Behavioral result: mixed; direct arms and the empty-schema tower execute real
+  steps, while non-empty tower arms expose lift/action-realization failures.
+- Goal result: partially met; the run validates the serious harness and exposes
+  a tower-control failure mechanism, but does not show tower advantage.
+- Claim scope: fixture-only; claims apply only to the named environment,
+  budget, seeds, and linearization condition.
+- Provenance: local temporary artifact root; evidence is source-bound but not a
+  promoted durable artifact bundle.
+```
+
+The badge strip and status bullets must agree with the detailed verdict,
+provenance status, and claim boundary. If they disagree, fix the readout before
+returning it.
+
+### 3. Summary Of Goals Behind This Evaluation
 
 Every generated `README.md` must include a populated section titled:
 
@@ -642,7 +747,7 @@ tested as the real tower/control comparison. It must also state the non-goals:
 not musical quality, not tensor-enabled performance, not GPU/CUDA performance,
 and not a general tower-superiority claim.
 
-### 3. Summary Of Methodology Behind This Evaluation
+### 4. Summary Of Methodology Behind This Evaluation
 
 Every generated `README.md` must include a populated section titled:
 
@@ -692,7 +797,7 @@ recorded run is a locked serious-run/summarize artifact set under
 schema seeds, and max 8 steps per episode when those facts are present in the
 budget lock.
 
-### 4. One-Screen Verdict
+### 5. One-Screen Verdict
 
 State the result in plain language.
 
@@ -712,7 +817,7 @@ lift/action-realization failures. This run is therefore useful diagnostic
 evidence, but it does not support a positive tower-performance claim.
 ```
 
-### 5. Run Identity
+### 6. Run Identity
 
 Record:
 
@@ -727,7 +832,7 @@ Record:
 - command or runbook path;
 - budget lock path if applicable.
 
-### 6. Claim Boundary
+### 7. Claim Boundary
 
 Say exactly what the report may and may not claim.
 
@@ -739,7 +844,7 @@ The claim boundary must include:
 - whether musical-quality claims are excluded;
 - whether general method superiority claims are excluded.
 
-### 7. Arm Legend
+### 8. Arm Legend
 
 Translate every arm id into a human label.
 
@@ -763,7 +868,7 @@ Tower controller with random balanced contraction schema. Tests whether this
 schema supports action realization and learning under the tower interface.
 ```
 
-### 8. Main Result Table
+### 9. Main Result Table
 
 Do not paste the raw aggregate table as the only table.
 
@@ -781,7 +886,7 @@ Create a reader-facing table with:
 
 Raw statistical columns can follow in a technical appendix.
 
-### 9. Diagnostic Findings
+### 10. Diagnostic Findings
 
 If any arm has surprising, zero, missing, failed, or inconsistent values, write a
 diagnostic section.
@@ -795,7 +900,7 @@ This section should answer:
 - whether it indicates a code bug, environment fact, schema fact, or expected
   negative result.
 
-### 10. Timing Readout
+### 11. Timing Readout
 
 Timing tables must distinguish:
 
@@ -809,7 +914,7 @@ Timing tables must distinguish:
 Do not compare methods on wall-clock timing unless the report says which timing
 categories are included.
 
-### 11. Evidence Map
+### 12. Evidence Map
 
 End with an evidence map that tells the reader where to inspect:
 
@@ -825,7 +930,7 @@ End with an evidence map that tells the reader where to inspect:
 
 The evidence map must say what each file is for.
 
-### 11.1 Provenance Status
+### 12.1 Provenance Status
 
 If any expected or commonly inspected files are absent, write a provenance
 status section instead of a generic "missing evidence" section.
@@ -853,7 +958,7 @@ For the counterpoint first serious learning readout, this means:
   artifact root is a manually locked serious run without calibration, classify
   them as `conditional_absent` or `not_applicable`, not as missing evidence.
 
-### 12. Clarifying Questions And Turns
+### 13. Clarifying Questions And Turns
 
 In `README.md`, include the protected turn surface defined above as the final
 section. Do not use prose such as "No open clarifying questions recorded" in

@@ -18,7 +18,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "state-collapser", extras = ["rl"], git = "https://github.com/TYLERSFOSTER/state_collapser.git?rev=v0.7.0" }]
+requires-dist = [{ name = "state-collapser", extras = ["rl"], git = "https://github.com/TYLERSFOSTER/state_collapser.git?rev=v0.7.1" }]
 
 [package.metadata.requires-dev]
 dev = [
@@ -280,8 +280,8 @@ wheels = [
 
 [[package]]
 name = "state-collapser"
-version = "0.7.0"
-source = { git = "https://github.com/TYLERSFOSTER/state_collapser.git?rev=v0.7.0#1b8eb84a43501d79ce44255aa1cc3b1f17d3248e" }
+version = "0.7.1"
+source = { git = "https://github.com/TYLERSFOSTER/state_collapser.git?rev=v0.7.1#0de2e2339a20c37f9d7e47d676550369f7bf1701" }
 dependencies = [
     { name = "pillow" },
 ]

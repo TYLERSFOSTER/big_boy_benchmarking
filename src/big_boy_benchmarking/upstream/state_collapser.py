@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any
 
 STATE_COLLAPSER_DEPENDENCY_SPEC = (
-    "state-collapser[rl] @ git+https://github.com/TYLERSFOSTER/state_collapser.git@v0.7.0"
+    "state-collapser[rl] @ git+https://github.com/TYLERSFOSTER/state_collapser.git@v0.7.1"
 )
 
 REQUIRED_LINEARIZATION_SYMBOLS = (

@@ -53,6 +53,12 @@ def test_active_tier_adapter_initializes_for_motion_schema_and_moves_bounds() ->
         assert down.active_tier == state.active_tier + 1
         up = adapter.move_up(down)
         assert up.active_tier == state.active_tier
+    assert adapter.tier_is_executable(state.active_tier)
+    assert not all(
+        adapter.tier_is_executable(tier) for tier in range(1, adapter.tower_depth)
+    )
+    assert adapter.tier_is_executable(-1) is False
+    assert adapter.tier_is_executable(adapter.tower_depth) is False
 
 
 def test_tier_learner_adapter_satisfies_protocol_and_trains() -> None:
