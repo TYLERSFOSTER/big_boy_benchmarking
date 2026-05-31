@@ -41,3 +41,15 @@ Machine-readable artifacts remain the execution source of truth. Repo-side
 readouts are the human interpretation layer. Docs may summarize artifacts, but
 they must not invent status, performance claims, or scientific conclusions
 without recorded artifacts.
+
+## Current Completed Readouts
+
+The current completed serious evaluation readout is:
+
+- [Counterpoint first serious learning v001](evaluations/counterpoint_symbolic_v001/first_serious_learning/README.md):
+  structural-limit diagnostic for `counterpoint_symbolic_n3_small_v001` under
+  `tensor_available_disabled`.
+
+The key design-learning archive from that readout is:
+
+- [System learning from evaluations](design/system_learning_from_evaluations/README.md)
