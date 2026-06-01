@@ -5,16 +5,21 @@
 This repository is active. It is no longer paused on the first serious
 counterpoint evaluation.
 
-As of 2026-05-30, the implemented repo state is:
+As of 2026-06-01, the implemented repo state is:
 
 - shared benchmark machinery exists;
 - `state_collapser` is pinned through the `v0.7.1` active-tier integration;
-- `counterpoint_symbolic_v001` has tiny and small fixtures;
+- `counterpoint_symbolic_v001` has tiny, small, and medium fixtures;
 - graph, schema, direct, tower-smoke, and serious-learning commands are
   runnable;
 - first serious learning evaluation machinery exists for calibration,
   budget-locked execution, aggregation, source-bound repo readouts, and
-  human-readable interpretation.
+  human-readable interpretation;
+- one-third schema tower diagnostics machinery exists for small/medium
+  diagnostic runs, aggregation, source-bound repo readouts, and
+  human-readable interpretation;
+- two repo-side counterpoint evaluation readouts exist:
+  `first_serious_learning` and `one_third_schema_tower_diagnostics`.
 
 The current serious-learning default linearization condition is:
 
@@ -25,6 +30,48 @@ tensor_available_disabled
 This records that the tensorization boundary is present while tensor execution
 is disabled. It is not a tensor-enabled CPU, tensor-enabled CUDA, GPU, or
 general performance claim.
+
+## Current Next Work
+
+The next work is design conversation, not immediate implementation.
+
+The main next topic is the second evaluation:
+
+```text
+docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/
+```
+
+The Project Owner's current interpretation is that this second evaluation is
+more of a diagnosing issue than a negative result. Do not summarize it as
+"one-third failed" or "tower learning failed." The recorded result is:
+
+```text
+source-local one-third contraction fully collapses the first projection on the
+current small/medium fixtures, while base-tier concrete execution and lift
+remain healthy.
+```
+
+The next conversation should decide what the diagnostic result means for:
+
+- schema construction;
+- ABC/tier occupancy interpretation;
+- full-graph/offline versus incremental/discovery tower construction;
+- what kind of less-collapsing schema would be worth evaluating next;
+- what additional evidence, if any, is needed before designing the next run.
+
+After that discussion, the likely third evaluation is:
+
+```text
+counterpoint learning comparisons
+```
+
+That third evaluation should be designed only after the second evaluation's
+diagnostic lesson is settled. Evaluation 3 should compare learning behavior on
+counterpoint under explicit baselines, schema choices, budgets, seeds,
+linearization condition, artifact contracts, and human-readable readout
+requirements. Do not jump straight from the one-third diagnostic into a
+learning-comparison implementation without a blueprint/gameplan and explicit
+Project Owner approval.
 
 ## Root Contribution Rule
 
@@ -128,10 +175,11 @@ docs/evaluations/<environment>/<evaluation>/artifacts/<run-label>/evaluations/<e
 ```
 
 The durable checked-in readout lives under `docs/evaluations/` and is generated
-by pointing the artifact-table protocol at the repo-side readout surface:
+by pointing the artifact-table protocol at that readout surface's checked-in
+source binding:
 
 ```text
-execute artifact-table readout pointed at folder docs/evaluations/<environment>/<evaluation>/
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/<environment>/<evaluation>/readout_source.json
 ```
 
 Each repo-side evaluation readout surface should include `readout_source.json`
