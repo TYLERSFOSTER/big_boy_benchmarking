@@ -181,26 +181,12 @@ Files classified as not applicable by the source binding:
 
 ## Clarifying Questions And Turns
 
-#### Project Owner / Evaluator Turn
+The extended turn-by-turn conversation that used to live in this generated readout has been moved to the durable design archive:
 
-> ...
+```text
+docs/design/system_learning_from_evaluations/counterpoint_one_third_schema_unexpected_collapse/02_readout_conversation_archive.md
+```
 
-#### Embedded Engineering Consultant / Codex Turn
+Current status: unresolved. The archived conversation collects the main issues discovered so far, including the suspicious singleton collapse, the PO correction away from casual connected-components / `pi_0` language, the need for coset-aware interpretation, the possible schema-width problem, and the known active-vs-stale action-cell readout issue.
 
-> ...
-
-#### Project Owner / Evaluator Turn
-
-> ...
-
-#### Embedded Engineering Consultant / Codex Turn
-
-> ...
-
-#### Project Owner / Evaluator Turn
-
-> ...
-
-#### Embedded Engineering Consultant / Codex Turn
-
-> ...
+This generated readout keeps only this pointer so the evaluation surface can remain focused on the current artifact result.

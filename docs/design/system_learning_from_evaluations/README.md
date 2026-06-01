@@ -26,6 +26,7 @@ Future LLM passes should scan this table first.
 | --- | --- | --- | --- | --- |
 | `counterpoint_first_serious_learning_v001` | [counterpoint_first_serious_learning_v001](counterpoint_first_serious_learning_v001/README.md) | evaluation-learning archive | active design memory | structural-limit diagnostic; `pi_0(H)` collapse; first serious counterpoint learning |
 | `direct_image_threshold_binding` | [direct_image_threshold_binding](direct_image_threshold_binding/README.md) | documentation issue | future work; may become architecture issue | direct-image aggregation; lower-tier thresholds bind upper-tier performance |
+| `counterpoint_one_third_schema_unexpected_collapse` | [counterpoint_one_third_schema_unexpected_collapse](counterpoint_one_third_schema_unexpected_collapse/README.md) | evaluation-learning archive | active diagnostic design memory | unexpected singleton collapse; one-third schema width; coset language discipline |
 
 ## Shared Explanation Device: Binary Search
 
@@ -58,6 +59,7 @@ for heavier mathematical language.
 
 - [Counterpoint first serious learning v001](counterpoint_first_serious_learning_v001/README.md)
 - [Direct image threshold binding](direct_image_threshold_binding/README.md)
+- [Counterpoint one-third schema unexpected collapse](counterpoint_one_third_schema_unexpected_collapse/README.md)
 
 ## Archive Shape
 
