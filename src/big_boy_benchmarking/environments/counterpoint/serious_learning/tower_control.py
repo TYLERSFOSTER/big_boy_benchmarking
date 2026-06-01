@@ -139,11 +139,14 @@ class CounterpointTowerControlAdapter:
         schema_id: str,
         schema_seed: int | None,
         recorder: TimingRecorder | None = None,
+        build_result: CounterpointTowerBuildResult | None = None,
     ) -> None:
         self.spec = spec
         self.schema_id = schema_id
         self.schema_seed = schema_seed
-        if recorder is None:
+        if build_result is not None:
+            self.build = build_result
+        elif recorder is None:
             self.build = build_counterpoint_partition_tower(
                 spec,
                 schema_id=schema_id,

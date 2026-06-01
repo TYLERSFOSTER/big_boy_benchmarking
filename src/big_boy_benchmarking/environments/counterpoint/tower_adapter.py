@@ -203,6 +203,47 @@ class CounterpointOutgoingThirdsSchema:
         return SchemaBlockId(("counterpoint_one_third", block_index))
 
 
+@dataclass(frozen=True, slots=True)
+class CounterpointOutgoingFractionSchema:
+    """Single-block source-local outgoing fraction schema for diagnostics."""
+
+    numerator: int
+    denominator: int
+    schema_seed: int = 0
+
+    def __post_init__(self) -> None:
+        if self.denominator <= 0:
+            raise ValueError("CounterpointOutgoingFractionSchema.denominator must be positive")
+        if self.numerator < 1 or self.numerator > self.denominator:
+            raise ValueError(
+                "CounterpointOutgoingFractionSchema.numerator must be between 1 and denominator"
+            )
+
+    def assign_edge(
+        self,
+        edge_id: EdgeId,
+        registry: BaseGraphRegistry,
+    ) -> SchemaBlockId | None:
+        source_id = registry.source_state_id(edge_id)
+        outgoing = sorted(registry.outgoing_edge_ids(source_id), key=lambda item: item.value)
+        shuffled = list(outgoing)
+        random.Random(f"{self.schema_seed}:{source_id.value}").shuffle(shuffled)
+        if not shuffled:
+            return None
+        quota = max(1, math.ceil(len(shuffled) * self.numerator / self.denominator))
+        if edge_id in shuffled[:quota]:
+            return self._block_id()
+        return None
+
+    def ordered_blocks(self) -> tuple[SchemaBlockId, ...]:
+        return (self._block_id(),)
+
+    def _block_id(self) -> SchemaBlockId:
+        return SchemaBlockId(
+            ("counterpoint_outgoing_fraction", self.numerator, self.denominator)
+        )
+
+
 def contraction_schema_for_id(
     schema_id: str,
     *,
@@ -227,6 +268,12 @@ def contraction_schema_for_id(
         return CounterpointOutgoingThirdsSchema(
             schema_seed=0 if schema_seed is None else schema_seed
         )
+    if schema_id.startswith(ids.OUTGOING_FRACTION_SWEEP_SCHEMA_ID):
+        return CounterpointOutgoingFractionSchema(
+            numerator=1,
+            denominator=18,
+            schema_seed=0 if schema_seed is None else schema_seed,
+        )
     if schema_id == ids.BAD_SCHEMA_ID:
         return DimensionwiseSchema(("counterpoint_transition",))
     raise ValueError(f"unsupported tower schema id: {schema_id}")
@@ -249,6 +296,32 @@ def build_counterpoint_partition_tower(
     hidden_graph = CounterpointHiddenGraph(spec)
     tower = PartitionTower(
         schema=contraction_schema_for_id(schema_id, schema_seed=schema_seed),
+        reward_aggregator=RewardAggregator("mean"),
+    )
+    states = tuple(counterpoint_state_to_core_state(state) for state in graph.states)
+    edges = tuple(graph_edge_to_base_edge(edge) for edge in graph.edges)
+    current_state = (
+        counterpoint_state_to_core_state(graph.start_states[0]) if graph.start_states else None
+    )
+    tower.initialize(initial_states=states, initial_edges=edges, current_state=current_state)
+    return CounterpointTowerBuildResult(graph=graph, hidden_graph=hidden_graph, tower=tower)
+
+
+def build_counterpoint_fraction_partition_tower(
+    spec: CounterpointInstanceSpec,
+    *,
+    numerator: int,
+    denominator: int,
+    schema_seed: int | None = None,
+) -> CounterpointTowerBuildResult:
+    graph = enumerate_reachable_graph(spec)
+    hidden_graph = CounterpointHiddenGraph(spec)
+    tower = PartitionTower(
+        schema=CounterpointOutgoingFractionSchema(
+            numerator=numerator,
+            denominator=denominator,
+            schema_seed=0 if schema_seed is None else schema_seed,
+        ),
         reward_aggregator=RewardAggregator("mean"),
     )
     states = tuple(counterpoint_state_to_core_state(state) for state in graph.states)

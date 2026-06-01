@@ -1,0 +1,160 @@
+{
+  "artifact_run_label": "smoke_001",
+  "artifact_schema_version": "bbb.v001",
+  "badge_policy": {
+    "dimensions": [
+      "artifact_status",
+      "sweep_status",
+      "legacy_endpoint_status",
+      "runtime_executability_status",
+      "claim_scope",
+      "provenance_status"
+    ]
+  },
+  "claim_boundary": [
+    "diagnostic tower-geometry and ABC-runtime evidence only",
+    "no direct-vs-tower performance claim",
+    "no tower advantage or disadvantage claim",
+    "no tensor-enabled runtime claim",
+    "no musical quality claim",
+    "no claim that the counterpoint environment is degenerate"
+  ],
+  "denominator": 18,
+  "environment_instance_ids": [
+    "counterpoint_symbolic_n3_small_v001"
+  ],
+  "evaluation_id": "counterpoint_contraction_fraction_sweep_diagnostics_v001",
+  "expected_files": {
+    "conditional": {},
+    "expectation_sources": [
+      "docs/design/system_learning_from_evaluations/counterpoint_one_third_schema_unexpected_collapse/04_n_over_18_contraction_fraction_sweep_implementation_gameplan.md"
+    ],
+    "expected_absent_is_gap": [],
+    "not_applicable": [
+      "direct arm comparison tables",
+      "tensor-enabled conversion records",
+      "learning performance comparison tables"
+    ],
+    "required": [
+      "evaluation_manifest.json",
+      "evaluation_arm_manifest.json",
+      "evaluation_budget_lock.json",
+      "evaluation_run_index.csv",
+      "evaluation_aggregate_table.csv",
+      "evaluation_aggregate_summary.json",
+      "results/schema_fraction_summary.csv",
+      "results/tower_shape_summary.csv",
+      "results/endpoint_coalescence_summary.csv",
+      "results/tier_executability_summary.csv",
+      "results/tier_occupancy_summary.csv",
+      "results/control_action_summary.csv",
+      "results/abc_selection_summary.csv",
+      "results/abc_tier_signal_summary.csv",
+      "results/lift_failure_by_tier.csv",
+      "results/concrete_step_summary.csv",
+      "results/collapse_threshold_summary.csv",
+      "results/legacy_one_third_equivalence_summary.csv"
+    ]
+  },
+  "goal_criteria": [
+    {
+      "claim_if_met": "The contraction-fraction sweep completed its artifact contract.",
+      "claim_if_not_met": "The sweep cannot yet support human-readable diagnosis.",
+      "failure_signal": "run index or core result tables are missing",
+      "goal_id": "sweep_artifacts_complete",
+      "partial_signal": "some arms or summary tables are missing",
+      "question": "Did every requested arm produce required evidence?",
+      "success_signal": "all required result tables exist and every requested n/18 arm is represented"
+    },
+    {
+      "claim_if_met": "The evaluation identifies the observed first-tier collapse threshold under current BBB/state_collapser schema semantics.",
+      "claim_if_not_met": "The evaluation cannot distinguish threshold behavior.",
+      "failure_signal": "collapse status is absent",
+      "goal_id": "threshold_visibility",
+      "partial_signal": "collapse status exists for only part of the sweep",
+      "question": "Does the sweep reveal whether collapse emerges gradually or immediately?",
+      "success_signal": "collapse_threshold_summary.csv reports first collapse and last nontrivial n"
+    },
+    {
+      "claim_if_met": "The sweep endpoint is comparable to the prior one-third diagnostic.",
+      "claim_if_not_met": "The sweep endpoint cannot be compared to the prior one-third diagnostic.",
+      "failure_signal": "equivalence is missing or false",
+      "goal_id": "legacy_one_third_check",
+      "partial_signal": "equivalence is checked but mixed across instances or seeds",
+      "question": "Does 6/18 reproduce the old one-third first block?",
+      "success_signal": "legacy_one_third_equivalence_summary.csv reports equivalent=True"
+    },
+    {
+      "claim_if_met": "The evaluation distinguishes constructed quotient shape from live executable control surface.",
+      "claim_if_not_met": "The evaluation risks confusing quotient construction with execution.",
+      "failure_signal": "active-surface tables are missing",
+      "goal_id": "active_surface_readability",
+      "partial_signal": "some active-surface tables are present",
+      "question": "Can a human tell which tiers are actually executable?",
+      "success_signal": "active action-cell counts, tier occupancy, lift, and concrete steps are summarized"
+    }
+  ],
+  "goal_summary_sources": [
+    "docs/design/system_learning_from_evaluations/counterpoint_one_third_schema_unexpected_collapse/03_n_over_18_contraction_fraction_sweep_blueprint.md",
+    "docs/design/system_learning_from_evaluations/counterpoint_one_third_schema_unexpected_collapse/README.md"
+  ],
+  "methodology_summary_sources": [
+    "docs/design/system_learning_from_evaluations/counterpoint_one_third_schema_unexpected_collapse/03_n_over_18_contraction_fraction_sweep_blueprint.md",
+    "docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md"
+  ],
+  "numerators": [
+    1,
+    6
+  ],
+  "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics",
+  "run_mode": "diagnostic_contraction_fraction_sweep_tower_abc",
+  "schema_family_id": "counterpoint_outgoing_fraction_sweep_schema_v001",
+  "schema_seeds": [
+    0
+  ],
+  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001",
+  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/evaluations/counterpoint_contraction_fraction_sweep_diagnostics_v001",
+  "source_files": {
+    "abc_selection_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/evaluations/counterpoint_contraction_fraction_sweep_diagnostics_v001/results/abc_selection_summary.csv",
+    "abc_tier_signal_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/evaluations/counterpoint_contraction_fraction_sweep_diagnostics_v001/results/abc_tier_signal_summary.csv",
+    "aggregate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/evaluations/counterpoint_contraction_fraction_sweep_diagnostics_v001/evaluation_aggregate_summary.json",
+    "aggregate_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/evaluations/counterpoint_contraction_fraction_sweep_diagnostics_v001/evaluation_aggregate_table.csv",
+    "collapse_threshold_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/evaluations/counterpoint_contraction_fraction_sweep_diagnostics_v001/results/collapse_threshold_summary.csv",
+    "concrete_step_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/evaluations/counterpoint_contraction_fraction_sweep_diagnostics_v001/results/concrete_step_summary.csv",
+    "control_action_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/evaluations/counterpoint_contraction_fraction_sweep_diagnostics_v001/results/control_action_summary.csv",
+    "endpoint_coalescence_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/evaluations/counterpoint_contraction_fraction_sweep_diagnostics_v001/results/endpoint_coalescence_summary.csv",
+    "legacy_one_third_equivalence_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/evaluations/counterpoint_contraction_fraction_sweep_diagnostics_v001/results/legacy_one_third_equivalence_summary.csv",
+    "lift_failure_by_tier": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/evaluations/counterpoint_contraction_fraction_sweep_diagnostics_v001/results/lift_failure_by_tier.csv",
+    "run_index": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/evaluations/counterpoint_contraction_fraction_sweep_diagnostics_v001/evaluation_run_index.csv",
+    "schema_fraction_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/evaluations/counterpoint_contraction_fraction_sweep_diagnostics_v001/results/schema_fraction_summary.csv",
+    "tier_executability_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/evaluations/counterpoint_contraction_fraction_sweep_diagnostics_v001/results/tier_executability_summary.csv",
+    "tier_occupancy_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/evaluations/counterpoint_contraction_fraction_sweep_diagnostics_v001/results/tier_occupancy_summary.csv",
+    "tower_shape_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/evaluations/counterpoint_contraction_fraction_sweep_diagnostics_v001/results/tower_shape_summary.csv"
+  },
+  "structural_limit_checks": [
+    {
+      "check_id": "full_first_projection_collapse",
+      "claim_effect": "diagnostic-only; blocks learning-performance interpretation",
+      "interpretation_if_triggered": "The first scheduled block collapses all base states into one state cell.",
+      "trigger": "tier 1 state_cell_count == 1"
+    },
+    {
+      "check_id": "near_full_first_projection_collapse",
+      "claim_effect": "marks quotient geometry as structurally limiting",
+      "interpretation_if_triggered": "One tier-1 cell contains at least 90 percent of base states.",
+      "trigger": "tier 1 largest_state_cell_share >= 0.90"
+    },
+    {
+      "check_id": "legacy_endpoint_mismatch",
+      "claim_effect": "invalidates endpoint comparison",
+      "interpretation_if_triggered": "The sweep endpoint is not comparable to the prior one-third diagnostic.",
+      "trigger": "n06_over_18 selected edge set differs from old one-third block 0"
+    },
+    {
+      "check_id": "non_monotone_selected_edges",
+      "claim_effect": "invalidates threshold interpretation",
+      "interpretation_if_triggered": "The sweep is not a clean contraction-width threshold experiment.",
+      "trigger": "selected edges are not nested across increasing n"
+    }
+  ]
+}

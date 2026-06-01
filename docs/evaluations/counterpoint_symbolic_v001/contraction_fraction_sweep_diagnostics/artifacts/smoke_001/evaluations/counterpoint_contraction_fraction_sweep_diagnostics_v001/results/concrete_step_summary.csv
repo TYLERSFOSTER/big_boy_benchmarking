@@ -1,0 +1,4 @@
+evaluation_id,run_id,instance_id,arm_id,numerator,denominator,schema_seed,replicate_index,episode_count,concrete_step_count,zero_step_episode_count,mean_reward,terminated_count,truncated_count,final_state_summary
+counterpoint_contraction_fraction_sweep_diagnostics_v001,counterpoint_symbolic_n3_small_v001-no_contraction_control-schema0-rep0,counterpoint_symbolic_n3_small_v001,no_contraction_control,0,18,0,0,1,7,0,1.507936507936508,0,0,"{""beat3:pitches(62, 66, 71)"": 1}"
+counterpoint_contraction_fraction_sweep_diagnostics_v001,counterpoint_symbolic_n3_small_v001-n01_over_18-schema0-rep0,counterpoint_symbolic_n3_small_v001,n01_over_18,1,18,0,0,1,7,0,1.507936507936508,0,0,"{""beat3:pitches(62, 66, 71)"": 1}"
+counterpoint_contraction_fraction_sweep_diagnostics_v001,counterpoint_symbolic_n3_small_v001-n06_over_18-schema0-rep0,counterpoint_symbolic_n3_small_v001,n06_over_18,6,18,0,0,1,7,0,1.507936507936508,0,0,"{""beat3:pitches(62, 66, 71)"": 1}"

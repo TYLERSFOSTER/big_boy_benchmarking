@@ -68,6 +68,161 @@ class SchemaConstruction:
         }
 
 
+@dataclass(frozen=True)
+class SourceLocalFractionSelection:
+    """Selected outgoing edges for one source under a fixed fraction arm."""
+
+    source_key: str
+    out_degree: int
+    selected_edge_keys: tuple[str, ...]
+
+    @property
+    def selected_count(self) -> int:
+        return len(self.selected_edge_keys)
+
+
+def source_local_fraction_quota(
+    out_degree: int,
+    *,
+    numerator: int,
+    denominator: int,
+) -> int:
+    if denominator <= 0:
+        raise ValueError("denominator must be positive")
+    if numerator < 1 or numerator > denominator:
+        raise ValueError("numerator must be between 1 and denominator")
+    if out_degree <= 0:
+        return 0
+    return max(1, math.ceil(out_degree * numerator / denominator))
+
+
+def source_local_fraction_selections(
+    graph: ReachableGraph,
+    *,
+    numerator: int,
+    denominator: int,
+    schema_seed: int,
+) -> tuple[SourceLocalFractionSelection, ...]:
+    """Select a stable source-local outgoing-edge prefix for a fraction arm."""
+
+    edges_by_source: dict[str, list[GraphEdge]] = defaultdict(list)
+    for edge in graph.edges:
+        edges_by_source[state_key(edge.source)].append(edge)
+
+    selections: list[SourceLocalFractionSelection] = []
+    for source, source_edges in sorted(edges_by_source.items()):
+        shuffled = sorted(source_edges, key=edge_key)
+        random.Random(f"{schema_seed}:{source}").shuffle(shuffled)
+        quota = source_local_fraction_quota(
+            len(shuffled),
+            numerator=numerator,
+            denominator=denominator,
+        )
+        selections.append(
+            SourceLocalFractionSelection(
+                source_key=source,
+                out_degree=len(shuffled),
+                selected_edge_keys=tuple(edge_key(edge) for edge in shuffled[:quota]),
+            )
+        )
+    return tuple(selections)
+
+
+def selected_fraction_edge_keys(
+    graph: ReachableGraph,
+    *,
+    numerator: int,
+    denominator: int,
+    schema_seed: int,
+) -> frozenset[str]:
+    selected: set[str] = set()
+    for selection in source_local_fraction_selections(
+        graph,
+        numerator=numerator,
+        denominator=denominator,
+        schema_seed=schema_seed,
+    ):
+        selected.update(selection.selected_edge_keys)
+    return frozenset(selected)
+
+
+def legacy_one_third_first_block_edge_keys(
+    graph: ReachableGraph,
+    *,
+    schema_seed: int,
+) -> frozenset[str]:
+    """Return the old recursive one-third schema's first scheduled block."""
+
+    schema = build_one_third_outgoing_schema(graph, schema_seed=schema_seed)
+    return frozenset(
+        key for key, block_id in schema.edge_partition.items() if block_id == "one_third_block_0"
+    )
+
+
+def fraction_selection_monotonicity_report(
+    graph: ReachableGraph,
+    *,
+    numerators: tuple[int, ...],
+    denominator: int,
+    schema_seed: int,
+) -> tuple[dict[str, object], ...]:
+    rows: list[dict[str, object]] = []
+    previous_numerator: int | None = None
+    previous_selected: frozenset[str] | None = None
+    for numerator in numerators:
+        selected = selected_fraction_edge_keys(
+            graph,
+            numerator=numerator,
+            denominator=denominator,
+            schema_seed=schema_seed,
+        )
+        if previous_selected is not None and previous_numerator is not None:
+            missing = tuple(sorted(previous_selected - selected))
+            rows.append(
+                {
+                    "from_numerator": previous_numerator,
+                    "to_numerator": numerator,
+                    "denominator": denominator,
+                    "subset_pass": not missing,
+                    "missing_nested_edge_count": len(missing),
+                    "example_missing_nested_edges": ";".join(missing[:5]),
+                }
+            )
+        previous_numerator = numerator
+        previous_selected = selected
+    return tuple(rows)
+
+
+def legacy_one_third_equivalence_report(
+    graph: ReachableGraph,
+    *,
+    numerator: int,
+    denominator: int,
+    schema_seed: int,
+) -> dict[str, object]:
+    fraction_edges = selected_fraction_edge_keys(
+        graph,
+        numerator=numerator,
+        denominator=denominator,
+        schema_seed=schema_seed,
+    )
+    legacy_edges = legacy_one_third_first_block_edge_keys(graph, schema_seed=schema_seed)
+    missing_from_fraction = tuple(sorted(legacy_edges - fraction_edges))
+    extra_in_fraction = tuple(sorted(fraction_edges - legacy_edges))
+    return {
+        "numerator": numerator,
+        "denominator": denominator,
+        "schema_seed": schema_seed,
+        "equivalent": not missing_from_fraction and not extra_in_fraction,
+        "fraction_edge_count": len(fraction_edges),
+        "legacy_edge_count": len(legacy_edges),
+        "missing_from_fraction_count": len(missing_from_fraction),
+        "extra_in_fraction_count": len(extra_in_fraction),
+        "missing_from_fraction_examples": ";".join(missing_from_fraction[:5]),
+        "extra_in_fraction_examples": ";".join(extra_in_fraction[:5]),
+    }
+
+
 def _schema_spec(
     graph: ReachableGraph,
     *,
@@ -379,6 +534,58 @@ def build_one_third_outgoing_schema(
     )
 
 
+def build_outgoing_fraction_schema(
+    graph: ReachableGraph,
+    *,
+    schema_seed: int,
+    numerator: int,
+    denominator: int,
+) -> SchemaConstruction:
+    source_local_fraction_quota(1, numerator=numerator, denominator=denominator)
+    schema_id = f"{ids.OUTGOING_FRACTION_SWEEP_SCHEMA_ID}_n{numerator:02d}_over_{denominator}"
+    spec = _schema_spec(
+        graph,
+        schema_id=schema_id,
+        schema_family_id=ids.OUTGOING_FRACTION_SWEEP_SCHEMA_FAMILY_ID,
+        schema_seed=schema_seed,
+        construction_method="seeded_source_local_outgoing_fraction_single_block_contraction",
+        source_label_families=(),
+        state_partition_description="identity state keys; runtime contraction is edge-driven",
+        action_partition_description=(
+            "seeded source-local single scheduled outgoing-edge fraction block"
+        ),
+        expected_compression_target=(
+            f"one scheduled {numerator}/{denominator} contraction block plus base tier"
+        ),
+        leakage_risk_statement=(
+            "Uses only stable source states and outgoing edge identities, not rewards, "
+            "terminal outcomes, learned values, or future episode results."
+        ),
+        intended_role="contraction_fraction_sweep_diagnostic",
+        online_eligible=True,
+        diagnostic_only=False,
+        expected_tower_depth=2,
+    )
+    selected = selected_fraction_edge_keys(
+        graph,
+        numerator=numerator,
+        denominator=denominator,
+        schema_seed=schema_seed,
+    )
+    scheduled_block = f"fraction_n{numerator:02d}_over_{denominator}_block_0"
+    edge_partition = {
+        edge_key(edge): scheduled_block
+        if edge_key(edge) in selected
+        else f"fraction_n{numerator:02d}_over_{denominator}_unscheduled"
+        for edge in graph.edges
+    }
+    return SchemaConstruction(
+        spec=spec,
+        state_partition={state_key(state): state_key(state) for state in graph.states},
+        edge_partition=edge_partition,
+    )
+
+
 def build_schema_for_id(
     graph: ReachableGraph,
     *,
@@ -407,5 +614,12 @@ def build_schema_for_id(
         return build_one_third_outgoing_schema(
             graph,
             schema_seed=0 if schema_seed is None else schema_seed,
+        )
+    if schema_id.startswith(ids.OUTGOING_FRACTION_SWEEP_SCHEMA_ID):
+        return build_outgoing_fraction_schema(
+            graph,
+            schema_seed=0 if schema_seed is None else schema_seed,
+            numerator=1,
+            denominator=18,
         )
     raise ValueError(f"unsupported schema id: {schema_id}")

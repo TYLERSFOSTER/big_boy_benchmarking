@@ -22,6 +22,25 @@ from big_boy_benchmarking.environments.counterpoint.diagnostics import (
 from big_boy_benchmarking.environments.counterpoint.fixture_search import (
     search_fixture_candidates,
 )
+from big_boy_benchmarking.environments.counterpoint.fraction_sweep_diagnostics.aggregation import (
+    aggregate_fraction_sweep_diagnostics_results,
+)
+from big_boy_benchmarking.environments.counterpoint.fraction_sweep_diagnostics.config import (
+    DEFAULT_DENOMINATOR as FRACTION_SWEEP_DEFAULT_DENOMINATOR,
+    DEFAULT_EPISODES_PER_REPLICATE as FRACTION_SWEEP_DEFAULT_EPISODES,
+    DEFAULT_NUMERATORS as FRACTION_SWEEP_DEFAULT_NUMERATORS,
+    DEFAULT_REPLICATES_PER_SCHEMA_SEED as FRACTION_SWEEP_DEFAULT_REPLICATES,
+    DEFAULT_SCHEMA_SEEDS as FRACTION_SWEEP_DEFAULT_SCHEMA_SEEDS,
+)
+from big_boy_benchmarking.environments.counterpoint.fraction_sweep_diagnostics.docs_writer import (
+    write_fraction_sweep_diagnostics_docs,
+)
+from big_boy_benchmarking.environments.counterpoint.fraction_sweep_diagnostics.paths import (
+    default_artifact_root as default_fraction_sweep_artifact_root,
+)
+from big_boy_benchmarking.environments.counterpoint.fraction_sweep_diagnostics.runner import (
+    run_fraction_sweep_diagnostics,
+)
 from big_boy_benchmarking.environments.counterpoint.graph import enumerate_reachable_graph
 from big_boy_benchmarking.environments.counterpoint.instances import (
     default_small_spec,
@@ -276,6 +295,68 @@ def build_parser() -> argparse.ArgumentParser:
     one_third_summarize_parser.add_argument("--artifact-root", required=True, type=Path)
     one_third_summarize_parser.add_argument("--docs-root", type=Path)
 
+    fraction_sweep_parser = counterpoint_subparsers.add_parser("fraction-sweep")
+    fraction_sweep_subparsers = fraction_sweep_parser.add_subparsers(
+        dest="fraction_sweep_command",
+        required=True,
+    )
+
+    fraction_sweep_run_parser = fraction_sweep_subparsers.add_parser("run")
+    fraction_sweep_run_parser.add_argument(
+        "--artifact-root",
+        type=Path,
+        default=default_fraction_sweep_artifact_root("run_001"),
+    )
+    fraction_sweep_run_parser.add_argument("--instances", default="small,medium")
+    fraction_sweep_run_parser.add_argument(
+        "--numerators",
+        default=",".join(map(str, FRACTION_SWEEP_DEFAULT_NUMERATORS)),
+    )
+    fraction_sweep_run_parser.add_argument(
+        "--denominator",
+        type=int,
+        default=FRACTION_SWEEP_DEFAULT_DENOMINATOR,
+    )
+    fraction_sweep_run_parser.add_argument(
+        "--schema-seeds",
+        default=",".join(map(str, FRACTION_SWEEP_DEFAULT_SCHEMA_SEEDS)),
+    )
+    fraction_sweep_run_parser.add_argument(
+        "--replicates",
+        type=int,
+        default=FRACTION_SWEEP_DEFAULT_REPLICATES,
+    )
+    fraction_sweep_run_parser.add_argument(
+        "--episodes",
+        type=int,
+        default=FRACTION_SWEEP_DEFAULT_EPISODES,
+    )
+    fraction_sweep_run_parser.add_argument("--base-seed", type=int, default=0)
+    fraction_sweep_run_parser.add_argument("--locked-by", default="cli")
+    fraction_sweep_run_parser.add_argument("--horizon", type=int)
+    fraction_sweep_run_parser.add_argument("--controller-event-ceiling", type=int)
+    fraction_sweep_run_parser.add_argument(
+        "--include-no-contraction-control",
+        action="store_true",
+        default=True,
+        help="include the no-contraction structural control arm",
+    )
+    fraction_sweep_run_parser.add_argument(
+        "--omit-no-contraction-control",
+        action="store_false",
+        dest="no_contraction_control",
+        help="omit the no-contraction structural control arm",
+    )
+    fraction_sweep_run_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
+
+    fraction_sweep_summarize_parser = fraction_sweep_subparsers.add_parser("summarize")
+    fraction_sweep_summarize_parser.add_argument("--artifact-root", required=True, type=Path)
+    fraction_sweep_summarize_parser.add_argument("--docs-root", type=Path)
+
     return parser
 
 
@@ -432,6 +513,9 @@ def _run_counterpoint_command(args: argparse.Namespace) -> int:
     if args.counterpoint_command == "one-third-diagnostics":
         return _run_counterpoint_one_third_diagnostics_command(args)
 
+    if args.counterpoint_command == "fraction-sweep":
+        return _run_counterpoint_fraction_sweep_command(args)
+
     raise ValueError(f"unknown counterpoint command: {args.counterpoint_command}")
 
 
@@ -550,6 +634,51 @@ def _run_counterpoint_one_third_diagnostics_command(args: argparse.Namespace) ->
     )
 
 
+def _run_counterpoint_fraction_sweep_command(args: argparse.Namespace) -> int:
+    if hasattr(args, "linearization_mode"):
+        _require_fraction_sweep_linearization(args.linearization_mode)
+
+    if args.fraction_sweep_command == "run":
+        instances = _parse_csv_strings(args.instances)
+        numerators = _parse_csv_ints(args.numerators)
+        schema_seeds = _parse_csv_ints(args.schema_seeds)
+        result = run_fraction_sweep_diagnostics(
+            artifact_root=args.artifact_root,
+            instance_ids=instances,
+            numerators=numerators,
+            denominator=args.denominator,
+            include_no_contraction_control=args.no_contraction_control,
+            schema_seeds=schema_seeds,
+            replicates_per_schema_seed=args.replicates,
+            episodes_per_replicate=args.episodes,
+            base_seed=args.base_seed,
+            locked_by=args.locked_by,
+            horizon_override=args.horizon,
+            controller_event_ceiling=args.controller_event_ceiling,
+            linearization_mode_id=args.linearization_mode,
+        )
+        print(json.dumps(result, sort_keys=True))
+        return 0 if result["status"] == "complete" else 2
+
+    if args.fraction_sweep_command == "summarize":
+        summary = aggregate_fraction_sweep_diagnostics_results(
+            args.artifact_root,
+            docs_root=args.docs_root,
+        )
+        docs = write_fraction_sweep_diagnostics_docs(
+            artifact_root=args.artifact_root,
+            docs_root=args.docs_root,
+            command_lines=(
+                "uv run python -m big_boy_benchmarking.cli counterpoint "
+                "fraction-sweep summarize --artifact-root <artifact-root>",
+            ),
+        )
+        print(json.dumps({"status": summary["status"], "docs": docs}, sort_keys=True))
+        return 0 if summary["status"] == "complete" else 2
+
+    raise ValueError(f"unknown fraction sweep command: {args.fraction_sweep_command}")
+
+
 def _require_serious_linearization(linearization_mode_id: str) -> None:
     if linearization_mode_id != "tensor_available_disabled":
         raise ValueError(
@@ -562,6 +691,14 @@ def _require_one_third_linearization(linearization_mode_id: str) -> None:
     if linearization_mode_id != "tensor_available_disabled":
         raise ValueError(
             "counterpoint one-third diagnostics uses tensor_available_disabled; "
+            f"reserved linearization mode rejected: {linearization_mode_id}"
+        )
+
+
+def _require_fraction_sweep_linearization(linearization_mode_id: str) -> None:
+    if linearization_mode_id != "tensor_available_disabled":
+        raise ValueError(
+            "counterpoint fraction sweep diagnostics uses tensor_available_disabled; "
             f"reserved linearization mode rejected: {linearization_mode_id}"
         )
 

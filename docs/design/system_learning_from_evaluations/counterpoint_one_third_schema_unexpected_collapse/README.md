@@ -18,7 +18,7 @@ The one-third schema diagnostic unexpectedly collapsed the counterpoint tower to
 
 PO identified this as a suspicious diagnostic issue, not as an immediate negative result about counterpoint learning. The important question is whether the diagnostic schema, BBB integration layer, or upstream contraction semantics are collapsing far more structure than the intended one-third projection should collapse.
 
-Current status: unresolved. This archive has collected the main issues and narrowed the likely investigation paths, but it has not yet resolved whether the leading cause is schema width, a BBB schema/API mismatch, an upstream coset-semantics mismatch, or some combination of those.
+Current status: unresolved, with a smoke-verified follow-up diagnostic now implemented. The n-over-18 contraction fraction sweep machinery exists and produced a repo-resident smoke readout showing that the small fixture still reaches first-tier singleton collapse at `1/18`. That smoke result is diagnostic evidence, not a final full validation result and not a learning-performance claim.
 
 ## PO-Originated Corrections To Preserve
 
@@ -33,3 +33,16 @@ Current status: unresolved. This archive has collected the main issues and narro
 - [Readout Conversation Archive](02_readout_conversation_archive.md)
 - [n-over-18 Contraction Fraction Sweep Blueprint](03_n_over_18_contraction_fraction_sweep_blueprint.md)
 - [n-over-18 Contraction Fraction Sweep Implementation Gameplan](04_n_over_18_contraction_fraction_sweep_implementation_gameplan.md)
+- [n-over-18 Contraction Fraction Sweep Implementation Log](05_n_over_18_contraction_fraction_sweep_implementation_log.md)
+- Smoke readout surface: `docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/README.md`
+- Smoke artifact root: `docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/`
+
+## Current Follow-Up Decision
+
+The next unresolved decision is whether to authorize the full small+medium validation run from the implementation gameplan:
+
+```text
+docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/small_medium_validation_001/
+```
+
+Until that run is explicitly authorized and completed, the current readout should be treated as smoke-verified implementation evidence plus an early warning that collapse may already occur at the weakest requested fraction.

@@ -1,0 +1,92 @@
+{
+  "active_action_cell_count_by_tier": [
+    1140
+  ],
+  "arm_id": "no_contraction_control",
+  "denominator": 18,
+  "edge_count": 1140,
+  "endpoint_coalescence_summary": [
+    {
+      "arm_id": "no_contraction_control",
+      "collapse_required_most_of_block": null,
+      "denominator": 18,
+      "evaluation_id": "counterpoint_contraction_fraction_sweep_diagnostics_v001",
+      "instance_id": "counterpoint_symbolic_n3_small_v001",
+      "largest_coalesced_cell_share": 0.009259259259259259,
+      "largest_coalesced_cell_size": 1,
+      "numerator": 0,
+      "processed_edge_count": 0,
+      "processed_edge_index_at_first_singleton": null,
+      "redundant_or_internal_edge_count": 0,
+      "replicate_index": 0,
+      "run_id": "counterpoint_symbolic_n3_small_v001-no_contraction_control-schema0-rep0",
+      "schema_seed": 0,
+      "state_cell_count_after_block": 108,
+      "useful_coalescence_count": 0
+    }
+  ],
+  "evaluation_id": "counterpoint_contraction_fraction_sweep_diagnostics_v001",
+  "legacy_one_third_equivalence_summary": [],
+  "numerator": 0,
+  "partition_tier_count": 1,
+  "raw_historical_action_cell_record_count_by_tier": [
+    1140
+  ],
+  "schema_fraction_summary": [
+    {
+      "arm_id": "no_contraction_control",
+      "base_edge_count": 1140,
+      "base_state_count": 108,
+      "construction_rule": "identity_no_contraction",
+      "denominator": 18,
+      "evaluation_id": "counterpoint_contraction_fraction_sweep_diagnostics_v001",
+      "instance_id": "counterpoint_symbolic_n3_small_v001",
+      "max_selected_edges_per_source": null,
+      "max_source_out_degree": null,
+      "mean_selected_edges_per_source": null,
+      "mean_source_out_degree": null,
+      "min_selected_edges_per_source": null,
+      "min_source_out_degree": null,
+      "monotonicity_pass": null,
+      "numerator": 0,
+      "quota_rule_id": "no_contraction_control",
+      "scheduled_edge_count": 0,
+      "scheduled_edge_share": 0.0,
+      "scheduled_edges_per_state_minus_one": 0.0,
+      "schema_seed": 0,
+      "source_count_with_scheduled_edges": 0
+    }
+  ],
+  "schema_id": "counterpoint_empty_schema_v001",
+  "schema_seed": 0,
+  "state_cell_count_by_tier": [
+    108
+  ],
+  "tower_shape_summary": [
+    {
+      "active_action_cell_count": 1140,
+      "arm_id": "no_contraction_control",
+      "base_edge_count": 1140,
+      "base_state_count": 108,
+      "degeneracy_class": "identity_or_base",
+      "denominator": 18,
+      "evaluation_id": "counterpoint_contraction_fraction_sweep_diagnostics_v001",
+      "full_collapse": false,
+      "instance_id": "counterpoint_symbolic_n3_small_v001",
+      "largest_state_cell_share": 0.009259259259259259,
+      "largest_state_cell_size": 1,
+      "near_collapse": false,
+      "numerator": 0,
+      "raw_historical_action_cell_record_count": 1140,
+      "replicate_index": 0,
+      "run_id": "counterpoint_symbolic_n3_small_v001-no_contraction_control-schema0-rep0",
+      "schema_seed": 0,
+      "singleton_base_state_share": 1.0,
+      "singleton_state_cell_count": 108,
+      "state_cell_count": 108,
+      "state_cell_size_histogram": "{\"1\": 108}",
+      "state_compression_ratio": 1.0,
+      "tier_index": 0
+    }
+  ]
+}

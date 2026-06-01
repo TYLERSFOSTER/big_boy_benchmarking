@@ -1,0 +1,5 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "description": "Counterpoint contraction fraction sweep diagnostics run family.",
+  "run_family_id": "counterpoint_symbolic_v001_contraction_fraction_sweep_diagnostics_v001"
+}

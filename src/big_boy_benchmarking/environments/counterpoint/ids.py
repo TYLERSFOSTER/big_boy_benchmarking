@@ -15,6 +15,12 @@ PROJECTION_AUDIT_SCHEMA_ID = "counterpoint_projection_audit_schema_v001"
 BAD_SCHEMA_ID = "counterpoint_bad_schema_v001"
 ONE_THIRD_SCHEMA_FAMILY_ID = "counterpoint_one_third_schema_v001"
 ONE_THIRD_OUTGOING_SCHEMA_ID = "counterpoint_one_third_outgoing_schema_v001"
+OUTGOING_FRACTION_SWEEP_SCHEMA_FAMILY_ID = (
+    "counterpoint_outgoing_fraction_sweep_schema_v001"
+)
+OUTGOING_FRACTION_SWEEP_SCHEMA_ID = (
+    "counterpoint_outgoing_fraction_sweep_single_block_schema_v001"
+)
 
 CANONICAL_IDS = {
     "environment_family_id": ENVIRONMENT_FAMILY_ID,
@@ -32,4 +38,6 @@ CANONICAL_IDS = {
     "bad_schema_id": BAD_SCHEMA_ID,
     "one_third_schema_family_id": ONE_THIRD_SCHEMA_FAMILY_ID,
     "one_third_outgoing_schema_id": ONE_THIRD_OUTGOING_SCHEMA_ID,
+    "outgoing_fraction_sweep_schema_family_id": OUTGOING_FRACTION_SWEEP_SCHEMA_FAMILY_ID,
+    "outgoing_fraction_sweep_schema_id": OUTGOING_FRACTION_SWEEP_SCHEMA_ID,
 }
