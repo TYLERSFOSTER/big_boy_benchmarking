@@ -1,0 +1,2 @@
+evaluation_id,run_id,instance_id,arm_id,numerator,denominator,requested_rate,selector_rule_id,schema_seed,seed_bundle_id,replicate_index,episode_index,total_reward,concrete_step_count,controller_event_count,terminated,truncated,final_state
+counterpoint_noisy_rate_contraction_diagnostics_v001,counterpoint_symbolic_n3_small_v001-p001_over_018-schema1-rep0,counterpoint_symbolic_n3_small_v001,p001_over_018,1,18,0.05555555555555555,counterpoint_sha256_edge_threshold_v001,1,seed-7fe8666539580bdb,0,0,0.0,0,8,False,False,"beat0:pitches(60, 65, 68)"

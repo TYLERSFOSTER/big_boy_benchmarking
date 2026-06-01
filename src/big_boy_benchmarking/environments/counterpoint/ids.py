@@ -21,6 +21,15 @@ OUTGOING_FRACTION_SWEEP_SCHEMA_FAMILY_ID = (
 OUTGOING_FRACTION_SWEEP_SCHEMA_ID = (
     "counterpoint_outgoing_fraction_sweep_single_block_schema_v001"
 )
+NOISY_RATE_CONTRACTION_EVALUATION_ID = (
+    "counterpoint_noisy_rate_contraction_diagnostics_v001"
+)
+NOISY_RATE_CONTRACTION_SCHEMA_FAMILY_ID = (
+    "counterpoint_noisy_rate_contraction_schema_v001"
+)
+NOISY_RATE_CONTRACTION_SCHEMA_ID = (
+    "counterpoint_noisy_rate_contraction_single_block_schema_v001"
+)
 
 CANONICAL_IDS = {
     "environment_family_id": ENVIRONMENT_FAMILY_ID,
@@ -40,4 +49,7 @@ CANONICAL_IDS = {
     "one_third_outgoing_schema_id": ONE_THIRD_OUTGOING_SCHEMA_ID,
     "outgoing_fraction_sweep_schema_family_id": OUTGOING_FRACTION_SWEEP_SCHEMA_FAMILY_ID,
     "outgoing_fraction_sweep_schema_id": OUTGOING_FRACTION_SWEEP_SCHEMA_ID,
+    "noisy_rate_contraction_evaluation_id": NOISY_RATE_CONTRACTION_EVALUATION_ID,
+    "noisy_rate_contraction_schema_family_id": NOISY_RATE_CONTRACTION_SCHEMA_FAMILY_ID,
+    "noisy_rate_contraction_schema_id": NOISY_RATE_CONTRACTION_SCHEMA_ID,
 }

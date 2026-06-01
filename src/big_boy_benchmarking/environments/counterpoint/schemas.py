@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import hashlib
 import math
 import random
 from collections import defaultdict
 from dataclasses import asdict, dataclass
+from fractions import Fraction
 from typing import Any
 
 from big_boy_benchmarking.environments.counterpoint import ids
@@ -15,6 +17,8 @@ from big_boy_benchmarking.environments.counterpoint.projection import (
     all_drop_one_transition_keys,
 )
 from big_boy_benchmarking.environments.counterpoint.state import CounterpointState
+
+DEFAULT_NOISY_RATE_SELECTOR_RULE_ID = "counterpoint_sha256_edge_threshold_v001"
 
 
 def state_key(state: CounterpointState) -> str:
@@ -79,6 +83,292 @@ class SourceLocalFractionSelection:
     @property
     def selected_count(self) -> int:
         return len(self.selected_edge_keys)
+
+
+@dataclass(frozen=True)
+class NoisyRateEdgeSelection:
+    """Selected outgoing edges for one source under an edge-global rate arm."""
+
+    source_key: str
+    out_degree: int
+    selected_edge_keys: tuple[str, ...]
+
+    @property
+    def selected_count(self) -> int:
+        return len(self.selected_edge_keys)
+
+
+def noisy_rate_arm_id(numerator: int, denominator: int) -> str:
+    _validate_rate(numerator=numerator, denominator=denominator)
+    return f"p{numerator:03d}_over_{denominator:03d}"
+
+
+def _validate_rate(*, numerator: int, denominator: int) -> None:
+    if denominator <= 0:
+        raise ValueError("denominator must be positive")
+    if numerator < 1 or numerator > denominator:
+        raise ValueError("numerator must be between 1 and denominator")
+
+
+def stable_noisy_rate_score(
+    *,
+    selector_rule_id: str,
+    instance_id: str,
+    schema_seed: int,
+    canonical_edge_key: str,
+) -> float:
+    """Return a stable per-edge score in [0, 1)."""
+
+    material = "\x1f".join(
+        (selector_rule_id, instance_id, str(schema_seed), canonical_edge_key)
+    )
+    digest = hashlib.sha256(material.encode("utf-8")).digest()
+    return int.from_bytes(digest[:8], "big") / 2**64
+
+
+def noisy_rate_edge_selected(
+    *,
+    selector_rule_id: str,
+    instance_id: str,
+    schema_seed: int,
+    canonical_edge_key: str,
+    numerator: int,
+    denominator: int,
+) -> bool:
+    _validate_rate(numerator=numerator, denominator=denominator)
+    return stable_noisy_rate_score(
+        selector_rule_id=selector_rule_id,
+        instance_id=instance_id,
+        schema_seed=schema_seed,
+        canonical_edge_key=canonical_edge_key,
+    ) < numerator / denominator
+
+
+def noisy_rate_edge_selections(
+    graph: ReachableGraph,
+    *,
+    numerator: int,
+    denominator: int,
+    schema_seed: int,
+    selector_rule_id: str = DEFAULT_NOISY_RATE_SELECTOR_RULE_ID,
+) -> tuple[NoisyRateEdgeSelection, ...]:
+    """Select stable edge-global Bernoulli-threshold edges grouped by source."""
+
+    _validate_rate(numerator=numerator, denominator=denominator)
+    edges_by_source: dict[str, list[GraphEdge]] = defaultdict(list)
+    for edge in graph.edges:
+        edges_by_source[state_key(edge.source)].append(edge)
+
+    selections: list[NoisyRateEdgeSelection] = []
+    for source, source_edges in sorted(edges_by_source.items()):
+        selected = tuple(
+            edge_key(edge)
+            for edge in sorted(source_edges, key=edge_key)
+            if noisy_rate_edge_selected(
+                selector_rule_id=selector_rule_id,
+                instance_id=graph.spec.environment_instance_id,
+                schema_seed=schema_seed,
+                canonical_edge_key=edge_key(edge),
+                numerator=numerator,
+                denominator=denominator,
+            )
+        )
+        selections.append(
+            NoisyRateEdgeSelection(
+                source_key=source,
+                out_degree=len(source_edges),
+                selected_edge_keys=selected,
+            )
+        )
+    return tuple(selections)
+
+
+def selected_noisy_rate_edge_keys(
+    graph: ReachableGraph,
+    *,
+    numerator: int,
+    denominator: int,
+    schema_seed: int,
+    selector_rule_id: str = DEFAULT_NOISY_RATE_SELECTOR_RULE_ID,
+) -> frozenset[str]:
+    selected: set[str] = set()
+    for selection in noisy_rate_edge_selections(
+        graph,
+        numerator=numerator,
+        denominator=denominator,
+        schema_seed=schema_seed,
+        selector_rule_id=selector_rule_id,
+    ):
+        selected.update(selection.selected_edge_keys)
+    return frozenset(selected)
+
+
+def noisy_rate_selection_report(
+    graph: ReachableGraph,
+    *,
+    numerator: int,
+    denominator: int,
+    schema_seed: int,
+    selector_rule_id: str = DEFAULT_NOISY_RATE_SELECTOR_RULE_ID,
+) -> dict[str, object]:
+    selections = noisy_rate_edge_selections(
+        graph,
+        numerator=numerator,
+        denominator=denominator,
+        schema_seed=schema_seed,
+        selector_rule_id=selector_rule_id,
+    )
+    selected_counts = [selection.selected_count for selection in selections]
+    selected_count = sum(selected_counts)
+    requested_rate = numerator / denominator
+    return {
+        "instance_id": graph.spec.environment_instance_id,
+        "arm_id": noisy_rate_arm_id(numerator, denominator),
+        "numerator": numerator,
+        "denominator": denominator,
+        "requested_rate": requested_rate,
+        "schema_seed": schema_seed,
+        "selector_rule_id": selector_rule_id,
+        "base_state_count": len(graph.states),
+        "base_edge_count": len(graph.edges),
+        "selected_edge_count": selected_count,
+        "selected_edge_share": selected_count / max(1, len(graph.edges)),
+        "expected_selected_edge_count": len(graph.edges) * requested_rate,
+        "selected_edge_count_residual_from_expectation": selected_count
+        - (len(graph.edges) * requested_rate),
+        "source_count_with_outgoing_edges": len(selections),
+        "source_count_with_selected_edges": sum(count > 0 for count in selected_counts),
+        "zero_selected_source_count": sum(count == 0 for count in selected_counts),
+    }
+
+
+def noisy_rate_source_coverage_report(
+    graph: ReachableGraph,
+    *,
+    numerator: int,
+    denominator: int,
+    schema_seed: int,
+    selector_rule_id: str = DEFAULT_NOISY_RATE_SELECTOR_RULE_ID,
+) -> dict[str, object]:
+    selections = noisy_rate_edge_selections(
+        graph,
+        numerator=numerator,
+        denominator=denominator,
+        schema_seed=schema_seed,
+        selector_rule_id=selector_rule_id,
+    )
+    selected_counts = [selection.selected_count for selection in selections]
+    out_degrees = [selection.out_degree for selection in selections]
+    selected_source_degrees = [
+        selection.out_degree for selection in selections if selection.selected_count > 0
+    ]
+    source_count = len(selections)
+    selected_sources = sum(count > 0 for count in selected_counts)
+    requested_rate = numerator / denominator
+    expected_zero_source_share = (
+        sum((1 - requested_rate) ** degree for degree in out_degrees) / source_count
+        if source_count
+        else None
+    )
+    return {
+        "source_count_with_outgoing_edges": source_count,
+        "source_count_with_selected_edges": selected_sources,
+        "zero_selected_source_count": source_count - selected_sources,
+        "selected_source_share": selected_sources / source_count if source_count else None,
+        "realized_zero_source_share": (source_count - selected_sources) / source_count
+        if source_count
+        else None,
+        "min_selected_edges_per_source": min(selected_counts) if selected_counts else None,
+        "mean_selected_edges_per_source": sum(selected_counts) / source_count
+        if source_count
+        else None,
+        "max_selected_edges_per_source": max(selected_counts) if selected_counts else None,
+        "selected_edge_count_histogram_by_source": dict(
+            sorted(
+                (str(count), selected_counts.count(count))
+                for count in set(selected_counts)
+            )
+        ),
+        "source_out_degree_histogram": dict(
+            sorted((str(degree), out_degrees.count(degree)) for degree in set(out_degrees))
+        ),
+        "selected_source_out_degree_histogram": dict(
+            sorted(
+                (str(degree), selected_source_degrees.count(degree))
+                for degree in set(selected_source_degrees)
+            )
+        ),
+        "expected_zero_source_share": expected_zero_source_share,
+    }
+
+
+def noisy_rate_monotonicity_report(
+    graph: ReachableGraph,
+    *,
+    rates: tuple[tuple[int, int], ...],
+    schema_seed: int,
+    selector_rule_id: str = DEFAULT_NOISY_RATE_SELECTOR_RULE_ID,
+) -> tuple[dict[str, object], ...]:
+    ordered_rates = tuple(
+        sorted(rates, key=lambda item: Fraction(item[0], item[1]))
+    )
+    rows: list[dict[str, object]] = []
+    previous_rate: tuple[int, int] | None = None
+    previous_selected: frozenset[str] | None = None
+    for numerator, denominator in ordered_rates:
+        selected = selected_noisy_rate_edge_keys(
+            graph,
+            numerator=numerator,
+            denominator=denominator,
+            schema_seed=schema_seed,
+            selector_rule_id=selector_rule_id,
+        )
+        if previous_selected is not None and previous_rate is not None:
+            missing = tuple(sorted(previous_selected - selected))
+            from_numerator, from_denominator = previous_rate
+            rows.append(
+                {
+                    "instance_id": graph.spec.environment_instance_id,
+                    "schema_seed": schema_seed,
+                    "from_arm_id": noisy_rate_arm_id(from_numerator, from_denominator),
+                    "to_arm_id": noisy_rate_arm_id(numerator, denominator),
+                    "from_numerator": from_numerator,
+                    "from_denominator": from_denominator,
+                    "to_numerator": numerator,
+                    "to_denominator": denominator,
+                    "from_requested_rate": from_numerator / from_denominator,
+                    "to_requested_rate": numerator / denominator,
+                    "subset_pass": not missing,
+                    "missing_nested_edge_count": len(missing),
+                    "example_offending_edge_keys": ";".join(missing[:5]),
+                    "selector_rule_id": selector_rule_id,
+                }
+            )
+        previous_rate = (numerator, denominator)
+        previous_selected = selected
+    return tuple(rows)
+
+
+def noisy_rate_selection_consistency_report(
+    *,
+    metadata_selected_edge_keys: frozenset[str],
+    runtime_selected_edge_keys: frozenset[str],
+) -> dict[str, object]:
+    missing_from_runtime = tuple(
+        sorted(metadata_selected_edge_keys - runtime_selected_edge_keys)
+    )
+    extra_in_runtime = tuple(
+        sorted(runtime_selected_edge_keys - metadata_selected_edge_keys)
+    )
+    return {
+        "metadata_selected_edge_count": len(metadata_selected_edge_keys),
+        "runtime_selected_edge_count": len(runtime_selected_edge_keys),
+        "selection_sets_equal": not missing_from_runtime and not extra_in_runtime,
+        "missing_from_runtime_count": len(missing_from_runtime),
+        "extra_in_runtime_count": len(extra_in_runtime),
+        "missing_from_runtime_examples": ";".join(missing_from_runtime[:5]),
+        "extra_in_runtime_examples": ";".join(extra_in_runtime[:5]),
+    }
 
 
 def source_local_fraction_quota(
@@ -586,6 +876,60 @@ def build_outgoing_fraction_schema(
     )
 
 
+def build_noisy_rate_contraction_schema(
+    graph: ReachableGraph,
+    *,
+    schema_seed: int,
+    numerator: int,
+    denominator: int,
+    selector_rule_id: str = DEFAULT_NOISY_RATE_SELECTOR_RULE_ID,
+) -> SchemaConstruction:
+    _validate_rate(numerator=numerator, denominator=denominator)
+    arm_id = noisy_rate_arm_id(numerator, denominator)
+    schema_id = f"{ids.NOISY_RATE_CONTRACTION_SCHEMA_ID}_{arm_id}"
+    spec = _schema_spec(
+        graph,
+        schema_id=schema_id,
+        schema_family_id=ids.NOISY_RATE_CONTRACTION_SCHEMA_FAMILY_ID,
+        schema_seed=schema_seed,
+        construction_method="seeded_edge_global_noisy_rate_single_block_contraction",
+        source_label_families=(),
+        state_partition_description="identity state keys; runtime contraction is edge-driven",
+        action_partition_description=(
+            "single scheduled edge block selected by coupled SHA-256 threshold scores"
+        ),
+        expected_compression_target=(
+            f"one expected-rate {numerator}/{denominator} contraction block plus base tier"
+        ),
+        leakage_risk_statement=(
+            "Uses only stable instance id, schema seed, selector rule id, and edge identities; "
+            "it does not use rewards, terminal outcomes, learned values, or future episode results."
+        ),
+        intended_role="noisy_rate_contraction_diagnostic",
+        online_eligible=True,
+        diagnostic_only=False,
+        expected_tower_depth=2,
+    )
+    selected = selected_noisy_rate_edge_keys(
+        graph,
+        numerator=numerator,
+        denominator=denominator,
+        schema_seed=schema_seed,
+        selector_rule_id=selector_rule_id,
+    )
+    scheduled_block = f"noisy_rate_{arm_id}_block_0"
+    return SchemaConstruction(
+        spec=spec,
+        state_partition={state_key(state): state_key(state) for state in graph.states},
+        edge_partition={
+            edge_key(edge): scheduled_block
+            if edge_key(edge) in selected
+            else f"noisy_rate_{arm_id}_unscheduled"
+            for edge in graph.edges
+        },
+    )
+
+
 def build_schema_for_id(
     graph: ReachableGraph,
     *,
@@ -621,5 +965,12 @@ def build_schema_for_id(
             schema_seed=0 if schema_seed is None else schema_seed,
             numerator=1,
             denominator=18,
+        )
+    if schema_id.startswith(ids.NOISY_RATE_CONTRACTION_SCHEMA_ID):
+        return build_noisy_rate_contraction_schema(
+            graph,
+            schema_seed=0 if schema_seed is None else schema_seed,
+            numerator=1,
+            denominator=36,
         )
     raise ValueError(f"unsupported schema id: {schema_id}")

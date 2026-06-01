@@ -27,6 +27,7 @@ Future LLM passes should scan this table first.
 | `counterpoint_first_serious_learning_v001` | [counterpoint_first_serious_learning_v001](counterpoint_first_serious_learning_v001/README.md) | evaluation-learning archive | active design memory | structural-limit diagnostic; `pi_0(H)` collapse; first serious counterpoint learning |
 | `direct_image_threshold_binding` | [direct_image_threshold_binding](direct_image_threshold_binding/README.md) | documentation issue | future work; may become architecture issue | direct-image aggregation; lower-tier thresholds bind upper-tier performance |
 | `counterpoint_one_third_schema_unexpected_collapse` | [counterpoint_one_third_schema_unexpected_collapse](counterpoint_one_third_schema_unexpected_collapse/README.md) | evaluation-learning archive | active diagnostic design memory | unexpected singleton collapse; one-third schema width; coset language discipline |
+| `counterpoint_noisy_rate_contraction_diagnostics` | [counterpoint_noisy_rate_contraction_diagnostics](counterpoint_noisy_rate_contraction_diagnostics/README.md) | diagnostic evaluation design and smoke implementation | smoke run complete; full validation pending PO decision | noisy-rate contraction; Bernoulli edge selection; zero-selected sources |
 
 ## Shared Explanation Device: Binary Search
 
@@ -60,6 +61,7 @@ for heavier mathematical language.
 - [Counterpoint first serious learning v001](counterpoint_first_serious_learning_v001/README.md)
 - [Direct image threshold binding](direct_image_threshold_binding/README.md)
 - [Counterpoint one-third schema unexpected collapse](counterpoint_one_third_schema_unexpected_collapse/README.md)
+- [Counterpoint noisy-rate contraction diagnostics](counterpoint_noisy_rate_contraction_diagnostics/README.md)
 
 ## Archive Shape
 

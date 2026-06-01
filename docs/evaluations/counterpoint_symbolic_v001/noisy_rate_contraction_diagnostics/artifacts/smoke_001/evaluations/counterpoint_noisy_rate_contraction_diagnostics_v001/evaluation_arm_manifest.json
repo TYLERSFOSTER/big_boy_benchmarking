@@ -1,0 +1,38 @@
+{
+  "arms": [
+    {
+      "arm_id": "no_contraction_control",
+      "denominator": 1,
+      "numerator": 0,
+      "requested_rate": 0.0,
+      "role": "structural_control",
+      "selector_rule_id": "no_contraction_control"
+    },
+    {
+      "arm_id": "p001_over_144",
+      "denominator": 144,
+      "numerator": 1,
+      "requested_rate": 0.006944444444444444,
+      "role": "noisy_rate_diagnostic",
+      "selector_rule_id": "counterpoint_sha256_edge_threshold_v001"
+    },
+    {
+      "arm_id": "p001_over_036",
+      "denominator": 36,
+      "numerator": 1,
+      "requested_rate": 0.027777777777777776,
+      "role": "noisy_rate_diagnostic",
+      "selector_rule_id": "counterpoint_sha256_edge_threshold_v001"
+    },
+    {
+      "arm_id": "p001_over_018",
+      "denominator": 18,
+      "numerator": 1,
+      "requested_rate": 0.05555555555555555,
+      "role": "noisy_rate_diagnostic",
+      "selector_rule_id": "counterpoint_sha256_edge_threshold_v001"
+    }
+  ],
+  "artifact_schema_version": "bbb.v001",
+  "evaluation_id": "counterpoint_noisy_rate_contraction_diagnostics_v001"
+}

@@ -32,6 +32,11 @@ from big_boy_benchmarking.environments.counterpoint.graph import (
     enumerate_reachable_graph,
 )
 from big_boy_benchmarking.environments.counterpoint.masks import legal_action_mask
+from big_boy_benchmarking.environments.counterpoint.schemas import (
+    DEFAULT_NOISY_RATE_SELECTOR_RULE_ID,
+    stable_noisy_rate_score,
+    state_key,
+)
 from big_boy_benchmarking.environments.counterpoint.specs import CounterpointInstanceSpec
 from big_boy_benchmarking.environments.counterpoint.state import CounterpointState
 from big_boy_benchmarking.environments.counterpoint.transition import evaluate_transition
@@ -88,6 +93,13 @@ def graph_edge_to_base_edge(edge: GraphEdge) -> BaseEdge:
         target=counterpoint_state_to_core_state(edge.target),
         labels=_edge_labels(edge),
     )
+
+
+def base_edge_to_counterpoint_edge_key(edge: BaseEdge) -> str:
+    source = core_state_to_counterpoint_state(edge.source)
+    action = primitive_action_to_counterpoint_action(edge.action)
+    target = core_state_to_counterpoint_state(edge.target)
+    return f"{state_key(source)}|action{action.deltas}|{state_key(target)}"
 
 
 class CounterpointHiddenGraph(HiddenGraph):
@@ -244,6 +256,56 @@ class CounterpointOutgoingFractionSchema:
         )
 
 
+@dataclass(frozen=True, slots=True)
+class CounterpointNoisyRateSchema:
+    """Single-block edge-global noisy-rate schema for diagnostics."""
+
+    instance_id: str
+    numerator: int
+    denominator: int
+    schema_seed: int = 0
+    selector_rule_id: str = DEFAULT_NOISY_RATE_SELECTOR_RULE_ID
+
+    def __post_init__(self) -> None:
+        if self.denominator <= 0:
+            raise ValueError("CounterpointNoisyRateSchema.denominator must be positive")
+        if self.numerator < 1 or self.numerator > self.denominator:
+            raise ValueError(
+                "CounterpointNoisyRateSchema.numerator must be between 1 and denominator"
+            )
+        if not self.selector_rule_id:
+            raise ValueError("CounterpointNoisyRateSchema.selector_rule_id must be nonempty")
+
+    def assign_edge(
+        self,
+        edge_id: EdgeId,
+        registry: BaseGraphRegistry,
+    ) -> SchemaBlockId | None:
+        edge = registry.edge_for_id(edge_id)
+        score = stable_noisy_rate_score(
+            selector_rule_id=self.selector_rule_id,
+            instance_id=self.instance_id,
+            schema_seed=self.schema_seed,
+            canonical_edge_key=base_edge_to_counterpoint_edge_key(edge),
+        )
+        if score < self.numerator / self.denominator:
+            return self._block_id()
+        return None
+
+    def ordered_blocks(self) -> tuple[SchemaBlockId, ...]:
+        return (self._block_id(),)
+
+    def _block_id(self) -> SchemaBlockId:
+        return SchemaBlockId(
+            (
+                "counterpoint_noisy_rate",
+                self.numerator,
+                self.denominator,
+                self.selector_rule_id,
+            )
+        )
+
+
 def contraction_schema_for_id(
     schema_id: str,
     *,
@@ -272,6 +334,13 @@ def contraction_schema_for_id(
         return CounterpointOutgoingFractionSchema(
             numerator=1,
             denominator=18,
+            schema_seed=0 if schema_seed is None else schema_seed,
+        )
+    if schema_id.startswith(ids.NOISY_RATE_CONTRACTION_SCHEMA_ID):
+        return CounterpointNoisyRateSchema(
+            instance_id=ids.ENVIRONMENT_FAMILY_ID,
+            numerator=1,
+            denominator=36,
             schema_seed=0 if schema_seed is None else schema_seed,
         )
     if schema_id == ids.BAD_SCHEMA_ID:
@@ -331,3 +400,43 @@ def build_counterpoint_fraction_partition_tower(
     )
     tower.initialize(initial_states=states, initial_edges=edges, current_state=current_state)
     return CounterpointTowerBuildResult(graph=graph, hidden_graph=hidden_graph, tower=tower)
+
+
+def build_counterpoint_noisy_rate_partition_tower(
+    spec: CounterpointInstanceSpec,
+    *,
+    numerator: int,
+    denominator: int,
+    schema_seed: int | None = None,
+    selector_rule_id: str = DEFAULT_NOISY_RATE_SELECTOR_RULE_ID,
+) -> CounterpointTowerBuildResult:
+    graph = enumerate_reachable_graph(spec)
+    hidden_graph = CounterpointHiddenGraph(spec)
+    tower = PartitionTower(
+        schema=CounterpointNoisyRateSchema(
+            instance_id=graph.spec.environment_instance_id,
+            numerator=numerator,
+            denominator=denominator,
+            schema_seed=0 if schema_seed is None else schema_seed,
+            selector_rule_id=selector_rule_id,
+        ),
+        reward_aggregator=RewardAggregator("mean"),
+    )
+    states = tuple(counterpoint_state_to_core_state(state) for state in graph.states)
+    edges = tuple(graph_edge_to_base_edge(edge) for edge in graph.edges)
+    current_state = (
+        counterpoint_state_to_core_state(graph.start_states[0]) if graph.start_states else None
+    )
+    tower.initialize(initial_states=states, initial_edges=edges, current_state=current_state)
+    return CounterpointTowerBuildResult(graph=graph, hidden_graph=hidden_graph, tower=tower)
+
+
+def assigned_counterpoint_edge_keys(tower: PartitionTower) -> frozenset[str]:
+    """Return canonical edge keys that received a non-null schema assignment."""
+
+    selected: set[str] = set()
+    for edge_id, block_id in tower.schema_assignment_store.assignment_by_edge_id.items():
+        if block_id is None:
+            continue
+        selected.add(base_edge_to_counterpoint_edge_key(tower.registry.edge_for_id(edge_id)))
+    return frozenset(selected)

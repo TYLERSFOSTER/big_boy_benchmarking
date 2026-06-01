@@ -48,6 +48,25 @@ from big_boy_benchmarking.environments.counterpoint.instances import (
     small_candidate_specs,
     tiny_candidate_specs,
 )
+from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.aggregation import (
+    aggregate_noisy_rate_diagnostics_results,
+)
+from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.config import (
+    DEFAULT_EPISODES_PER_REPLICATE as NOISY_RATE_DEFAULT_EPISODES,
+    DEFAULT_RATES as NOISY_RATE_DEFAULT_RATES,
+    DEFAULT_REPLICATES_PER_SCHEMA_SEED as NOISY_RATE_DEFAULT_REPLICATES,
+    DEFAULT_SCHEMA_SEEDS as NOISY_RATE_DEFAULT_SCHEMA_SEEDS,
+    parse_rate_list,
+)
+from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.docs_writer import (
+    write_noisy_rate_diagnostics_docs,
+)
+from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.paths import (
+    default_artifact_root as default_noisy_rate_artifact_root,
+)
+from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.runner import (
+    run_noisy_rate_diagnostics,
+)
 from big_boy_benchmarking.environments.counterpoint.one_third_diagnostics.aggregation import (
     aggregate_one_third_diagnostics_results,
 )
@@ -357,6 +376,66 @@ def build_parser() -> argparse.ArgumentParser:
     fraction_sweep_summarize_parser.add_argument("--artifact-root", required=True, type=Path)
     fraction_sweep_summarize_parser.add_argument("--docs-root", type=Path)
 
+    noisy_rate_parser = counterpoint_subparsers.add_parser("noisy-rate")
+    noisy_rate_subparsers = noisy_rate_parser.add_subparsers(
+        dest="noisy_rate_command",
+        required=True,
+    )
+
+    noisy_rate_run_parser = noisy_rate_subparsers.add_parser("run")
+    noisy_rate_run_parser.add_argument(
+        "--artifact-root",
+        type=Path,
+        default=default_noisy_rate_artifact_root("run_001"),
+    )
+    noisy_rate_run_parser.add_argument("--instances", default="small,medium")
+    noisy_rate_run_parser.add_argument(
+        "--rates",
+        default=",".join(
+            f"{numerator}/{denominator}"
+            for numerator, denominator in NOISY_RATE_DEFAULT_RATES
+        ),
+    )
+    noisy_rate_run_parser.add_argument(
+        "--schema-seeds",
+        default=",".join(map(str, NOISY_RATE_DEFAULT_SCHEMA_SEEDS)),
+    )
+    noisy_rate_run_parser.add_argument(
+        "--replicates",
+        type=int,
+        default=NOISY_RATE_DEFAULT_REPLICATES,
+    )
+    noisy_rate_run_parser.add_argument(
+        "--episodes",
+        type=int,
+        default=NOISY_RATE_DEFAULT_EPISODES,
+    )
+    noisy_rate_run_parser.add_argument("--base-seed", type=int, default=0)
+    noisy_rate_run_parser.add_argument("--locked-by", default="cli")
+    noisy_rate_run_parser.add_argument("--horizon", type=int)
+    noisy_rate_run_parser.add_argument("--controller-event-ceiling", type=int)
+    noisy_rate_run_parser.add_argument(
+        "--include-no-contraction-control",
+        action="store_true",
+        default=True,
+        help="include the no-contraction structural control arm",
+    )
+    noisy_rate_run_parser.add_argument(
+        "--omit-no-contraction-control",
+        action="store_false",
+        dest="no_contraction_control",
+        help="omit the no-contraction structural control arm",
+    )
+    noisy_rate_run_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
+
+    noisy_rate_summarize_parser = noisy_rate_subparsers.add_parser("summarize")
+    noisy_rate_summarize_parser.add_argument("--artifact-root", required=True, type=Path)
+    noisy_rate_summarize_parser.add_argument("--docs-root", type=Path)
+
     return parser
 
 
@@ -515,6 +594,9 @@ def _run_counterpoint_command(args: argparse.Namespace) -> int:
 
     if args.counterpoint_command == "fraction-sweep":
         return _run_counterpoint_fraction_sweep_command(args)
+
+    if args.counterpoint_command == "noisy-rate":
+        return _run_counterpoint_noisy_rate_command(args)
 
     raise ValueError(f"unknown counterpoint command: {args.counterpoint_command}")
 
@@ -679,6 +761,50 @@ def _run_counterpoint_fraction_sweep_command(args: argparse.Namespace) -> int:
     raise ValueError(f"unknown fraction sweep command: {args.fraction_sweep_command}")
 
 
+def _run_counterpoint_noisy_rate_command(args: argparse.Namespace) -> int:
+    if hasattr(args, "linearization_mode"):
+        _require_noisy_rate_linearization(args.linearization_mode)
+
+    if args.noisy_rate_command == "run":
+        instances = _parse_csv_strings(args.instances)
+        rates = parse_rate_list(args.rates)
+        schema_seeds = _parse_csv_ints(args.schema_seeds)
+        result = run_noisy_rate_diagnostics(
+            artifact_root=args.artifact_root,
+            instance_ids=instances,
+            rates=rates,
+            include_no_contraction_control=args.no_contraction_control,
+            schema_seeds=schema_seeds,
+            replicates_per_schema_seed=args.replicates,
+            episodes_per_replicate=args.episodes,
+            base_seed=args.base_seed,
+            locked_by=args.locked_by,
+            horizon_override=args.horizon,
+            controller_event_ceiling=args.controller_event_ceiling,
+            linearization_mode_id=args.linearization_mode,
+        )
+        print(json.dumps(result, sort_keys=True))
+        return 0 if result["status"] == "complete" else 2
+
+    if args.noisy_rate_command == "summarize":
+        summary = aggregate_noisy_rate_diagnostics_results(
+            args.artifact_root,
+            docs_root=args.docs_root,
+        )
+        docs = write_noisy_rate_diagnostics_docs(
+            artifact_root=args.artifact_root,
+            docs_root=args.docs_root,
+            command_lines=(
+                "uv run python -m big_boy_benchmarking.cli counterpoint "
+                "noisy-rate summarize --artifact-root <artifact-root>",
+            ),
+        )
+        print(json.dumps({"status": summary["status"], "docs": docs}, sort_keys=True))
+        return 0 if summary["status"] == "complete" else 2
+
+    raise ValueError(f"unknown noisy-rate command: {args.noisy_rate_command}")
+
+
 def _require_serious_linearization(linearization_mode_id: str) -> None:
     if linearization_mode_id != "tensor_available_disabled":
         raise ValueError(
@@ -699,6 +825,14 @@ def _require_fraction_sweep_linearization(linearization_mode_id: str) -> None:
     if linearization_mode_id != "tensor_available_disabled":
         raise ValueError(
             "counterpoint fraction sweep diagnostics uses tensor_available_disabled; "
+            f"reserved linearization mode rejected: {linearization_mode_id}"
+        )
+
+
+def _require_noisy_rate_linearization(linearization_mode_id: str) -> None:
+    if linearization_mode_id != "tensor_available_disabled":
+        raise ValueError(
+            "counterpoint noisy-rate diagnostics uses tensor_available_disabled; "
             f"reserved linearization mode rejected: {linearization_mode_id}"
         )
 
