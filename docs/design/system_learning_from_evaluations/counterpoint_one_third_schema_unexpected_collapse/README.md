@@ -32,3 +32,4 @@ Current status: unresolved. This archive has collected the main issues and narro
 - [Issue And Next Tests](01_issue_and_next_tests.md)
 - [Readout Conversation Archive](02_readout_conversation_archive.md)
 - [n-over-18 Contraction Fraction Sweep Blueprint](03_n_over_18_contraction_fraction_sweep_blueprint.md)
+- [n-over-18 Contraction Fraction Sweep Implementation Gameplan](04_n_over_18_contraction_fraction_sweep_implementation_gameplan.md)
