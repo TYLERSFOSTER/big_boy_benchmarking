@@ -163,19 +163,72 @@ execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at 
 
 #### Project Owner / Evaluator Turn
 
-> ...
+> Do we have enough data from this particular evaulation run that we can give the node-count-size of tiers in the tower for each, liek as a sequennce of non-increasing numbers?
 
 #### Embedded Engineering Consultant / Codex Turn
 
-> ...
+> Yes. For this smoke run, the `tower_shape_summary` evidence is already enough to give the state-cell-count sequence by tier for every arm and schema seed.
+>
+> I would call this the tier state-cell-count sequence, not a node-count-size sequence, because the table is counting quotient state cells at each tier. It is not counting raw historical action records, and it is not listing the sizes of the individual cells. With that naming, the sequences are:
+>
+> | Arm | Schema Seed | Tier State-Cell-Count Sequence |
+> | --- | ---: | --- |
+> | `no_contraction_control` | 0 | `[108]` |
+> | `no_contraction_control` | 1 | `[108]` |
+> | `no_contraction_control` | 2 | `[108]` |
+> | `p001_over_144` | 0 | `[108, 100]` |
+> | `p001_over_144` | 1 | `[108, 104]` |
+> | `p001_over_144` | 2 | `[108, 98]` |
+> | `p001_over_036` | 0 | `[108, 82]` |
+> | `p001_over_036` | 1 | `[108, 79]` |
+> | `p001_over_036` | 2 | `[108, 75]` |
+> | `p001_over_018` | 0 | `[108, 54]` |
+> | `p001_over_018` | 1 | `[108, 53]` |
+> | `p001_over_018` | 2 | `[108, 43]` |
+>
+> These are all non-increasing, as expected for this one-block contraction diagnostic: tier 0 is the base graph with 108 state cells, and tier 1 is the quotient after applying the selected noisy-rate edge block. The important contrast with the previous source-local fraction result is visible here: even at `1/18`, the smoke run gives `[108, 54]`, `[108, 53]`, and `[108, 43]`, not `[108, 1]`.
+>
+> If we want this to be a standard readout feature, the generated README should probably include a compact "Tier State-Cell-Count Sequences" table near the existing tier shape table. It is exactly the kind of quick diagnostic view that would help a human see "not collapsed yet" without scanning every tier-shape row.
 
 #### Project Owner / Evaluator Turn
 
-> ...
+> Oh I see this run only generated tiers $0$ and $1$?
 
 #### Embedded Engineering Consultant / Codex Turn
 
-> ...
+> Yes. This particular noisy-rate diagnostic only generated tier `0` and tier `1` for every non-control arm.
+>
+> That is by design for this evaluation. Each noisy-rate arm is a single scheduled contraction block:
+>
+> ```text
+> tier 0: base counterpoint graph
+> tier 1: quotient after applying the one selected noisy-rate edge block
+> ```
+>
+> The no-contraction control has only:
+>
+> ```text
+> tier 0: base counterpoint graph
+> ```
+>
+> So this smoke run is not yet a deep binary tower. It is a first-projection diagnostic. Its job was to answer: if we remove the source-local minimum-one floor and use an edge-global noisy-rate selector, does the first quotient projection still immediately collapse?
+>
+> The answer from this smoke run is: no, not for `1/144`, `1/36`, or `1/18` on the small fixture and seeds `0,1,2`.
+>
+> If we want the tower-of-binary-cosets picture, that is a different next evaluation shape. It would need a schema or schema family that schedules multiple successive contraction blocks, producing something like:
+>
+> ```text
+> [108, n_1, n_2, n_3, ...]
+> ```
+>
+> where each tier is another contraction/refinement/coarsening step. The current noisy-rate diagnostic intentionally stopped at one block so we could isolate the first-projection behavior that caused confusion in the source-local fraction run.
+>
+> So I would state the distinction this way:
+>
+> - current noisy-rate run: "Does the first quotient collapse immediately under noisy expected-rate selection?"
+> - future binary-coset/tropicalization-style run: "What is the whole depth profile of successive scale contractions?"
+>
+> The second question is much closer to the binary-search/tropicalization analogy. This run gives evidence for the first step of that story, not the full tower-depth story.
 
 #### Project Owner / Evaluator Turn
 

@@ -67,6 +67,24 @@ from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.paths
 from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.runner import (
     run_noisy_rate_diagnostics,
 )
+from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.aggregation import (
+    aggregate_noisy_rate_full_training_results,
+)
+from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.config import (
+    SMOKE_CANDIDATE_CAP as NOISY_RATE_FULL_TRAIN_SMOKE_CANDIDATE_CAP,
+    SMOKE_EPISODES_PER_REPLICATE as NOISY_RATE_FULL_TRAIN_SMOKE_EPISODES,
+    SMOKE_TRAINING_REPLICATES_PER_CANDIDATE as NOISY_RATE_FULL_TRAIN_SMOKE_REPLICATES,
+)
+from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.docs_writer import (
+    write_noisy_rate_full_training_docs,
+)
+from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.paths import (
+    default_artifact_root as default_noisy_rate_full_training_artifact_root,
+    default_parent_candidate_readout_source,
+)
+from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.runner import (
+    run_noisy_rate_full_training,
+)
 from big_boy_benchmarking.environments.counterpoint.one_third_diagnostics.aggregation import (
     aggregate_one_third_diagnostics_results,
 )
@@ -436,6 +454,57 @@ def build_parser() -> argparse.ArgumentParser:
     noisy_rate_summarize_parser.add_argument("--artifact-root", required=True, type=Path)
     noisy_rate_summarize_parser.add_argument("--docs-root", type=Path)
 
+    full_train_parser = counterpoint_subparsers.add_parser("noisy-rate-full-train")
+    full_train_subparsers = full_train_parser.add_subparsers(
+        dest="noisy_rate_full_train_command",
+        required=True,
+    )
+
+    full_train_run_parser = full_train_subparsers.add_parser("run")
+    full_train_run_parser.add_argument(
+        "--artifact-root",
+        type=Path,
+        default=default_noisy_rate_full_training_artifact_root("run_001"),
+    )
+    full_train_run_parser.add_argument(
+        "--candidate-readout-source",
+        type=Path,
+        default=default_parent_candidate_readout_source(),
+    )
+    full_train_run_parser.add_argument(
+        "--candidate-cap",
+        type=int,
+        default=NOISY_RATE_FULL_TRAIN_SMOKE_CANDIDATE_CAP,
+    )
+    full_train_run_parser.add_argument(
+        "--training-replicates",
+        type=int,
+        default=NOISY_RATE_FULL_TRAIN_SMOKE_REPLICATES,
+    )
+    full_train_run_parser.add_argument(
+        "--episodes",
+        type=int,
+        default=NOISY_RATE_FULL_TRAIN_SMOKE_EPISODES,
+    )
+    full_train_run_parser.add_argument("--base-seed", type=int, default=0)
+    full_train_run_parser.add_argument("--locked-by", default="cli")
+    full_train_run_parser.add_argument("--horizon", type=int)
+    full_train_run_parser.add_argument("--controller-event-ceiling", type=int)
+    full_train_run_parser.add_argument(
+        "--include-runtime-anchor",
+        action="store_true",
+        help="include no-contraction only as a runtime sanity anchor, not a comparator",
+    )
+    full_train_run_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
+
+    full_train_summarize_parser = full_train_subparsers.add_parser("summarize")
+    full_train_summarize_parser.add_argument("--artifact-root", required=True, type=Path)
+    full_train_summarize_parser.add_argument("--docs-root", type=Path)
+
     return parser
 
 
@@ -597,6 +666,8 @@ def _run_counterpoint_command(args: argparse.Namespace) -> int:
 
     if args.counterpoint_command == "noisy-rate":
         return _run_counterpoint_noisy_rate_command(args)
+    if args.counterpoint_command == "noisy-rate-full-train":
+        return _run_counterpoint_noisy_rate_full_train_command(args)
 
     raise ValueError(f"unknown counterpoint command: {args.counterpoint_command}")
 
@@ -805,6 +876,48 @@ def _run_counterpoint_noisy_rate_command(args: argparse.Namespace) -> int:
     raise ValueError(f"unknown noisy-rate command: {args.noisy_rate_command}")
 
 
+def _run_counterpoint_noisy_rate_full_train_command(args: argparse.Namespace) -> int:
+    if hasattr(args, "linearization_mode"):
+        _require_noisy_rate_full_train_linearization(args.linearization_mode)
+
+    if args.noisy_rate_full_train_command == "run":
+        result = run_noisy_rate_full_training(
+            artifact_root=args.artifact_root,
+            parent_candidate_readout_source=args.candidate_readout_source,
+            include_runtime_anchor=args.include_runtime_anchor,
+            candidate_cap=args.candidate_cap,
+            training_replicates_per_candidate=args.training_replicates,
+            episodes_per_replicate=args.episodes,
+            base_seed=args.base_seed,
+            locked_by=args.locked_by,
+            horizon_override=args.horizon,
+            controller_event_ceiling=args.controller_event_ceiling,
+            linearization_mode_id=args.linearization_mode,
+        )
+        print(json.dumps(result, sort_keys=True))
+        return 0 if result["status"] == "complete" else 2
+
+    if args.noisy_rate_full_train_command == "summarize":
+        summary = aggregate_noisy_rate_full_training_results(
+            args.artifact_root,
+            docs_root=args.docs_root,
+        )
+        docs = write_noisy_rate_full_training_docs(
+            artifact_root=args.artifact_root,
+            docs_root=args.docs_root,
+            command_lines=(
+                "uv run python -m big_boy_benchmarking.cli counterpoint "
+                "noisy-rate-full-train summarize --artifact-root <artifact-root>",
+            ),
+        )
+        print(json.dumps({"status": summary["status"], "docs": docs}, sort_keys=True))
+        return 0 if summary["status"] == "complete" else 2
+
+    raise ValueError(
+        f"unknown noisy-rate-full-train command: {args.noisy_rate_full_train_command}"
+    )
+
+
 def _require_serious_linearization(linearization_mode_id: str) -> None:
     if linearization_mode_id != "tensor_available_disabled":
         raise ValueError(
@@ -833,6 +946,14 @@ def _require_noisy_rate_linearization(linearization_mode_id: str) -> None:
     if linearization_mode_id != "tensor_available_disabled":
         raise ValueError(
             "counterpoint noisy-rate diagnostics uses tensor_available_disabled; "
+            f"reserved linearization mode rejected: {linearization_mode_id}"
+        )
+
+
+def _require_noisy_rate_full_train_linearization(linearization_mode_id: str) -> None:
+    if linearization_mode_id != "tensor_available_disabled":
+        raise ValueError(
+            "counterpoint noisy-rate full-tower training uses tensor_available_disabled; "
             f"reserved linearization mode rejected: {linearization_mode_id}"
         )
 

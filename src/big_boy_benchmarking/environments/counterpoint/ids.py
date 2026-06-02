@@ -30,6 +30,15 @@ NOISY_RATE_CONTRACTION_SCHEMA_FAMILY_ID = (
 NOISY_RATE_CONTRACTION_SCHEMA_ID = (
     "counterpoint_noisy_rate_contraction_single_block_schema_v001"
 )
+NOISY_RATE_FULL_TOWER_TRAINING_EVALUATION_ID = (
+    "counterpoint_noisy_rate_full_tower_training_diagnostic_v001"
+)
+NOISY_RATE_FULL_TOWER_TRAINING_RUN_FAMILY_ID = (
+    "counterpoint_symbolic_v001_noisy_rate_full_tower_training_diagnostic_v001"
+)
+NOISY_RATE_FULL_TOWER_TRAINING_RUN_MODE_ID = (
+    "diagnostic_noisy_rate_full_tower_training"
+)
 
 CANONICAL_IDS = {
     "environment_family_id": ENVIRONMENT_FAMILY_ID,
@@ -52,4 +61,13 @@ CANONICAL_IDS = {
     "noisy_rate_contraction_evaluation_id": NOISY_RATE_CONTRACTION_EVALUATION_ID,
     "noisy_rate_contraction_schema_family_id": NOISY_RATE_CONTRACTION_SCHEMA_FAMILY_ID,
     "noisy_rate_contraction_schema_id": NOISY_RATE_CONTRACTION_SCHEMA_ID,
+    "noisy_rate_full_tower_training_evaluation_id": (
+        NOISY_RATE_FULL_TOWER_TRAINING_EVALUATION_ID
+    ),
+    "noisy_rate_full_tower_training_run_family_id": (
+        NOISY_RATE_FULL_TOWER_TRAINING_RUN_FAMILY_ID
+    ),
+    "noisy_rate_full_tower_training_run_mode_id": (
+        NOISY_RATE_FULL_TOWER_TRAINING_RUN_MODE_ID
+    ),
 }
