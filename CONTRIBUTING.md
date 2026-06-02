@@ -5,7 +5,7 @@
 This repository is active. It is no longer paused on the first serious
 counterpoint evaluation.
 
-As of 2026-06-01, the implemented repo state is:
+As of 2026-06-02, the implemented repo state is:
 
 - shared benchmark machinery exists;
 - `state_collapser` is pinned through the `v0.7.1` active-tier integration;
@@ -20,9 +20,13 @@ As of 2026-06-01, the implemented repo state is:
   human-readable interpretation;
 - noisy-rate contraction diagnostics machinery exists for smoke-scale runs,
   aggregation, source-bound repo readouts, and human-readable interpretation;
-- three repo-side counterpoint evaluation readouts exist:
-  `first_serious_learning`, `one_third_schema_tower_diagnostics`, and
-  `noisy_rate_contraction_diagnostics`.
+- noisy-rate full-tower training-health diagnostic machinery exists for
+  smoke-scale tower-only training runs, aggregation, source-bound repo
+  readouts, and human-readable interpretation;
+- four repo-side counterpoint evaluation readouts exist:
+  `first_serious_learning`, `one_third_schema_tower_diagnostics`,
+  `noisy_rate_contraction_diagnostics`, and
+  `noisy_rate_full_tower_training_diagnostic`.
 
 The current serious-learning default linearization condition is:
 
@@ -59,6 +63,23 @@ docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction
 
 If full validation is authorized, run it through the same artifact/readout
 discipline and then interpret the result before designing learning comparisons.
+
+A second decision lock now exists for the noisy-rate full-tower training-health
+diagnostic:
+
+```text
+docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/
+```
+
+The checked-in `smoke_001` result says the repo can select non-collapsed
+noisy-rate towers from the parent readout, rebuild their full available towers,
+preserve learner state across episodes, and emit concrete-step, lift,
+controller, tier, and learner-update evidence. The smoke selected two `1/144`
+candidates and classified both as `trainable_clean`.
+
+Do not inflate that into a direct-vs-tower comparison or the main full
+diagnostic result. The main noisy-rate full-tower training budget remains
+locked until the Project Owner explicitly authorizes it.
 
 The previous one-third diagnostic remains a diagnosing issue, not a negative
 learning result. Do not summarize it as "one-third failed" or "tower learning
@@ -276,4 +297,26 @@ Durable readout command:
 
 ```text
 execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json
+```
+
+Counterpoint noisy-rate full-tower training-health diagnostic smoke:
+
+```bash
+uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate-full-train run \
+  --artifact-root docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/<run-label> \
+  --candidate-readout-source docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json \
+  --candidate-cap 2 \
+  --training-replicates 1 \
+  --episodes 4 \
+  --locked-by <operator-or-run-id> \
+  --linearization-mode tensor_available_disabled
+
+uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate-full-train summarize \
+  --artifact-root docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/<run-label>
+```
+
+Durable readout command:
+
+```text
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/readout_source.json
 ```
