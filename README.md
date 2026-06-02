@@ -38,8 +38,8 @@ uv run ruff check .
 
 ## Current Status
 
-`big_boy_benchmarking` has two complete serious evaluation readouts and several
-supporting smoke/diagnostic surfaces.
+`big_boy_benchmarking` has three repo-side counterpoint evaluation readouts and
+several supporting smoke/diagnostic surfaces.
 
 Implemented infrastructure:
 
@@ -51,6 +51,7 @@ Implemented infrastructure:
 - graph, path-volume, schema, reward-fiber, lift-fiber, and tower diagnostics;
 - direct masked-random and direct tabular-Q runners;
 - tower smoke and serious-learning runners for contraction-schema arms;
+- one-third, fraction-sweep, and noisy-rate contraction diagnostics;
 - repo-side human-readable readout protocol and local status badges.
 
 The serious-learning default linearization condition is
@@ -64,6 +65,7 @@ until explicitly designed, implemented, and validated.
 | --- | --- | --- | --- |
 | Counterpoint first serious learning v001, artifact run `pi0_h_evaluation_001` | Complete structural-limit diagnostic | [README](docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/result_readout.md), [diagnostics](docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/results/diagnostic_findings.md) | The harness, artifact pipeline, direct baselines, empty tower shell, and human readout path work on `counterpoint_symbolic_n3_small_v001`; non-empty tower arms are dominated by full or near-full first-projection collapse and lift/action-realization effects. |
 | Counterpoint one-third schema tower diagnostics v001, artifact run `small_medium_validation_001` | Complete structural-limit diagnostic | [README](docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/result_readout.md), [summary](docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/results/summary.md) | The source-local one-third schema runs through upstream ABC control on `small` and `medium`; all 24 locked runs fully collapse at the first projection, but runtime execution itself does not stall: 3,840 concrete steps and 3,840 / 3,840 successful lift attempts. |
+| Counterpoint noisy-rate contraction diagnostics v001, artifact run `smoke_001` | Complete smoke diagnostic; full validation pending | [README](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/README.md), [summary](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/results/summary.md), [source coverage](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/results/source_coverage.md) | The new edge-global noisy-rate selector, metadata/runtime selected-edge consistency checks, source-coverage tables, threshold summaries, badges, and readout path work on the `small` smoke budget. In the smoke run, `1/144`, `1/36`, and `1/18` do not fully collapse the first projection; this is implementation and diagnostic evidence, not full small+medium validation. |
 
 Supporting smoke/diagnostic result notes:
 
@@ -75,7 +77,7 @@ Supporting smoke/diagnostic result notes:
 
 ## Current Conclusions
 
-The completed serious readouts support these claims:
+The completed counterpoint readouts support these claims:
 
 - the counterpoint small fixture can be run through the shared BBB artifact and
   readout machinery;
@@ -91,6 +93,12 @@ The completed serious readouts support these claims:
 - the source-local one-third contraction schema also fully collapses the first
   projection on the current `small` and `medium` fixtures, while preserving
   concrete execution and lift success in the recorded diagnostic budget;
+- the edge-global noisy-rate diagnostic can select small edge shares without a
+  source-local minimum-one floor, can report zero-selected-source counts, and
+  can verify that metadata-selected and runtime-contracted edges match;
+- the current noisy-rate smoke run on `small` does not show full first-projection
+  collapse for `1/144`, `1/36`, or `1/18`, but full small+medium validation has
+  not yet been authorized or run;
 - random tower schemas expose schema-seed-dependent
   `no_lift_candidate_from_current_state` lift/action-realization failures.
 
@@ -101,7 +109,9 @@ The current readouts do **not yet** support:
 - musical-quality claims;
 - production performance claims;
 - claims beyond the recorded `small` and `medium` counterpoint budgets and the
-  `tensor_available_disabled` condition.
+  `tensor_available_disabled` condition;
+- noisy-rate conclusions beyond the checked-in `smoke_001` run until a full
+  validation budget is explicitly run and read out.
 
 Known documentation/artifact notes:
 
@@ -109,6 +119,10 @@ Known documentation/artifact notes:
   reconstructs some facts from per-run artifacts;
 - the one-third diagnostics readout includes promoted tower-shape, tier
   occupancy, lift, concrete-step, and ABC summary tables;
+- the noisy-rate diagnostics readout includes promoted selection, source
+  coverage, metadata/runtime consistency, monotonicity, threshold, tower-shape,
+  endpoint-coalescence, tier occupancy, lift, concrete-step, and ABC summary
+  tables;
 - design learning from these evaluations is preserved under
   [system learning from evaluations](docs/design/system_learning_from_evaluations/README.md).
 
@@ -274,3 +288,30 @@ Durable repo-side readout target:
 ```text
 execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/readout_source.json
 ```
+
+Noisy-rate contraction diagnostics:
+
+```bash
+export BBB_NOISY_RATE_ROOT="$PWD/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/<run-label>"
+
+uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate run \
+  --artifact-root "$BBB_NOISY_RATE_ROOT" \
+  --instances small \
+  --rates 1/144,1/36,1/18 \
+  --schema-seeds 0,1,2 \
+  --replicates 1 \
+  --episodes 1 \
+  --locked-by <operator-or-run-id>
+
+uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate summarize \
+  --artifact-root "$BBB_NOISY_RATE_ROOT"
+```
+
+Durable repo-side readout target:
+
+```text
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json
+```
+
+The checked-in `smoke_001` noisy-rate run is implementation/diagnostic
+evidence. Full validation remains a separate Project Owner decision.

@@ -18,8 +18,11 @@ As of 2026-06-01, the implemented repo state is:
 - one-third schema tower diagnostics machinery exists for small/medium
   diagnostic runs, aggregation, source-bound repo readouts, and
   human-readable interpretation;
-- two repo-side counterpoint evaluation readouts exist:
-  `first_serious_learning` and `one_third_schema_tower_diagnostics`.
+- noisy-rate contraction diagnostics machinery exists for smoke-scale runs,
+  aggregation, source-bound repo readouts, and human-readable interpretation;
+- three repo-side counterpoint evaluation readouts exist:
+  `first_serious_learning`, `one_third_schema_tower_diagnostics`, and
+  `noisy_rate_contraction_diagnostics`.
 
 The current serious-learning default linearization condition is:
 
@@ -33,17 +36,33 @@ general performance claim.
 
 ## Current Next Work
 
-The next work is design conversation, not immediate implementation.
+The immediate next fork is a Project Owner decision, not automatic execution.
 
-The main next topic is the second evaluation:
+The newly implemented noisy-rate contraction diagnostic has a checked-in smoke
+run:
 
 ```text
-docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/
+docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/
 ```
 
-The Project Owner's current interpretation is that this second evaluation is
-more of a diagnosing issue than a negative result. Do not summarize it as
-"one-third failed" or "tower learning failed." The recorded result is:
+The smoke result says the machinery works and, on the small smoke budget, the
+requested rates `1/144`, `1/36`, and `1/18` do not fully collapse the first
+projection. That is implementation and structural diagnostic evidence only.
+Do not inflate it into a full small/medium conclusion.
+
+The next decision is whether the Project Owner wants to authorize the full
+small+medium noisy-rate validation budget from:
+
+```text
+docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction_diagnostics/03_counterpoint_noisy_rate_contraction_diagnostics_implementation_gameplan.md
+```
+
+If full validation is authorized, run it through the same artifact/readout
+discipline and then interpret the result before designing learning comparisons.
+
+The previous one-third diagnostic remains a diagnosing issue, not a negative
+learning result. Do not summarize it as "one-third failed" or "tower learning
+failed." The recorded result is:
 
 ```text
 source-local one-third contraction fully collapses the first projection on the
@@ -51,27 +70,19 @@ current small/medium fixtures, while base-tier concrete execution and lift
 remain healthy.
 ```
 
-The next conversation should decide what the diagnostic result means for:
-
-- schema construction;
-- ABC/tier occupancy interpretation;
-- full-graph/offline versus incremental/discovery tower construction;
-- what kind of less-collapsing schema would be worth evaluating next;
-- what additional evidence, if any, is needed before designing the next run.
-
-After that discussion, the likely third evaluation is:
+After the noisy-rate diagnostic lesson is settled, the likely next major design
+block is:
 
 ```text
 counterpoint learning comparisons
 ```
 
-That third evaluation should be designed only after the second evaluation's
-diagnostic lesson is settled. Evaluation 3 should compare learning behavior on
-counterpoint under explicit baselines, schema choices, budgets, seeds,
-linearization condition, artifact contracts, and human-readable readout
-requirements. Do not jump straight from the one-third diagnostic into a
-learning-comparison implementation without a blueprint/gameplan and explicit
-Project Owner approval.
+That comparison should be designed only after the structural diagnostic path is
+understood. It should compare learning behavior on counterpoint under explicit
+baselines, schema choices, budgets, seeds, linearization condition, artifact
+contracts, and human-readable readout requirements. Do not jump straight from
+diagnostics into a learning-comparison implementation without a
+blueprint/gameplan and explicit Project Owner approval.
 
 ## Root Contribution Rule
 
@@ -244,3 +255,25 @@ uv run python -m big_boy_benchmarking.cli counterpoint serious-learning summariz
 The `tiny` serious-learning path is smoke/non-evidence. The `small` path is the
 first serious fixture, subject to the budget and claim boundaries documented in
 the evaluation method docs.
+
+Counterpoint noisy-rate diagnostic smoke:
+
+```bash
+uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate run \
+  --artifact-root docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/<run-label> \
+  --instances small \
+  --rates 1/144,1/36,1/18 \
+  --schema-seeds 0,1,2 \
+  --replicates 1 \
+  --episodes 1 \
+  --locked-by <operator-or-run-id>
+
+uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate summarize \
+  --artifact-root docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/<run-label>
+```
+
+Durable readout command:
+
+```text
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json
+```
