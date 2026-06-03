@@ -5,7 +5,7 @@ This evaluation compares two schema classes inside the same active-tier tower-co
 Artifact root:
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/smoke_001
+/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/r000_001
 ```
 
 Locked budget:
@@ -28,9 +28,9 @@ Locked budget:
   "run_mode": "smoke_schema_comparison_first_sustained_hit",
   "serious_run_authorized": false,
   "threshold_policy_id": "counterpoint_total_space_sustained_reward_v001",
-  "threshold_value": -999.0,
+  "threshold_value": 13.0,
   "tier_jump_policy_id": "counterpoint_active_tier_observed_transition_v001",
-  "tier_jump_reward_cutoff": -999.0,
+  "tier_jump_reward_cutoff": 13.0,
   "training_replicates_per_arm": 1,
   "window_length": 5
 }
