@@ -39,6 +39,21 @@ NOISY_RATE_FULL_TOWER_TRAINING_RUN_FAMILY_ID = (
 NOISY_RATE_FULL_TOWER_TRAINING_RUN_MODE_ID = (
     "diagnostic_noisy_rate_full_tower_training"
 )
+SECOND_SERIOUS_SCHEMA_COMPARISON_EVALUATION_ID = (
+    "counterpoint_second_serious_schema_comparison_v001"
+)
+SECOND_SERIOUS_SCHEMA_COMPARISON_RUN_FAMILY_ID = (
+    "counterpoint_symbolic_v001_second_serious_schema_comparison_v001"
+)
+SECOND_SERIOUS_SCHEMA_COMPARISON_CALIBRATION_MODE_ID = "calibration"
+SECOND_SERIOUS_SCHEMA_COMPARISON_SERIOUS_MODE_ID = (
+    "serious_schema_comparison_first_sustained_hit"
+)
+SECOND_SERIOUS_SCHEMA_COMPARISON_SMOKE_MODE_ID = (
+    "smoke_schema_comparison_first_sustained_hit"
+)
+SECOND_SERIOUS_SCHEMA0_CLASS_ID = "schema0_no_contraction"
+SECOND_SERIOUS_SCHEMA1_CLASS_ID = "schema1_noisy_rate_one_drop"
 
 CANONICAL_IDS = {
     "environment_family_id": ENVIRONMENT_FAMILY_ID,
@@ -70,4 +85,21 @@ CANONICAL_IDS = {
     "noisy_rate_full_tower_training_run_mode_id": (
         NOISY_RATE_FULL_TOWER_TRAINING_RUN_MODE_ID
     ),
+    "second_serious_schema_comparison_evaluation_id": (
+        SECOND_SERIOUS_SCHEMA_COMPARISON_EVALUATION_ID
+    ),
+    "second_serious_schema_comparison_run_family_id": (
+        SECOND_SERIOUS_SCHEMA_COMPARISON_RUN_FAMILY_ID
+    ),
+    "second_serious_schema_comparison_calibration_mode_id": (
+        SECOND_SERIOUS_SCHEMA_COMPARISON_CALIBRATION_MODE_ID
+    ),
+    "second_serious_schema_comparison_serious_mode_id": (
+        SECOND_SERIOUS_SCHEMA_COMPARISON_SERIOUS_MODE_ID
+    ),
+    "second_serious_schema_comparison_smoke_mode_id": (
+        SECOND_SERIOUS_SCHEMA_COMPARISON_SMOKE_MODE_ID
+    ),
+    "second_serious_schema0_class_id": SECOND_SERIOUS_SCHEMA0_CLASS_ID,
+    "second_serious_schema1_class_id": SECOND_SERIOUS_SCHEMA1_CLASS_ID,
 }

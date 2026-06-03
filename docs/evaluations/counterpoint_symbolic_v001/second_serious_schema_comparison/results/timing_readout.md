@@ -1,0 +1,7 @@
+# Timing Readout
+
+Per-run timing evidence lives under each run directory as `timing_segments.csv` and `timing_summary.json`. Evaluation-level timing summary rows are in:
+
+```text
+/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/smoke_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/timing_summary.csv
+```

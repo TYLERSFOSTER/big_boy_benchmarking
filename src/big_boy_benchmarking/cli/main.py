@@ -27,9 +27,17 @@ from big_boy_benchmarking.environments.counterpoint.fraction_sweep_diagnostics.a
 )
 from big_boy_benchmarking.environments.counterpoint.fraction_sweep_diagnostics.config import (
     DEFAULT_DENOMINATOR as FRACTION_SWEEP_DEFAULT_DENOMINATOR,
+)
+from big_boy_benchmarking.environments.counterpoint.fraction_sweep_diagnostics.config import (
     DEFAULT_EPISODES_PER_REPLICATE as FRACTION_SWEEP_DEFAULT_EPISODES,
+)
+from big_boy_benchmarking.environments.counterpoint.fraction_sweep_diagnostics.config import (
     DEFAULT_NUMERATORS as FRACTION_SWEEP_DEFAULT_NUMERATORS,
+)
+from big_boy_benchmarking.environments.counterpoint.fraction_sweep_diagnostics.config import (
     DEFAULT_REPLICATES_PER_SCHEMA_SEED as FRACTION_SWEEP_DEFAULT_REPLICATES,
+)
+from big_boy_benchmarking.environments.counterpoint.fraction_sweep_diagnostics.config import (
     DEFAULT_SCHEMA_SEEDS as FRACTION_SWEEP_DEFAULT_SCHEMA_SEEDS,
 )
 from big_boy_benchmarking.environments.counterpoint.fraction_sweep_diagnostics.docs_writer import (
@@ -53,9 +61,17 @@ from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.aggre
 )
 from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.config import (
     DEFAULT_EPISODES_PER_REPLICATE as NOISY_RATE_DEFAULT_EPISODES,
+)
+from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.config import (
     DEFAULT_RATES as NOISY_RATE_DEFAULT_RATES,
+)
+from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.config import (
     DEFAULT_REPLICATES_PER_SCHEMA_SEED as NOISY_RATE_DEFAULT_REPLICATES,
+)
+from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.config import (
     DEFAULT_SCHEMA_SEEDS as NOISY_RATE_DEFAULT_SCHEMA_SEEDS,
+)
+from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.config import (
     parse_rate_list,
 )
 from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.docs_writer import (
@@ -72,7 +88,11 @@ from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.agg
 )
 from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.config import (
     SMOKE_CANDIDATE_CAP as NOISY_RATE_FULL_TRAIN_SMOKE_CANDIDATE_CAP,
+)
+from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.config import (
     SMOKE_EPISODES_PER_REPLICATE as NOISY_RATE_FULL_TRAIN_SMOKE_EPISODES,
+)
+from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.config import (
     SMOKE_TRAINING_REPLICATES_PER_CANDIDATE as NOISY_RATE_FULL_TRAIN_SMOKE_REPLICATES,
 )
 from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.docs_writer import (
@@ -80,6 +100,8 @@ from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.doc
 )
 from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.paths import (
     default_artifact_root as default_noisy_rate_full_training_artifact_root,
+)
+from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.paths import (
     default_parent_candidate_readout_source,
 )
 from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.runner import (
@@ -109,6 +131,40 @@ from big_boy_benchmarking.environments.counterpoint.runners import (
     run_tower_schema_smoke,
 )
 from big_boy_benchmarking.environments.counterpoint.schemas import build_schema_for_id
+from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.aggregation import (
+    aggregate_second_serious_comparison_results,
+)
+from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.config import (
+    DEFAULT_CALIBRATION_EPISODES as SECOND_SERIOUS_DEFAULT_CALIBRATION_EPISODES,
+)
+from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.config import (
+    DEFAULT_SERIOUS_CANDIDATE_CAP as SECOND_SERIOUS_DEFAULT_SERIOUS_CANDIDATE_CAP,
+)
+from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.config import (
+    DEFAULT_SERIOUS_EPISODES as SECOND_SERIOUS_DEFAULT_SERIOUS_EPISODES,
+)
+from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.config import (
+    DEFAULT_SMOKE_CANDIDATE_CAP as SECOND_SERIOUS_DEFAULT_SMOKE_CANDIDATE_CAP,
+)
+from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.config import (
+    DEFAULT_SMOKE_EPISODES as SECOND_SERIOUS_DEFAULT_SMOKE_EPISODES,
+)
+from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.config import (
+    DEFAULT_SMOKE_REPLICATES as SECOND_SERIOUS_DEFAULT_SMOKE_REPLICATES,
+)
+from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.docs_writer import (
+    write_second_serious_comparison_docs,
+)
+from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.paths import (
+    default_artifact_root as default_second_serious_artifact_root,
+)
+from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.paths import (
+    default_candidate_readout_source as default_second_serious_candidate_readout_source,
+)
+from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.runner import (
+    calibrate_second_serious_comparison,
+    run_second_serious_comparison,
+)
 from big_boy_benchmarking.environments.counterpoint.serious_learning.aggregation import (
     aggregate_serious_learning_results,
 )
@@ -145,9 +201,7 @@ RESERVED_CONSOLE_COMMAND = "bbb"
 
 
 def _linearization_mode_ids() -> tuple[str, ...]:
-    return tuple(
-        contract.linearization_mode_id for contract in iter_linearization_mode_contracts()
-    )
+    return tuple(contract.linearization_mode_id for contract in iter_linearization_mode_contracts())
 
 
 def _validate_contracts() -> int:
@@ -410,8 +464,7 @@ def build_parser() -> argparse.ArgumentParser:
     noisy_rate_run_parser.add_argument(
         "--rates",
         default=",".join(
-            f"{numerator}/{denominator}"
-            for numerator, denominator in NOISY_RATE_DEFAULT_RATES
+            f"{numerator}/{denominator}" for numerator, denominator in NOISY_RATE_DEFAULT_RATES
         ),
     )
     noisy_rate_run_parser.add_argument(
@@ -505,6 +558,106 @@ def build_parser() -> argparse.ArgumentParser:
     full_train_summarize_parser.add_argument("--artifact-root", required=True, type=Path)
     full_train_summarize_parser.add_argument("--docs-root", type=Path)
 
+    second_serious_parser = counterpoint_subparsers.add_parser("second-serious-comparison")
+    second_serious_subparsers = second_serious_parser.add_subparsers(
+        dest="second_serious_command",
+        required=True,
+    )
+
+    second_serious_calibrate_parser = second_serious_subparsers.add_parser("calibrate")
+    second_serious_calibrate_parser.add_argument(
+        "--artifact-root",
+        type=Path,
+        default=default_second_serious_artifact_root("calibration_001"),
+    )
+    second_serious_calibrate_parser.add_argument(
+        "--candidate-readout-source",
+        type=Path,
+        default=default_second_serious_candidate_readout_source(),
+    )
+    second_serious_calibrate_parser.add_argument("--candidate-cap", type=int, default=2)
+    second_serious_calibrate_parser.add_argument("--instance-id", default="small")
+    second_serious_calibrate_parser.add_argument(
+        "--episodes",
+        type=int,
+        default=SECOND_SERIOUS_DEFAULT_CALIBRATION_EPISODES,
+    )
+    second_serious_calibrate_parser.add_argument(
+        "--replicates",
+        type=int,
+        default=SECOND_SERIOUS_DEFAULT_SMOKE_REPLICATES,
+    )
+    second_serious_calibrate_parser.add_argument("--base-seed", type=int, default=0)
+    second_serious_calibrate_parser.add_argument("--locked-by", default="cli")
+    second_serious_calibrate_parser.add_argument("--horizon", type=int)
+    second_serious_calibrate_parser.add_argument("--controller-event-ceiling", type=int)
+    second_serious_calibrate_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
+
+    second_serious_run_parser = second_serious_subparsers.add_parser("run")
+    second_serious_run_parser.add_argument(
+        "--artifact-root",
+        type=Path,
+        default=default_second_serious_artifact_root("smoke_001"),
+    )
+    second_serious_run_parser.add_argument(
+        "--candidate-readout-source",
+        type=Path,
+        default=default_second_serious_candidate_readout_source(),
+    )
+    second_serious_run_parser.add_argument(
+        "--candidate-cap",
+        type=int,
+        default=SECOND_SERIOUS_DEFAULT_SMOKE_CANDIDATE_CAP,
+    )
+    second_serious_run_parser.add_argument("--instance-id", default="small")
+    second_serious_run_parser.add_argument(
+        "--episodes",
+        type=int,
+        default=SECOND_SERIOUS_DEFAULT_SMOKE_EPISODES,
+    )
+    second_serious_run_parser.add_argument(
+        "--replicates",
+        type=int,
+        default=SECOND_SERIOUS_DEFAULT_SMOKE_REPLICATES,
+    )
+    second_serious_run_parser.add_argument(
+        "--threshold-policy-id",
+        default="counterpoint_total_space_sustained_reward_v001",
+    )
+    second_serious_run_parser.add_argument("--threshold-value", required=True, type=float)
+    second_serious_run_parser.add_argument("--window-length", type=int, default=5)
+    second_serious_run_parser.add_argument("--required-count", type=int, default=4)
+    second_serious_run_parser.add_argument("--base-seed", type=int, default=0)
+    second_serious_run_parser.add_argument("--locked-by", default="cli")
+    second_serious_run_parser.add_argument("--horizon", type=int)
+    second_serious_run_parser.add_argument("--controller-event-ceiling", type=int)
+    second_serious_run_parser.add_argument(
+        "--run-mode",
+        choices=(
+            "smoke_schema_comparison_first_sustained_hit",
+            "serious_schema_comparison_first_sustained_hit",
+        ),
+        default="smoke_schema_comparison_first_sustained_hit",
+    )
+    second_serious_run_parser.add_argument(
+        "--serious-run-authorized",
+        action="store_true",
+        help="explicitly authorize the serious medium run after PO approval",
+    )
+    second_serious_run_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
+
+    second_serious_summarize_parser = second_serious_subparsers.add_parser("summarize")
+    second_serious_summarize_parser.add_argument("--artifact-root", required=True, type=Path)
+    second_serious_summarize_parser.add_argument("--docs-root", type=Path)
+
     return parser
 
 
@@ -542,10 +695,7 @@ def _run_counterpoint_command(args: argparse.Namespace) -> int:
         graph = enumerate_reachable_graph(spec)
         path_summary = exact_path_volume(spec, length=spec.horizon_steps, graph=graph)
         target = (
-            args.artifact_root
-            / "counterpoint"
-            / "graph_diagnostics"
-            / spec.environment_instance_id
+            args.artifact_root / "counterpoint" / "graph_diagnostics" / spec.environment_instance_id
         )
         artifact_paths = write_environment_artifacts(
             target,
@@ -668,6 +818,8 @@ def _run_counterpoint_command(args: argparse.Namespace) -> int:
         return _run_counterpoint_noisy_rate_command(args)
     if args.counterpoint_command == "noisy-rate-full-train":
         return _run_counterpoint_noisy_rate_full_train_command(args)
+    if args.counterpoint_command == "second-serious-comparison":
+        return _run_counterpoint_second_serious_comparison_command(args)
 
     raise ValueError(f"unknown counterpoint command: {args.counterpoint_command}")
 
@@ -782,9 +934,7 @@ def _run_counterpoint_one_third_diagnostics_command(args: argparse.Namespace) ->
         print(json.dumps({"status": summary["status"], "docs": docs}, sort_keys=True))
         return 0 if summary["status"] == "complete" else 2
 
-    raise ValueError(
-        f"unknown one-third diagnostics command: {args.one_third_diagnostics_command}"
-    )
+    raise ValueError(f"unknown one-third diagnostics command: {args.one_third_diagnostics_command}")
 
 
 def _run_counterpoint_fraction_sweep_command(args: argparse.Namespace) -> int:
@@ -913,9 +1063,86 @@ def _run_counterpoint_noisy_rate_full_train_command(args: argparse.Namespace) ->
         print(json.dumps({"status": summary["status"], "docs": docs}, sort_keys=True))
         return 0 if summary["status"] == "complete" else 2
 
-    raise ValueError(
-        f"unknown noisy-rate-full-train command: {args.noisy_rate_full_train_command}"
-    )
+    raise ValueError(f"unknown noisy-rate-full-train command: {args.noisy_rate_full_train_command}")
+
+
+def _run_counterpoint_second_serious_comparison_command(args: argparse.Namespace) -> int:
+    if hasattr(args, "linearization_mode"):
+        _require_second_serious_linearization(args.linearization_mode)
+
+    if args.second_serious_command == "calibrate":
+        result = calibrate_second_serious_comparison(
+            artifact_root=args.artifact_root,
+            candidate_readout_source=args.candidate_readout_source,
+            instance_id=args.instance_id,
+            candidate_cap=args.candidate_cap,
+            training_replicates_per_arm=args.replicates,
+            episodes_per_replicate=args.episodes,
+            base_seed=args.base_seed,
+            locked_by=args.locked_by,
+            horizon_override=args.horizon,
+            controller_event_ceiling=args.controller_event_ceiling,
+            linearization_mode_id=args.linearization_mode,
+        )
+        print(json.dumps(result, sort_keys=True))
+        return 0 if result["status"] == "complete" else 2
+
+    if args.second_serious_command == "run":
+        if (
+            args.run_mode == "serious_schema_comparison_first_sustained_hit"
+            and args.candidate_cap != SECOND_SERIOUS_DEFAULT_SERIOUS_CANDIDATE_CAP
+        ):
+            raise ValueError(
+                "serious second-serious-comparison run requires candidate-cap 4 "
+                "unless a later PO-approved gameplan changes that lock"
+            )
+        if (
+            args.run_mode == "serious_schema_comparison_first_sustained_hit"
+            and args.episodes != SECOND_SERIOUS_DEFAULT_SERIOUS_EPISODES
+        ):
+            raise ValueError(
+                "serious second-serious-comparison run requires 256 episodes "
+                "unless a later PO-approved gameplan changes that lock"
+            )
+        result = run_second_serious_comparison(
+            artifact_root=args.artifact_root,
+            candidate_readout_source=args.candidate_readout_source,
+            instance_id=args.instance_id,
+            candidate_cap=args.candidate_cap,
+            training_replicates_per_arm=args.replicates,
+            episodes_per_replicate=args.episodes,
+            threshold_policy_id=args.threshold_policy_id,
+            threshold_value=args.threshold_value,
+            window_length=args.window_length,
+            required_count=args.required_count,
+            run_mode=args.run_mode,
+            base_seed=args.base_seed,
+            locked_by=args.locked_by,
+            horizon_override=args.horizon,
+            controller_event_ceiling=args.controller_event_ceiling,
+            linearization_mode_id=args.linearization_mode,
+            serious_run_authorized=args.serious_run_authorized,
+        )
+        print(json.dumps(result, sort_keys=True))
+        return 0 if result["status"] == "complete" else 2
+
+    if args.second_serious_command == "summarize":
+        summary = aggregate_second_serious_comparison_results(
+            args.artifact_root,
+            docs_root=args.docs_root,
+        )
+        docs = write_second_serious_comparison_docs(
+            artifact_root=args.artifact_root,
+            docs_root=args.docs_root,
+            command_lines=(
+                "uv run python -m big_boy_benchmarking.cli counterpoint "
+                "second-serious-comparison summarize --artifact-root <artifact-root>",
+            ),
+        )
+        print(json.dumps({"status": summary["status"], "docs": docs}, sort_keys=True))
+        return 0 if summary["status"] == "complete" else 2
+
+    raise ValueError(f"unknown second-serious-comparison command: {args.second_serious_command}")
 
 
 def _require_serious_linearization(linearization_mode_id: str) -> None:
@@ -954,6 +1181,14 @@ def _require_noisy_rate_full_train_linearization(linearization_mode_id: str) -> 
     if linearization_mode_id != "tensor_available_disabled":
         raise ValueError(
             "counterpoint noisy-rate full-tower training uses tensor_available_disabled; "
+            f"reserved linearization mode rejected: {linearization_mode_id}"
+        )
+
+
+def _require_second_serious_linearization(linearization_mode_id: str) -> None:
+    if linearization_mode_id != "tensor_available_disabled":
+        raise ValueError(
+            "counterpoint second-serious-comparison uses tensor_available_disabled; "
             f"reserved linearization mode rejected: {linearization_mode_id}"
         )
 

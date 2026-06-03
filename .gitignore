@@ -207,6 +207,13 @@ tempCodeRunnerFile.py
 # Ruff stuff:
 .ruff_cache/
 
+# TeX build sidecars
+*.aux
+*.bbl
+*.blg
+*.out
+*.synctex.gz
+
 # PyPI configuration file
 .pypirc
 

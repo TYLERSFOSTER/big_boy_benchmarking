@@ -58,11 +58,11 @@ execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at 
 
 #### Project Owner / Evaluator Turn
 
-> ...
+> Is the tower still only limited to $2$ tiers?
 
 #### Embedded Engineering Consultant / Codex Turn
 
-> ...
+> Yes, in this evaluation as implemented, the current "full available tower" is still only two tiers: tier 0 is the base counterpoint graph, and tier 1 is the single noisy-rate quotient produced by the selected contraction block. That is not because tower machinery is conceptually limited to two tiers; it is because this diagnostic deliberately consumes the parent noisy-rate contraction diagnostic, whose candidates are single-step noisy-rate contractions. The runner records the tier sequence it rebuilds, so if a future schema produces more tiers the readout should show them, but this checked-in `smoke_001` result should be read as "can these non-collapsed one-step noisy-rate quotient towers train cleanly?" rather than "have we validated deep repeated quotient towers?"
 
 #### Project Owner / Evaluator Turn
 
