@@ -1,0 +1,48 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "budget": {
+    "arm_id": "p001_over_144",
+    "candidate_id": "counterpoint_symbolic_n3_small_v001-p001_over_144-schema2",
+    "controller_config": {
+      "batch_size": 8,
+      "controller_config_id": "exploit_explore_controller_v001",
+      "epsilon": 0.2,
+      "min_visit_count": 5,
+      "reward_residual_threshold": null,
+      "success_threshold": 0.6,
+      "td_error_threshold": 0.5,
+      "training_interval": 4
+    },
+    "denominator": 144,
+    "episodes": 4,
+    "horizon": 8,
+    "learner_config": {
+      "action_count_policy": "counterpoint_raw_action_count",
+      "alpha": 0.4,
+      "epsilon": 0.2,
+      "gamma": 0.9,
+      "learner_config_id": "tabular_q_v001"
+    },
+    "max_controller_events": 64,
+    "numerator": 1,
+    "persistent_learner_across_episodes": true,
+    "requested_rate": 0.006944444444444444,
+    "schema_seed": 2,
+    "selector_rule_id": "counterpoint_sha256_edge_threshold_v001"
+  },
+  "command": "python -m big_boy_benchmarking.cli counterpoint noisy-rate-full-train run",
+  "controller_id": "exploit_explore",
+  "diagnostic_profile": "serious_learning",
+  "environment_id": "counterpoint_symbolic_n3_small_v001",
+  "learner_id": "tabular_q",
+  "linearization_benchmark_label": "tensor_available_disabled",
+  "linearization_enabled": false,
+  "linearization_mode_id": "tensor_available_disabled",
+  "mode_id": "tower_exploit_explore",
+  "run_family_id": "counterpoint_symbolic_v001_noisy_rate_full_tower_training_diagnostic_v001",
+  "run_id": "counterpoint_symbolic_n3_small_v001-p001_over_144-schema2-trainrep0",
+  "schema_id": "counterpoint_noisy_rate_contraction_single_block_schema_v001_p001_over_144",
+  "seed_bundle_id": "seed-7fe8666539580bdb",
+  "status": "success",
+  "timing_profile": "default_online"
+}

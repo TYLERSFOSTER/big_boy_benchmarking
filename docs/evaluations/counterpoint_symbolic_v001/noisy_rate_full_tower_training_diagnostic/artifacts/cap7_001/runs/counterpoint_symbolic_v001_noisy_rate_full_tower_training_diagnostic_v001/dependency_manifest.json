@@ -1,0 +1,52 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "repo_state": {
+    "bbb_repo": "/Users/foster/big_boy_benchmarking"
+  },
+  "state_collapser": {
+    "cuda_available": null,
+    "dependency_spec": "state-collapser[rl] @ git+https://github.com/TYLERSFOSTER/state_collapser.git@v0.7.1",
+    "git_ahead_behind": null,
+    "git_branch": null,
+    "git_commit": null,
+    "git_dirty": null,
+    "import_version": "0.7.1",
+    "inspection_status": "ok",
+    "linearization_import_status": "ok",
+    "linearization_symbols": [
+      "EncodingRegistry",
+      "LinearizationConfig",
+      "LinearizationReport",
+      "LinearizationState",
+      "NumericBackend",
+      "TensorDeviceKind",
+      "build_linearization_report"
+    ],
+    "serious_training_import_status": "ok",
+    "serious_training_symbols": [
+      "ActionDecision",
+      "ActionSelectionInput",
+      "FiberConditionedStage",
+      "FrozenQuotientBehavior",
+      "PathFiber",
+      "TabularQLearner",
+      "TrainingTransition"
+    ],
+    "source_path": "/Users/foster/big_boy_benchmarking/.venv/lib/python3.11/site-packages/state_collapser",
+    "torch_import_status": "missing",
+    "tower_control_import_status": "ok",
+    "tower_control_symbols": [
+      "ActiveTierController",
+      "ActiveTierState",
+      "ControlAction",
+      "FrozenLowerContext",
+      "LiftResolveExecutor",
+      "TierLearner",
+      "TierSignalState"
+    ],
+    "tower_runtime_import_status": "ok",
+    "tower_runtime_symbols": [
+      "ExploitExploreTowerRuntime"
+    ]
+  }
+}

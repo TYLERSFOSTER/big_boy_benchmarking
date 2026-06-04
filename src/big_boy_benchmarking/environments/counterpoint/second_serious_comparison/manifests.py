@@ -90,9 +90,14 @@ def parent_source_manifest_payload(*, selection) -> dict[str, Any]:
     }
 
 
-def candidate_manifest_payload(*, selection) -> dict[str, Any]:
+def candidate_manifest_payload(
+    *,
+    selection,
+    budget: SecondSeriousComparisonBudget,
+) -> dict[str, Any]:
     return {
         "evaluation_id": EVALUATION_ID,
+        "schema1_tower_source": budget.schema1_tower_source,
         "selected_schema1_candidates": [row.to_dict() for row in selection.selected],
         "excluded_schema1_candidates": [row.to_dict() for row in selection.excluded],
         "candidate_readout_source": str(selection.candidate_readout_source),

@@ -1,0 +1,62 @@
+{
+  "active_action_cell_count_by_tier": [
+    1140,
+    1132
+  ],
+  "arm_id": "p001_over_144",
+  "candidate_id": "counterpoint_symbolic_n3_small_v001-p001_over_144-schema0",
+  "denominator": 144,
+  "evaluation_id": "counterpoint_noisy_rate_full_tower_training_diagnostic_v001",
+  "numerator": 1,
+  "parent_artifact_run_label": "smoke_001",
+  "parent_evaluation_id": "counterpoint_noisy_rate_contraction_diagnostics_v001",
+  "parent_readout_source": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json",
+  "parent_selected_edge_count": 8,
+  "parent_selected_source_share": 0.07407407407407407,
+  "partition_tier_count": 2,
+  "persistent_learner_across_episodes": true,
+  "raw_historical_action_cell_record_count_by_tier": [
+    1140,
+    1329
+  ],
+  "requested_rate": 0.006944444444444444,
+  "schema_id": "counterpoint_noisy_rate_contraction_single_block_schema_v001_p001_over_144",
+  "schema_seed": 0,
+  "selector_rule_id": "counterpoint_sha256_edge_threshold_v001",
+  "state_cell_count_by_tier": [
+    108,
+    100
+  ],
+  "tower_shape_summary": [
+    {
+      "active_action_cell_count": 1140,
+      "arm_id": "p001_over_144",
+      "candidate_id": "counterpoint_symbolic_n3_small_v001-p001_over_144-schema0",
+      "evaluation_id": "counterpoint_noisy_rate_full_tower_training_diagnostic_v001",
+      "full_collapse": false,
+      "instance_id": "counterpoint_symbolic_n3_small_v001",
+      "largest_state_cell_share": 0.009259259259259259,
+      "raw_historical_action_cell_record_count": 1140,
+      "run_id": "counterpoint_symbolic_n3_small_v001-p001_over_144-schema0-trainrep0",
+      "schema_seed": 0,
+      "state_cell_count": 108,
+      "tier_index": 0,
+      "training_replicate_index": 0
+    },
+    {
+      "active_action_cell_count": 1132,
+      "arm_id": "p001_over_144",
+      "candidate_id": "counterpoint_symbolic_n3_small_v001-p001_over_144-schema0",
+      "evaluation_id": "counterpoint_noisy_rate_full_tower_training_diagnostic_v001",
+      "full_collapse": false,
+      "instance_id": "counterpoint_symbolic_n3_small_v001",
+      "largest_state_cell_share": 0.018518518518518517,
+      "raw_historical_action_cell_record_count": 1329,
+      "run_id": "counterpoint_symbolic_n3_small_v001-p001_over_144-schema0-trainrep0",
+      "schema_seed": 0,
+      "state_cell_count": 100,
+      "tier_index": 1,
+      "training_replicate_index": 0
+    }
+  ]
+}

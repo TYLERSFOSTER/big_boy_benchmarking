@@ -152,6 +152,12 @@ from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.co
 from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.config import (
     DEFAULT_SMOKE_REPLICATES as SECOND_SERIOUS_DEFAULT_SMOKE_REPLICATES,
 )
+from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.config import (
+    SCHEMA1_TOWER_SOURCE_IDS as SECOND_SERIOUS_SCHEMA1_TOWER_SOURCE_IDS,
+)
+from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.config import (
+    SCHEMA1_TOWER_SOURCE_ONE_DROP as SECOND_SERIOUS_SCHEMA1_TOWER_SOURCE_ONE_DROP,
+)
 from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.docs_writer import (
     write_second_serious_comparison_docs,
 )
@@ -576,6 +582,17 @@ def build_parser() -> argparse.ArgumentParser:
         default=default_second_serious_candidate_readout_source(),
     )
     second_serious_calibrate_parser.add_argument("--candidate-cap", type=int, default=2)
+    second_serious_calibrate_parser.add_argument(
+        "--candidate-id",
+        action="append",
+        default=None,
+        help="target a specific eligible Schema 1 candidate id from candidate_summary.csv",
+    )
+    second_serious_calibrate_parser.add_argument(
+        "--schema1-tower-source",
+        choices=SECOND_SERIOUS_SCHEMA1_TOWER_SOURCE_IDS,
+        default=SECOND_SERIOUS_SCHEMA1_TOWER_SOURCE_ONE_DROP,
+    )
     second_serious_calibrate_parser.add_argument("--instance-id", default="small")
     second_serious_calibrate_parser.add_argument(
         "--episodes",
@@ -612,6 +629,17 @@ def build_parser() -> argparse.ArgumentParser:
         "--candidate-cap",
         type=int,
         default=SECOND_SERIOUS_DEFAULT_SMOKE_CANDIDATE_CAP,
+    )
+    second_serious_run_parser.add_argument(
+        "--candidate-id",
+        action="append",
+        default=None,
+        help="target a specific eligible Schema 1 candidate id from candidate_summary.csv",
+    )
+    second_serious_run_parser.add_argument(
+        "--schema1-tower-source",
+        choices=SECOND_SERIOUS_SCHEMA1_TOWER_SOURCE_IDS,
+        default=SECOND_SERIOUS_SCHEMA1_TOWER_SOURCE_ONE_DROP,
     )
     second_serious_run_parser.add_argument("--instance-id", default="small")
     second_serious_run_parser.add_argument(
@@ -1076,6 +1104,8 @@ def _run_counterpoint_second_serious_comparison_command(args: argparse.Namespace
             candidate_readout_source=args.candidate_readout_source,
             instance_id=args.instance_id,
             candidate_cap=args.candidate_cap,
+            target_candidate_ids=tuple(args.candidate_id or ()),
+            schema1_tower_source=args.schema1_tower_source,
             training_replicates_per_arm=args.replicates,
             episodes_per_replicate=args.episodes,
             base_seed=args.base_seed,
@@ -1109,6 +1139,8 @@ def _run_counterpoint_second_serious_comparison_command(args: argparse.Namespace
             candidate_readout_source=args.candidate_readout_source,
             instance_id=args.instance_id,
             candidate_cap=args.candidate_cap,
+            target_candidate_ids=tuple(args.candidate_id or ()),
+            schema1_tower_source=args.schema1_tower_source,
             training_replicates_per_arm=args.replicates,
             episodes_per_replicate=args.episodes,
             threshold_policy_id=args.threshold_policy_id,

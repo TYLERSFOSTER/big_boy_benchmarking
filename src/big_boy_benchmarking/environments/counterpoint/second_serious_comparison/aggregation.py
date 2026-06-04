@@ -14,6 +14,7 @@ from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.co
     EVALUATION_ID,
     SCHEMA0_CLASS_ID,
     SCHEMA1_CLASS_ID,
+    SCHEMA1_TOWER_SOURCE_FULL_ITERATED,
 )
 from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.events import (
     ArmSummaryRow,
@@ -47,7 +48,6 @@ def aggregate_second_serious_comparison_results(
     run_rows = _read_csv(paths.evaluation_run_index_csv)
     budget = _read_json(paths.evaluation_budget_lock)
     candidate_manifest = _read_json(paths.candidate_manifest)
-    candidate_summary_rows = _candidate_summary_rows(candidate_manifest)
     episode_rows_all: list[dict[str, str]] = []
     first_hit_rows: list[dict[str, str]] = []
     threshold_rows: list[dict[str, str]] = []
@@ -95,6 +95,11 @@ def aggregate_second_serious_comparison_results(
         )
         aggregate_rows.append(_aggregate_row(run_row, episodes, first_hit, lifts, learners))
 
+    candidate_summary_rows = _candidate_summary_rows(
+        candidate_manifest,
+        budget=budget,
+        tower_rows=tower_rows,
+    )
     paired_rows = _paired_rows(run_rows, aggregate_rows)
     arm_rows = _arm_summary_rows(aggregate_rows)
     claim_rows = _claim_rows(budget, paired_rows)
@@ -288,9 +293,26 @@ def _write_readout_source(
     write_json(paths.readout_source, payload, create_parents=True)
 
 
-def _candidate_summary_rows(candidate_manifest: dict[str, Any]) -> list[dict[str, Any]]:
+def _candidate_summary_rows(
+    candidate_manifest: dict[str, Any],
+    *,
+    budget: dict[str, Any],
+    tower_rows: list[dict[str, str]],
+) -> list[dict[str, Any]]:
+    runtime_sequences = (
+        _runtime_schema1_tier_sequences(tower_rows)
+        if budget.get("schema1_tower_source") == SCHEMA1_TOWER_SOURCE_FULL_ITERATED
+        else {}
+    )
     rows = []
     for selected in candidate_manifest.get("selected_schema1_candidates", []):
+        state_sequence, active_sequence = runtime_sequences.get(
+            selected["candidate_id"],
+            (
+                selected["tier_state_cell_count_sequence"],
+                selected["tier_active_action_cell_count_sequence"],
+            ),
+        )
         rows.append(
             ComparisonCandidateSummaryRow(
                 evaluation_id=EVALUATION_ID,
@@ -303,10 +325,8 @@ def _candidate_summary_rows(candidate_manifest: dict[str, Any]) -> list[dict[str
                 requested_rate=float(selected["requested_rate"]),
                 selector_rule_id=selected["selector_rule_id"],
                 schema_seed=int(selected["schema_seed"]),
-                tier_state_cell_count_sequence=selected["tier_state_cell_count_sequence"],
-                tier_active_action_cell_count_sequence=selected[
-                    "tier_active_action_cell_count_sequence"
-                ],
+                tier_state_cell_count_sequence=state_sequence,
+                tier_active_action_cell_count_sequence=active_sequence,
                 parent_training_health_class=selected["parent_training_health_class"],
                 parent_concrete_step_count=int(selected["parent_concrete_step_count"]),
                 parent_learner_update_count=int(selected["parent_learner_update_count"]),
@@ -339,6 +359,42 @@ def _candidate_summary_rows(candidate_manifest: dict[str, Any]) -> list[dict[str
             ).to_flat_dict()
         )
     return rows
+
+
+def _runtime_schema1_tier_sequences(
+    tower_rows: list[dict[str, str]],
+) -> dict[str, tuple[str, str]]:
+    rows_by_candidate_and_replicate: dict[tuple[str, int], list[dict[str, str]]] = defaultdict(
+        list
+    )
+    for row in tower_rows:
+        if row.get("schema_class_id") != SCHEMA1_CLASS_ID:
+            continue
+        rows_by_candidate_and_replicate[
+            (row["candidate_id"], int(row.get("training_replicate_index") or 0))
+        ].append(row)
+
+    result = {}
+    candidate_ids = {candidate_id for candidate_id, _ in rows_by_candidate_and_replicate}
+    for candidate_id in candidate_ids:
+        replicate_indices = sorted(
+            replicate
+            for current_candidate_id, replicate in rows_by_candidate_and_replicate
+            if current_candidate_id == candidate_id
+        )
+        if not replicate_indices:
+            continue
+        rows = sorted(
+            rows_by_candidate_and_replicate[(candidate_id, replicate_indices[0])],
+            key=lambda item: int(item.get("tier_index") or 0),
+        )
+        state_sequence = [int(row.get("state_cell_count") or 0) for row in rows]
+        active_sequence = [int(row.get("active_action_cell_count") or 0) for row in rows]
+        result[candidate_id] = (
+            json.dumps(state_sequence),
+            json.dumps(active_sequence),
+        )
+    return result
 
 
 def _aggregate_row(

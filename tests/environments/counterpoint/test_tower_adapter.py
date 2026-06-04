@@ -3,11 +3,16 @@ from state_collapser.tower.partition import PartitionTower
 
 from big_boy_benchmarking.environments.counterpoint import ids
 from big_boy_benchmarking.environments.counterpoint.actions import CounterpointAction
-from big_boy_benchmarking.environments.counterpoint.instances import default_tiny_spec
+from big_boy_benchmarking.environments.counterpoint.instances import (
+    default_small_spec,
+    default_tiny_spec,
+)
 from big_boy_benchmarking.environments.counterpoint.state import CounterpointState
 from big_boy_benchmarking.environments.counterpoint.tower_adapter import (
     CounterpointHiddenGraph,
     CounterpointOutgoingThirdsSchema,
+    build_counterpoint_iterated_noisy_rate_partition_tower,
+    build_counterpoint_noisy_rate_partition_tower,
     build_counterpoint_partition_tower,
     contraction_schema_for_id,
     counterpoint_action_to_primitive_action,
@@ -120,3 +125,27 @@ def test_one_third_tower_assignments_are_seeded_and_source_local() -> None:
             ("counterpoint_one_third", 1),
             ("counterpoint_one_third", 2),
         }
+
+
+def test_iterated_noisy_rate_tower_extends_one_drop_prefix() -> None:
+    spec = default_small_spec()
+    one_drop = build_counterpoint_noisy_rate_partition_tower(
+        spec,
+        numerator=1,
+        denominator=18,
+        schema_seed=0,
+    )
+    full_iterated = build_counterpoint_iterated_noisy_rate_partition_tower(
+        spec,
+        numerator=1,
+        denominator=18,
+        schema_seed=0,
+    )
+
+    one_drop_shape = [len(layer.all_cell_ids()) for layer in one_drop.tower.state_layers]
+    full_shape = [len(layer.all_cell_ids()) for layer in full_iterated.tower.state_layers]
+
+    assert one_drop_shape == [108, 54]
+    assert full_shape[: len(one_drop_shape)] == one_drop_shape
+    assert len(full_shape) > len(one_drop_shape)
+    assert full_shape == [108, 54, 27, 19, 14]

@@ -64,6 +64,7 @@ def load_schema1_candidates(
     *,
     instance_id: str,
     candidate_cap: int,
+    target_candidate_ids: tuple[str, ...] = (),
 ) -> CandidateSelection:
     source_path = validate_repo_resident_path(candidate_readout_source)
     if source_path.name != "readout_source.json":
@@ -97,7 +98,26 @@ def load_schema1_candidates(
     )
     matching = tuple(row for row in rows if row.instance_id == instance_id)
     eligible = tuple(row for row in matching if row.candidate_eligible)
-    selected = eligible[:candidate_cap]
+    if target_candidate_ids:
+        by_id = {row.candidate_id: row for row in matching}
+        missing = tuple(item for item in target_candidate_ids if item not in by_id)
+        if missing:
+            raise ValueError(
+                "target Schema 1 candidate ids were not found in the source "
+                f"candidate_summary for {instance_id}: {', '.join(missing)}"
+            )
+        ineligible = tuple(
+            item for item in target_candidate_ids if not by_id[item].candidate_eligible
+        )
+        if ineligible:
+            reasons = ", ".join(
+                f"{item}={by_id[item].candidate_exclusion_reason or 'ineligible'}"
+                for item in ineligible
+            )
+            raise ValueError(f"target Schema 1 candidate ids are not eligible: {reasons}")
+        selected = tuple(by_id[item] for item in target_candidate_ids)
+    else:
+        selected = eligible[:candidate_cap]
     selected_ids = {row.candidate_id for row in selected}
     excluded = tuple(row for row in rows if row.candidate_id not in selected_ids)
     return CandidateSelection(

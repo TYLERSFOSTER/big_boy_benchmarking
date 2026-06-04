@@ -1,15 +1,13 @@
 # Results Summary
 
-- Arm rows: `2`.
-- Hit rows: `2`.
-- Paired rows: `1`.
-- Hit statuses: `{'transient_hit_only': 2}`.
+The repaired artifact uses `schema1_tower_source=full_iterated_noisy_rate`.
 
-## Compact Interpretation
+Schema 1 runtime tower shape:
 
-Both arms executed successfully and both are `transient_hit_only` at threshold
-`13.0`. The single paired comparison row is blocked because neither arm reached
-sustained adequacy under the `4_of_5` rule.
+```text
+[108, 54, 27, 19, 14]
+```
 
-This is diagnostic evidence about the threshold boundary, not a schema-speed
-comparison result.
+This fixes the earlier wrong-scope two-tier run. The comparison remains
+claim-blocked because Schema 0 is `transient_hit_only` and Schema 1 is
+`never_hit` at `R = 13.0`.

@@ -1,0 +1,70 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "budget": {
+    "arm_id": "p001_over_018",
+    "candidate_group_id": "counterpoint_symbolic_n3_small_v001-p001_over_018-schema0",
+    "candidate_id": "counterpoint_symbolic_n3_small_v001-p001_over_018-schema0",
+    "controller_config": {
+      "batch_size": 8,
+      "controller_config_id": "exploit_explore_controller_v001",
+      "epsilon": 0.2,
+      "min_visit_count": 5,
+      "reward_residual_threshold": null,
+      "success_threshold": 0.6,
+      "td_error_threshold": 0.5,
+      "training_interval": 4
+    },
+    "episodes": 8,
+    "horizon": 8,
+    "learner_config": {
+      "action_count_policy": "counterpoint_raw_action_count",
+      "alpha": 0.4,
+      "epsilon": 0.2,
+      "gamma": 0.9,
+      "learner_config_id": "tabular_q_v001"
+    },
+    "max_controller_events": 64,
+    "persistent_learner_across_episodes": true,
+    "schema1_tower_source": "full_iterated_noisy_rate",
+    "schema_class_id": "schema1_noisy_rate_one_drop",
+    "schema_seed": 0,
+    "threshold_policy": {
+      "applies_to_schema_classes": [
+        "schema0_no_contraction",
+        "schema1_noisy_rate_one_drop"
+      ],
+      "comparison": "greater_than_or_equal",
+      "metric_id": "episode_total_reward",
+      "required_count": 4,
+      "scope": "total_space",
+      "threshold_policy_id": "counterpoint_total_space_sustained_reward_v001",
+      "threshold_value": 13.0,
+      "window_length": 5
+    },
+    "tier_jump_policy": {
+      "tier_jump_applies_to_schema0": false,
+      "tier_jump_applies_to_schema1": true,
+      "tier_jump_disabled_reason": "Schema 0 has no non-base tier; Schema 1 tier movement is produced by the active-tier controller and recorded observationally.",
+      "tier_jump_metric_id": "episode_total_reward",
+      "tier_jump_min_observations": 1,
+      "tier_jump_policy_id": "counterpoint_active_tier_observed_transition_v001",
+      "tier_jump_reward_cutoff": 13.0,
+      "tier_jump_window_length": 5
+    }
+  },
+  "command": "python -m big_boy_benchmarking.cli counterpoint second-serious-comparison run",
+  "controller_id": "exploit_explore",
+  "diagnostic_profile": "serious_learning",
+  "environment_id": "counterpoint_symbolic_n3_small_v001",
+  "learner_id": "tabular_q",
+  "linearization_benchmark_label": "tensor_available_disabled",
+  "linearization_enabled": false,
+  "linearization_mode_id": "tensor_available_disabled",
+  "mode_id": "tower_exploit_explore",
+  "run_family_id": "counterpoint_symbolic_v001_second_serious_schema_comparison_v001",
+  "run_id": "counterpoint_symbolic_n3_small_v001-p001_over_018-schema0-schema1_noisy_rate_one_drop-trainrep0",
+  "schema_id": "counterpoint_noisy_rate_contraction_single_block_schema_v001_p001_over_018_full_iterated",
+  "seed_bundle_id": "seed-7fe8666539580bdb",
+  "status": "success",
+  "timing_profile": "default_online"
+}

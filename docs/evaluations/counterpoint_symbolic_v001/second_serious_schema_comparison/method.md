@@ -1,37 +1,38 @@
 # Method
 
-This evaluation compares two schema classes inside the same active-tier tower-control training harness. Schema 0 is no contraction. Schema 1 is a selected one-drop noisy-rate quotient candidate from the existing full-tower training diagnostic source.
+This run repairs the previous wrong-scope one-drop artifact by making Schema 1
+use a full iterated noisy-rate tower source.
 
-Artifact root:
+Schema 0 remains the no-drop total-graph control. Schema 1 starts from the
+promoted candidate:
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/r000_001
+counterpoint_symbolic_n3_small_v001-p001_over_018-schema0
 ```
 
-Locked budget:
+The runner is invoked with:
 
-```json
-{
-  "artifact_schema_version": "bbb.v001",
-  "base_seed": 0,
-  "candidate_cap": 1,
-  "candidate_readout_source": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/readout_source.json",
-  "controller_event_ceiling_override": null,
-  "controller_event_ceiling_policy": "max(64, 8 * horizon)",
-  "environment_instance_id": "counterpoint_symbolic_n3_small_v001",
-  "episodes_per_replicate": 8,
-  "evaluation_id": "counterpoint_second_serious_schema_comparison_v001",
-  "evaluation_run_family_id": "counterpoint_symbolic_v001_second_serious_schema_comparison_v001",
-  "linearization_mode_id": "tensor_available_disabled",
-  "locked_by": "codex",
-  "required_count": 4,
-  "run_mode": "smoke_schema_comparison_first_sustained_hit",
-  "serious_run_authorized": false,
-  "threshold_policy_id": "counterpoint_total_space_sustained_reward_v001",
-  "threshold_value": 13.0,
-  "tier_jump_policy_id": "counterpoint_active_tier_observed_transition_v001",
-  "tier_jump_reward_cutoff": 13.0,
-  "training_replicates_per_arm": 1,
-  "window_length": 5
-}
+```text
+--schema1-tower-source full_iterated_noisy_rate
 ```
+
+Tier 1 matches the one-drop source prefix `[108,54]`. Later tiers are built by
+resampling representative quotient edges at the same `1/18` rate until the
+process reaches a terminal tier. The observed runtime tower is:
+
+```text
+[108, 54, 27, 19, 14]
+```
+
+Budget:
+
+| Field | Value |
+| --- | --- |
+| Instance | `counterpoint_symbolic_n3_small_v001` |
+| Candidate | `counterpoint_symbolic_n3_small_v001-p001_over_018-schema0` |
+| Schema 1 tower source | `full_iterated_noisy_rate` |
+| Episodes per arm | `8` |
+| Replicates per arm | `1` |
+| Threshold | `episode_total_reward >= 13.0` |
+| Persistence | `4_of_5` |
+| Linearization | `tensor_available_disabled` |

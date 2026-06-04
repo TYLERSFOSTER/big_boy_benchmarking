@@ -7,7 +7,7 @@ A real training replicate preserves learner state across all episodes inside tha
 Artifact root:
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/smoke_001
+/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/cap7_001
 ```
 
 Locked budget:
@@ -16,7 +16,7 @@ Locked budget:
 {
   "artifact_schema_version": "bbb.v001",
   "base_seed": 0,
-  "candidate_cap": 2,
+  "candidate_cap": 7,
   "controller_event_ceiling_override": null,
   "controller_event_ceiling_policy": "max(64, 8 * horizon)",
   "episodes_per_replicate": 4,

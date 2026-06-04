@@ -45,8 +45,11 @@ from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.run
     _run_persistent_training_episode,
 )
 from big_boy_benchmarking.environments.counterpoint.schemas import (
+    SchemaConstruction,
+    SchemaSpec,
     build_noisy_rate_contraction_schema,
     build_schema_for_id,
+    state_key,
 )
 from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.candidates import (
     CandidateSelection,
@@ -64,6 +67,8 @@ from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.co
     PERSISTENCE_RULE_ID,
     SCHEMA0_CLASS_ID,
     SCHEMA1_CLASS_ID,
+    SCHEMA1_TOWER_SOURCE_FULL_ITERATED,
+    SCHEMA1_TOWER_SOURCE_ONE_DROP,
     SERIOUS_MODE_ID,
     SMOKE_MODE_ID,
     SecondSeriousComparisonBudget,
@@ -113,6 +118,8 @@ from big_boy_benchmarking.environments.counterpoint.serious_learning.tower_contr
 from big_boy_benchmarking.environments.counterpoint.specs import CounterpointInstanceSpec
 from big_boy_benchmarking.environments.counterpoint.tower_adapter import (
     CounterpointTowerBuildResult,
+    base_edge_to_counterpoint_edge_key,
+    build_counterpoint_iterated_noisy_rate_partition_tower,
     build_counterpoint_noisy_rate_partition_tower,
     build_counterpoint_partition_tower,
 )
@@ -144,6 +151,7 @@ class RuntimeCandidate:
     schema_seed: int
     tier_state_cell_count_sequence: str
     tier_active_action_cell_count_sequence: str
+    schema1_tower_source: str = SCHEMA1_TOWER_SOURCE_ONE_DROP
 
 
 @dataclass(frozen=True)
@@ -161,6 +169,8 @@ def run_second_serious_comparison(
     candidate_readout_source: Path | str | None = None,
     instance_id: str = "small",
     candidate_cap: int = 1,
+    target_candidate_ids: tuple[str, ...] = (),
+    schema1_tower_source: str = SCHEMA1_TOWER_SOURCE_ONE_DROP,
     training_replicates_per_arm: int = 1,
     episodes_per_replicate: int = 8,
     threshold_value: float | None = None,
@@ -182,6 +192,8 @@ def run_second_serious_comparison(
         environment_instance_id=spec.environment_instance_id,
         candidate_readout_source=candidate_source,
         candidate_cap=candidate_cap,
+        target_candidate_ids=target_candidate_ids,
+        schema1_tower_source=schema1_tower_source,
         episodes_per_replicate=episodes_per_replicate,
         training_replicates_per_arm=training_replicates_per_arm,
         base_seed=base_seed,
@@ -214,6 +226,7 @@ def run_second_serious_comparison(
         budget.candidate_readout_source,
         instance_id=spec.environment_instance_id,
         candidate_cap=budget.candidate_cap,
+        target_candidate_ids=budget.target_candidate_ids,
     )
     if run_mode == SERIOUS_MODE_ID:
         require_serious_medium_candidate_gate(selection)
@@ -241,7 +254,10 @@ def run_second_serious_comparison(
         for seed_bundle in seed_bundles:
             for runtime_candidate in (
                 _schema0_runtime_candidate(schema1_candidate),
-                _schema1_runtime_candidate(schema1_candidate),
+                _schema1_runtime_candidate(
+                    schema1_candidate,
+                    schema1_tower_source=budget.schema1_tower_source,
+                ),
             ):
                 try:
                     result = run_schema_condition(
@@ -453,6 +469,7 @@ def run_schema_condition(
             "candidate_id": candidate.candidate_id,
             "arm_id": candidate.arm_id,
             "schema_seed": candidate.schema_seed,
+            "schema1_tower_source": candidate.schema1_tower_source,
             "max_controller_events": max_controller_events,
             "persistent_learner_across_episodes": True,
             "threshold_policy": threshold_policy.to_dict(),
@@ -512,7 +529,7 @@ def _write_evaluation_level_manifests(
     )
     write_json(
         paths.candidate_manifest,
-        candidate_manifest_payload(selection=selection),
+        candidate_manifest_payload(selection=selection, budget=budget),
         create_parents=True,
     )
     write_json(
@@ -536,10 +553,15 @@ def _schema0_runtime_candidate(schema1_candidate: SchemaCandidate) -> RuntimeCan
         schema_seed=schema1_candidate.schema_seed,
         tier_state_cell_count_sequence="[]",
         tier_active_action_cell_count_sequence="[]",
+        schema1_tower_source=SCHEMA1_TOWER_SOURCE_ONE_DROP,
     )
 
 
-def _schema1_runtime_candidate(schema1_candidate: SchemaCandidate) -> RuntimeCandidate:
+def _schema1_runtime_candidate(
+    schema1_candidate: SchemaCandidate,
+    *,
+    schema1_tower_source: str,
+) -> RuntimeCandidate:
     return RuntimeCandidate(
         candidate_id=schema1_candidate.candidate_id,
         candidate_group_id=schema1_candidate.candidate_id,
@@ -553,6 +575,7 @@ def _schema1_runtime_candidate(schema1_candidate: SchemaCandidate) -> RuntimeCan
         schema_seed=schema1_candidate.schema_seed,
         tier_state_cell_count_sequence=schema1_candidate.tier_state_cell_count_sequence,
         tier_active_action_cell_count_sequence=schema1_candidate.tier_active_action_cell_count_sequence,
+        schema1_tower_source=schema1_tower_source,
     )
 
 
@@ -562,6 +585,14 @@ def _build_candidate_tower(
 ) -> CounterpointTowerBuildResult:
     if candidate.schema_class_id == SCHEMA0_CLASS_ID:
         return build_counterpoint_partition_tower(spec, schema_id=ids.EMPTY_SCHEMA_ID)
+    if candidate.schema1_tower_source == SCHEMA1_TOWER_SOURCE_FULL_ITERATED:
+        return build_counterpoint_iterated_noisy_rate_partition_tower(
+            spec,
+            numerator=candidate.numerator,
+            denominator=candidate.denominator,
+            schema_seed=candidate.schema_seed,
+            selector_rule_id=candidate.selector_rule_id,
+        )
     return build_counterpoint_noisy_rate_partition_tower(
         spec,
         numerator=candidate.numerator,
@@ -574,6 +605,11 @@ def _build_candidate_tower(
 def _runtime_schema_id(candidate: RuntimeCandidate) -> str:
     if candidate.schema_class_id == SCHEMA0_CLASS_ID:
         return ids.EMPTY_SCHEMA_ID
+    if candidate.schema1_tower_source == SCHEMA1_TOWER_SOURCE_FULL_ITERATED:
+        return (
+            f"{ids.NOISY_RATE_CONTRACTION_SCHEMA_ID}_{candidate.arm_id}_"
+            "full_iterated"
+        )
     return f"{ids.NOISY_RATE_CONTRACTION_SCHEMA_ID}_{candidate.arm_id}"
 
 
@@ -587,11 +623,88 @@ def _verify_candidate_tower(
         return
     expected = json.loads(candidate.tier_state_cell_count_sequence)
     observed = [len(layer.all_cell_ids()) for layer in build.tower.state_layers]
+    if candidate.schema1_tower_source == SCHEMA1_TOWER_SOURCE_FULL_ITERATED:
+        if observed[: len(expected)] != expected:
+            raise ValueError(
+                "full-iterated candidate tower prefix mismatch: "
+                f"candidate={candidate.candidate_id} expected_prefix={expected} "
+                f"observed={observed}"
+            )
+        if len(observed) <= len(expected):
+            raise ValueError(
+                "full-iterated candidate tower did not extend source one-drop tower: "
+                f"candidate={candidate.candidate_id} observed={observed}"
+            )
+        return
     if observed != expected:
         raise ValueError(
             "candidate tower shape mismatch: "
             f"candidate={candidate.candidate_id} expected={expected} observed={observed}"
         )
+
+
+def _schema_construction_for_candidate(
+    *,
+    build: CounterpointTowerBuildResult,
+    candidate: RuntimeCandidate,
+) -> SchemaConstruction:
+    if candidate.schema_class_id == SCHEMA0_CLASS_ID:
+        return build_schema_for_id(build.graph, schema_id=ids.EMPTY_SCHEMA_ID, schema_seed=None)
+    if candidate.schema1_tower_source != SCHEMA1_TOWER_SOURCE_FULL_ITERATED:
+        return build_noisy_rate_contraction_schema(
+            build.graph,
+            schema_seed=candidate.schema_seed,
+            numerator=candidate.numerator,
+            denominator=candidate.denominator,
+            selector_rule_id=candidate.selector_rule_id,
+        )
+
+    one_drop = build_noisy_rate_contraction_schema(
+        build.graph,
+        schema_seed=candidate.schema_seed,
+        numerator=candidate.numerator,
+        denominator=candidate.denominator,
+        selector_rule_id=candidate.selector_rule_id,
+    )
+    edge_partition = {}
+    for edge_id in build.tower.registry.edge_ids:
+        block_id = build.tower.schema_assignment_store.assignment_by_edge_id.get(edge_id)
+        edge_key = build.tower.registry.edge_for_id(edge_id)
+        edge_partition[base_edge_to_counterpoint_edge_key(edge_key)] = (
+            "iterated_unscheduled" if block_id is None else repr(block_id.value)
+        )
+    return SchemaConstruction(
+        spec=SchemaSpec(
+            schema_id=_runtime_schema_id(candidate),
+            schema_family_id=one_drop.spec.schema_family_id,
+            schema_version=one_drop.spec.schema_version,
+            environment_family_id=one_drop.spec.environment_family_id,
+            environment_instance_id=one_drop.spec.environment_instance_id,
+            schema_seed=candidate.schema_seed,
+            construction_method=(
+                "seeded_edge_global_noisy_rate_iterated_quotient_contraction"
+            ),
+            source_label_families=one_drop.spec.source_label_families,
+            state_partition_description=(
+                "identity state keys at tier 0; runtime contraction is edge-driven"
+            ),
+            action_partition_description=(
+                "ordered iterated noisy-rate blocks; tier 1 matches the one-drop "
+                "source selection and later tiers resample quotient representatives"
+            ),
+            expected_tower_depth=len(build.tower.state_layers),
+            expected_compression_target=(
+                f"iterated {candidate.numerator}/{candidate.denominator} quotient "
+                "blocks until degenerate or terminal tier"
+            ),
+            leakage_risk_statement=one_drop.spec.leakage_risk_statement,
+            intended_role="second_serious_full_iterated_schema1_comparison",
+            online_eligible=True,
+            diagnostic_only=False,
+        ),
+        state_partition={state_key(state): state_key(state) for state in build.graph.states},
+        edge_partition=edge_partition,
+    )
 
 
 def _write_run_artifacts(
@@ -636,19 +749,10 @@ def _write_run_artifacts(
             "schema_class_id": candidate.schema_class_id,
             "candidate_id": candidate.candidate_id,
             "schema_id": _runtime_schema_id(candidate),
+            "schema1_tower_source": candidate.schema1_tower_source,
         },
     )
-    schema = (
-        build_schema_for_id(build.graph, schema_id=ids.EMPTY_SCHEMA_ID, schema_seed=None)
-        if candidate.schema_class_id == SCHEMA0_CLASS_ID
-        else build_noisy_rate_contraction_schema(
-            build.graph,
-            schema_seed=candidate.schema_seed,
-            numerator=candidate.numerator,
-            denominator=candidate.denominator,
-            selector_rule_id=candidate.selector_rule_id,
-        )
-    )
+    schema = _schema_construction_for_candidate(build=build, candidate=candidate)
     write_json(
         family_paths.family_manifest,
         FamilyManifest(
@@ -732,6 +836,7 @@ def _write_run_artifacts(
             "requested_rate": candidate.requested_rate,
             "selector_rule_id": candidate.selector_rule_id,
             "schema_seed": candidate.schema_seed,
+            "schema1_tower_source": candidate.schema1_tower_source,
             "partition_tier_count": len(build.tower.state_layers),
             "state_cell_count_by_tier": [
                 len(layer.all_cell_ids()) for layer in build.tower.state_layers

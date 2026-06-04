@@ -1,3 +1,4 @@
+import csv
 import json
 from pathlib import Path
 
@@ -36,6 +37,7 @@ from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.co
     EVALUATION_ID,
     SCHEMA0_CLASS_ID,
     SCHEMA1_CLASS_ID,
+    SCHEMA1_TOWER_SOURCE_FULL_ITERATED,
 )
 from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.docs_writer import (
     write_second_serious_comparison_docs,
@@ -103,6 +105,23 @@ def test_second_serious_candidate_loader_and_medium_gate(
     assert len(selection.selected) == 1
     assert selection.selected[0].candidate_eligible
     assert selection.selected[0].parent_training_health_class == "trainable_clean"
+    target_id = selection.selected[0].candidate_id
+    targeted = load_schema1_candidates(
+        full_readout,
+        instance_id="counterpoint_symbolic_n3_small_v001",
+        candidate_cap=1,
+        target_candidate_ids=(target_id,),
+    )
+
+    assert tuple(row.candidate_id for row in targeted.selected) == (target_id,)
+
+    with pytest.raises(ValueError, match="not found"):
+        load_schema1_candidates(
+            full_readout,
+            instance_id="counterpoint_symbolic_n3_small_v001",
+            candidate_cap=1,
+            target_candidate_ids=("missing-candidate",),
+        )
 
     artifact_root = full_readout.parents[0] / "second" / "artifacts" / "serious_001"
     with pytest.raises(ValueError, match="four eligible medium"):
@@ -165,6 +184,55 @@ def test_second_serious_runner_aggregation_and_docs(
     )
 
 
+def test_second_serious_full_iterated_schema1_records_runtime_tower_sequence(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    full_readout, repo_root = _build_full_training_readout(tmp_path, monkeypatch)
+    readout_surface = (
+        repo_root
+        / "docs"
+        / "evaluations"
+        / "counterpoint_symbolic_v001"
+        / "second_serious_schema_comparison"
+    )
+    artifact_root = readout_surface / "artifacts" / "full_iterated_001"
+    monkeypatch.setattr(second_paths, "DEFAULT_REPO_READOUT_SURFACE", readout_surface)
+    monkeypatch.setattr(second_paths, "DEFAULT_CANDIDATE_READOUT_SOURCE", full_readout)
+
+    run_result = run_second_serious_comparison(
+        artifact_root=artifact_root,
+        candidate_readout_source=full_readout,
+        instance_id="small",
+        candidate_cap=1,
+        schema1_tower_source=SCHEMA1_TOWER_SOURCE_FULL_ITERATED,
+        training_replicates_per_arm=1,
+        episodes_per_replicate=5,
+        threshold_value=-999.0,
+        controller_event_ceiling=16,
+    )
+    aggregate_second_serious_comparison_results(artifact_root)
+
+    assert run_result["status"] == "complete"
+    paths = second_paths.build_second_serious_comparison_paths(artifact_root)
+    candidate_summary_path = paths.results_dir / "candidate_summary.csv"
+    candidate_rows = list(csv.DictReader(candidate_summary_path.open()))
+    selected = next(row for row in candidate_rows if row["selected"] == "True")
+    source_shape = json.loads(
+        next(
+            row
+            for row in json.loads(paths.candidate_manifest.read_text())[
+                "selected_schema1_candidates"
+            ]
+            if row["candidate_id"] == selected["schema1_candidate_id"]
+        )["tier_state_cell_count_sequence"]
+    )
+    runtime_shape = json.loads(selected["tier_state_cell_count_sequence"])
+
+    assert runtime_shape[: len(source_shape)] == source_shape
+    assert len(runtime_shape) > len(source_shape)
+
+
 def test_second_serious_cli_run_and_summarize(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch,
@@ -181,6 +249,11 @@ def test_second_serious_cli_run_and_summarize(
     artifact_root = readout_surface / "artifacts" / "cli_001"
     monkeypatch.setattr(second_paths, "DEFAULT_REPO_READOUT_SURFACE", readout_surface)
     monkeypatch.setattr(second_paths, "DEFAULT_CANDIDATE_READOUT_SOURCE", full_readout)
+    candidate_id = load_schema1_candidates(
+        full_readout,
+        instance_id="counterpoint_symbolic_n3_small_v001",
+        candidate_cap=1,
+    ).selected[0].candidate_id
 
     assert (
         main(
@@ -194,6 +267,8 @@ def test_second_serious_cli_run_and_summarize(
                 str(full_readout),
                 "--candidate-cap",
                 "1",
+                "--candidate-id",
+                candidate_id,
                 "--instance-id",
                 "small",
                 "--episodes",

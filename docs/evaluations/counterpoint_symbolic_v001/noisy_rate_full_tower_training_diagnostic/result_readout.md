@@ -4,10 +4,10 @@ This diagnostic is a tower-only training-health check for selected non-collapsed
 
 ## What Happened
 
-- Selected candidates: `2`.
-- Concrete base steps emitted: `64`.
-- Successful learner updates: `80`.
-- Health classes: `{'trainable_clean': 2}`.
+- Selected candidates: `7`.
+- Concrete base steps emitted: `222`.
+- Successful learner updates: `313`.
+- Health classes: `{'trainable_clean': 7}`.
 
 ## How We Know
 

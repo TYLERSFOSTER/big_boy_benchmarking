@@ -1,44 +1,41 @@
 # Diagnostic Findings
 
-- Claim status `claim_blocked`: all pairs are blocked or non-sustained, so no
-  speed-to-hit claim is supported.
+## Full-Iterated Tower Built
 
-## Primary Diagnostic
+`results/tower_shape_summary.csv` records the repaired Schema 1 sequence:
 
-At threshold `13.0`, both arms are `transient_hit_only`.
+```text
+tier 0: 108 state cells, 1140 active action cells
+tier 1: 54 state cells, 1029 active action cells
+tier 2: 27 state cells, 647 active action cells
+tier 3: 19 state cells, 488 active action cells
+tier 4: 14 state cells, 215 active action cells
+```
 
-This means the runs did cross the threshold at least once, but no 5-episode
-window contained the required 4 threshold hits. The decisive evidence is in
-`results/first_sustained_hit_summary.csv` and `results/threshold_window_summary.csv`.
+This is the requested multi-tier object. It is not the old two-tier one-drop
+artifact.
 
-## Persistence-Window Evidence
+## Terminal But Not Degenerate
 
-- `schema0_no_contraction` reached at most 3 hits in a 5-episode window, short
-  of the required 4.
-- `schema1_noisy_rate_one_drop` reached at most 1 hit in a 5-episode window,
-  short of the required 4.
+The final tier has 14 state cells and largest state-cell share about `0.8611`.
+It is not a one-cell degenerate tier. The iterated `1/18` noisy-rate process
+terminates there because the next quotient sampling step does not schedule a
+new representative edge.
 
-Because neither arm reached sustained adequacy, `results/paired_schema_comparison.csv`
-correctly marks the pair as `blocked_or_non_sustained`.
+## Tier Usage
 
-## Structural And Tower Evidence
+Schema 1 controller events occur at the deep tier:
 
-This is not a full-collapse or lift-failure result.
+```text
+tier 4 explore: 363
+tier 4 train: 112
+tier 4 exploit_execute: 5
+```
 
-- Schema 0 has a single tier with 108 state cells and 1140 active action cells.
-- Schema 1 has tier 0 with 108 state cells and tier 1 with 100 state cells.
-- Schema 1's largest tier-1 state-cell share is about `0.0185`, so the first
-  contraction is not a near-universal collapse.
-- Schema 1 recorded controller activity on both tier 0 and tier 1.
-- `lift_success_by_tier.csv` records successful lift/action-realization events
-  and no failure reason for either schema.
+The run therefore did not merely construct deeper tiers; it actually used the
+deepest available tier during control.
 
-The blocked claim is therefore best read as a threshold-persistence boundary,
-not as an environment execution failure.
+## Claim Block
 
-## What This Does Not Show
-
-This run does not show Schema 1 losing, Schema 0 winning, or either schema
-being generally superior. With only one candidate, one replicate, and eight
-episodes, it is a diagnostic threshold probe. A serious comparison would need a
-larger candidate set, more replicates, and a pre-locked threshold policy.
+Schema 0 is `transient_hit_only`. Schema 1 is `never_hit`. The paired
+comparison is correctly blocked.

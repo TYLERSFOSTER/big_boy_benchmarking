@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 import random
 from collections.abc import Hashable, Iterable
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from state_collapser.core.action import PrimitiveAction
 from state_collapser.core.edges import BaseEdge
@@ -306,6 +306,90 @@ class CounterpointNoisyRateSchema:
         )
 
 
+@dataclass(slots=True)
+class CounterpointIteratedNoisyRateSchema:
+    """Repeated noisy-rate contraction schema for full multi-tier towers.
+
+    Tier 1 uses the same base-edge noisy-rate selection as
+    `CounterpointNoisyRateSchema`, so an iterated `1/18` run starts with the
+    same `[108, 54]` first drop as the one-drop diagnostic. Later tiers resample
+    representative quotient edges at the same rate and schedule one contraction
+    block per successful iteration.
+    """
+
+    instance_id: str
+    numerator: int
+    denominator: int
+    schema_seed: int = 0
+    selector_rule_id: str = DEFAULT_NOISY_RATE_SELECTOR_RULE_ID
+    max_iterations: int = 32
+    _planned_edge_signature: tuple[int, ...] = field(
+        default=(),
+        init=False,
+        repr=False,
+        compare=False,
+    )
+    _assignment_by_edge_id: dict[EdgeId, SchemaBlockId | None] = field(
+        default_factory=dict,
+        init=False,
+        repr=False,
+        compare=False,
+    )
+    _ordered_blocks: tuple[SchemaBlockId, ...] = field(
+        default=(),
+        init=False,
+        repr=False,
+        compare=False,
+    )
+
+    def __post_init__(self) -> None:
+        if self.denominator <= 0:
+            raise ValueError(
+                "CounterpointIteratedNoisyRateSchema.denominator must be positive"
+            )
+        if self.numerator < 1 or self.numerator > self.denominator:
+            raise ValueError(
+                "CounterpointIteratedNoisyRateSchema.numerator must be between "
+                "1 and denominator"
+            )
+        if self.max_iterations <= 0:
+            raise ValueError(
+                "CounterpointIteratedNoisyRateSchema.max_iterations must be positive"
+            )
+        if not self.selector_rule_id:
+            raise ValueError(
+                "CounterpointIteratedNoisyRateSchema.selector_rule_id must be nonempty"
+            )
+
+    def assign_edge(
+        self,
+        edge_id: EdgeId,
+        registry: BaseGraphRegistry,
+    ) -> SchemaBlockId | None:
+        self._ensure_plan(registry)
+        return self._assignment_by_edge_id.get(edge_id)
+
+    def ordered_blocks(self) -> tuple[SchemaBlockId, ...]:
+        return self._ordered_blocks
+
+    def _ensure_plan(self, registry: BaseGraphRegistry) -> None:
+        edge_signature = tuple(edge_id.value for edge_id in registry.edge_ids)
+        if edge_signature == self._planned_edge_signature:
+            return
+        assignment, ordered_blocks = _iterated_noisy_rate_plan(
+            registry=registry,
+            instance_id=self.instance_id,
+            numerator=self.numerator,
+            denominator=self.denominator,
+            schema_seed=self.schema_seed,
+            selector_rule_id=self.selector_rule_id,
+            max_iterations=self.max_iterations,
+        )
+        self._planned_edge_signature = edge_signature
+        self._assignment_by_edge_id = assignment
+        self._ordered_blocks = ordered_blocks
+
+
 def contraction_schema_for_id(
     schema_id: str,
     *,
@@ -431,6 +515,37 @@ def build_counterpoint_noisy_rate_partition_tower(
     return CounterpointTowerBuildResult(graph=graph, hidden_graph=hidden_graph, tower=tower)
 
 
+def build_counterpoint_iterated_noisy_rate_partition_tower(
+    spec: CounterpointInstanceSpec,
+    *,
+    numerator: int,
+    denominator: int,
+    schema_seed: int | None = None,
+    selector_rule_id: str = DEFAULT_NOISY_RATE_SELECTOR_RULE_ID,
+    max_iterations: int = 32,
+) -> CounterpointTowerBuildResult:
+    graph = enumerate_reachable_graph(spec)
+    hidden_graph = CounterpointHiddenGraph(spec)
+    tower = PartitionTower(
+        schema=CounterpointIteratedNoisyRateSchema(
+            instance_id=graph.spec.environment_instance_id,
+            numerator=numerator,
+            denominator=denominator,
+            schema_seed=0 if schema_seed is None else schema_seed,
+            selector_rule_id=selector_rule_id,
+            max_iterations=max_iterations,
+        ),
+        reward_aggregator=RewardAggregator("mean"),
+    )
+    states = tuple(counterpoint_state_to_core_state(state) for state in graph.states)
+    edges = tuple(graph_edge_to_base_edge(edge) for edge in graph.edges)
+    current_state = (
+        counterpoint_state_to_core_state(graph.start_states[0]) if graph.start_states else None
+    )
+    tower.initialize(initial_states=states, initial_edges=edges, current_state=current_state)
+    return CounterpointTowerBuildResult(graph=graph, hidden_graph=hidden_graph, tower=tower)
+
+
 def assigned_counterpoint_edge_keys(tower: PartitionTower) -> frozenset[str]:
     """Return canonical edge keys that received a non-null schema assignment."""
 
@@ -440,3 +555,172 @@ def assigned_counterpoint_edge_keys(tower: PartitionTower) -> frozenset[str]:
             continue
         selected.add(base_edge_to_counterpoint_edge_key(tower.registry.edge_for_id(edge_id)))
     return frozenset(selected)
+
+
+def _iterated_noisy_rate_plan(
+    *,
+    registry: BaseGraphRegistry,
+    instance_id: str,
+    numerator: int,
+    denominator: int,
+    schema_seed: int,
+    selector_rule_id: str,
+    max_iterations: int,
+) -> tuple[dict[EdgeId, SchemaBlockId | None], tuple[SchemaBlockId, ...]]:
+    edge_ids = tuple(sorted(registry.edge_ids, key=lambda item: item.value))
+    state_ids = tuple(registry.state_ids)
+    parent = {state_id: state_id for state_id in state_ids}
+    assignment: dict[EdgeId, SchemaBlockId | None] = {edge_id: None for edge_id in edge_ids}
+    ordered_blocks: list[SchemaBlockId] = []
+
+    for iteration_index in range(max_iterations):
+        if _component_count(parent) <= 1:
+            break
+        selected = _selected_iterated_noisy_rate_edges(
+            registry=registry,
+            edge_ids=edge_ids,
+            parent=parent,
+            instance_id=instance_id,
+            numerator=numerator,
+            denominator=denominator,
+            schema_seed=schema_seed,
+            selector_rule_id=selector_rule_id,
+            iteration_index=iteration_index,
+        )
+        if not selected:
+            break
+        block_id = _iterated_noisy_rate_block_id(
+            numerator=numerator,
+            denominator=denominator,
+            selector_rule_id=selector_rule_id,
+            iteration_index=iteration_index,
+        )
+        changed = False
+        for edge_id in selected:
+            assignment[edge_id] = block_id
+            changed = (
+                _union(
+                    parent,
+                    registry.source_state_id(edge_id),
+                    registry.target_state_id(edge_id),
+                )
+                or changed
+            )
+        if not changed:
+            break
+        ordered_blocks.append(block_id)
+    return assignment, tuple(ordered_blocks)
+
+
+def _selected_iterated_noisy_rate_edges(
+    *,
+    registry: BaseGraphRegistry,
+    edge_ids: tuple[EdgeId, ...],
+    parent: dict[object, object],
+    instance_id: str,
+    numerator: int,
+    denominator: int,
+    schema_seed: int,
+    selector_rule_id: str,
+    iteration_index: int,
+) -> tuple[EdgeId, ...]:
+    if iteration_index == 0:
+        candidates = tuple(
+            edge_id
+            for edge_id in edge_ids
+            if _find(parent, registry.source_state_id(edge_id))
+            != _find(parent, registry.target_state_id(edge_id))
+        )
+    else:
+        candidates = _quotient_representative_edges(
+            registry=registry,
+            edge_ids=edge_ids,
+            parent=parent,
+        )
+
+    selected = []
+    for edge_id in candidates:
+        base_key = base_edge_to_counterpoint_edge_key(registry.edge_for_id(edge_id))
+        score_key = (
+            base_key
+            if iteration_index == 0
+            else f"iterated_tier={iteration_index}|{base_key}"
+        )
+        score = stable_noisy_rate_score(
+            selector_rule_id=selector_rule_id,
+            instance_id=instance_id,
+            schema_seed=schema_seed,
+            canonical_edge_key=score_key,
+        )
+        if score < numerator / denominator:
+            selected.append(edge_id)
+    return tuple(selected)
+
+
+def _quotient_representative_edges(
+    *,
+    registry: BaseGraphRegistry,
+    edge_ids: tuple[EdgeId, ...],
+    parent: dict[object, object],
+) -> tuple[EdgeId, ...]:
+    representatives: dict[tuple[int, int], EdgeId] = {}
+    representative_keys: dict[tuple[int, int], str] = {}
+    for edge_id in edge_ids:
+        source_root = _find(parent, registry.source_state_id(edge_id))
+        target_root = _find(parent, registry.target_state_id(edge_id))
+        if source_root == target_root:
+            continue
+        pair = tuple(sorted((source_root.value, target_root.value)))
+        base_key = base_edge_to_counterpoint_edge_key(registry.edge_for_id(edge_id))
+        current_key = representative_keys.get(pair)
+        if current_key is None or base_key < current_key:
+            representatives[pair] = edge_id
+            representative_keys[pair] = base_key
+    return tuple(
+        representatives[pair]
+        for pair in sorted(
+            representatives,
+            key=lambda item: representative_keys[item],
+        )
+    )
+
+
+def _iterated_noisy_rate_block_id(
+    *,
+    numerator: int,
+    denominator: int,
+    selector_rule_id: str,
+    iteration_index: int,
+) -> SchemaBlockId:
+    return SchemaBlockId(
+        (
+            "counterpoint_iterated_noisy_rate",
+            numerator,
+            denominator,
+            selector_rule_id,
+            iteration_index,
+        )
+    )
+
+
+def _find(parent: dict[object, object], item: object) -> object:
+    current = item
+    while parent[current] != current:
+        parent[current] = parent[parent[current]]
+        current = parent[current]
+    return current
+
+
+def _union(parent: dict[object, object], left: object, right: object) -> bool:
+    left_root = _find(parent, left)
+    right_root = _find(parent, right)
+    if left_root == right_root:
+        return False
+    if right_root.value < left_root.value:
+        left_root, right_root = right_root, left_root
+    parent[right_root] = left_root
+    return True
+
+
+def _component_count(parent: dict[object, object]) -> int:
+    return len({_find(parent, item) for item in parent})
