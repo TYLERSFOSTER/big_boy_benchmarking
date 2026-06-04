@@ -43,6 +43,7 @@ from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.do
     write_second_serious_comparison_docs,
 )
 from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.runner import (
+    comparison_spec_for_instance,
     run_second_serious_comparison,
 )
 from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.thresholds import (
@@ -62,6 +63,16 @@ def test_second_serious_ids_are_exported_and_distinct() -> None:
         ids.SECOND_SERIOUS_SCHEMA_COMPARISON_EVALUATION_ID
         != ids.NOISY_RATE_FULL_TOWER_TRAINING_EVALUATION_ID
     )
+
+
+def test_second_serious_resolver_supports_wide_span18_instance() -> None:
+    spec = comparison_spec_for_instance("wide_span18")
+
+    assert spec.environment_instance_id == "counterpoint_symbolic_n3_wide_20_108_span18_v001"
+    assert spec.pitch_min == 20
+    assert spec.pitch_max == 108
+    assert spec.max_outer_span == 18
+    assert spec.allowed_outer_interval_classes == (0, 3, 4, 5, 7, 8, 9)
 
 
 def test_second_serious_paths_reject_outside_repo(

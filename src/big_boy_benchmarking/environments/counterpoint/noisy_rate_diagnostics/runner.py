@@ -33,12 +33,17 @@ from big_boy_benchmarking.environments.counterpoint import ids
 from big_boy_benchmarking.environments.counterpoint.artifacts import (
     environment_instance_manifest,
 )
-from big_boy_benchmarking.environments.counterpoint.graph import GraphEdge, enumerate_reachable_graph
+from big_boy_benchmarking.environments.counterpoint.graph import (
+    GraphEdge,
+    enumerate_reachable_graph,
+)
 from big_boy_benchmarking.environments.counterpoint.instances import (
     MEDIUM_INSTANCE_ID,
     SMALL_INSTANCE_ID,
+    WIDE_SPAN18_INSTANCE_ID,
     default_medium_spec,
     default_small_spec,
+    default_wide_span18_spec,
 )
 from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.config import (
     DEFAULT_EPISODES_PER_REPLICATE,
@@ -61,7 +66,6 @@ from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.event
     EndpointCoalescenceSummaryRow,
     NoisyRateABCSelectionEventRow,
     NoisyRateABCTierSignalEventRow,
-    NoisyRateAggregateTableRow,
     NoisyRateControlEventRow,
     NoisyRateEpisodeRow,
     NoisyRateEvaluationRunIndexRow,
@@ -71,7 +75,6 @@ from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.event
     NoisyRateSelectionSummaryRow,
     NoisyRateSourceCoverageSummaryRow,
     NoisyRateStepRow,
-    NoisyRateThresholdSummaryRow,
     NoisyRateTowerShapeSummaryRow,
 )
 from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.manifests import (
@@ -174,6 +177,12 @@ def noisy_rate_spec_for_instance(instance_id: str) -> CounterpointInstanceSpec:
         return default_small_spec()
     if instance_id == "medium" or instance_id == MEDIUM_INSTANCE_ID:
         return default_medium_spec()
+    if instance_id in {
+        "wide_span18",
+        "wide_20_108_span18",
+        WIDE_SPAN18_INSTANCE_ID,
+    }:
+        return default_wide_span18_spec()
     if instance_id == "tiny" or instance_id.endswith("_tiny_v001"):
         raise ValueError("tiny is not part of noisy-rate diagnostics")
     raise ValueError(f"unknown counterpoint noisy-rate instance: {instance_id}")

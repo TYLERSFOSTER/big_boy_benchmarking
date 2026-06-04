@@ -34,9 +34,11 @@ from big_boy_benchmarking.environments.counterpoint.instances import (
     MEDIUM_INSTANCE_ID,
     SMALL_INSTANCE_ID,
     TINY_INSTANCE_ID,
+    WIDE_SPAN18_INSTANCE_ID,
     default_medium_spec,
     default_small_spec,
     default_tiny_spec,
+    default_wide_span18_spec,
 )
 from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.runner import (
     _active_action_cell_count,
@@ -497,6 +499,12 @@ def comparison_spec_for_instance(instance_id: str) -> CounterpointInstanceSpec:
         return default_small_spec()
     if instance_id in {"medium", MEDIUM_INSTANCE_ID}:
         return default_medium_spec()
+    if instance_id in {
+        "wide_span18",
+        "wide_20_108_span18",
+        WIDE_SPAN18_INSTANCE_ID,
+    }:
+        return default_wide_span18_spec()
     raise ValueError(f"unknown counterpoint comparison instance id: {instance_id}")
 
 

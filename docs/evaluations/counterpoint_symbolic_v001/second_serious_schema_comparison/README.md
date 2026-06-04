@@ -1,140 +1,54 @@
-# Counterpoint Second Serious Schema Comparison - Full-Iterated Repair Run
+# Counterpoint Second Serious Schema Comparison
 
 ![Artifacts: Complete](badges/artifacts_complete.svg)
-![Behavior: Diagnostic](badges/behavior_diagnostic.svg)
-![Goals: Blocked](badges/goals_blocked.svg)
 ![Candidates: 1](badges/candidates.svg)
-![Sustained Hits: 0](badges/threshold_hits.svg)
+![Hits: 1](badges/threshold_hits.svg)
 ![Pairs: 0/1 unblocked](badges/pairs.svg)
 ![Scope: Schema Compare](badges/scope_schema_comparison.svg)
 ![Provenance: Repo Artifacts](badges/provenance_repo_artifacts.svg)
 
-This is the repo-side human-readable readout for the repaired full-iterated
-Schema 1 run. The previous `[108,54]` artifact was only one-drop side evidence.
-This artifact uses the same `1/18` noisy-rate contraction process, then
-continues tier by tier until the sampled quotient process reaches a terminal
-tier.
+This repository directory is the human-readable readout surface for the second serious counterpoint schema-comparison evaluation.
 
 ## Status At A Glance
 
-- Artifact evidence: complete. The repaired run wrote manifests, run index,
-  aggregate tables, tower shape tables, threshold windows, paired comparison,
-  and a repo-side `readout_source.json`.
-- Tower source: `full_iterated_noisy_rate`, explicitly recorded in
-  `evaluation_budget_lock.json`.
-- Schema 1 runtime tower: `[108, 54, 27, 19, 14]` state cells, with active
-  action-cell sequence `[1140, 1029, 647, 488, 215]`.
-- Terminal tier: tier `4` has 14 state cells. It is not a one-cell degenerate
-  tier; the iterative process stopped because the next quotient sampling step
-  produced no further selected representative edge under this `1/18` rule.
-- Behavioral result: diagnostic. Schema 0 is `transient_hit_only`; Schema 1 is
-  `never_hit` at `R = 13.0`.
-- Goal result: blocked for speed-to-sustained-hit comparison. There is no valid
-  delta because neither side has a sustained-hit episode.
+- Artifact evidence: `complete`.
+- Run mode: `smoke_schema_comparison_first_sustained_hit`.
+- Instance: `counterpoint_symbolic_n3_wide_20_108_span18_v001`.
+- Threshold value: `12.0`.
+- Paired rows: `1`.
+- Sustained-hit rows: `1`.
 
 ## Summary of Goals Behind this Evaluation
 
-The goal of this repair was to execute the actual requested Schema 1 object:
-not a one-drop candidate, but a full iterated tower. The selected source
-candidate still starts from the PO-requested `1/18` noisy-rate contraction whose
-first drop is `[108,54]`, but Schema 1 now keeps applying the contraction
-process tier by tier.
-
-The comparison remains:
-
-- `schema0_no_contraction`: the total-graph/no-drop control arm;
-- `schema1_noisy_rate_one_drop`: the named Schema 1 class, now sourced by the
-  full-iterated noisy-rate tower for this run.
-
-The intended measurable claim is still bounded:
-
-```text
-At threshold R, under the locked 4-of-5 persistence rule, does one schema reach
-sustained total-space adequacy faster than the other on the matched pair?
-```
-
-This run answers the structural repair question and provides diagnostic
-learning evidence. It does not support a positive speed-to-hit comparison at
-`R = 13.0`.
+The goal is to compare schema conditions, not old runner paths: `schema0_no_contraction` versus selected `schema1_noisy_rate_one_drop` candidates under a matched active-tier tower-control harness. The main measurement is first sustained total-space adequacy under a locked `episode_total_reward` threshold and a 4-of-5 persistence rule.
 
 ## Summary of Methodology Behind this Evaluation
 
-The run uses the same promoted source candidate:
-
-```text
-counterpoint_symbolic_n3_small_v001-p001_over_018-schema0
-```
-
-The CLI explicitly targets that candidate and explicitly requests full-iterated
-Schema 1 construction:
-
-```text
---candidate-id counterpoint_symbolic_n3_small_v001-p001_over_018-schema0
---schema1-tower-source full_iterated_noisy_rate
-```
-
-Tier `1` matches the existing one-drop source prefix `[108,54]`. Later tiers
-are produced by resampling representative quotient edges with the same
-noisy-rate process and scheduling one contraction block per successful
-iteration. The observed full runtime sequence is:
-
-```text
-tier 0: 108 state cells, 1140 active action cells
-tier 1: 54 state cells, 1029 active action cells
-tier 2: 27 state cells, 647 active action cells
-tier 3: 19 state cells, 488 active action cells
-tier 4: 14 state cells, 215 active action cells
-```
-
-The run uses one candidate, one replicate per arm, 8 episodes per arm,
-`tensor_available_disabled`, threshold `R = 13.0`, and the `4_of_5`
-persistence rule.
-
-## One-Screen Verdict
-
-The repair was executed. Schema 1 is no longer the wrong two-tier one-drop
-artifact. The selected candidate summary now records the complete observed
-runtime tier sequence `[108,54,27,19,14]`, and the tower-shape table records all
-five tiers.
-
-The behavioral comparison is still blocked. Schema 0 first crosses `R = 13.0`
-but never satisfies the persistence rule. Schema 1 never crosses `R = 13.0` in
-this short run. Therefore the paired comparison remains
-`blocked_or_non_sustained`, with `claim_blocked=True`.
-
-This is diagnostic evidence about the full-iterated Schema 1 tower, not a
-positive schema-performance claim.
+Schema 1 candidates are loaded from the noisy-rate full-tower training readout source, preserving provenance back to the noisy-rate contraction diagnostic. For each selected Schema 1 candidate, the runner creates a paired Schema 0 no-contraction condition with the same seed bundle, episode budget, learner family, threshold policy, and linearization mode.
 
 ## Schema Arms
 
 | Schema | Runs | Sustained | Transient | Never | Median Episodes |
 | --- | --- | --- | --- | --- | --- |
-| schema0_no_contraction | 1 | 0 | 1 | 0 |  |
+| schema0_no_contraction | 1 | 1 | 0 | 0 | 5 |
 | schema1_noisy_rate_one_drop | 1 | 0 | 0 | 1 |  |
 
 ## First Sustained Hit Summary
 
 | Run | Schema | Status | First Sustained Episode |
 | --- | --- | --- | --- |
-| counterpoint_symbolic_n3_small_v001-p001_over_018-schema0-schema0_no_contraction-trainrep0 | schema0_no_contraction | transient_hit_only |  |
-| counterpoint_symbolic_n3_small_v001-p001_over_018-schema0-schema1_noisy_rate_one_drop-trainrep0 | schema1_noisy_rate_one_drop | never_hit |  |
+| counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0-schema0_no_contraction-trainrep0 | schema0_no_contraction | sustained_hit | 4 |
+| counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0-schema1_noisy_rate_one_drop-trainrep0 | schema1_noisy_rate_one_drop | never_hit |  |
 
 ## Paired Comparison Summary
 
 | Candidate Group | Seed | Pair Status | Delta | Blocked |
 | --- | --- | --- | --- | --- |
-| counterpoint_symbolic_n3_small_v001-p001_over_018-schema0 | seed-7fe8666539580bdb | blocked_or_non_sustained |  | True |
+| counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0 | seed-7fe8666539580bdb | blocked_or_non_sustained |  | True |
 
 ## Claim Boundary
 
-This readout may claim that the full-iterated Schema 1 tower source was
-implemented and executed for the targeted `1/18` candidate. It may claim that
-the observed full runtime tower shape is `[108,54,27,19,14]`. It may claim that
-the paired threshold comparison is blocked at `R = 13.0`.
-
-It may not claim Schema 1 is generally worse, Schema 0 is generally better,
-tower abstraction is generally bad, tensor-enabled behavior, GPU/CUDA behavior,
-musical quality, or a final serious schema-performance result.
+This readout may support a bounded speed-to-sustained-hit comparison only when paired rows are unblocked. It may not claim broad abstraction superiority, musical quality, direct-runner advantage, tensor-enabled behavior, or general schema dominance.
 
 ## Current Claim Rows
 
@@ -151,7 +65,7 @@ execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at 
 Source artifact root:
 
 ```text
-docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/full_iterated_p001_over_018_s0_r013_001
+/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/wide_span18_full_iterated_p001_over018_s0_r012_001
 ```
 
 ## Clarifying Questions And Turns
@@ -539,34 +453,422 @@ docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/art
 > That means the engineering repair succeeded, but the run is diagnostic evidence rather than a positive speed-to-hit result.
 
 #### PO Turn
-> [...]
+> Re-run at `R=12.0`
 
 #### Embedded Engineering Consultant / Codex Turn
-> [...]
+> Executed.
+>
+> I reran the repaired full-iterated Schema 1 evaluation at:
+>
+> ```text
+> R = 12.0
+> ```
+>
+> into this new artifact root:
+>
+> ```text
+> docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/full_iterated_p001_over_018_s0_r012_001
+> ```
+>
+> The structural repair remains in place. Schema 1 is still the full iterated
+> `1/18` noisy-rate tower:
+>
+> ```text
+> [108, 54, 27, 19, 14]
+> ```
+>
+> The threshold result changed in the expected direction, but it still does
+> not yield an unblocked speed comparison:
+>
+> - Schema 0: `sustained_hit`, first sustained hit at episode index `4`,
+>   reported as `episodes_to_sustained_hit = 5`;
+> - Schema 1 full-iterated tower: `never_hit`;
+> - paired status: `blocked_or_non_sustained`;
+> - claim status: `claim_blocked`.
+>
+> So this run says something useful but bounded. Lowering `R` from `13.0` to
+> `12.0` makes the no-contraction control satisfy the 4-of-5 persistence rule,
+> while the full-iterated Schema 1 arm still never crosses the threshold. Since
+> Schema 1 has no sustained-hit episode count, we still cannot compute a valid
+> "`Schema 1 minus Schema 0` episodes-to-hit" delta.
+>
+> The correct interpretation is:
+>
+> ```text
+> At R = 12.0, this matched pair does not support a speed-to-hit comparison,
+> because only Schema 0 reaches sustained threshold.
+> ```
+>
+> It is not a positive comparison result. It is evidence that this full-iterated
+> Schema 1 tower is behaviorally struggling under the current short smoke budget
+> and threshold policy, while Schema 0 can sustain the lowered threshold.
 
 #### PO Turn
-> [...]
+> Tell me about the current "short smoke budget".
 
 #### Embedded Engineering Consultant / Codex Turn
-> [...]
+> The current "short smoke budget" means this run is deliberately tiny. It is
+> big enough to prove that the paired comparison harness executes and that the
+> artifact/readout surfaces are populated, but it is not big enough to support a
+> serious statistical or learning-performance conclusion.
+>
+> For the current `R = 12.0` artifact, the locked budget is:
+>
+> ```text
+> instance: counterpoint_symbolic_n3_small_v001
+> candidate_cap: 1
+> selected candidate: counterpoint_symbolic_n3_small_v001-p001_over_018-schema0
+> schema arms: schema0_no_contraction vs schema1_noisy_rate_one_drop
+> schema1_tower_source: full_iterated_noisy_rate
+> episodes_per_replicate: 8
+> training_replicates_per_arm: 1
+> total paired runs: 2
+> threshold_value: 12.0
+> persistence rule: 4 hits in a 5-episode window
+> linearization_mode: tensor_available_disabled
+> ```
+>
+> So the whole comparison is one matched candidate, one seed/replicate, and 8
+> training episodes per arm. That is why I keep calling it smoke or diagnostic.
+> It can tell us whether a particular pair of arms runs, whether the full tower
+> is actually constructed, whether the threshold policy is populated, and whether
+> any obvious structural failure occurs. It cannot tell us "Schema 0 generally
+> beats Schema 1" or "Schema 1 generally fails" because there is no candidate
+> distribution, no seed distribution, no replicate distribution, and almost no
+> training horizon.
+>
+> The budget is also tight relative to the persistence rule. With only 8
+> episodes and a 4-of-5 sustained-hit rule, the first possible sustained-hit
+> window is already a large fraction of the entire run. A run can cross the
+> threshold transiently and still be blocked because it never gets enough
+> qualifying episodes inside one 5-episode window.
+>
+> In concrete terms, the `R = 12.0` run tells us:
+>
+> - the full-iterated Schema 1 tower `[108,54,27,19,14]` was built and used;
+> - Schema 0 sustained the threshold in this one short run;
+> - Schema 1 never crossed the threshold in this one short run;
+> - the pair is still blocked as a speed-to-hit comparison because only one arm
+>   has an episodes-to-sustained-hit value.
+>
+> The next non-smoke budget would need to expand at least three knobs:
+>
+> ```text
+> more episodes per replicate
+> more training replicates per arm
+> more candidate groups / schema seeds
+> ```
+>
+> Only after that should we start treating the paired deltas as evidence about
+> the schema condition rather than evidence about one tiny diagnostic run.
 
 #### PO Turn
-> [...]
+> What are the trichord restrictions here, like range, etc?
 
 #### Embedded Engineering Consultant / Codex Turn
-> [...]
+> For the current second-serious run, the relevant instance is:
+>
+> ```text
+> counterpoint_symbolic_n3_small_v001
+> ```
+>
+> Here a "trichord" is just the three-voice state:
+>
+> ```text
+> (low_pitch, middle_pitch, high_pitch)
+> ```
+>
+> plus a beat phase. The pitch object is not yet a rich music-theory chord
+> type; it is an ordered triple of MIDI pitches filtered by the v001 legality
+> contract.
+>
+> The hard state/trichord restrictions are:
+>
+> ```text
+> voice_count: 3
+> pitch band: 60..72 inclusive
+> beat phases: 0,1,2,3
+> strict order: low < middle < high
+> maximum outer span: high - low <= 12 semitones
+> adjacent interval classes allowed: 3,4,5,7,8,9
+> outer interval classes allowed: 0,3,4,5,7,8,9
+> lower/root pitch-class relationship to tonic C allowed: 0,2,4,5,7,9,11
+> ```
+>
+> In plainer terms: all three voices live in the shared MIDI band C4 through
+> C5, they cannot cross or collide, and the whole sonority must fit inside an
+> octave. Adjacent voices may form minor/major thirds, fourths, fifths, or
+> minor/major sixths modulo octave. The outer pair may also be octave/unison
+> class `0`.
+>
+> For this small instance, those filters leave:
+>
+> ```text
+> 27 legal pitch trichords per beat phase
+> 4 beat phases
+> 108 total legal/reachable state nodes
+> ```
+>
+> The four deterministic initial states are:
+>
+> ```text
+> (60, 64, 67) at beat 0
+> (62, 66, 69) at beat 0
+> (60, 65, 68) at beat 0
+> (60, 63, 67) at beat 0
+> ```
+>
+> The hard action/motion restrictions are:
+>
+> ```text
+> one simultaneous pitch delta per voice
+> each delta is in {-2,-1,0,1,2}
+> stationary voices are allowed
+> next trichord must satisfy the same state legality rules
+> beat phase advances by 1 mod 4
+> horizon is 8 steps
+> forbidden same-direction parallels on interval classes 0 and 7
+> ```
+>
+> The last line means that if a voice pair, including the outer pair, preserves
+> a perfect-octave/unison class or fifth class while both voices move nonzero
+> in the same direction, the edge is illegal.
+>
+> Separately, there is reward shaping, but it is not the same thing as hard
+> legality. The reward prefers valid transitions, allowed intervals, smaller
+> movement, some contrary/oblique motion structure, center-range comfort, beat
+> phase completion, and terminal completion. But the hard trichord filter is
+> the pitch band, strict ordering, interval-class constraints, root/lower-voice
+> pitch-class constraint, and max outer span listed above.
 
 #### PO Turn
-> [...]
+> Re-run with these:
+> - voice_count: 3
+> - pitch band: 20..108 inclusive
+> - beat phases: 0,1,2,3 (meaning beat-in-measure?)
+> - strict order: low < middle < high (what does this even mean?)
+> - maximum outer span: high - low <= 18 semitones
+> - adjacent interval classes allowed: 3,4,5,7,8,9
+> - outer interval classes allowed: 0,3,4,5,7,8,9,12
+> - lower/root pitch-class relationship to tonic C allowed: 0,2,4,5,7,9,11
 
 #### Embedded Engineering Consultant / Codex Turn
-> [...]
+> I cannot honestly call this a simple rerun yet. This is a new instance
+> contract, not just a new threshold or new artifact folder.
+>
+> There are three important clarifications.
+>
+> First, yes: "beat phases: 0,1,2,3" currently means beat-in-measure in this
+> environment. The state stores `beat_index`, and each legal transition advances
+> it by `+1 mod 4`.
+>
+> Second, "strict order: low < middle < high" means the three pitches are
+> always ordered as fixed low/middle/high voices. The environment rejects states
+> where voices collide or cross. So `(60,64,67)` is legal with respect to order,
+> but `(64,60,67)` and `(60,60,67)` are not. This is not yet modelling named
+> melodic voice identities that can cross and then be reidentified; it is a
+> stricter ordered-voice abstraction.
+>
+> Third, `12` is not valid under the current interval-class contract. The code
+> defines interval classes modulo 12 and validates them in `0..11`. So an octave
+> is already interval class `0`. If the intended meaning is "allow octave as an
+> outer span/outer sonority," then the current correct encoding is:
+>
+> ```text
+> outer interval classes allowed: 0,3,4,5,7,8,9
+> ```
+>
+> with the separate span constraint:
+>
+> ```text
+> high - low <= 18
+> ```
+>
+> I did a local feasibility check using that interpretation, without writing an
+> evaluation artifact. The proposed instance would have:
+>
+> ```text
+> legal trichords per beat phase: 895
+> beat phases: 4
+> reachable state count: 3580
+> reachable edge count: 49172
+> branch factor mean: about 13.74
+> branch factor min/max: 3 / 22
+> deterministic initial states:
+>   (60,64,67) at beat 0
+>   (60,63,67) at beat 0
+>   (60,64,68) at beat 0
+>   (60,63,68) at beat 0
+> ```
+>
+> So the widened instance is very plausible as a real next diagnostic scale,
+> but the second-serious comparison runner cannot currently point at it by CLI
+> flag. The runner knows named comparison instances `tiny`, `small`, and
+> `medium`; the current candidate source also contains candidates for existing
+> named instances, not for this new `20..108/span18` instance.
+>
+> Therefore the correct next implementation move is:
+>
+> ```text
+> 1. add a new named instance spec for this widened trichord contract;
+> 2. decide explicitly that outer interval class 12 is represented as 0, not
+>    stored as 12;
+> 3. run the noisy-rate candidate-generation/full-tower-training diagnostic for
+>    that new named instance;
+> 4. then run second-serious schema comparison against that new candidate source.
+> ```
+>
+> I should not fake this by hand-editing the current `small` run, because the
+> present artifact is provenance-bound to `counterpoint_symbolic_n3_small_v001`.
+> This requested rerun needs a new instance id and a new source candidate chain.
 
 #### PO Turn
-> [...]
+> Do this:
+> 1. add a new named instance spec for this widened trichord contract;
+> 2. decide explicitly that outer interval class 12 is represented as 0, not
+   stored as 12;
+> 3. run the noisy-rate candidate-generation/full-tower-training diagnostic for
+   that new named instance;
+> 4. then run second-serious schema comparison against that new candidate source.
 
 #### Embedded Engineering Consultant / Codex Turn
-> [...]
+> Executed.
+>
+> I added the new named widened instance:
+>
+> ```text
+> counterpoint_symbolic_n3_wide_20_108_span18_v001
+> ```
+>
+> The contract is:
+>
+> ```text
+> voice_count: 3
+> pitch band: 20..108 inclusive
+> beat phases: 0,1,2,3
+> strict order: low < middle < high
+> maximum outer span: high - low <= 18 semitones
+> adjacent interval classes allowed: 3,4,5,7,8,9
+> outer interval classes allowed: 0,3,4,5,7,8,9
+> lower/root pitch-class relationship to tonic C allowed: 0,2,4,5,7,9,11
+> ```
+>
+> I made the `12` decision explicitly: the code's interval-class contract is
+> modulo 12, so octave/compound-octave permission is represented as interval
+> class `0`, not stored as literal `12`. The larger vertical reach is carried
+> by the separate `max_outer_span = 18` constraint.
+>
+> I wired that named instance through the noisy-rate diagnostic resolver and
+> the second-serious comparison resolver. I also added focused tests pinning the
+> widened graph size and resolver behavior.
+>
+> The widened instance feasibility is now part of the code/test contract:
+>
+> ```text
+> legal trichords per beat phase: 895
+> reachable state count: 3580
+> reachable edge count: 49172
+> initial states:
+>   (60,64,67) at beat 0
+>   (60,63,67) at beat 0
+>   (60,64,68) at beat 0
+>   (60,63,68) at beat 0
+> ```
+>
+> Then I ran the full provenance chain.
+>
+> First, widened noisy-rate candidate generation:
+>
+> ```text
+> docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001
+> ```
+>
+> That completed with `run_count = 2`. The one-drop p1/18 candidate shape was:
+>
+> ```text
+> [3580, 1035]
+> ```
+>
+> Second, widened noisy-rate full-tower training promotion:
+>
+> ```text
+> docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/wide_span18_p001_over018_s0_001
+> ```
+>
+> That completed with one selected candidate:
+>
+> ```text
+> counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0
+> ```
+>
+> The promoted candidate is eligible, but its parent training health is
+> `trainable_with_warnings`, not clean. Its source shape remained:
+>
+> ```text
+> state cells: [3580, 1035]
+> active action cells: [49172, 24258]
+> ```
+>
+> Third, I ran second-serious schema comparison against that widened source:
+>
+> ```text
+> docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/wide_span18_full_iterated_p001_over018_s0_r012_001
+> ```
+>
+> This used:
+>
+> ```text
+> R = 12.0
+> candidate_id = counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0
+> schema1_tower_source = full_iterated_noisy_rate
+> episodes_per_arm = 8
+> replicates_per_arm = 1
+> ```
+>
+> The full-iterated Schema 1 tower is much deeper than the previous small
+> instance tower:
+>
+> ```text
+> [3580, 1035, 729, 555, 435, 354, 297, 240, 217, 185, 160, 141, 123, 110, 98, 82, 76, 69, 62, 59, 54, 50, 47, 45, 42, 39, 37, 32, 31, 30, 25, 22, 19]
+> ```
+>
+> The paired behavioral result is still blocked:
+>
+> ```text
+> Schema 0 no-contraction:
+>   hit_status = sustained_hit
+>   episodes_to_sustained_hit = 5
+>   concrete_step_count = 64
+>
+> Schema 1 full-iterated noisy-rate tower:
+>   hit_status = never_hit
+>   concrete_step_count = 0
+>   lift_success_count = 0
+>   learner_update_count = 56
+>   comparison_health_class = schema1_lift_failure_dominant
+>
+> pair_status = blocked_or_non_sustained
+> claim_blocked = True
+> ```
+>
+> The key new diagnostic is not merely "Schema 1 did worse." The stronger
+> concrete observation is that the widened full-iterated Schema 1 arm descended
+> to the deepest tier and then failed to realize concrete movement:
+>
+> ```text
+> tier 32 explore events: 200
+> tier 32 train events: 56
+> lift failures at tier 32: 200
+> lift failure reason: no_lift_candidate_from_current_state
+> concrete steps emitted by Schema 1: 0
+> ```
+>
+> So the execution request is complete, but the result is diagnostic rather
+> than comparative. We now have evidence that this widened full-iterated p1/18
+> tower can be constructed, but the current short smoke controller gets trapped
+> at the deepest abstraction tier with no lift candidate from the current
+> state. That is probably the next issue to understand before treating this as
+> a serious performance comparison.
 
 #### PO Turn
 > [...]

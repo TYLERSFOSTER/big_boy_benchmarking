@@ -1,18 +1,20 @@
 # Result Readout
 
-The repaired full-iterated run completed artifacts and built the requested
-multi-tier Schema 1 tower:
+## Arm Summary
 
-```text
-[108, 54, 27, 19, 14]
-```
-
-The paired learning comparison is still blocked at `R = 13.0`.
-
-| Schema arm | Tower source | Hit status | Mean reward | Concrete steps | Learner updates |
+| Schema | Runs | Sustained | Transient | Never | Median Episodes |
 | --- | --- | --- | --- | --- | --- |
-| `schema0_no_contraction` | total graph / no drop | `transient_hit_only` | `12.9865` | `64` | `80` |
-| `schema1_noisy_rate_one_drop` | full iterated noisy-rate tower | `never_hit` | `3.0736` | `16` | `128` |
+| schema0_no_contraction | 1 | 1 | 0 | 0 | 5 |
+| schema1_noisy_rate_one_drop | 1 | 0 | 0 | 1 |  |
 
-The pair has `claim_blocked=True`. No speed-to-hit delta is computed because
-neither arm produced a sustained-hit episode.
+## Pair Summary
+
+| Candidate Group | Seed | Pair Status | Delta | Blocked |
+| --- | --- | --- | --- | --- |
+| counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0 | seed-7fe8666539580bdb | blocked_or_non_sustained |  | True |
+
+## Claim Summary
+
+| Claim Status | Pairs | Unblocked | Schema1 Faster | Schema1 Slower |
+| --- | --- | --- | --- | --- |
+| claim_blocked | 1 | 0 | 0 | 0 |

@@ -5,6 +5,12 @@ from pathlib import Path
 import pytest
 
 from big_boy_benchmarking.cli.main import main
+from big_boy_benchmarking.environments.counterpoint.actions import CounterpointAction
+from big_boy_benchmarking.environments.counterpoint.graph import (
+    GraphEdge,
+    enumerate_reachable_graph,
+)
+from big_boy_benchmarking.environments.counterpoint.instances import default_small_spec
 from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics import (
     paths as paths_module,
 )
@@ -24,12 +30,6 @@ from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.runne
     noisy_rate_spec_for_instance,
     run_noisy_rate_diagnostics,
 )
-from big_boy_benchmarking.environments.counterpoint.actions import CounterpointAction
-from big_boy_benchmarking.environments.counterpoint.graph import (
-    GraphEdge,
-    enumerate_reachable_graph,
-)
-from big_boy_benchmarking.environments.counterpoint.instances import default_small_spec
 from big_boy_benchmarking.environments.counterpoint.schemas import (
     noisy_rate_monotonicity_report,
     noisy_rate_source_coverage_report,
@@ -48,12 +48,18 @@ def test_noisy_rate_budget_rejects_tiny() -> None:
         NoisyRateDiagnosticsBudget(instance_ids=("tiny",))
 
 
-def test_noisy_rate_instance_resolver_supports_small_and_medium() -> None:
+def test_noisy_rate_instance_resolver_supports_named_instances() -> None:
     small = noisy_rate_spec_for_instance("small")
     medium = noisy_rate_spec_for_instance("medium")
+    wide = noisy_rate_spec_for_instance("wide_20_108_span18")
 
     assert small.environment_instance_id == "counterpoint_symbolic_n3_small_v001"
     assert medium.environment_instance_id == "counterpoint_symbolic_n3_medium_v001"
+    assert wide.environment_instance_id == "counterpoint_symbolic_n3_wide_20_108_span18_v001"
+    assert wide.pitch_min == 20
+    assert wide.pitch_max == 108
+    assert wide.max_outer_span == 18
+    assert wide.allowed_outer_interval_classes == (0, 3, 4, 5, 7, 8, 9)
 
 
 def test_rate_parser_uses_explicit_denominators() -> None:
