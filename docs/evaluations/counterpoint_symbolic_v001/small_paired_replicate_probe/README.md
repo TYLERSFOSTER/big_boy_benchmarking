@@ -87,11 +87,19 @@ Source artifact root:
 
 #### Project Owner / Evaluator Turn
 
-> ...
+> Tell me everything you can about the two orange badges here.
 
 #### Embedded Engineering Consultant / Codex Turn
 
-> ...
+> The two orange badges are `Unblocked: 0/1` and `S1 Margin Wins: 0`.
+>
+> `Unblocked: 0/1` means the probe successfully produced one matched Schema 0 / Schema 1 pair, but zero of those pairs are claim-bearing under the sustained-hit rule. This is not a liftability failure and not an artifact failure. The run completed, the artifacts are present, and `Lift Failures: 0` is green. The blocking reason is behavioral/evaluation-side: the pair is marked `blocked_or_non_sustained` because at least one arm did not establish a sustained hit.
+>
+> The important detail is that this is a smoke run with `episodes_per_replicate = 4`, while the threshold policy is a `4_of_5` persistence rule at threshold `13.0`. With only four episodes, the run is not really capable of producing a full five-episode persistence window. Both arms are recorded as `transient_hit_only` with `threshold_crossed_but_persistence_rule_not_met`. Schema 0 has episode rewards `13.7583`, `12.9614`, `13.6356`, `13.1167`; Schema 1 has `13.1697`, `13.7636`, `13.4409`, `13.7439`. So Schema 1 actually looks superficially encouraging in this tiny sample, but the formal sustained-hit machinery refuses to count it because this artifact root is smoke-budgeted.
+>
+> `S1 Margin Wins: 0` is downstream from that blockage. A Schema 1 margin win requires an unblocked pair with a valid post-hit comparison window. Since there are zero unblocked pairs, the readout has no legal post-hit margin comparison to count. So `0` here should not be read as "Schema 1 failed to beat Schema 0." It means "the margin question was not adjudicated in this smoke run."
+>
+> My current interpretation: the orange badges are doing the right thing. They warn that this readout validates the plumbing and provenance of the small paired replicate probe, but does not yet evaluate the intended learning claim. For a meaningful version, we need a non-smoke artifact root with enough episodes to support the persistence window, and probably multiple matched seed bundles so `Unblocked` and `S1 Margin Wins` become real distributional summaries rather than single-pair smoke indicators.
 
 #### Project Owner / Evaluator Turn
 
