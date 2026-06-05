@@ -343,7 +343,11 @@ def write_fraction_sweep_diagnostics_docs(
                 "",
                 *tier_lines,
                 "",
-                "The tier table intentionally separates active action-cell count from raw historical action-cell record count. A collapsed tier can have zero live executable action cells while retaining many raw historical records from tower construction; the raw count is not the live control surface.",
+                "The tier table intentionally separates active action-cell count from raw "
+                "action-cell storage count. A collapsed tier can have zero live executable "
+                "action cells; if raw storage records are also zero, the upstream partition "
+                "layer has already cleaned historical records. The active count is the live "
+                "control surface.",
                 "",
                 "## Schema Width Table",
                 "",
@@ -476,7 +480,8 @@ def write_fraction_sweep_diagnostics_docs(
                 "Core evidence tables:",
                 "",
                 "- `results/schema_fraction_summary.csv`: scheduled edge counts and fraction widths.",
-                "- `results/tower_shape_summary.csv`: tier state-cell shape, active action-cell counts, and raw historical action-record counts.",
+                "- `results/tower_shape_summary.csv`: tier state-cell shape, active "
+                "action-cell counts, and raw action-cell storage counts.",
                 "- `results/endpoint_coalescence_summary.csv`: repeated endpoint-coalescence diagnostics for the scheduled block.",
                 "- `results/collapse_threshold_summary.csv`: first full collapse, first near collapse, last nontrivial numerator, and sweep verdict.",
                 "- `results/legacy_one_third_equivalence_summary.csv`: `6/18` equivalence against the old first one-third block.",
@@ -501,7 +506,8 @@ def write_fraction_sweep_diagnostics_docs(
                 "",
                 "- scheduled contraction block: the selected `n/18` source-local outgoing edges for one arm.",
                 "- repeated endpoint coalescence: the current tower operation applied to scheduled edges.",
-                "- active action-cell count: action cells reachable from active state cells, excluding stale historical records.",
+                "- active action-cell count: action cells reachable from active state "
+                "cells; this is the live control surface.",
                 "- diagnostic-only: the result explains structure and runtime behavior, not learning advantage.",
                 "",
             ]

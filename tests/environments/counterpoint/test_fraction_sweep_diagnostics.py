@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 from big_boy_benchmarking.cli.main import main
+from big_boy_benchmarking.environments.counterpoint import ids
 from big_boy_benchmarking.environments.counterpoint.actions import CounterpointAction
 from big_boy_benchmarking.environments.counterpoint.fraction_sweep_diagnostics import (
     paths as paths_module,
@@ -24,7 +25,10 @@ from big_boy_benchmarking.environments.counterpoint.fraction_sweep_diagnostics.r
     fraction_sweep_spec_for_instance,
     run_fraction_sweep_diagnostics,
 )
-from big_boy_benchmarking.environments.counterpoint.graph import GraphEdge, enumerate_reachable_graph
+from big_boy_benchmarking.environments.counterpoint.graph import (
+    GraphEdge,
+    enumerate_reachable_graph,
+)
 from big_boy_benchmarking.environments.counterpoint.instances import default_small_spec
 from big_boy_benchmarking.environments.counterpoint.schemas import (
     legacy_one_third_equivalence_report,
@@ -35,7 +39,6 @@ from big_boy_benchmarking.environments.counterpoint.state import CounterpointSta
 from big_boy_benchmarking.environments.counterpoint.tower_adapter import (
     build_counterpoint_partition_tower,
 )
-from big_boy_benchmarking.environments.counterpoint import ids
 
 
 def test_fraction_sweep_budget_rejects_tiny() -> None:
@@ -103,7 +106,7 @@ def test_endpoint_coalescence_summary_tracks_useful_and_redundant_edges() -> Non
     assert summary["processed_edge_index_at_first_singleton"] == 2
 
 
-def test_active_action_cell_count_ignores_stale_historical_records() -> None:
+def test_active_action_cell_count_handles_cleaned_upstream_records() -> None:
     build = build_counterpoint_partition_tower(
         default_small_spec(),
         schema_id=ids.ONE_THIRD_OUTGOING_SCHEMA_ID,
@@ -112,7 +115,8 @@ def test_active_action_cell_count_ignores_stale_historical_records() -> None:
     raw_tier_one = len(build.tower.action_layers[1].edge_ids_by_action_cell)
     active_tier_one = _active_action_cell_count(build.tower, 1)
 
-    assert raw_tier_one > active_tier_one
+    assert raw_tier_one >= active_tier_one
+    assert raw_tier_one == 0
     assert active_tier_one == 0
 
 
@@ -227,4 +231,3 @@ def test_fraction_sweep_cli_run_and_summarize(
     payload = json.loads(capsys.readouterr().out)
     assert payload["status"] == "complete"
     assert (readout_surface / "readout_source.json").exists()
-

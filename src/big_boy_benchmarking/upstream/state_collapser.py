@@ -11,7 +11,7 @@ from pathlib import Path
 from typing import Any
 
 STATE_COLLAPSER_DEPENDENCY_SPEC = (
-    "state-collapser[rl] @ git+https://github.com/TYLERSFOSTER/state_collapser.git@v0.7.1"
+    "state-collapser[rl] @ git+https://github.com/TYLERSFOSTER/state_collapser.git@v0.7.2"
 )
 
 REQUIRED_LINEARIZATION_SYMBOLS = (
@@ -29,9 +29,11 @@ REQUIRED_SERIOUS_TRAINING_SYMBOLS = (
     "ActionSelectionInput",
     "FiberConditionedStage",
     "FrozenQuotientBehavior",
+    "LiftSelector",
     "PathFiber",
     "TabularQLearner",
     "TrainingTransition",
+    "deterministic_first_lift_selector",
 )
 
 REQUIRED_TOWER_CONTROL_SYMBOLS = (
@@ -45,6 +47,13 @@ REQUIRED_TOWER_CONTROL_SYMBOLS = (
 )
 
 REQUIRED_TOWER_RUNTIME_SYMBOLS = ("ExploitExploreTowerRuntime",)
+
+REQUIRED_TOWER_PARTITION_SYMBOLS = (
+    "PartitionInvariantIssue",
+    "PartitionInvariantReport",
+    "PartitionTower",
+    "action_layer_invariant_report",
+)
 
 
 @dataclass(frozen=True)
@@ -65,6 +74,8 @@ class StateCollapserDependencyState:
     tower_control_symbols: tuple[str, ...] = ()
     tower_runtime_import_status: str = "not_checked"
     tower_runtime_symbols: tuple[str, ...] = ()
+    tower_partition_import_status: str = "not_checked"
+    tower_partition_symbols: tuple[str, ...] = ()
     torch_import_status: str = "not_checked"
     cuda_available: bool | None = None
 
@@ -170,6 +181,8 @@ def collect_state_collapser_dependency_state(
             tower_control_symbols=(),
             tower_runtime_import_status="not_checked",
             tower_runtime_symbols=(),
+            tower_partition_import_status="not_checked",
+            tower_partition_symbols=(),
             torch_import_status="not_checked",
             cuda_available=None,
         )
@@ -205,6 +218,10 @@ def collect_state_collapser_dependency_state(
         "state_collapser.tower.runtime",
         REQUIRED_TOWER_RUNTIME_SYMBOLS,
     )
+    tower_partition_status, tower_partition_symbols = _inspect_required_symbols(
+        "state_collapser.tower.partition",
+        REQUIRED_TOWER_PARTITION_SYMBOLS,
+    )
     torch_import_status, cuda_available = _inspect_torch_import_state()
 
     return StateCollapserDependencyState(
@@ -224,6 +241,8 @@ def collect_state_collapser_dependency_state(
         tower_control_symbols=tower_control_symbols,
         tower_runtime_import_status=tower_runtime_status,
         tower_runtime_symbols=tower_runtime_symbols,
+        tower_partition_import_status=tower_partition_status,
+        tower_partition_symbols=tower_partition_symbols,
         torch_import_status=torch_import_status,
         cuda_available=cuda_available,
     )

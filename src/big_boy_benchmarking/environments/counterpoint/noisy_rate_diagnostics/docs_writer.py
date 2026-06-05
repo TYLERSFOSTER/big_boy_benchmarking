@@ -438,7 +438,11 @@ def write_noisy_rate_diagnostics_docs(
                 "",
                 *tier_lines,
                 "",
-                "The tier table intentionally separates active action-cell count from raw historical action-cell record count. A collapsed tier can have zero live executable action cells while retaining many raw historical records from tower construction; the raw count is not the live control surface.",
+                "The tier table intentionally separates active action-cell count from raw "
+                "action-cell storage count. A collapsed tier can have zero live executable "
+                "action cells; if raw storage records are also zero, the upstream partition "
+                "layer has already cleaned historical records. The active count is the live "
+                "control surface.",
                 "",
                 "## Threshold Table",
                 "",
@@ -572,7 +576,8 @@ def write_noisy_rate_diagnostics_docs(
                 "- `results/noisy_rate_selection_consistency_summary.csv`: metadata/runtime selected-edge equality checks.",
                 "- `results/noisy_rate_monotonicity_summary.csv`: coupled-rate nesting checks.",
                 "- `results/noisy_rate_threshold_summary.csv`: first full collapse, first near collapse, last nontrivial rate, and sweep verdict.",
-                "- `results/tower_shape_summary.csv`: tier state-cell shape, active action-cell counts, and raw historical action-record counts.",
+                "- `results/tower_shape_summary.csv`: tier state-cell shape, active "
+                "action-cell counts, and raw action-cell storage counts.",
                 "- `results/endpoint_coalescence_summary.csv`: endpoint-coalescence diagnostics for selected edges.",
                 "- `results/concrete_step_summary.csv`: concrete episode-step evidence.",
                 "- `results/tier_executability_summary.csv`: live executable tier evidence.",
@@ -599,7 +604,8 @@ def write_noisy_rate_diagnostics_docs(
                 "- zero-selected source: a source state whose outgoing edges all scored above the requested rate.",
                 "- scheduled contraction block: the selected edge set for one noisy-rate arm.",
                 "- repeated endpoint coalescence: the current tower operation applied to scheduled edges.",
-                "- active action-cell count: action cells reachable from active state cells, excluding stale historical records.",
+                "- active action-cell count: action cells reachable from active state "
+                "cells; this is the live control surface.",
                 "- diagnostic-only: the result explains structure and runtime behavior, not learning advantage.",
                 "",
             ]
