@@ -871,7 +871,8 @@ Source artifact root:
 > a serious performance comparison.
 
 #### PO Turn
-> [...]
+> 1. Modify the collapse ratio so that this `[3580, 1035, 729, 555, 435, 354, 297, 240, 217, 185, 160, 141, 123, 110, 98, 82, 76, 69, 62, 59, 54, 50, 47, 45, 42, 39, 37, 32, 31, 30, 25, 22, 19]` starts more like `[3580, 535...]`
+> 2. This getting stuck at bottom is really fuckign disturbing. I want an extremely through diagnostic investigation of why.
 
 #### Embedded Engineering Consultant / Codex Turn
 > [...]
