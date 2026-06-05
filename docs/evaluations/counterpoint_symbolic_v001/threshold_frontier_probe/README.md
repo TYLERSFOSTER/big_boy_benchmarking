@@ -82,10 +82,56 @@ Source artifact root:
 
 ## Clarifying Questions And Turns
 
-### Evaluator Turn 1
+#### Evaluator Turn
+
+Tell me everything you can about the read badge here.
+
+#### Codex Turn
+
+The red badge is the `Frontier` badge:
+
+```text
+Frontier: frontier_blocked_by_artifacts
+```
+
+This is the top-level claim-status badge for the threshold-frontier probe. It does not mean the repository artifact tree is missing or corrupt. The artifact status is separately `complete`, liftability is separately `state_collapser_v072_pointwise`, and lift failures are separately `0`. Here, `frontier_blocked_by_artifacts` means that the generated evidence tables do not contain any claim-bearing threshold rows from which a frontier can be inferred.
+
+The concrete reason is visible in the threshold rows. This smoke run tested two thresholds, `12.0` and `13.0`. At both thresholds, both arms have sustained-hit count `0`, sustained-hit rate `0.0`, and `passes_frontier_threshold = False`. The paired rows also show both threshold pairs as `blocked_or_non_sustained`, with both Schema 0 and Schema 1 recorded as `transient_hit_only`. So the frontier layer has no passing threshold for Schema 0, no passing threshold for Schema 1, no shared passing threshold, and no Schema-1-only passing threshold.
+
+That makes the red badge different from a negative scientific result. It is not saying "Schema 1 failed the frontier test" in a stable way. It is saying "this particular smoke artifact cannot support a frontier claim." The strongest interpretation is that the machinery ran, the nested threshold-local second-serious comparisons were harvested, and the readout correctly refused to promote a frontier conclusion.
+
+The recommended threshold `13.0` should be read carefully in that context. It is a blue operational recommendation for the next paired-replicate probe, not evidence that `13.0` passed here. In this smoke root, `13.0` is recommended despite the red frontier badge because the frontier probe's job includes selecting a practical next threshold even when the claim itself is blocked.
+
+My current read: the red badge is doing useful guardrail work. It tells us this artifact root is good for validating the threshold-frontier pipeline and its human-readable summaries, but not for making a threshold-frontier claim. To turn this into claim-bearing evidence, we need a non-smoke run with enough episode budget for the sustained-hit persistence rule and enough paired threshold rows for passing/failing behavior to actually separate.
+
+#### Evaluator Turn
 
 _Open._
 
-### Codex Turn 1
+#### Codex Turn
+
+_Open._
+
+#### Evaluator Turn
+
+_Open._
+
+#### Codex Turn
+
+_Open._
+
+#### Evaluator Turn
+
+_Open._
+
+#### Codex Turn
+
+_Open._
+
+#### Evaluator Turn
+
+_Open._
+
+#### Codex Turn
 
 _Open._
