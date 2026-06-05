@@ -1,3 +1,3 @@
 # Human Summary
 
-The artifact set is `complete`. All pairs are blocked or non-sustained.
+The artifact set is `complete`. Schema 1 has more post-hit margin wins than losses.

@@ -1,0 +1,13 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "claim_scope": "single corrected candidate threshold frontier under matched seed and budget",
+  "comparison_object": "schema_condition_threshold_frontier",
+  "environment_family_id": "counterpoint_symbolic_v001",
+  "environment_instance_id": "counterpoint_symbolic_n3_wide_20_108_span18_v001",
+  "evaluation_class": "threshold_frontier_probe",
+  "evaluation_id": "counterpoint_threshold_frontier_probe_v001",
+  "evaluation_run_family_id": "counterpoint_symbolic_v001_threshold_frontier_probe_v001",
+  "persistence_rule_id": "4_of_5",
+  "primary_metric_id": "episode_total_reward",
+  "run_mode": "threshold_frontier_probe_v001"
+}

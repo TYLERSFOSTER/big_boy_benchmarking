@@ -1,0 +1,204 @@
+{
+  "artifact_run_label": "r013000",
+  "artifact_schema_version": "bbb.v001",
+  "badge_policy": {
+    "dimensions": [
+      "artifact_status",
+      "candidate_status",
+      "threshold_status",
+      "comparison_status",
+      "claim_scope",
+      "provenance_status",
+      "liftability_semantics",
+      "invariant_preflight",
+      "lift_failures"
+    ]
+  },
+  "budget": {
+    "artifact_schema_version": "bbb.v001",
+    "base_seed": 0,
+    "candidate_cap": 1,
+    "candidate_readout_source": "docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/readout_source.json",
+    "controller_event_ceiling_override": null,
+    "controller_event_ceiling_policy": "max(64, 8 * horizon)",
+    "environment_instance_id": "counterpoint_symbolic_n3_wide_20_108_span18_v001",
+    "episodes_per_replicate": 16,
+    "evaluation_id": "counterpoint_second_serious_schema_comparison_v001",
+    "evaluation_run_family_id": "counterpoint_symbolic_v001_second_serious_schema_comparison_v001",
+    "linearization_mode_id": "tensor_available_disabled",
+    "locked_by": "foster",
+    "required_count": 4,
+    "run_mode": "smoke_schema_comparison_first_sustained_hit",
+    "schema1_tower_source": "full_iterated_noisy_rate",
+    "serious_run_authorized": false,
+    "target_candidate_ids": [],
+    "threshold_policy_id": "counterpoint_total_space_sustained_reward_v001",
+    "threshold_value": 13.0,
+    "tier_jump_policy_id": "counterpoint_active_tier_observed_transition_v001",
+    "tier_jump_reward_cutoff": 13.0,
+    "training_replicates_per_arm": 1,
+    "window_length": 5
+  },
+  "claim_boundary": [
+    "schema-condition learning comparison only",
+    "no old-direct-runner comparison claim",
+    "no broad abstraction superiority claim",
+    "no musical quality claim",
+    "no tensor-enabled runtime claim"
+  ],
+  "evaluation_id": "counterpoint_second_serious_schema_comparison_v001",
+  "expected_files": {
+    "conditional": {
+      "schema0_no_contraction": [
+        "tier/lift/ABC evidence may be structurally one-tier"
+      ],
+      "schema1_noisy_rate_one_drop": [
+        "tier/lift/ABC evidence expected when candidate runtime executes"
+      ]
+    },
+    "not_applicable": [
+      "old direct tabular-Q baseline artifacts",
+      "masked-random baseline artifacts",
+      "tensor-enabled conversion records",
+      "musical quality judgments"
+    ],
+    "required": [
+      "evaluation_manifest.json",
+      "evaluation_arm_manifest.json",
+      "evaluation_budget_lock.json",
+      "threshold_policy_manifest.json",
+      "candidate_manifest.json",
+      "parent_source_manifest.json",
+      "evaluation_run_index.csv",
+      "evaluation_aggregate_table.csv",
+      "evaluation_aggregate_summary.json",
+      "results/arm_summary.csv",
+      "results/candidate_summary.csv",
+      "results/schema_summary.csv",
+      "results/training_episode_summary.csv",
+      "results/threshold_window_summary.csv",
+      "results/first_sustained_hit_summary.csv",
+      "results/paired_schema_comparison.csv",
+      "results/comparison_claim_summary.csv"
+    ]
+  },
+  "expected_lift_fields": [
+    "liftability_semantics_id",
+    "representative_candidate_count",
+    "pointwise_candidate_count",
+    "selected_lift_index",
+    "selected_lift_source_matches_current",
+    "selected_lift_target_repr",
+    "quotient_action_cell_count",
+    "pointwise_executable_action_cell_count"
+  ],
+  "expected_run_files": {
+    "abc_tier_signal_events": "abc_tier_signal_events.csv",
+    "lift_fiber_events": "lift_fiber_events.csv",
+    "tower_invariant_report": "tower_invariant_report.json",
+    "tower_shape_summary": "tower_shape_summary.csv"
+  },
+  "goal_criteria": [
+    {
+      "claim_if_met": "The evaluation supports bounded schema-condition comparison.",
+      "claim_if_not_met": "The evaluation does not support a schema comparison claim.",
+      "failure_signal": "schema0_harness_mismatch or artifact_incomplete",
+      "goal_id": "matched_schema_comparison",
+      "partial_signal": "runs exist but some pairs are claim-blocked",
+      "question": "Did Schema 0 and Schema 1 run under matched training conditions?",
+      "success_signal": "paired_schema_comparison.csv contains unblocked pairs"
+    },
+    {
+      "claim_if_met": "Episodes-to-hit can be compared within the locked threshold policy.",
+      "claim_if_not_met": "The threshold did not produce an interpretable hit comparison.",
+      "failure_signal": "never_hit for all runs or threshold_saturated_immediately",
+      "goal_id": "first_sustained_hit",
+      "partial_signal": "transient_hit_only rows exist",
+      "question": "Which schema condition first reached sustained total-space adequacy?",
+      "success_signal": "first_sustained_hit_summary.csv has sustained_hit rows"
+    }
+  ],
+  "goal_summary_sources": [
+    "docs/design/first_counterpoint_environment/second_counterpoint_serious_evaluation/01_001_counterpoint_second_serious_schema_comparison_blueprint.md",
+    "docs/design/first_counterpoint_environment/second_counterpoint_serious_evaluation/design_discussion.md"
+  ],
+  "liftability_semantics_id": "state_collapser_v072_pointwise",
+  "methodology_summary_sources": [
+    "docs/design/first_counterpoint_environment/second_counterpoint_serious_evaluation/01_002_counterpoint_second_serious_schema_comparison_implementation_gameplan.md",
+    "docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md"
+  ],
+  "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/docs/second_serious_comparison",
+  "run_mode": "smoke_schema_comparison_first_sustained_hit",
+  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000",
+  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001",
+  "source_files": {
+    "abc_selection_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/abc_selection_summary.csv",
+    "abc_tier_signal_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/abc_tier_signal_summary.csv",
+    "aggregate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/evaluation_aggregate_summary.json",
+    "aggregate_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/evaluation_aggregate_table.csv",
+    "arm_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/arm_summary.csv",
+    "candidate_manifest": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/candidate_manifest.json",
+    "candidate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/candidate_summary.csv",
+    "comparison_claim_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/comparison_claim_summary.csv",
+    "concrete_step_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/concrete_step_summary.csv",
+    "controller_action_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/controller_action_summary.csv",
+    "evaluation_arm_manifest": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/evaluation_arm_manifest.json",
+    "evaluation_budget_lock": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/evaluation_budget_lock.json",
+    "evaluation_manifest": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/evaluation_manifest.json",
+    "first_sustained_hit_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/first_sustained_hit_summary.csv",
+    "learner_update_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/learner_update_summary.csv",
+    "lift_failure_by_tier": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/lift_failure_by_tier.csv",
+    "lift_success_by_tier": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/lift_success_by_tier.csv",
+    "paired_schema_comparison": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/paired_schema_comparison.csv",
+    "parent_source_manifest": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/parent_source_manifest.json",
+    "run_index": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/evaluation_run_index.csv",
+    "schema0_total_space_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/schema0_total_space_summary.csv",
+    "schema1_candidate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/schema1_candidate_summary.csv",
+    "schema_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/schema_summary.csv",
+    "threshold_policy_manifest": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/threshold_policy_manifest.json",
+    "threshold_window_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/threshold_window_summary.csv",
+    "tier_executability_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/tier_executability_summary.csv",
+    "tier_jump_policy_manifest": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/tier_jump_policy_manifest.json",
+    "tier_occupancy_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/tier_occupancy_summary.csv",
+    "timing_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/timing_summary.csv",
+    "tower_shape_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/tower_shape_summary.csv",
+    "training_curve_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/training_curve_summary.csv",
+    "training_episode_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/training_episode_summary.csv",
+    "training_health_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/threshold_runs/r013000/evaluations/counterpoint_second_serious_schema_comparison_v001/results/training_health_summary.csv"
+  },
+  "state_collapser_version": "0.7.2",
+  "structural_limit_checks": [
+    {
+      "check_id": "schema1_collapsed_tier",
+      "trigger": "tier1 state_cell_count <= 1"
+    },
+    {
+      "check_id": "schema1_non_executable_tier",
+      "trigger": "tier1 active_action_cell_count <= 0"
+    },
+    {
+      "check_id": "schema1_no_tier1_use",
+      "trigger": "no selected tier-1 events"
+    },
+    {
+      "check_id": "schema1_lift_failure_dominant",
+      "trigger": "lift failures dominate"
+    },
+    {
+      "check_id": "schema0_harness_mismatch",
+      "trigger": "Schema 0 not run through matched harness"
+    },
+    {
+      "check_id": "threshold_unreached_all",
+      "trigger": "no sustained hits in either schema"
+    },
+    {
+      "check_id": "threshold_saturated_immediately",
+      "trigger": "both schemas satisfy threshold in first window"
+    },
+    {
+      "check_id": "artifact_incomplete",
+      "trigger": "required artifacts missing"
+    }
+  ]
+}

@@ -15,7 +15,7 @@ Locked budget:
   "controller_event_ceiling_override": null,
   "controller_event_ceiling_policy": "max(64, 8 * horizon)",
   "environment_instance_id": "counterpoint_symbolic_n3_wide_20_108_span18_v001",
-  "episodes_per_replicate": 4,
+  "episodes_per_replicate": 16,
   "evaluation_id": "counterpoint_threshold_frontier_probe_v001",
   "evaluation_run_family_id": "counterpoint_symbolic_v001_threshold_frontier_probe_v001",
   "linearization_mode_id": "tensor_available_disabled",
@@ -37,5 +37,5 @@ Locked budget:
 Artifact root:
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/smoke_001
+/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001
 ```

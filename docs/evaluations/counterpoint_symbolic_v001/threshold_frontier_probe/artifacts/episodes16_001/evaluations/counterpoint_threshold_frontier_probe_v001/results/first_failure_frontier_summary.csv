@@ -1,0 +1,3 @@
+schema_class_id,first_failure_threshold,highest_passing_threshold,frontier_classification
+schema0_no_contraction,,13.0,no_failure_observed
+schema1_noisy_rate_one_drop,,13.0,no_failure_observed

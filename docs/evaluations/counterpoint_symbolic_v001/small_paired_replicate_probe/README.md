@@ -2,8 +2,8 @@
 
 ![Artifacts: Complete](badges/artifacts_complete.svg)
 ![Pairs: 1](badges/pair_count.svg)
-![Unblocked: 0/1](badges/unblocked_pairs.svg)
-![S1 Margin Wins: 0](badges/schema1_margin_wins.svg)
+![Unblocked: 1/1](badges/unblocked_pairs.svg)
+![S1 Margin Wins: 1](badges/schema1_margin_wins.svg)
 ![Hit Rate Delta: 0.0](badges/hit_rate_delta.svg)
 ![Liftability: Pointwise v0.7.2](badges/liftability_semantics.svg)
 ![Lift Failures: 0](badges/lift_failures.svg)
@@ -14,12 +14,12 @@ This repository directory is the human-readable readout surface for the small pa
 ## Status At A Glance
 
 - Artifact evidence: `complete`.
-- Run mode: `smoke_small_paired_replicate_probe`.
+- Run mode: `threshold_frontier_selected_small_paired_replicate_probe`.
 - Instance: `counterpoint_symbolic_n3_wide_20_108_span18_v001`.
 - Threshold value: `13.0`.
-- Threshold source: `explicit_cli_threshold`.
+- Threshold source: `threshold_frontier_readout`.
 - Pair rows: `1`.
-- Unblocked pairs: `0`.
+- Unblocked pairs: `1`.
 - Lift failure rows: `0`.
 
 ## Liftability And Invariant Semantics
@@ -39,33 +39,33 @@ For each selected corrected Schema 1 candidate, the runner creates matched Schem
 
 | Candidate Group | Pairs | Unblocked | Margin Wins | Margin Losses | Claim |
 | --- | --- | --- | --- | --- | --- |
-| counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0 | 1 | 0 | 0 | 0 | claim_blocked |
+| counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0 | 1 | 1 | 1 | 0 | weak_positive_margin_pattern |
 
 ## Pair-Level Rows
 
 | Candidate Group | Seed | Rep | Pair Status | Mean Delta | Blocked |
 | --- | --- | --- | --- | --- | --- |
-| counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0 | seed-7fe8666539580bdb | 0 | blocked_or_non_sustained |  | True |
+| counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0 | seed-7fe8666539580bdb | 0 | schema1_margin_higher | 0.18212121212121168 | False |
 
 ## Schema-Arm Distribution
 
 | Schema | Runs | Sustained | Rate | Median Episodes | Median Mean |
 | --- | --- | --- | --- | --- | --- |
-| schema0_no_contraction | 1 | 0 | 0.0 |  |  |
-| schema1_noisy_rate_one_drop | 1 | 0 | 0.0 |  |  |
+| schema0_no_contraction | 1 | 1 | 1.0 | 5 | 13.368636363636364 |
+| schema1_noisy_rate_one_drop | 1 | 1 | 1.0 | 5 | 13.550757575757576 |
 
 ## Sustained-Hit Rate Rows
 
 | Schema | Run Count | Sustained | Rate | Schema1 - Schema0 |
 | --- | --- | --- | --- | --- |
-| schema0_no_contraction | 1 | 0 | 0.0 | 0.0 |
-| schema1_noisy_rate_one_drop | 1 | 0 | 0.0 | 0.0 |
+| schema0_no_contraction | 1 | 1 | 1.0 | 0.0 |
+| schema1_noisy_rate_one_drop | 1 | 1 | 1.0 | 0.0 |
 
 ## Seed Bundle Evidence
 
 | Candidate Group | Seed | Rep | Schema0 Run | Schema1 Run | Status |
 | --- | --- | --- | --- | --- | --- |
-| counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0 | seed-7fe8666539580bdb | 0 | counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0-schema0_no_contraction-trainrep0 | counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0-schema1_noisy_rate_one_drop-trainrep0 | blocked_or_non_sustained |
+| counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0 | seed-7fe8666539580bdb | 0 | counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0-schema0_no_contraction-trainrep0 | counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0-schema1_noisy_rate_one_drop-trainrep0 | schema1_margin_higher |
 
 ## Claim Boundary
 
@@ -80,7 +80,7 @@ execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at 
 Source artifact root:
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001
+/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/episodes16_from_frontier_001
 ```
 
 ## Clarifying Questions And Turns

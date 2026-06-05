@@ -1,0 +1,10 @@
+{
+  "tier_jump_applies_to_schema0": false,
+  "tier_jump_applies_to_schema1": true,
+  "tier_jump_disabled_reason": "Schema 0 has no non-base tier; Schema 1 tier movement is produced by the active-tier controller and recorded observationally.",
+  "tier_jump_metric_id": "episode_total_reward",
+  "tier_jump_min_observations": 1,
+  "tier_jump_policy_id": "counterpoint_active_tier_observed_transition_v001",
+  "tier_jump_reward_cutoff": 13.0,
+  "tier_jump_window_length": 5
+}

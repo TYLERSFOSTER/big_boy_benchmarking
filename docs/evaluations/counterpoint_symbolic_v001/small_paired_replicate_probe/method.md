@@ -17,9 +17,9 @@ Threshold policy:
   "required_count": 4,
   "scope": "total_space",
   "threshold_policy_id": "counterpoint_total_space_sustained_reward_v001",
-  "threshold_source_field": "--threshold-value",
-  "threshold_source_readout": null,
-  "threshold_source_type": "explicit_cli_threshold",
+  "threshold_source_field": "recommended_replicate_probe_threshold",
+  "threshold_source_readout": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/readout_source.json",
+  "threshold_source_type": "threshold_frontier_readout",
   "threshold_value": 13.0,
   "window_length": 5
 }
@@ -36,20 +36,20 @@ Locked budget:
   "controller_event_ceiling_override": null,
   "controller_event_ceiling_policy": "max(64, 8 * horizon)",
   "environment_instance_id": "counterpoint_symbolic_n3_wide_20_108_span18_v001",
-  "episodes_per_replicate": 4,
+  "episodes_per_replicate": 16,
   "evaluation_id": "counterpoint_small_paired_replicate_probe_v001",
   "evaluation_run_family_id": "counterpoint_symbolic_v001_small_paired_replicate_probe_v001",
   "linearization_mode_id": "tensor_available_disabled",
   "locked_by": "foster",
   "required_count": 4,
-  "run_mode": "smoke_small_paired_replicate_probe",
+  "run_mode": "threshold_frontier_selected_small_paired_replicate_probe",
   "schema1_tower_source": "full_iterated_noisy_rate",
   "target_candidate_ids": [],
-  "threshold_frontier_readout_source": null,
+  "threshold_frontier_readout_source": "docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/readout_source.json",
   "threshold_policy_id": "counterpoint_total_space_sustained_reward_v001",
-  "threshold_value": 13.0,
+  "threshold_value": null,
   "tier_jump_policy_id": "counterpoint_active_tier_observed_transition_v001",
-  "tier_jump_reward_cutoff": 13.0,
+  "tier_jump_reward_cutoff": null,
   "training_replicates_per_arm": 1,
   "window_length": 5
 }
@@ -58,5 +58,5 @@ Locked budget:
 Artifact root:
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001
+/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/episodes16_from_frontier_001
 ```

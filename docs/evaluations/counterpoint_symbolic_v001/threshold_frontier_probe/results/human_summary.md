@@ -1,3 +1,3 @@
 # Human Summary
 
-`frontier_blocked_by_artifacts`: Artifact or sustained-hit failures block the frontier claim.
+`schema1_margin_advantage_only`: No frontier separation was observed, but Schema 1 had post-hit margin wins; recommended paired threshold is 13.0.

@@ -1,0 +1,8 @@
+{
+  "allow_dirty": false,
+  "issue_count": 0,
+  "issues": [],
+  "liftability_semantics_id": "state_collapser_v072_pointwise",
+  "ok": true,
+  "state_collapser_version": "0.7.2"
+}

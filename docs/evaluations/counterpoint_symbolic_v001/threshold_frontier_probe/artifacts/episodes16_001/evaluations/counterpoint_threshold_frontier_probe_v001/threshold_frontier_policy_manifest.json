@@ -1,0 +1,22 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "claim_boundary": "next-measure frontier probe only; not a final serious comparison",
+  "comparison": "greater_than_or_equal",
+  "evaluation_id": "counterpoint_threshold_frontier_probe_v001",
+  "evaluation_run_family_id": "counterpoint_symbolic_v001_threshold_frontier_probe_v001",
+  "metric_id": "episode_total_reward",
+  "required_count": 4,
+  "scope": "total_space",
+  "threshold_grid": [
+    {
+      "threshold_label": "r012000",
+      "threshold_value": 12.0
+    },
+    {
+      "threshold_label": "r013000",
+      "threshold_value": 13.0
+    }
+  ],
+  "threshold_grid_source": "blueprint_locked_or_cli_explicit",
+  "window_length": 5
+}

@@ -1,0 +1,18 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "base_seed": 0,
+  "bounded_claim": "Detect whether Schema 1's tiny reward-margin signal survives across matched seed bundles.",
+  "candidate_cap": 1,
+  "episodes_per_replicate": 16,
+  "evaluation_id": "counterpoint_small_paired_replicate_probe_v001",
+  "evaluation_run_family_id": "counterpoint_symbolic_v001_small_paired_replicate_probe_v001",
+  "schema1_tower_source": "full_iterated_noisy_rate",
+  "seed_pairing_policy": "same_seed_bundle_id_for_schema0_and_schema1",
+  "threshold": {
+    "threshold_source_field": "recommended_replicate_probe_threshold",
+    "threshold_source_readout": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/readout_source.json",
+    "threshold_source_type": "threshold_frontier_readout",
+    "threshold_value": 13.0
+  },
+  "training_replicates_per_arm": 1
+}
