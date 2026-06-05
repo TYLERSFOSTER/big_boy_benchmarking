@@ -30,6 +30,7 @@ from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.ru
 
 from .candidate_source import load_frontier_candidates
 from .config import (
+    DEFAULT_EPISODES_PER_REPLICATE,
     EVALUATION_ID,
     RUN_MODE_ID,
     ThresholdFrontierProbeBudget,
@@ -62,7 +63,7 @@ def run_threshold_frontier_probe(
     target_candidate_ids: tuple[str, ...] = (),
     threshold_values: tuple[float, ...] = (12.0, 13.0, 13.25, 13.5, 13.75, 14.0),
     training_replicates_per_arm: int = 1,
-    episodes_per_replicate: int = 8,
+    episodes_per_replicate: int = DEFAULT_EPISODES_PER_REPLICATE,
     base_seed: int = 0,
     locked_by: str = "cli",
     horizon_override: int | None = None,

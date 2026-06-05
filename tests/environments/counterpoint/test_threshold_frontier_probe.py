@@ -44,6 +44,7 @@ def test_threshold_frontier_ids_and_threshold_labels_are_exported() -> None:
     assert frontier.threshold_label(12.0) == "r012000"
     assert frontier.threshold_label(13.25) == "r013250"
     assert frontier.parse_threshold_values("12.0,13.0") == (12.0, 13.0)
+    assert frontier.DEFAULT_EPISODES_PER_REPLICATE == 16
     with pytest.raises(ValueError, match="unique"):
         frontier.parse_threshold_values("12.0,12.0")
     with pytest.raises(ValueError, match="sorted"):

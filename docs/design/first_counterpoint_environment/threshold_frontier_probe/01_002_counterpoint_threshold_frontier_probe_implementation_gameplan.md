@@ -495,7 +495,7 @@ Stop and ask the Project Owner if:
 
 - Phase 1. Stage 3. Action 7: Include `training_replicates_per_arm`, default
   `1`.
-- Phase 1. Stage 3. Action 8: Include `episodes_per_replicate`, default `8`.
+- Phase 1. Stage 3. Action 8: Include `episodes_per_replicate`, default `16`.
 - Phase 1. Stage 3. Action 9: Include `window_length`, default `5`.
 - Phase 1. Stage 3. Action 10: Include `required_count`, default `4`.
 - Phase 1. Stage 3. Action 11: Include `base_seed`, default `0`.
@@ -1250,7 +1250,7 @@ uv run python -m big_boy_benchmarking.cli counterpoint threshold-frontier run \
   --candidate-readout-source docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/readout_source.json \
   --threshold-values 12.0,13.0,13.25,13.5,13.75,14.0 \
   --candidate-cap 1 \
-  --episodes 8 \
+  --episodes 16 \
   --replicates 1 \
   --locked-by foster \
   --linearization-mode tensor_available_disabled

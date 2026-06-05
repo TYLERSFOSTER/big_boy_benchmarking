@@ -90,6 +90,11 @@ src/big_boy_benchmarking/environments/counterpoint/threshold_frontier_probe/
   `training_replicates_per_arm = 1`, `episodes_per_replicate = 8`,
   `window_length = 5`, `required_count = 4`, `base_seed = 0`, and
   `tensor_available_disabled`.
+  Post-smoke correction: after the Project Owner identified that the 4-of-5
+  sustained-hit rule is central and should be preserved, the threshold-frontier
+  default was raised to `episodes_per_replicate = 16` so future non-smoke runs
+  have enough episode runway to adjudicate the persistence window without
+  weakening the 4/5 ratio.
 - Phase 1. Stage 4: Completed. Implemented repo-resident path contracts under:
 
 ```text

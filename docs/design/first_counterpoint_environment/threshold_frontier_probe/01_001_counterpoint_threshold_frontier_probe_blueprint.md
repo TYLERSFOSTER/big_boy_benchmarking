@@ -313,7 +313,7 @@ uv run python -m big_boy_benchmarking.cli counterpoint threshold-frontier run \
   --candidate-readout-source docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/readout_source.json \
   --threshold-values 12.0,13.0,13.25,13.5,13.75,14.0 \
   --candidate-cap 1 \
-  --episodes 8 \
+  --episodes 16 \
   --replicates 1 \
   --locked-by foster \
   --linearization-mode tensor_available_disabled
