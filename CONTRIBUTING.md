@@ -27,15 +27,18 @@ As of 2026-06-05, the implemented repo state is:
 - second serious schema-comparison machinery exists for matched Schema 0
   versus Schema 1 first-sustained-hit smoke comparisons, aggregation,
   source-bound repo readouts, and human-readable interpretation;
+- threshold-frontier probe machinery exists for reward-threshold sweeps over
+  the corrected Schema 0 versus Schema 1 comparison surface, aggregation,
+  source-bound repo readouts, and human-readable interpretation;
 - small paired replicate probe machinery exists for seed-paired Schema 0
   versus Schema 1 next-measure smoke comparisons, aggregation, source-bound
   repo readouts, and human-readable interpretation;
-- seven repo-side counterpoint evaluation readouts exist:
+- eight repo-side counterpoint evaluation readouts exist:
   `first_serious_learning`, `one_third_schema_tower_diagnostics`,
   `noisy_rate_contraction_diagnostics`,
   `contraction_fraction_sweep_diagnostics`,
   `noisy_rate_full_tower_training_diagnostic`,
-  `second_serious_schema_comparison`, and
+  `second_serious_schema_comparison`, `threshold_frontier_probe`, and
   `small_paired_replicate_probe`.
 
 The current serious-learning default linearization condition is:
@@ -55,7 +58,25 @@ The immediate next fork is a Project Owner decision, not automatic execution.
 The current next-measure learning-comparison path is:
 
 ```text
-threshold_frontier_probe -> small_paired_replicate_probe meaningful run -> larger comparison design
+threshold_frontier_probe meaningful run -> small_paired_replicate_probe meaningful run -> larger comparison design
+```
+
+The threshold-frontier probe has been implemented and smoke-tested:
+
+```text
+docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/
+```
+
+The checked-in `smoke_001` artifact proves the threshold-sweep machinery and
+readout path, but it is behaviorally claim-blocked: the smoke used four
+episodes, while the sustained-hit rule is 4-of-5, so no arm can satisfy the
+windowed criterion. Do not treat that smoke as frontier evidence.
+
+The meaningful threshold-frontier run should use the six-threshold,
+eight-episode budget from the gameplan:
+
+```text
+docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/v072_pointwise_frontier_001
 ```
 
 The small paired replicate probe has been implemented and smoke-tested:
@@ -73,7 +94,7 @@ It is an implementation smoke result.
 
 The meaningful paired-replicate run should wait for either:
 
-- threshold-frontier output that selects a sharper threshold; or
+- meaningful threshold-frontier output that selects a sharper threshold; or
 - an explicit Project Owner threshold override.
 
 The relevant design/gameplan surfaces are:

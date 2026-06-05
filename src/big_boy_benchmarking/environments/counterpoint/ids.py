@@ -46,6 +46,9 @@ SMALL_PAIRED_REPLICATE_PROBE_SMOKE_MODE_ID = "smoke_small_paired_replicate_probe
 SMALL_PAIRED_REPLICATE_PROBE_SELECTED_MODE_ID = (
     "threshold_frontier_selected_small_paired_replicate_probe"
 )
+THRESHOLD_FRONTIER_PROBE_EVALUATION_ID = "counterpoint_threshold_frontier_probe_v001"
+THRESHOLD_FRONTIER_PROBE_RUN_FAMILY_ID = "counterpoint_symbolic_v001_threshold_frontier_probe_v001"
+THRESHOLD_FRONTIER_PROBE_RUN_MODE_ID = "threshold_frontier_probe_v001"
 
 CANONICAL_IDS = {
     "environment_family_id": ENVIRONMENT_FAMILY_ID,
@@ -94,4 +97,7 @@ CANONICAL_IDS = {
     "small_paired_replicate_probe_selected_mode_id": (
         SMALL_PAIRED_REPLICATE_PROBE_SELECTED_MODE_ID
     ),
+    "threshold_frontier_probe_evaluation_id": THRESHOLD_FRONTIER_PROBE_EVALUATION_ID,
+    "threshold_frontier_probe_run_family_id": THRESHOLD_FRONTIER_PROBE_RUN_FAMILY_ID,
+    "threshold_frontier_probe_run_mode_id": THRESHOLD_FRONTIER_PROBE_RUN_MODE_ID,
 }

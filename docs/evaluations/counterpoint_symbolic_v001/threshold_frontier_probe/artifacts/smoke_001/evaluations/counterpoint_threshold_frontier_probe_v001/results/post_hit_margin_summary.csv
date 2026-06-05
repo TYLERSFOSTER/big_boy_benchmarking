@@ -1,0 +1,5 @@
+threshold_value,threshold_label,schema_class_id,post_hit_window_mean,post_hit_window_min,post_hit_window_success_count,threshold_margin_mean,threshold_margin_min,threshold_success_fraction
+12.0,r012000,schema0_no_contraction,,,,,,0.0
+12.0,r012000,schema1_noisy_rate_one_drop,,,,,,0.0
+13.0,r013000,schema0_no_contraction,,,,,,0.0
+13.0,r013000,schema1_noisy_rate_one_drop,,,,,,0.0

@@ -13,6 +13,9 @@ from big_boy_benchmarking.artifacts.writers import append_jsonl, write_csv, writ
 from big_boy_benchmarking.environments.counterpoint import (
     small_paired_replicate_probe as paired_replicate_probe,
 )
+from big_boy_benchmarking.environments.counterpoint import (
+    threshold_frontier_probe,
+)
 from big_boy_benchmarking.environments.counterpoint.artifacts import (
     write_environment_artifacts,
     write_schema_artifacts,
@@ -195,6 +198,9 @@ from big_boy_benchmarking.environments.counterpoint.serious_learning.runner impo
 )
 from big_boy_benchmarking.environments.counterpoint.small_paired_replicate_probe import (
     paths as paired_replicate_paths,
+)
+from big_boy_benchmarking.environments.counterpoint.threshold_frontier_probe import (
+    paths as threshold_frontier_paths,
 )
 from big_boy_benchmarking.modes.contracts import validate_mode_contract
 from big_boy_benchmarking.modes.linearization import (
@@ -692,6 +698,59 @@ def build_parser() -> argparse.ArgumentParser:
     second_serious_summarize_parser.add_argument("--artifact-root", required=True, type=Path)
     second_serious_summarize_parser.add_argument("--docs-root", type=Path)
 
+    threshold_frontier_parser = counterpoint_subparsers.add_parser("threshold-frontier")
+    threshold_frontier_subparsers = threshold_frontier_parser.add_subparsers(
+        dest="threshold_frontier_command",
+        required=True,
+    )
+
+    threshold_frontier_run_parser = threshold_frontier_subparsers.add_parser("run")
+    threshold_frontier_run_parser.add_argument(
+        "--artifact-root",
+        type=Path,
+        default=threshold_frontier_paths.default_artifact_root("smoke_001"),
+    )
+    threshold_frontier_run_parser.add_argument(
+        "--candidate-readout-source",
+        type=Path,
+        default=threshold_frontier_paths.default_candidate_readout_source(),
+    )
+    threshold_frontier_run_parser.add_argument(
+        "--candidate-id",
+        action="append",
+        default=None,
+        help="target a specific eligible Schema 1 candidate id from candidate_summary.csv",
+    )
+    threshold_frontier_run_parser.add_argument("--candidate-cap", type=int, default=1)
+    threshold_frontier_run_parser.add_argument(
+        "--threshold-values",
+        default=",".join(str(value) for value in threshold_frontier_probe.DEFAULT_THRESHOLD_VALUES),
+    )
+    threshold_frontier_run_parser.add_argument("--instance-id", default="wide_span18")
+    threshold_frontier_run_parser.add_argument(
+        "--episodes",
+        type=int,
+        default=threshold_frontier_probe.DEFAULT_EPISODES_PER_REPLICATE,
+    )
+    threshold_frontier_run_parser.add_argument(
+        "--replicates",
+        type=int,
+        default=threshold_frontier_probe.DEFAULT_REPLICATES_PER_ARM,
+    )
+    threshold_frontier_run_parser.add_argument("--base-seed", type=int, default=0)
+    threshold_frontier_run_parser.add_argument("--locked-by", default="cli")
+    threshold_frontier_run_parser.add_argument("--horizon", type=int)
+    threshold_frontier_run_parser.add_argument("--controller-event-ceiling", type=int)
+    threshold_frontier_run_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
+
+    threshold_frontier_summarize_parser = threshold_frontier_subparsers.add_parser("summarize")
+    threshold_frontier_summarize_parser.add_argument("--artifact-root", required=True, type=Path)
+    threshold_frontier_summarize_parser.add_argument("--docs-root", type=Path)
+
     paired_probe_parser = counterpoint_subparsers.add_parser("paired-replicate-probe")
     paired_probe_subparsers = paired_probe_parser.add_subparsers(
         dest="paired_replicate_probe_command",
@@ -909,6 +968,8 @@ def _run_counterpoint_command(args: argparse.Namespace) -> int:
         return _run_counterpoint_noisy_rate_full_train_command(args)
     if args.counterpoint_command == "second-serious-comparison":
         return _run_counterpoint_second_serious_comparison_command(args)
+    if args.counterpoint_command == "threshold-frontier":
+        return _run_counterpoint_threshold_frontier_command(args)
     if args.counterpoint_command == "paired-replicate-probe":
         return _run_counterpoint_paired_replicate_probe_command(args)
 
@@ -1286,6 +1347,59 @@ def _run_counterpoint_paired_replicate_probe_command(args: argparse.Namespace) -
     )
 
 
+def _run_counterpoint_threshold_frontier_command(args: argparse.Namespace) -> int:
+    if hasattr(args, "linearization_mode"):
+        _require_threshold_frontier_linearization(args.linearization_mode)
+
+    if args.threshold_frontier_command == "run":
+        result = threshold_frontier_probe.run_threshold_frontier_probe(
+            artifact_root=args.artifact_root,
+            candidate_readout_source=args.candidate_readout_source,
+            instance_id=args.instance_id,
+            candidate_cap=args.candidate_cap,
+            target_candidate_ids=tuple(args.candidate_id or ()),
+            threshold_values=threshold_frontier_probe.parse_threshold_values(args.threshold_values),
+            training_replicates_per_arm=args.replicates,
+            episodes_per_replicate=args.episodes,
+            base_seed=args.base_seed,
+            locked_by=args.locked_by,
+            horizon_override=args.horizon,
+            controller_event_ceiling=args.controller_event_ceiling,
+            linearization_mode_id=args.linearization_mode,
+        )
+        print(json.dumps(result, sort_keys=True))
+        return 0 if result["status"] == "complete" else 2
+
+    if args.threshold_frontier_command == "summarize":
+        summary = threshold_frontier_probe.aggregate_threshold_frontier_probe_results(
+            args.artifact_root,
+            docs_root=args.docs_root,
+        )
+        docs = threshold_frontier_probe.write_threshold_frontier_probe_docs(
+            artifact_root=args.artifact_root,
+            docs_root=args.docs_root,
+            command_lines=(
+                "uv run python -m big_boy_benchmarking.cli counterpoint "
+                "threshold-frontier summarize --artifact-root <artifact-root>",
+            ),
+        )
+        print(
+            json.dumps(
+                {
+                    "status": summary["status"],
+                    "recommended_replicate_probe_threshold": summary.get(
+                        "recommended_replicate_probe_threshold"
+                    ),
+                    "docs": docs,
+                },
+                sort_keys=True,
+            )
+        )
+        return 0 if summary["status"] == "complete" else 2
+
+    raise ValueError(f"unknown threshold-frontier command: {args.threshold_frontier_command}")
+
+
 def _require_serious_linearization(linearization_mode_id: str) -> None:
     if linearization_mode_id != "tensor_available_disabled":
         raise ValueError(
@@ -1338,6 +1452,14 @@ def _require_paired_replicate_linearization(linearization_mode_id: str) -> None:
     if linearization_mode_id != "tensor_available_disabled":
         raise ValueError(
             "counterpoint paired-replicate-probe uses tensor_available_disabled; "
+            f"reserved linearization mode rejected: {linearization_mode_id}"
+        )
+
+
+def _require_threshold_frontier_linearization(linearization_mode_id: str) -> None:
+    if linearization_mode_id != "tensor_available_disabled":
+        raise ValueError(
+            "counterpoint threshold-frontier uses tensor_available_disabled; "
             f"reserved linearization mode rejected: {linearization_mode_id}"
         )
 
