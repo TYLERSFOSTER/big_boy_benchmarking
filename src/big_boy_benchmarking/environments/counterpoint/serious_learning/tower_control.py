@@ -46,6 +46,9 @@ from big_boy_benchmarking.environments.counterpoint import ids
 from big_boy_benchmarking.environments.counterpoint.actions import CounterpointAction
 from big_boy_benchmarking.environments.counterpoint.artifacts import environment_instance_manifest
 from big_boy_benchmarking.environments.counterpoint.instances import initial_states
+from big_boy_benchmarking.environments.counterpoint.liftability import (
+    STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID,
+)
 from big_boy_benchmarking.environments.counterpoint.masks import legal_action_mask
 from big_boy_benchmarking.environments.counterpoint.schemas import build_schema_for_id
 from big_boy_benchmarking.environments.counterpoint.serious_learning.arms import (
@@ -71,6 +74,7 @@ from big_boy_benchmarking.environments.counterpoint.tower_adapter import (
     CounterpointTowerBuildResult,
     build_counterpoint_partition_tower,
     counterpoint_state_to_core_state,
+    counterpoint_tower_invariant_artifact_payload,
     primitive_action_to_counterpoint_action,
 )
 from big_boy_benchmarking.environments.counterpoint.transition import evaluate_transition
@@ -96,6 +100,14 @@ class LiftResolveTrace:
     abstract_action: str
     realized_action: str | None
     candidate_count: int
+    representative_candidate_count: int
+    pointwise_candidate_count: int
+    selected_lift_index: int | None
+    selected_lift_source_matches_current: bool | None
+    selected_lift_target_repr: str | None
+    liftability_semantics_id: str
+    quotient_action_cell_count: int
+    pointwise_executable_action_cell_count: int
     success: bool
     failure_reason: str | None
     fiber_departure_reason: str | None = None
@@ -202,13 +214,73 @@ class CounterpointTowerControlAdapter:
             return None
         return self.build.tower.current_state_cell(tier, self.current_core_state)
 
+    def quotient_action_cells(
+        self,
+        tier: int,
+        state_cell: object | None = None,
+    ) -> tuple[object, ...]:
+        if tier < 0 or tier >= self.tower_depth:
+            return ()
+        active_state_cell = self.current_tier_state(tier) if state_cell is None else state_cell
+        if active_state_cell is None:
+            return ()
+        return tuple(self.build.tower.outgoing_action_cells(tier, active_state_cell))
+
+    def representative_lift_candidates(
+        self,
+        tier: int,
+        action_cell: object,
+    ) -> tuple[object, ...]:
+        if tier < 0 or tier >= self.tower_depth or self.current_core_state is None:
+            return ()
+        return tuple(
+            self.build.tower.lift_candidates(tier, action_cell, self.current_core_state)
+        )
+
+    def executable_lift_candidates(
+        self,
+        tier: int,
+        action_cell: object,
+    ) -> tuple[object, ...]:
+        if tier < 0 or tier >= self.tower_depth or self.current_core_state is None:
+            return ()
+        return tuple(
+            self.build.tower.executable_lift_candidates(
+                tier,
+                action_cell,
+                self.current_core_state,
+            )
+        )
+
+    def pointwise_executable_action_cells(
+        self,
+        tier: int,
+        state_cell: object | None = None,
+    ) -> tuple[object, ...]:
+        if self.current_core_state is None:
+            return ()
+        return tuple(
+            action_cell
+            for action_cell in self.quotient_action_cells(tier, state_cell)
+            if self.executable_lift_candidates(tier, action_cell)
+        )
+
+    def quotient_action_cell_count(self, tier: int, state_cell: object | None = None) -> int:
+        return len(self.quotient_action_cells(tier, state_cell))
+
+    def pointwise_executable_action_cell_count(
+        self,
+        tier: int,
+        state_cell: object | None = None,
+    ) -> int:
+        return len(self.pointwise_executable_action_cells(tier, state_cell))
+
     def tier_is_executable(self, tier: int) -> bool:
         if tier < 0 or tier >= self.tower_depth:
             return False
-        state_cell = self.current_tier_state(tier)
-        if state_cell is None:
+        if self.current_core_state is None:
             return False
-        return bool(self.build.tower.outgoing_action_cells(tier, state_cell))
+        return bool(self.build.tower.tier_is_executable_from_state(tier, self.current_core_state))
 
     def move_down(self, active_tier_state: ActiveTierState) -> ActiveTierState:
         next_tier = active_tier_state.downstairs_tier()
@@ -377,6 +449,8 @@ class CounterpointTierLearner:
         )
 
     def _tier_action_count(self, tier: int) -> int:
+        # Keep a stable quotient upper bound for the tabular learner; the
+        # runtime action mask below applies the stricter pointwise vocabulary.
         layer = self.adapter.build.tower.state_layers[tier]
         counts = [
             len(self.adapter.build.tower.outgoing_action_cells(tier, cell_id))
@@ -392,6 +466,7 @@ class CounterpointTierLearner:
 
     def _action_input(self, tier: int, state: object | None) -> ActionSelectionInput:
         vocabulary = self._action_vocabulary(tier, state)
+        quotient_vocabulary = self.adapter.quotient_action_cells(tier, state)
         action_count = self._tier_action_count(tier)
         action_mask = tuple(index < len(vocabulary) for index in range(action_count))
         return ActionSelectionInput(
@@ -407,13 +482,20 @@ class CounterpointTierLearner:
             diagnostics={
                 "tier_index": tier,
                 "action_vocabulary": tuple(map(repr, vocabulary)),
+                "liftability_semantics_id": (
+                    STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID
+                ),
+                "quotient_action_vocabulary": tuple(map(repr, quotient_vocabulary)),
+                "pointwise_action_vocabulary": tuple(map(repr, vocabulary)),
+                "quotient_action_cell_count": len(quotient_vocabulary),
+                "pointwise_executable_action_cell_count": len(vocabulary),
             },
         )
 
     def _action_vocabulary(self, tier: int, state: object | None) -> tuple[object, ...]:
         if state is None:
             return ()
-        return self.adapter.build.tower.outgoing_action_cells(tier, state)
+        return self.adapter.pointwise_executable_action_cells(tier, state)
 
 
 class CounterpointLiftResolveExecutor:
@@ -451,36 +533,39 @@ class CounterpointLiftResolveExecutor:
             return self._failure(tier, source_tier_state, action, "missing_current_state", 0)
         if not isinstance(action, int) or action < 0:
             return self._failure(tier, source_tier_state, action, "invalid_action_index", 0)
-        vocabulary = self.adapter.build.tower.outgoing_action_cells(tier, source_tier_state)
-        if action >= len(vocabulary):
+        quotient_vocabulary = self.adapter.quotient_action_cells(tier, source_tier_state)
+        pointwise_vocabulary = self.adapter.pointwise_executable_action_cells(
+            tier,
+            source_tier_state,
+        )
+        quotient_action_cell_count = len(quotient_vocabulary)
+        pointwise_executable_action_cell_count = len(pointwise_vocabulary)
+        if action >= len(pointwise_vocabulary):
             return self._failure(
                 tier,
                 source_tier_state,
                 action,
                 "action_index_out_of_range",
-                len(vocabulary),
+                0,
+                quotient_action_cell_count=quotient_action_cell_count,
+                pointwise_executable_action_cell_count=pointwise_executable_action_cell_count,
             )
-        action_cell = vocabulary[action]
-        candidates = self.adapter.build.tower.lift_candidates(
+        action_cell = pointwise_vocabulary[action]
+        representative_candidates = self.adapter.representative_lift_candidates(
             tier,
             action_cell,
-            self.adapter.current_core_state,
         )
-        executable = tuple(
-            edge for edge in candidates if edge.source == self.adapter.current_core_state
-        )
-        if not executable:
-            members = self.adapter.build.tower.action_cell_members(tier, action_cell)
-            executable = tuple(
-                edge for edge in members if edge.source == self.adapter.current_core_state
-            )
+        executable = self.adapter.executable_lift_candidates(tier, action_cell)
         if not executable:
             return self._failure(
                 tier,
                 source_tier_state,
                 action_cell,
                 "no_lift_candidate_from_current_state",
-                len(candidates),
+                0,
+                representative_candidate_count=len(representative_candidates),
+                quotient_action_cell_count=quotient_action_cell_count,
+                pointwise_executable_action_cell_count=pointwise_executable_action_cell_count,
             )
         edge = executable[0]
         counterpoint_action = primitive_action_to_counterpoint_action(edge.action)
@@ -492,8 +577,12 @@ class CounterpointLiftResolveExecutor:
                 action_cell,
                 "realized_action_illegal",
                 len(executable),
+                representative_candidate_count=len(representative_candidates),
+                quotient_action_cell_count=quotient_action_cell_count,
+                pointwise_executable_action_cell_count=pointwise_executable_action_cell_count,
             )
         source_state = self.adapter.current_state
+        source_core_state = self.adapter.current_core_state
         with self.recorder.segment("environment_step"):
             transition = evaluate_transition(
                 self.adapter.spec,
@@ -514,6 +603,16 @@ class CounterpointLiftResolveExecutor:
             abstract_action=repr(action_cell),
             realized_action=str(counterpoint_action.deltas),
             candidate_count=len(executable),
+            representative_candidate_count=len(representative_candidates),
+            pointwise_candidate_count=len(executable),
+            selected_lift_index=0,
+            selected_lift_source_matches_current=edge.source == source_core_state,
+            selected_lift_target_repr=repr(edge.target),
+            liftability_semantics_id=(
+                STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID
+            ),
+            quotient_action_cell_count=quotient_action_cell_count,
+            pointwise_executable_action_cell_count=pointwise_executable_action_cell_count,
             success=True,
             failure_reason=None,
         )
@@ -535,12 +634,26 @@ class CounterpointLiftResolveExecutor:
         action: object,
         reason: str,
         candidate_count: int,
+        *,
+        representative_candidate_count: int = 0,
+        quotient_action_cell_count: int = 0,
+        pointwise_executable_action_cell_count: int = 0,
     ) -> ActiveTierTransition:
         self.adapter.last_lift_trace = LiftResolveTrace(
             active_tier=tier,
             abstract_action=repr(action),
             realized_action=None,
             candidate_count=candidate_count,
+            representative_candidate_count=representative_candidate_count,
+            pointwise_candidate_count=candidate_count,
+            selected_lift_index=None,
+            selected_lift_source_matches_current=None,
+            selected_lift_target_repr=None,
+            liftability_semantics_id=(
+                STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID
+            ),
+            quotient_action_cell_count=quotient_action_cell_count,
+            pointwise_executable_action_cell_count=pointwise_executable_action_cell_count,
             success=False,
             failure_reason=reason,
             fiber_departure_reason=reason,
@@ -576,6 +689,8 @@ def build_tier_configs(
 
 
 def _max_tier_action_count(adapter: CounterpointTowerControlAdapter) -> int:
+    # This is a quotient upper bound for fixed learner table dimensions; per-step
+    # masks and execution use pointwise executable action cells.
     max_count = 1
     for tier in range(adapter.tower_depth):
         layer = adapter.build.tower.state_layers[tier]
@@ -750,6 +865,18 @@ def _run_tower_control_episode(
                     success=trace.success,
                     failure_reason=trace.failure_reason,
                     fiber_departure_reason=trace.fiber_departure_reason,
+                    liftability_semantics_id=trace.liftability_semantics_id,
+                    representative_candidate_count=trace.representative_candidate_count,
+                    pointwise_candidate_count=trace.pointwise_candidate_count,
+                    selected_lift_index=trace.selected_lift_index,
+                    selected_lift_source_matches_current=(
+                        trace.selected_lift_source_matches_current
+                    ),
+                    selected_lift_target_repr=trace.selected_lift_target_repr,
+                    quotient_action_cell_count=trace.quotient_action_cell_count,
+                    pointwise_executable_action_cell_count=(
+                        trace.pointwise_executable_action_cell_count
+                    ),
                 )
             )
             if trace.success and source_state is not None and adapter.current_state is not None:
@@ -946,6 +1073,10 @@ def _write_tower_serious_artifacts(
             "edge_count": len(build.graph.edges),
         },
     )
+    write_json(
+        run_paths.root / "tower_invariant_report.json",
+        counterpoint_tower_invariant_artifact_payload(build),
+    )
 
     for episode in episodes:
         append_csv_row(
@@ -1093,6 +1224,7 @@ def _write_tower_serious_artifacts(
             "lift_fiber_events_csv": str(run_paths.root / "lift_fiber_events.csv"),
             "schema_manifest": str(run_paths.root / "schema_manifest.json"),
             "quotient_summary": str(run_paths.root / "quotient_summary.json"),
+            "tower_invariant_report": str(run_paths.root / "tower_invariant_report.json"),
         },
         summary_path=str(family_paths.summary_json),
         warning_count=0,

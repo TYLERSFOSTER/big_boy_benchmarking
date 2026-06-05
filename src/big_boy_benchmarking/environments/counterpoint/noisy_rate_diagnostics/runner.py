@@ -45,6 +45,9 @@ from big_boy_benchmarking.environments.counterpoint.instances import (
     default_small_spec,
     default_wide_span18_spec,
 )
+from big_boy_benchmarking.environments.counterpoint.liftability import (
+    STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID,
+)
 from big_boy_benchmarking.environments.counterpoint.noisy_rate_diagnostics.config import (
     DEFAULT_EPISODES_PER_REPLICATE,
     DEFAULT_INSTANCE_IDS,
@@ -120,6 +123,7 @@ from big_boy_benchmarking.environments.counterpoint.tower_adapter import (
     assigned_counterpoint_edge_keys,
     build_counterpoint_noisy_rate_partition_tower,
     build_counterpoint_partition_tower,
+    counterpoint_tower_invariant_artifact_payload,
 )
 from big_boy_benchmarking.metrics.timing import TimingRecorder, summarize_timing_segments
 from big_boy_benchmarking.modes.registry import require_runnable_mode
@@ -464,6 +468,7 @@ def _run_noisy_rate_episode(
         before = runtime.active_tier_state
         source_state = adapter.current_state
         snapshot_count = len(controller.snapshots)
+        pre_step_liftability_counts = _liftability_counts_by_tier(adapter)
         result = runtime.step()
         after = result.active_tier_state
         snapshot = (
@@ -518,6 +523,20 @@ def _run_noisy_rate_episode(
                     success=lift_trace.success,
                     failure_reason=lift_trace.failure_reason,
                     fiber_departure_reason=lift_trace.fiber_departure_reason,
+                    liftability_semantics_id=lift_trace.liftability_semantics_id,
+                    representative_candidate_count=(
+                        lift_trace.representative_candidate_count
+                    ),
+                    pointwise_candidate_count=lift_trace.pointwise_candidate_count,
+                    selected_lift_index=lift_trace.selected_lift_index,
+                    selected_lift_source_matches_current=(
+                        lift_trace.selected_lift_source_matches_current
+                    ),
+                    selected_lift_target_repr=lift_trace.selected_lift_target_repr,
+                    quotient_action_cell_count=lift_trace.quotient_action_cell_count,
+                    pointwise_executable_action_cell_count=(
+                        lift_trace.pointwise_executable_action_cell_count
+                    ),
                 )
             )
         concrete_step_emitted = (
@@ -554,6 +573,7 @@ def _run_noisy_rate_episode(
                     seed_bundle=seed_bundle,
                     episode_index=episode_index,
                     controller_event_index=controller_event_index,
+                    liftability_counts_by_tier=pre_step_liftability_counts,
                 )
             )
         if concrete_step_emitted:
@@ -813,6 +833,10 @@ def _write_noisy_rate_artifacts(
             ],
         },
     )
+    write_json(
+        run_paths.root / "tower_invariant_report.json",
+        counterpoint_tower_invariant_artifact_payload(build),
+    )
     write_csv(
         run_paths.episodes_csv,
         [episode.episode_row.to_flat_dict() for episode in episodes],
@@ -943,6 +967,7 @@ def _write_noisy_rate_artifacts(
             "schema_manifest": str(run_paths.root / "schema_manifest.json"),
             "schema_construction": str(run_paths.root / "schema_construction.json"),
             "quotient_summary": str(run_paths.root / "quotient_summary.json"),
+            "tower_invariant_report": str(run_paths.root / "tower_invariant_report.json"),
         },
         summary_path=str(family_paths.summary_json),
         warning_count=0,
@@ -1095,6 +1120,7 @@ def _abc_tier_signal_rows(
     seed_bundle: SeedBundle,
     episode_index: int,
     controller_event_index: int,
+    liftability_counts_by_tier: dict[int, tuple[int, int]],
 ) -> tuple[NoisyRateABCTierSignalEventRow, ...]:
     return tuple(
         NoisyRateABCTierSignalEventRow(
@@ -1126,9 +1152,33 @@ def _abc_tier_signal_rows(
             unclosed=tier_signal.unclosed,
             selected=tier_signal.tier_index == snapshot.selected_tier,
             active=tier_signal.tier_index == snapshot.active_tier_before,
+            liftability_semantics_id=(
+                STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID
+            ),
+            executable_semantics="pointwise_current_base_state",
+            quotient_action_cell_count=liftability_counts_by_tier.get(
+                tier_signal.tier_index,
+                (0, 0),
+            )[0],
+            pointwise_executable_action_cell_count=liftability_counts_by_tier.get(
+                tier_signal.tier_index,
+                (0, 0),
+            )[1],
         )
         for tier_signal in snapshot.tier_signals
     )
+
+
+def _liftability_counts_by_tier(
+    adapter: CounterpointTowerControlAdapter,
+) -> dict[int, tuple[int, int]]:
+    return {
+        tier: (
+            adapter.quotient_action_cell_count(tier),
+            adapter.pointwise_executable_action_cell_count(tier),
+        )
+        for tier in range(adapter.tower_depth)
+    }
 
 
 def _action_consistent(*, movement: str, control_action: str) -> bool:
@@ -1424,6 +1474,15 @@ def _tower_shape_summary_rows(
                     state_cell_count=state_cell_count,
                     base_state_count=base_state_count,
                 ),
+                liftability_semantics_id=(
+                    STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID
+                ),
+                executable_semantics="static_quotient_action_storage_not_pointwise",
+                raw_action_cell_storage_count=_raw_action_cell_count(
+                    build.tower.action_layers[tier_index]
+                )
+                if tier_index < len(build.tower.action_layers)
+                else 0,
             )
         )
     return tuple(rows)

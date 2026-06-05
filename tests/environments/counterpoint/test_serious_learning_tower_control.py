@@ -15,6 +15,7 @@ from big_boy_benchmarking.environments.counterpoint.serious_learning.config impo
     TabularQLearnerConfig,
 )
 from big_boy_benchmarking.environments.counterpoint.serious_learning.tower_control import (
+    STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID,
     CounterpointLiftResolveExecutor,
     CounterpointTierLearner,
     CounterpointTowerControlAdapter,
@@ -59,6 +60,78 @@ def test_active_tier_adapter_initializes_for_motion_schema_and_moves_bounds() ->
     )
     assert adapter.tier_is_executable(-1) is False
     assert adapter.tier_is_executable(adapter.tower_depth) is False
+
+
+def test_tier_executable_delegates_to_pointwise_upstream_semantics() -> None:
+    seed_bundle = generate_seed_bundles(base_seed=220, replicate_count=1)[0]
+    adapter = CounterpointTowerControlAdapter(
+        spec=default_tiny_spec(),
+        schema_id=ids.STRUCTURED_MOTION_SCHEMA_ID,
+        schema_seed=None,
+    )
+    adapter.reset(seed_bundle=seed_bundle, episode_index=0)
+
+    assert adapter.current_core_state is not None
+    for tier in range(adapter.tower_depth):
+        assert adapter.tier_is_executable(tier) is bool(
+            adapter.build.tower.tier_is_executable_from_state(
+                tier,
+                adapter.current_core_state,
+            )
+        )
+
+
+def test_pointwise_vocabulary_is_ordered_subset_of_quotient_vocabulary() -> None:
+    seed_bundle = generate_seed_bundles(base_seed=221, replicate_count=1)[0]
+    adapter = CounterpointTowerControlAdapter(
+        spec=default_tiny_spec(),
+        schema_id=ids.STRUCTURED_MOTION_SCHEMA_ID,
+        schema_seed=None,
+    )
+    adapter.reset(seed_bundle=seed_bundle, episode_index=0)
+
+    for tier in range(adapter.tower_depth):
+        quotient = adapter.quotient_action_cells(tier)
+        pointwise = adapter.pointwise_executable_action_cells(tier)
+
+        assert set(pointwise) <= set(quotient)
+        assert pointwise == tuple(cell for cell in quotient if cell in pointwise)
+
+
+def test_tier_learner_mask_uses_pointwise_vocabulary(monkeypatch) -> None:
+    seed_bundle = generate_seed_bundles(base_seed=222, replicate_count=1)[0]
+    recorder = TimingRecorder.create("tower-pointwise-mask-test")
+    adapter = CounterpointTowerControlAdapter(
+        spec=default_tiny_spec(),
+        schema_id=ids.EMPTY_SCHEMA_ID,
+        schema_seed=None,
+        recorder=recorder,
+    )
+    active = adapter.reset(seed_bundle=seed_bundle, episode_index=0)
+    learner = CounterpointTierLearner(
+        adapter=adapter,
+        learner_config=TabularQLearnerConfig(epsilon=0.0),
+        controller_config=ExploitExploreControllerConfig(),
+        seed=seed_bundle.learner_seed,
+        recorder=recorder,
+    )
+
+    monkeypatch.setattr(adapter, "quotient_action_cells", lambda tier, state=None: ("q0",))
+    monkeypatch.setattr(
+        adapter,
+        "pointwise_executable_action_cells",
+        lambda tier, state=None: (),
+    )
+
+    action_input = learner._action_input(active.active_tier, active.tier_state)
+
+    assert any(action_input.action_mask) is False
+    assert action_input.diagnostics["quotient_action_cell_count"] == 1
+    assert action_input.diagnostics["pointwise_executable_action_cell_count"] == 0
+    assert (
+        action_input.diagnostics["liftability_semantics_id"]
+        == STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID
+    )
 
 
 def test_tier_learner_adapter_satisfies_protocol_and_trains() -> None:
@@ -127,6 +200,64 @@ def test_lift_resolve_executor_satisfies_protocol_and_records_trace() -> None:
     assert adapter.last_lift_trace.failure_reason is None
 
 
+def test_lift_resolve_executor_does_not_use_representative_fallback(monkeypatch) -> None:
+    seed_bundle = generate_seed_bundles(base_seed=240, replicate_count=1)[0]
+    recorder = TimingRecorder.create("tower-executor-pointwise-test")
+    adapter = CounterpointTowerControlAdapter(
+        spec=default_tiny_spec(),
+        schema_id=ids.EMPTY_SCHEMA_ID,
+        schema_seed=None,
+        recorder=recorder,
+    )
+    active = adapter.reset(seed_bundle=seed_bundle, episode_index=0)
+    executor = CounterpointLiftResolveExecutor(adapter=adapter, recorder=recorder)
+    strict_query_called = False
+
+    def strict_candidates(tier, action_cell):  # noqa: ANN001
+        nonlocal strict_query_called
+        strict_query_called = True
+        return ()
+
+    monkeypatch.setattr(adapter, "quotient_action_cells", lambda tier, state=None: ("q0",))
+    monkeypatch.setattr(
+        adapter,
+        "pointwise_executable_action_cells",
+        lambda tier, state=None: ("q0",),
+    )
+    monkeypatch.setattr(
+        adapter,
+        "representative_lift_candidates",
+        lambda tier, action_cell: ("representative_only",),
+    )
+    monkeypatch.setattr(adapter, "executable_lift_candidates", strict_candidates)
+    monkeypatch.setattr(
+        type(adapter.build.tower),
+        "action_cell_members",
+        lambda self, tier, action_cell: (_ for _ in ()).throw(
+            AssertionError("representative fallback should not be used")
+        ),
+        raising=False,
+    )
+
+    transition = executor.execute(
+        active,
+        0,
+        frozen_context=__frozen_context(),
+        mode="explore",
+    )
+
+    assert strict_query_called
+    assert transition.success is False
+    assert adapter.last_lift_trace is not None
+    assert adapter.last_lift_trace.failure_reason == "no_lift_candidate_from_current_state"
+    assert adapter.last_lift_trace.representative_candidate_count == 1
+    assert adapter.last_lift_trace.pointwise_candidate_count == 0
+    assert (
+        adapter.last_lift_trace.liftability_semantics_id
+        == STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID
+    )
+
+
 def test_tower_control_episode_loop_writes_empty_schema_controller_rows(tmp_path) -> None:
     seed_bundle = generate_seed_bundles(base_seed=25, replicate_count=1)[0]
     result = run_serious_tower_control(
@@ -145,6 +276,7 @@ def test_tower_control_episode_loop_writes_empty_schema_controller_rows(tmp_path
     assert control_rows
     assert mode_manifest["mode_id"] == "tower_exploit_explore"
     assert mode_manifest["uses_compatibility_readout"] is False
+    assert Path(result.artifact_paths["tower_invariant_report"]).exists()
 
 
 def test_tower_control_motion_schema_writes_controller_or_lift_rows(tmp_path) -> None:

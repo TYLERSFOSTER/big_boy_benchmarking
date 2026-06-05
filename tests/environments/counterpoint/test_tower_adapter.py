@@ -1,5 +1,5 @@
 from state_collapser.core.edges import BaseEdge
-from state_collapser.tower.partition import PartitionTower
+from state_collapser.tower.partition import PartitionInvariantIssue, PartitionTower
 
 from big_boy_benchmarking.environments.counterpoint import ids
 from big_boy_benchmarking.environments.counterpoint.actions import CounterpointAction
@@ -14,10 +14,12 @@ from big_boy_benchmarking.environments.counterpoint.tower_adapter import (
     build_counterpoint_iterated_noisy_rate_partition_tower,
     build_counterpoint_noisy_rate_partition_tower,
     build_counterpoint_partition_tower,
+    collect_counterpoint_tower_invariant_report,
     contraction_schema_for_id,
     counterpoint_action_to_primitive_action,
     counterpoint_state_to_core_state,
     graph_edge_to_base_edge,
+    serialize_partition_invariant_report,
 )
 
 
@@ -48,6 +50,62 @@ def test_partition_tower_builds_without_compatibility_readout(monkeypatch) -> No
 
     assert len(result.tower.state_layers) > 1
     assert result.tower.last_update_result is not None
+
+
+def test_counterpoint_partition_tower_invariant_report_is_clean() -> None:
+    result = build_counterpoint_partition_tower(
+        default_tiny_spec(),
+        schema_id=ids.STRUCTURED_MOTION_SCHEMA_ID,
+    )
+
+    report = collect_counterpoint_tower_invariant_report(result)
+
+    assert report["ok"] is True
+    assert report["allow_dirty"] is False
+    assert report["issue_count"] == 0
+    assert report["issues"] == []
+
+
+def test_noisy_rate_partition_tower_invariant_report_is_clean() -> None:
+    result = build_counterpoint_noisy_rate_partition_tower(
+        default_small_spec(),
+        numerator=1,
+        denominator=18,
+        schema_seed=0,
+    )
+
+    report = collect_counterpoint_tower_invariant_report(result)
+
+    assert report["ok"] is True
+    assert report["issue_count"] == 0
+    assert report["issues"] == []
+
+
+def test_partition_invariant_report_serializer_includes_required_issue_fields() -> None:
+    class Report:
+        ok = False
+        issues = (
+            PartitionInvariantIssue(
+                tier=3,
+                code="synthetic_issue",
+                message="synthetic invariant issue",
+            ),
+        )
+
+    report = serialize_partition_invariant_report(Report(), allow_dirty=True)
+
+    assert report["ok"] is False
+    assert report["allow_dirty"] is True
+    assert report["issue_count"] == 1
+    assert report["issues"][0] == {
+        "tier": 3,
+        "code": "synthetic_issue",
+        "message": "synthetic invariant issue",
+        "state_cell_id": None,
+        "action_collection_id": None,
+        "action_cell_id": None,
+        "edge_id": None,
+    }
 
 
 def test_adapter_identity_surfaces_are_stable() -> None:

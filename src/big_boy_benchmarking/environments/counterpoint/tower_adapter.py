@@ -6,6 +6,7 @@ import math
 import random
 from collections.abc import Hashable, Iterable
 from dataclasses import dataclass, field
+from typing import Any
 
 from state_collapser.core.action import PrimitiveAction
 from state_collapser.core.edges import BaseEdge
@@ -30,6 +31,9 @@ from big_boy_benchmarking.environments.counterpoint.graph import (
     GraphEdge,
     ReachableGraph,
     enumerate_reachable_graph,
+)
+from big_boy_benchmarking.environments.counterpoint.liftability import (
+    STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID,
 )
 from big_boy_benchmarking.environments.counterpoint.masks import legal_action_mask
 from big_boy_benchmarking.environments.counterpoint.schemas import (
@@ -439,6 +443,75 @@ class CounterpointTowerBuildResult:
     tower: PartitionTower
 
 
+def serialize_partition_invariant_issue(issue: object) -> dict[str, Any]:
+    return {
+        "tier": getattr(issue, "tier", None),
+        "code": str(getattr(issue, "code", "")),
+        "message": str(getattr(issue, "message", "")),
+        "state_cell_id": _optional_repr(getattr(issue, "state_cell_id", None)),
+        "action_collection_id": _optional_repr(
+            getattr(issue, "action_collection_id", None)
+        ),
+        "action_cell_id": _optional_repr(getattr(issue, "action_cell_id", None)),
+        "edge_id": _optional_repr(getattr(issue, "edge_id", None)),
+    }
+
+
+def serialize_partition_invariant_report(
+    report: object,
+    *,
+    allow_dirty: bool = False,
+) -> dict[str, Any]:
+    issues = tuple(getattr(report, "issues", ()))
+    return {
+        "ok": bool(getattr(report, "ok", False)),
+        "allow_dirty": allow_dirty,
+        "issue_count": len(issues),
+        "issues": [serialize_partition_invariant_issue(issue) for issue in issues],
+    }
+
+
+def collect_counterpoint_tower_invariant_report(
+    build: CounterpointTowerBuildResult,
+    *,
+    allow_dirty: bool = False,
+) -> dict[str, Any]:
+    report = build.tower.invariant_report(allow_dirty=allow_dirty)
+    return serialize_partition_invariant_report(report, allow_dirty=allow_dirty)
+
+
+def assert_counterpoint_tower_consistent(
+    build: CounterpointTowerBuildResult,
+    *,
+    allow_dirty: bool = False,
+) -> None:
+    build.tower.assert_consistent(allow_dirty=allow_dirty)
+
+
+def counterpoint_tower_invariant_artifact_payload(
+    build: CounterpointTowerBuildResult,
+    *,
+    allow_dirty: bool = False,
+) -> dict[str, Any]:
+    import state_collapser
+
+    payload = collect_counterpoint_tower_invariant_report(
+        build,
+        allow_dirty=allow_dirty,
+    )
+    payload["state_collapser_version"] = str(getattr(state_collapser, "__version__", ""))
+    payload["liftability_semantics_id"] = (
+        STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID
+    )
+    return payload
+
+
+def _optional_repr(value: object | None) -> str | None:
+    if value is None:
+        return None
+    return repr(value)
+
+
 def build_counterpoint_partition_tower(
     spec: CounterpointInstanceSpec,
     *,
@@ -457,6 +530,7 @@ def build_counterpoint_partition_tower(
         counterpoint_state_to_core_state(graph.start_states[0]) if graph.start_states else None
     )
     tower.initialize(initial_states=states, initial_edges=edges, current_state=current_state)
+    tower.assert_consistent()
     return CounterpointTowerBuildResult(graph=graph, hidden_graph=hidden_graph, tower=tower)
 
 
@@ -483,6 +557,7 @@ def build_counterpoint_fraction_partition_tower(
         counterpoint_state_to_core_state(graph.start_states[0]) if graph.start_states else None
     )
     tower.initialize(initial_states=states, initial_edges=edges, current_state=current_state)
+    tower.assert_consistent()
     return CounterpointTowerBuildResult(graph=graph, hidden_graph=hidden_graph, tower=tower)
 
 
@@ -512,6 +587,7 @@ def build_counterpoint_noisy_rate_partition_tower(
         counterpoint_state_to_core_state(graph.start_states[0]) if graph.start_states else None
     )
     tower.initialize(initial_states=states, initial_edges=edges, current_state=current_state)
+    tower.assert_consistent()
     return CounterpointTowerBuildResult(graph=graph, hidden_graph=hidden_graph, tower=tower)
 
 
@@ -543,6 +619,7 @@ def build_counterpoint_iterated_noisy_rate_partition_tower(
         counterpoint_state_to_core_state(graph.start_states[0]) if graph.start_states else None
     )
     tower.initialize(initial_states=states, initial_edges=edges, current_state=current_state)
+    tower.assert_consistent()
     return CounterpointTowerBuildResult(graph=graph, hidden_graph=hidden_graph, tower=tower)
 
 

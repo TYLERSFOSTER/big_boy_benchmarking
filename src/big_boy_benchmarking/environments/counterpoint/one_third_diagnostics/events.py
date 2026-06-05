@@ -101,6 +101,14 @@ class OneThirdLiftFiberEventRow(FlatRow):
     success: bool
     failure_reason: str | None
     fiber_departure_reason: str | None
+    liftability_semantics_id: str = ""
+    representative_candidate_count: int = 0
+    pointwise_candidate_count: int = 0
+    selected_lift_index: int | None = None
+    selected_lift_source_matches_current: bool | None = None
+    selected_lift_target_repr: str | None = None
+    quotient_action_cell_count: int = 0
+    pointwise_executable_action_cell_count: int = 0
 
 
 @dataclass(frozen=True)
@@ -155,6 +163,10 @@ class ABCTierSignalEventRow(FlatRow):
     unclosed: bool
     selected: bool
     active: bool
+    liftability_semantics_id: str = ""
+    executable_semantics: str = ""
+    quotient_action_cell_count: int = 0
+    pointwise_executable_action_cell_count: int = 0
 
 
 @dataclass(frozen=True)
@@ -188,6 +200,9 @@ class TowerShapeSummaryRow(FlatRow):
     largest_state_fiber_share: float
     singleton_state_fiber_share: float
     degeneracy_class: str
+    liftability_semantics_id: str = ""
+    executable_semantics: str = ""
+    raw_action_cell_storage_count: int = 0
 
 
 @dataclass(frozen=True)

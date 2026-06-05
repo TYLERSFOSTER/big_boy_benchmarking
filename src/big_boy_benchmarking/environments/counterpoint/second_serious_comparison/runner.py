@@ -40,6 +40,9 @@ from big_boy_benchmarking.environments.counterpoint.instances import (
     default_tiny_spec,
     default_wide_span18_spec,
 )
+from big_boy_benchmarking.environments.counterpoint.liftability import (
+    STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID,
+)
 from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.runner import (
     _active_action_cell_count,
     _max_tier_action_count,
@@ -124,6 +127,7 @@ from big_boy_benchmarking.environments.counterpoint.tower_adapter import (
     build_counterpoint_iterated_noisy_rate_partition_tower,
     build_counterpoint_noisy_rate_partition_tower,
     build_counterpoint_partition_tower,
+    counterpoint_tower_invariant_artifact_payload,
 )
 from big_boy_benchmarking.metrics.timing import TimingRecorder, summarize_timing_segments
 from big_boy_benchmarking.modes.registry import require_runnable_mode
@@ -857,6 +861,10 @@ def _write_run_artifacts(
             "tower_shape_summary": [row.to_flat_dict() for row in tower_shape_rows],
         },
     )
+    write_json(
+        run_paths.root / "tower_invariant_report.json",
+        counterpoint_tower_invariant_artifact_payload(build),
+    )
     write_csv(
         run_paths.episodes_csv,
         [row.to_flat_dict() for row in episodes],
@@ -1027,6 +1035,8 @@ def _write_run_artifacts(
                 run_paths.root / "first_sustained_hit_summary.csv"
             ),
             "tower_shape_summary_csv": str(run_paths.root / "tower_shape_summary.csv"),
+            "quotient_summary": str(run_paths.root / "quotient_summary.json"),
+            "tower_invariant_report": str(run_paths.root / "tower_invariant_report.json"),
         },
         summary_path=str(family_paths.summary_json),
         warning_count=0,
@@ -1135,6 +1145,22 @@ def _lift_row(row, *, run_mode: str, candidate: RuntimeCandidate) -> ComparisonL
         success=row.success,
         failure_reason=row.failure_reason,
         fiber_departure_reason=row.fiber_departure_reason,
+        liftability_semantics_id=getattr(row, "liftability_semantics_id", ""),
+        representative_candidate_count=getattr(row, "representative_candidate_count", 0),
+        pointwise_candidate_count=getattr(row, "pointwise_candidate_count", row.candidate_count),
+        selected_lift_index=getattr(row, "selected_lift_index", None),
+        selected_lift_source_matches_current=getattr(
+            row,
+            "selected_lift_source_matches_current",
+            None,
+        ),
+        selected_lift_target_repr=getattr(row, "selected_lift_target_repr", None),
+        quotient_action_cell_count=getattr(row, "quotient_action_cell_count", 0),
+        pointwise_executable_action_cell_count=getattr(
+            row,
+            "pointwise_executable_action_cell_count",
+            0,
+        ),
     )
 
 
@@ -1209,6 +1235,14 @@ def _abc_tier_signal_row(
         unclosed=row.unclosed,
         selected=row.selected,
         active=row.active,
+        liftability_semantics_id=getattr(row, "liftability_semantics_id", ""),
+        executable_semantics=getattr(row, "executable_semantics", ""),
+        quotient_action_cell_count=getattr(row, "quotient_action_cell_count", 0),
+        pointwise_executable_action_cell_count=getattr(
+            row,
+            "pointwise_executable_action_cell_count",
+            0,
+        ),
     )
 
 
@@ -1302,6 +1336,15 @@ def _tower_shape_summary_rows(
                 else 0,
                 largest_state_cell_share=largest_share,
                 full_collapse=tier_index > 0 and state_cell_count == 1,
+                liftability_semantics_id=(
+                    STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID
+                ),
+                executable_semantics="static_quotient_action_storage_not_pointwise",
+                raw_action_cell_storage_count=_raw_action_cell_count(
+                    build.tower.action_layers[tier_index]
+                )
+                if tier_index < len(build.tower.action_layers)
+                else 0,
             )
         )
     return tuple(rows)

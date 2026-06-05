@@ -74,6 +74,14 @@ class LiftFiberEventRow(FlatRow):
     success: bool
     failure_reason: str | None
     fiber_departure_reason: str | None
+    liftability_semantics_id: str = ""
+    representative_candidate_count: int = 0
+    pointwise_candidate_count: int = 0
+    selected_lift_index: int | None = None
+    selected_lift_source_matches_current: bool | None = None
+    selected_lift_target_repr: str | None = None
+    quotient_action_cell_count: int = 0
+    pointwise_executable_action_cell_count: int = 0
 
 
 @dataclass(frozen=True)

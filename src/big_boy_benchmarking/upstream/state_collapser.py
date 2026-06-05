@@ -55,6 +55,13 @@ REQUIRED_TOWER_PARTITION_SYMBOLS = (
     "action_layer_invariant_report",
 )
 
+REQUIRED_TOWER_PARTITION_METHODS = (
+    "invariant_report",
+    "assert_consistent",
+    "executable_lift_candidates",
+    "tier_is_executable_from_state",
+)
+
 
 @dataclass(frozen=True)
 class StateCollapserDependencyState:
@@ -76,6 +83,8 @@ class StateCollapserDependencyState:
     tower_runtime_symbols: tuple[str, ...] = ()
     tower_partition_import_status: str = "not_checked"
     tower_partition_symbols: tuple[str, ...] = ()
+    tower_partition_method_status: str = "not_checked"
+    tower_partition_methods: tuple[str, ...] = ()
     torch_import_status: str = "not_checked"
     cuda_available: bool | None = None
 
@@ -156,6 +165,26 @@ def _inspect_torch_import_state() -> tuple[str, bool | None]:
     return "ok", bool(torch_module.cuda.is_available())
 
 
+def _inspect_partition_tower_methods() -> tuple[str, tuple[str, ...]]:
+    try:
+        module = importlib.import_module("state_collapser.tower.partition")
+    except Exception as exc:  # pragma: no cover - defensive import boundary
+        return f"import_failed:{type(exc).__name__}:{exc}", ()
+    partition_tower = getattr(module, "PartitionTower", None)
+    if partition_tower is None:
+        return "missing:PartitionTower", ()
+
+    present = tuple(
+        method
+        for method in REQUIRED_TOWER_PARTITION_METHODS
+        if hasattr(partition_tower, method)
+    )
+    missing = tuple(method for method in REQUIRED_TOWER_PARTITION_METHODS if method not in present)
+    if missing:
+        return f"missing:{','.join(missing)}", present
+    return "ok", present
+
+
 def collect_state_collapser_dependency_state(
     *,
     local_path: Path | str | None = None,
@@ -183,6 +212,8 @@ def collect_state_collapser_dependency_state(
             tower_runtime_symbols=(),
             tower_partition_import_status="not_checked",
             tower_partition_symbols=(),
+            tower_partition_method_status="not_checked",
+            tower_partition_methods=(),
             torch_import_status="not_checked",
             cuda_available=None,
         )
@@ -222,6 +253,7 @@ def collect_state_collapser_dependency_state(
         "state_collapser.tower.partition",
         REQUIRED_TOWER_PARTITION_SYMBOLS,
     )
+    tower_partition_method_status, tower_partition_methods = _inspect_partition_tower_methods()
     torch_import_status, cuda_available = _inspect_torch_import_state()
 
     return StateCollapserDependencyState(
@@ -243,6 +275,8 @@ def collect_state_collapser_dependency_state(
         tower_runtime_symbols=tower_runtime_symbols,
         tower_partition_import_status=tower_partition_status,
         tower_partition_symbols=tower_partition_symbols,
+        tower_partition_method_status=tower_partition_method_status,
+        tower_partition_methods=tower_partition_methods,
         torch_import_status=torch_import_status,
         cuda_available=cuda_available,
     )

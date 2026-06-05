@@ -7,6 +7,12 @@ import json
 from collections import Counter
 from pathlib import Path
 
+from big_boy_benchmarking.environments.counterpoint.liftability import (
+    STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID,
+)
+from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.config import (
+    EVALUATION_RUN_FAMILY_ID,
+)
 from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.paths import (
     build_second_serious_comparison_paths,
     repo_readout_surface,
@@ -33,11 +39,15 @@ def write_second_serious_comparison_docs(
     claim_rows = _read_csv(paths.results_dir / "comparison_claim_summary.csv")
     hit_rows = _read_csv(paths.results_dir / "first_sustained_hit_summary.csv")
     candidate_rows = _read_csv(paths.results_dir / "candidate_summary.csv")
+    run_rows = _read_csv(paths.evaluation_run_index_csv)
+    lift_failure_rows = _read_csv(paths.results_dir / "lift_failure_by_tier.csv")
 
     status = str(aggregate_summary.get("status", "unknown"))
     hit_counts = Counter(row.get("hit_status", "") for row in hit_rows)
     pair_count = len(pair_rows)
     unblocked_pairs = sum(row.get("claim_blocked") in {"False", "false", "0"} for row in pair_rows)
+    invariant_status = _invariant_preflight_status(artifact_root, run_rows)
+    lift_failure_count = _lift_failure_count(lift_failure_rows)
     badges = _write_badges(
         docs_root,
         status=status,
@@ -45,6 +55,8 @@ def write_second_serious_comparison_docs(
         sustained_count=int(hit_counts.get("sustained_hit", 0)),
         pair_count=pair_count,
         unblocked_pairs=unblocked_pairs,
+        invariant_status=invariant_status,
+        lift_failure_count=lift_failure_count,
     )
     readout_command = (
         "execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at "
@@ -70,12 +82,22 @@ def write_second_serious_comparison_docs(
             pair_rows=pair_rows,
             claim_rows=claim_rows,
             hit_rows=hit_rows,
+            invariant_status=invariant_status,
+            lift_failure_count=lift_failure_count,
             readout_command=readout_command,
             turn_section=_turn_section_for_regeneration(readme_path),
         ),
         create_parents=True,
     )
-    _write_text(docs_root / "method.md", _method(artifact_root=artifact_root, budget=budget))
+    _write_text(
+        docs_root / "method.md",
+        _method(
+            artifact_root=artifact_root,
+            budget=budget,
+            invariant_status=invariant_status,
+            lift_failure_count=lift_failure_count,
+        ),
+    )
     _write_text(
         docs_root / "runbook.md",
         _runbook(summarize_command=summarize_command, readout_command=readout_command),
@@ -126,6 +148,8 @@ def _readme(
     pair_rows: list[dict[str, str]],
     claim_rows: list[dict[str, str]],
     hit_rows: list[dict[str, str]],
+    invariant_status: str,
+    lift_failure_count: int,
     readout_command: str,
     turn_section: str,
 ) -> str:
@@ -140,6 +164,14 @@ def _readme(
         f"- Threshold value: `{budget.get('threshold_value', None)}`.\n"
         f"- Paired rows: `{len(pair_rows)}`.\n"
         f"- Sustained-hit rows: `{_sustained_hit_count(hit_rows)}`.\n\n"
+        "## Liftability And Invariant Semantics\n\n"
+        f"- Liftability semantics: `{STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID}`.\n"
+        f"- Invariant preflight: `{invariant_status}`.\n"
+        f"- Lift failure rows: `{lift_failure_count}`.\n"
+        "- Tower action masks and tier executability use executable concrete "
+        "lifts from the current base state. Quotient-level outgoing action "
+        "cells remain diagnostic/shape evidence, not proof that an abstract "
+        "action can execute at a particular concrete state.\n\n"
         "## Summary of Goals Behind this Evaluation\n\n"
         "The goal is to compare schema conditions, not old runner paths: "
         "`schema0_no_contraction` versus selected `schema1_noisy_rate_one_drop` "
@@ -174,13 +206,28 @@ def _readme(
     )
 
 
-def _method(*, artifact_root: Path, budget: dict[str, object]) -> str:
+def _method(
+    *,
+    artifact_root: Path,
+    budget: dict[str, object],
+    invariant_status: str,
+    lift_failure_count: int,
+) -> str:
     return (
         "# Method\n\n"
         "This evaluation compares two schema classes inside the same active-tier "
         "tower-control training harness. Schema 0 is no contraction. Schema 1 is "
         "a selected one-drop noisy-rate quotient candidate from the existing "
         "full-tower training diagnostic source.\n\n"
+        f"The run uses `{STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID}` "
+        "semantics from `state_collapser` v0.7.2: tower action masks and tier "
+        "executability are based on concrete lifts executable from the current "
+        "base state, not merely quotient-level outgoing action cells. Quotient "
+        "action availability still appears in shape and diagnostic tables as "
+        "structural support evidence. Pointwise executable liftability is the "
+        "runtime criterion.\n\n"
+        f"Invariant preflight status: `{invariant_status}`. Lift failure rows "
+        f"reported in the aggregate readout: `{lift_failure_count}`.\n\n"
         "Artifact root:\n\n"
         "```text\n"
         f"{artifact_root}\n"
@@ -393,6 +440,32 @@ def _sustained_hit_count(rows: list[dict[str, str]]) -> int:
     return sum(row.get("hit_status") == "sustained_hit" for row in rows)
 
 
+def _invariant_preflight_status(artifact_root: Path, run_rows: list[dict[str, str]]) -> str:
+    successful_runs = [row for row in run_rows if row.get("status") == "success"]
+    if not successful_runs:
+        return "unknown"
+    reports = [
+        _read_json(_run_root(artifact_root, row["run_id"]) / "tower_invariant_report.json")
+        for row in successful_runs
+    ]
+    if not reports:
+        return "unknown"
+    if all(report.get("ok") is True for report in reports):
+        return "passed"
+    return "failed_or_missing"
+
+
+def _lift_failure_count(rows: list[dict[str, str]]) -> int:
+    total = 0
+    for row in rows:
+        total += int(row.get("event_count") or row.get("failure_count") or 0)
+    return total
+
+
+def _run_root(artifact_root: Path, run_id: str) -> Path:
+    return artifact_root / "runs" / EVALUATION_RUN_FAMILY_ID / "runs" / run_id
+
+
 def _write_badges(
     docs_root: Path,
     *,
@@ -401,6 +474,8 @@ def _write_badges(
     sustained_count: int,
     pair_count: int,
     unblocked_pairs: int,
+    invariant_status: str,
+    lift_failure_count: int,
 ) -> list[str]:
     badges_dir = docs_root / "badges"
     badges_dir.mkdir(parents=True, exist_ok=True)
@@ -426,6 +501,19 @@ def _write_badges(
         ),
         ("scope_schema_comparison.svg", "Scope", "Schema Compare", "#1565c0"),
         ("provenance_repo_artifacts.svg", "Provenance", "Repo Artifacts", "#1565c0"),
+        ("liftability_semantics.svg", "Liftability", "Pointwise v0.7.2", "#2e7d32"),
+        (
+            "invariant_preflight.svg",
+            "Invariant",
+            invariant_status,
+            "#2e7d32" if invariant_status == "passed" else "#ef6c00",
+        ),
+        (
+            "lift_failures.svg",
+            "Lift Failures",
+            str(lift_failure_count),
+            "#2e7d32" if lift_failure_count == 0 else "#ef6c00",
+        ),
     ]
     links = []
     for filename, label, value, color in specs:

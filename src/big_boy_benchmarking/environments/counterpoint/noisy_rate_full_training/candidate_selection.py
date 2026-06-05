@@ -16,7 +16,6 @@ from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.eve
     FullTrainingCandidateSummaryRow,
 )
 from big_boy_benchmarking.environments.counterpoint.noisy_rate_full_training.paths import (
-    normalize_repo_path,
     validate_repo_resident_path,
 )
 
@@ -196,6 +195,14 @@ def _candidate_rows(
                 ),
                 candidate_eligible=reason is None,
                 candidate_exclusion_reason=reason,
+                candidate_liftability_evidence_source=(
+                    "static_tower_shape_active_action_cell_count"
+                ),
+                candidate_liftability_compatibility_note=(
+                    "parent candidate source lacks current-base-state pointwise "
+                    "liftability fields; downstream training reruns use "
+                    "state_collapser_v072_pointwise masks and lift resolution"
+                ),
             )
         )
     return tuple(result)
@@ -241,4 +248,3 @@ def _optional_float(value: object) -> float | None:
     if value in (None, ""):
         return None
     return float(value)
-

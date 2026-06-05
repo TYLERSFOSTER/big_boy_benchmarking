@@ -187,9 +187,15 @@ def test_second_serious_runner_aggregation_and_docs(
 
     source = json.loads((readout_surface / "readout_source.json").read_text())
     assert source["evaluation_id"] == EVALUATION_ID
+    assert source["liftability_semantics_id"] == "state_collapser_v072_pointwise"
+    assert source["expected_run_files"]["tower_invariant_report"] == (
+        "tower_invariant_report.json"
+    )
     assert "paired_schema_comparison" in source["source_files"]
     readme = (readout_surface / "README.md").read_text()
     assert "Summary of Goals Behind this Evaluation" in readme
+    assert "Liftability And Invariant Semantics" in readme
+    assert "state_collapser_v072_pointwise" in readme
     assert (
         "execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at" in readme
     )

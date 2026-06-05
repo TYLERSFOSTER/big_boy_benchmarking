@@ -6,6 +6,7 @@ from big_boy_benchmarking.upstream.state_collapser import (
     REQUIRED_LINEARIZATION_SYMBOLS,
     REQUIRED_SERIOUS_TRAINING_SYMBOLS,
     REQUIRED_TOWER_CONTROL_SYMBOLS,
+    REQUIRED_TOWER_PARTITION_METHODS,
     REQUIRED_TOWER_PARTITION_SYMBOLS,
     REQUIRED_TOWER_RUNTIME_SYMBOLS,
     collect_state_collapser_dependency_state,
@@ -38,6 +39,12 @@ def test_dependency_state_collects_serious_learning_imports() -> None:
     assert state.tower_runtime_symbols == REQUIRED_TOWER_RUNTIME_SYMBOLS
     assert state.tower_partition_import_status == "ok"
     assert state.tower_partition_symbols == REQUIRED_TOWER_PARTITION_SYMBOLS
+    assert state.tower_partition_method_status == "ok"
+    assert state.tower_partition_methods == REQUIRED_TOWER_PARTITION_METHODS
+    assert "executable_lift_candidates" in state.tower_partition_methods
+    assert "tier_is_executable_from_state" in state.tower_partition_methods
+    assert "invariant_report" in state.tower_partition_methods
+    assert "assert_consistent" in state.tower_partition_methods
 
 
 def test_exploit_explore_runtime_exposes_executable_tier_predicate() -> None:

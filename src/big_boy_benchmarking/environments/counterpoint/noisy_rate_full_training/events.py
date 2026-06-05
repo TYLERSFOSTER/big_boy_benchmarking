@@ -55,6 +55,8 @@ class FullTrainingCandidateSummaryRow(FlatRow):
     endpoint_useful_coalescence_count: int
     candidate_eligible: bool
     candidate_exclusion_reason: str | None
+    candidate_liftability_evidence_source: str = ""
+    candidate_liftability_compatibility_note: str = ""
 
 
 @dataclass(frozen=True)
@@ -142,6 +144,14 @@ class FullTrainingLiftFiberEventRow(FlatRow):
     success: bool
     failure_reason: str | None
     fiber_departure_reason: str | None
+    liftability_semantics_id: str = ""
+    representative_candidate_count: int = 0
+    pointwise_candidate_count: int = 0
+    selected_lift_index: int | None = None
+    selected_lift_source_matches_current: bool | None = None
+    selected_lift_target_repr: str | None = None
+    quotient_action_cell_count: int = 0
+    pointwise_executable_action_cell_count: int = 0
 
 
 @dataclass(frozen=True)
@@ -198,6 +208,10 @@ class FullTrainingABCTierSignalEventRow(FlatRow):
     unclosed: bool
     selected: bool
     active: bool
+    liftability_semantics_id: str = ""
+    executable_semantics: str = ""
+    quotient_action_cell_count: int = 0
+    pointwise_executable_action_cell_count: int = 0
 
 
 @dataclass(frozen=True)
@@ -233,6 +247,9 @@ class FullTrainingTowerShapeSummaryRow(FlatRow):
     raw_historical_action_cell_record_count: int
     largest_state_cell_share: float
     full_collapse: bool
+    liftability_semantics_id: str = ""
+    executable_semantics: str = ""
+    raw_action_cell_storage_count: int = 0
 
 
 @dataclass(frozen=True)
@@ -425,4 +442,3 @@ class FullTrainingAggregateTableRow(FlatRow):
     no_available_action_event_count: int
     artifact_root: str
     failure_reason: str | None
-

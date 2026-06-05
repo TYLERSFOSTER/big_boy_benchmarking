@@ -6,6 +6,9 @@ from pathlib import Path
 from typing import Any
 
 from big_boy_benchmarking.artifacts.schemas import ARTIFACT_SCHEMA_VERSION
+from big_boy_benchmarking.environments.counterpoint.liftability import (
+    STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID,
+)
 from big_boy_benchmarking.environments.counterpoint.second_serious_comparison.arms import (
     SCHEMA0_ARM,
     SCHEMA1_ARM,
@@ -115,15 +118,37 @@ def readout_source_payload(
     source_files: dict[str, Path],
     budget: dict[str, Any],
 ) -> dict[str, Any]:
+    import state_collapser
+
     return {
         "artifact_schema_version": ARTIFACT_SCHEMA_VERSION,
         "evaluation_id": EVALUATION_ID,
         "artifact_run_label": artifact_run_label,
         "run_mode": run_mode,
+        "state_collapser_version": str(getattr(state_collapser, "__version__", "")),
+        "liftability_semantics_id": (
+            STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID
+        ),
         "repo_readout_surface": str(repo_readout_surface),
         "source_artifact_root": str(source_artifact_root),
         "source_evaluation_root": str(source_evaluation_root),
         "source_files": {key: str(path) for key, path in source_files.items()},
+        "expected_run_files": {
+            "tower_invariant_report": "tower_invariant_report.json",
+            "lift_fiber_events": "lift_fiber_events.csv",
+            "abc_tier_signal_events": "abc_tier_signal_events.csv",
+            "tower_shape_summary": "tower_shape_summary.csv",
+        },
+        "expected_lift_fields": [
+            "liftability_semantics_id",
+            "representative_candidate_count",
+            "pointwise_candidate_count",
+            "selected_lift_index",
+            "selected_lift_source_matches_current",
+            "selected_lift_target_repr",
+            "quotient_action_cell_count",
+            "pointwise_executable_action_cell_count",
+        ],
         "budget": budget,
         "goal_criteria": [
             {
@@ -157,6 +182,9 @@ def readout_source_payload(
                 "comparison_status",
                 "claim_scope",
                 "provenance_status",
+                "liftability_semantics",
+                "invariant_preflight",
+                "lift_failures",
             ]
         },
         "goal_summary_sources": [
