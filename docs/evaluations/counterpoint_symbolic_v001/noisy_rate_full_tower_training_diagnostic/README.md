@@ -2,7 +2,7 @@
 
 ![Artifacts: Complete](badges/artifacts_complete.svg)
 ![Candidates: 1](badges/candidates.svg)
-![Training: 0 clean/1 warn/0 fail](badges/training_health.svg)
+![Training: 1 clean/0 warn/0 fail](badges/training_health.svg)
 ![Runtime: Concrete Steps](badges/runtime_executable.svg)
 ![Learner: Updates](badges/lift_status.svg)
 ![Scope: Diagnostic Only](badges/scope_diagnostic_only.svg)
@@ -14,8 +14,8 @@ This repository directory is the human-readable readout surface for the counterp
 
 - Artifact evidence: `complete`.
 - Candidate count: `1`.
-- Concrete steps emitted: `1`.
-- Successful learner updates: `61`.
+- Concrete steps emitted: `32`.
+- Successful learner updates: `40`.
 - Claim scope: diagnostic only; this is not a direct-vs-tower comparison.
 
 ## One-Screen Verdict
@@ -27,7 +27,7 @@ For the current noisy-rate schema, the full available tower is the base tier plu
 ## Source Evaluation Root
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/wide_span18_p001_over018_s0_001
+/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001
 ```
 
 ## Candidate Towers
@@ -40,7 +40,7 @@ For the current noisy-rate schema, the full available tower is the base tier plu
 
 | Candidate | Status | Concrete Steps | Learner Updates | Zero-Step Share |
 | --- | --- | --- | --- | --- |
-| counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0 | trainable_with_warnings | True | True | 0.75 |
+| counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0 | trainable_clean | True | True | 0.0 |
 
 ## Claim Boundary
 

@@ -1,0 +1,41 @@
+{
+  "complete_run_count": 2,
+  "evaluation_aggregate_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/evaluation_aggregate_table.csv",
+  "evaluation_id": "counterpoint_second_serious_schema_comparison_v001",
+  "hit_status_counts": {
+    "sustained_hit": 2
+  },
+  "pair_count": 1,
+  "result_files": {
+    "abc_selection_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/abc_selection_summary.csv",
+    "abc_tier_signal_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/abc_tier_signal_summary.csv",
+    "arm_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/arm_summary.csv",
+    "candidate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/candidate_summary.csv",
+    "comparison_claim_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/comparison_claim_summary.csv",
+    "concrete_step_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/concrete_step_summary.csv",
+    "controller_action_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/controller_action_summary.csv",
+    "first_sustained_hit_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/first_sustained_hit_summary.csv",
+    "learner_update_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/learner_update_summary.csv",
+    "lift_failure_by_tier": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/lift_failure_by_tier.csv",
+    "lift_success_by_tier": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/lift_success_by_tier.csv",
+    "paired_schema_comparison": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/paired_schema_comparison.csv",
+    "schema0_total_space_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/schema0_total_space_summary.csv",
+    "schema1_candidate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/schema1_candidate_summary.csv",
+    "schema_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/schema_summary.csv",
+    "threshold_window_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/threshold_window_summary.csv",
+    "tier_executability_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/tier_executability_summary.csv",
+    "tier_occupancy_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/tier_occupancy_summary.csv",
+    "timing_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/timing_summary.csv",
+    "tower_shape_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/tower_shape_summary.csv",
+    "training_curve_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/training_curve_summary.csv",
+    "training_episode_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/training_episode_summary.csv",
+    "training_health_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001/results/training_health_summary.csv"
+  },
+  "run_count": 2,
+  "schema_class_counts": {
+    "schema0_no_contraction": 1,
+    "schema1_noisy_rate_one_drop": 1
+  },
+  "status": "complete",
+  "unblocked_pair_count": 1
+}

@@ -7,7 +7,7 @@ A real training replicate preserves learner state across all episodes inside tha
 Artifact root:
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/wide_span18_p001_over018_s0_001
+/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001
 ```
 
 Locked budget:
@@ -25,7 +25,7 @@ Locked budget:
   "horizon_by_instance_id": null,
   "include_runtime_anchor": false,
   "linearization_mode_id": "tensor_available_disabled",
-  "locked_by": "codex",
+  "locked_by": "foster",
   "parent_candidate_readout_source": "docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json",
   "training_replicates_per_candidate": 1
 }
