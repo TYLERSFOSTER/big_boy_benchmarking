@@ -1,0 +1,19 @@
+{
+  "evaluation_id": "counterpoint_small_paired_replicate_probe_v001",
+  "schema_classes": [
+    {
+      "claim_role": "matched total-space no-contraction condition",
+      "display_name": "Schema 0: no contraction",
+      "requires_candidate": false,
+      "schema_class_id": "schema0_no_contraction",
+      "schema_id": "counterpoint_empty_schema_v001"
+    },
+    {
+      "claim_role": "selected one-drop noisy-rate quotient condition",
+      "display_name": "Schema 1: one-drop noisy-rate quotient",
+      "requires_candidate": true,
+      "schema_class_id": "schema1_noisy_rate_one_drop",
+      "schema_id": "counterpoint_noisy_rate_contraction_single_block_schema_v001"
+    }
+  ]
+}

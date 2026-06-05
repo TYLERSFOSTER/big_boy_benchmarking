@@ -1,0 +1,184 @@
+{
+  "artifact_run_label": "smoke_001",
+  "artifact_schema_version": "bbb.v001",
+  "badge_policy": {
+    "dimensions": [
+      "artifact_status",
+      "pair_count",
+      "unblocked_pairs",
+      "schema1_margin_wins",
+      "sustained_hit_rate_difference",
+      "liftability_semantics",
+      "lift_failures",
+      "provenance_status"
+    ]
+  },
+  "budget": {
+    "artifact_schema_version": "bbb.v001",
+    "base_seed": 0,
+    "candidate_cap": 1,
+    "candidate_readout_source": "docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/readout_source.json",
+    "controller_event_ceiling_override": null,
+    "controller_event_ceiling_policy": "max(64, 8 * horizon)",
+    "environment_instance_id": "counterpoint_symbolic_n3_wide_20_108_span18_v001",
+    "episodes_per_replicate": 4,
+    "evaluation_id": "counterpoint_small_paired_replicate_probe_v001",
+    "evaluation_run_family_id": "counterpoint_symbolic_v001_small_paired_replicate_probe_v001",
+    "linearization_mode_id": "tensor_available_disabled",
+    "locked_by": "foster",
+    "required_count": 4,
+    "run_mode": "smoke_small_paired_replicate_probe",
+    "schema1_tower_source": "full_iterated_noisy_rate",
+    "target_candidate_ids": [],
+    "threshold_frontier_readout_source": null,
+    "threshold_policy_id": "counterpoint_total_space_sustained_reward_v001",
+    "threshold_value": 13.0,
+    "tier_jump_policy_id": "counterpoint_active_tier_observed_transition_v001",
+    "tier_jump_reward_cutoff": 13.0,
+    "training_replicates_per_arm": 1,
+    "window_length": 5
+  },
+  "claim_boundary": [
+    "single-candidate paired seed-bundle pattern only",
+    "no statistical significance claim",
+    "no broad abstraction superiority claim",
+    "no tensor-enabled runtime claim",
+    "no musical quality claim"
+  ],
+  "evaluation_id": "counterpoint_small_paired_replicate_probe_v001",
+  "expected_files": {
+    "conditional": {
+      "schema0_no_contraction": [
+        "tier/lift/ABC evidence may be structurally one-tier"
+      ],
+      "schema1_noisy_rate_one_drop": [
+        "tier/lift/ABC evidence expected when candidate runtime executes"
+      ]
+    },
+    "not_applicable": [
+      "threshold frontier sweep tables",
+      "old direct tabular-Q baseline artifacts",
+      "masked-random baseline artifacts",
+      "tensor-enabled conversion records",
+      "musical quality judgments"
+    ],
+    "required": [
+      "evaluation_manifest.json",
+      "evaluation_arm_manifest.json",
+      "evaluation_budget_lock.json",
+      "replicate_probe_policy_manifest.json",
+      "threshold_policy_manifest.json",
+      "candidate_manifest.json",
+      "parent_source_manifest.json",
+      "evaluation_run_index.csv",
+      "evaluation_aggregate_table.csv",
+      "evaluation_aggregate_summary.json",
+      "results/replicate_pair_summary.csv",
+      "results/paired_delta_distribution.csv",
+      "results/schema_arm_distribution.csv",
+      "results/post_hit_margin_distribution.csv",
+      "results/sustained_hit_rate_summary.csv",
+      "results/seed_bundle_summary.csv",
+      "results/lift_success_by_tier.csv",
+      "results/lift_failure_by_tier.csv",
+      "results/tower_shape_summary.csv",
+      "results/timing_summary.csv"
+    ]
+  },
+  "goal_criteria": [
+    {
+      "claim_if_met": "The paired distribution is interpretable.",
+      "claim_if_not_met": "The paired replicate claim is blocked.",
+      "failure_signal": "missing or mismatched seed_bundle_id evidence",
+      "goal_id": "paired_seed_identity",
+      "partial_signal": "some pairs exist but some are blocked or incomplete",
+      "question": "Were Schema 0 and Schema 1 matched by seed bundle?",
+      "success_signal": "seed_bundle_summary.csv proves one Schema 0 and one Schema 1 run per pair"
+    },
+    {
+      "claim_if_met": "The result motivates a larger serious comparison.",
+      "claim_if_not_met": "The result does not yet motivate scaling this comparison.",
+      "failure_signal": "margin signal disappears, flips, or all pairs block",
+      "goal_id": "schema1_margin_pattern",
+      "partial_signal": "mixed margin wins/losses or too few unblocked pairs",
+      "question": "Does Schema 1 keep a positive post-hit reward margin across pairs?",
+      "success_signal": "paired_delta_distribution.csv has Schema 1 margin wins in a meaningful majority"
+    }
+  ],
+  "goal_summary_sources": [
+    "docs/design/first_counterpoint_environment/small_paired_replicate_probe/01_001_counterpoint_small_paired_replicate_probe_blueprint.md",
+    "docs/design/first_counterpoint_environment/small_paired_replicate_probe/README.md"
+  ],
+  "liftability_semantics_id": "state_collapser_v072_pointwise",
+  "methodology_summary_sources": [
+    "docs/design/first_counterpoint_environment/small_paired_replicate_probe/01_002_counterpoint_small_paired_replicate_probe_implementation_gameplan.md",
+    "docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md"
+  ],
+  "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe",
+  "run_mode": "smoke_small_paired_replicate_probe",
+  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001",
+  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001",
+  "source_files": {
+    "aggregate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/evaluation_aggregate_summary.json",
+    "aggregate_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/evaluation_aggregate_table.csv",
+    "candidate_manifest": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/candidate_manifest.json",
+    "controller_action_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/results/controller_action_summary.csv",
+    "evaluation_arm_manifest": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/evaluation_arm_manifest.json",
+    "evaluation_budget_lock": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/evaluation_budget_lock.json",
+    "evaluation_manifest": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/evaluation_manifest.json",
+    "first_sustained_hit_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/results/first_sustained_hit_summary.csv",
+    "learner_update_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/results/learner_update_summary.csv",
+    "lift_failure_by_tier": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/results/lift_failure_by_tier.csv",
+    "lift_success_by_tier": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/results/lift_success_by_tier.csv",
+    "paired_delta_distribution": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/results/paired_delta_distribution.csv",
+    "parent_source_manifest": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/parent_source_manifest.json",
+    "post_hit_margin_distribution": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/results/post_hit_margin_distribution.csv",
+    "replicate_pair_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/results/replicate_pair_summary.csv",
+    "replicate_probe_policy_manifest": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/replicate_probe_policy_manifest.json",
+    "run_index": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/evaluation_run_index.csv",
+    "schema_arm_distribution": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/results/schema_arm_distribution.csv",
+    "seed_bundle_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/results/seed_bundle_summary.csv",
+    "sustained_hit_rate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/results/sustained_hit_rate_summary.csv",
+    "threshold_policy_manifest": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/threshold_policy_manifest.json",
+    "threshold_window_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/results/threshold_window_summary.csv",
+    "tier_jump_policy_manifest": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/tier_jump_policy_manifest.json",
+    "timing_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/results/timing_summary.csv",
+    "tower_shape_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/results/tower_shape_summary.csv",
+    "training_episode_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/results/training_episode_summary.csv"
+  },
+  "state_collapser_version": "0.7.2",
+  "structural_limit_checks": [
+    {
+      "check_id": "paired_seed_identity_missing",
+      "claim_effect": "blocks paired interpretation",
+      "interpretation_if_triggered": "The pair-level claim is blocked.",
+      "trigger": "seed_bundle_summary contains missing or mismatched arms"
+    },
+    {
+      "check_id": "all_pairs_blocked",
+      "claim_effect": "blocks margin/speed claim",
+      "interpretation_if_triggered": "No paired behavioral claim is supported.",
+      "trigger": "unblocked_pair_count == 0"
+    },
+    {
+      "check_id": "lift_failure_present",
+      "claim_effect": "downgrades interpretation",
+      "interpretation_if_triggered": "Tower runtime may be structurally blocked.",
+      "trigger": "lift_failure_by_tier has nonzero event_count"
+    }
+  ],
+  "threshold_policy": {
+    "comparison": "greater_than_or_equal",
+    "metric_id": "episode_total_reward",
+    "required_count": 4,
+    "scope": "total_space",
+    "threshold_value": 13.0,
+    "window_length": 5
+  },
+  "threshold_source": {
+    "threshold_source_field": "--threshold-value",
+    "threshold_source_readout": null,
+    "threshold_source_type": "explicit_cli_threshold",
+    "threshold_value": 13.0
+  }
+}

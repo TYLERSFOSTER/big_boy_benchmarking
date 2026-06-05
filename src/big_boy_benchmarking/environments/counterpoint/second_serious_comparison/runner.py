@@ -343,6 +343,13 @@ def run_schema_condition(
     linearization_mode_id: str = DEFAULT_LINEARIZATION_MODE_ID,
     controller_config: ExploitExploreControllerConfig | None = None,
     learner_config: TabularQLearnerConfig | None = None,
+    evaluation_id: str = EVALUATION_ID,
+    run_family_id: str = EVALUATION_RUN_FAMILY_ID,
+    run_family_description: str = "Counterpoint second serious schema-comparison family.",
+    command: str = (
+        "python -m big_boy_benchmarking.cli counterpoint second-serious-comparison run"
+    ),
+    runner_label: str = "counterpoint_second_serious_schema_comparison",
 ) -> BenchmarkRunResult:
     if linearization_mode_id != DEFAULT_LINEARIZATION_MODE_ID:
         raise ValueError(
@@ -399,6 +406,7 @@ def run_schema_condition(
             episode.episode_row,
             run_mode=run_mode,
             candidate=candidate,
+            evaluation_id=evaluation_id,
         )
         for episode in full_training_episodes
     )
@@ -409,7 +417,7 @@ def run_schema_condition(
     )
     threshold_windows = tuple(
         ThresholdWindowEventRow(
-            evaluation_id=EVALUATION_ID,
+            evaluation_id=evaluation_id,
             run_id=run_id,
             run_mode=run_mode,
             candidate_group_id=candidate.candidate_group_id,
@@ -430,7 +438,7 @@ def run_schema_condition(
         for window in threshold_result.windows
     )
     first_hit = FirstSustainedHitSummaryRow(
-        evaluation_id=EVALUATION_ID,
+        evaluation_id=evaluation_id,
         run_id=run_id,
         run_mode=run_mode,
         candidate_group_id=candidate.candidate_group_id,
@@ -466,6 +474,11 @@ def run_schema_condition(
         artifact_root=Path(artifact_root),
         run_id=run_id,
         run_mode=run_mode,
+        evaluation_id=evaluation_id,
+        run_family_id=run_family_id,
+        run_family_description=run_family_description,
+        command=command,
+        runner_label=runner_label,
         linearization_mode_id=linearization_mode_id,
         budget={
             "episodes": episode_count,
@@ -618,10 +631,7 @@ def _runtime_schema_id(candidate: RuntimeCandidate) -> str:
     if candidate.schema_class_id == SCHEMA0_CLASS_ID:
         return ids.EMPTY_SCHEMA_ID
     if candidate.schema1_tower_source == SCHEMA1_TOWER_SOURCE_FULL_ITERATED:
-        return (
-            f"{ids.NOISY_RATE_CONTRACTION_SCHEMA_ID}_{candidate.arm_id}_"
-            "full_iterated"
-        )
+        return f"{ids.NOISY_RATE_CONTRACTION_SCHEMA_ID}_{candidate.arm_id}_full_iterated"
     return f"{ids.NOISY_RATE_CONTRACTION_SCHEMA_ID}_{candidate.arm_id}"
 
 
@@ -693,9 +703,7 @@ def _schema_construction_for_candidate(
             environment_family_id=one_drop.spec.environment_family_id,
             environment_instance_id=one_drop.spec.environment_instance_id,
             schema_seed=candidate.schema_seed,
-            construction_method=(
-                "seeded_edge_global_noisy_rate_iterated_quotient_contraction"
-            ),
+            construction_method=("seeded_edge_global_noisy_rate_iterated_quotient_contraction"),
             source_label_families=one_drop.spec.source_label_families,
             state_partition_description=(
                 "identity state keys at tier 0; runtime contraction is edge-driven"
@@ -728,6 +736,11 @@ def _write_run_artifacts(
     artifact_root: Path,
     run_id: str,
     run_mode: str,
+    evaluation_id: str,
+    run_family_id: str,
+    run_family_description: str,
+    command: str,
+    runner_label: str,
     linearization_mode_id: str,
     budget: dict[str, Any],
     recorder: TimingRecorder,
@@ -741,8 +754,8 @@ def _write_run_artifacts(
     started_at: str,
     ended_at: str,
 ) -> BenchmarkRunResult:
-    family_paths = build_run_family_paths(artifact_root, EVALUATION_RUN_FAMILY_ID)
-    run_paths = build_run_paths(artifact_root, EVALUATION_RUN_FAMILY_ID, run_id)
+    family_paths = build_run_family_paths(artifact_root, run_family_id)
+    run_paths = build_run_paths(artifact_root, run_family_id, run_id)
     ensure_artifact_dirs(family_paths, run_paths)
     mode_contract = require_runnable_mode(DEFAULT_RUNTIME_MODE_ID)
     dependency_state = collect_state_collapser_dependency_state(
@@ -754,8 +767,8 @@ def _write_run_artifacts(
         tower=build.tower,
         max_action_count=max_action_count,
         metadata={
-            "runner": "counterpoint_second_serious_schema_comparison",
-            "evaluation_id": EVALUATION_ID,
+            "runner": runner_label,
+            "evaluation_id": evaluation_id,
             "environment_instance_id": spec.environment_instance_id,
             "run_mode": run_mode,
             "schema_class_id": candidate.schema_class_id,
@@ -768,8 +781,8 @@ def _write_run_artifacts(
     write_json(
         family_paths.family_manifest,
         FamilyManifest(
-            run_family_id=EVALUATION_RUN_FAMILY_ID,
-            description="Counterpoint second serious schema-comparison family.",
+            run_family_id=run_family_id,
+            description=run_family_description,
         ).to_dict(),
         create_parents=True,
     )
@@ -832,11 +845,12 @@ def _write_run_artifacts(
         run_id=run_id,
         run_mode=run_mode,
         replicate_index=seed_bundle.replicate_index,
+        evaluation_id=evaluation_id,
     )
     write_json(
         run_paths.root / "quotient_summary.json",
         {
-            "evaluation_id": EVALUATION_ID,
+            "evaluation_id": evaluation_id,
             "run_mode": run_mode,
             "candidate_group_id": candidate.candidate_group_id,
             "candidate_id": candidate.candidate_id,
@@ -874,7 +888,12 @@ def _write_run_artifacts(
     write_csv(
         run_paths.step_events_csv,
         [
-            _step_row(row, run_mode=run_mode, candidate=candidate).to_flat_dict()
+            _step_row(
+                row,
+                run_mode=run_mode,
+                candidate=candidate,
+                evaluation_id=evaluation_id,
+            ).to_flat_dict()
             for episode in full_training_episodes
             for row in episode.step_rows
         ],
@@ -882,7 +901,7 @@ def _write_run_artifacts(
         create_parents=True,
     )
     control_rows = tuple(
-        _control_row(row, run_mode=run_mode, candidate=candidate)
+        _control_row(row, run_mode=run_mode, candidate=candidate, evaluation_id=evaluation_id)
         for episode in full_training_episodes
         for row in episode.control_rows
     )
@@ -896,7 +915,10 @@ def _write_run_artifacts(
         run_paths.root / "tier_transition_events.csv",
         [
             _tier_transition_row(
-                row, candidate=candidate, tier_jump_policy=tier_jump_policy
+                row,
+                candidate=candidate,
+                tier_jump_policy=tier_jump_policy,
+                evaluation_id=evaluation_id,
             ).to_flat_dict()
             for row in control_rows
             if row.active_tier_before != row.active_tier_after
@@ -906,7 +928,12 @@ def _write_run_artifacts(
     write_csv(
         run_paths.root / "lift_fiber_events.csv",
         [
-            _lift_row(row, run_mode=run_mode, candidate=candidate).to_flat_dict()
+            _lift_row(
+                row,
+                run_mode=run_mode,
+                candidate=candidate,
+                evaluation_id=evaluation_id,
+            ).to_flat_dict()
             for episode in full_training_episodes
             for row in episode.lift_rows
         ],
@@ -915,7 +942,12 @@ def _write_run_artifacts(
     write_csv(
         run_paths.root / "abc_selection_events.csv",
         [
-            _abc_selection_row(row, run_mode=run_mode, candidate=candidate).to_flat_dict()
+            _abc_selection_row(
+                row,
+                run_mode=run_mode,
+                candidate=candidate,
+                evaluation_id=evaluation_id,
+            ).to_flat_dict()
             for episode in full_training_episodes
             for row in episode.abc_selection_rows
         ],
@@ -924,7 +956,12 @@ def _write_run_artifacts(
     write_csv(
         run_paths.root / "abc_tier_signal_events.csv",
         [
-            _abc_tier_signal_row(row, run_mode=run_mode, candidate=candidate).to_flat_dict()
+            _abc_tier_signal_row(
+                row,
+                run_mode=run_mode,
+                candidate=candidate,
+                evaluation_id=evaluation_id,
+            ).to_flat_dict()
             for episode in full_training_episodes
             for row in episode.abc_tier_signal_rows
         ],
@@ -933,7 +970,12 @@ def _write_run_artifacts(
     write_csv(
         run_paths.root / "learner_update_events.csv",
         [
-            _learner_update_row(row, run_mode=run_mode, candidate=candidate).to_flat_dict()
+            _learner_update_row(
+                row,
+                run_mode=run_mode,
+                candidate=candidate,
+                evaluation_id=evaluation_id,
+            ).to_flat_dict()
             for episode in full_training_episodes
             for row in episode.learner_update_rows
         ],
@@ -965,7 +1007,7 @@ def _write_run_artifacts(
         run_paths.run_manifest,
         RunManifest(
             run_id=run_id,
-            run_family_id=EVALUATION_RUN_FAMILY_ID,
+            run_family_id=run_family_id,
             environment_id=spec.environment_instance_id,
             mode_id=DEFAULT_RUNTIME_MODE_ID,
             linearization_mode_id=linearization_mode_id,
@@ -978,7 +1020,7 @@ def _write_run_artifacts(
             budget=budget,
             diagnostic_profile=mode_contract.diagnostic_profile.profile_id,
             timing_profile=mode_contract.timing_profile.profile_id,
-            command="python -m big_boy_benchmarking.cli counterpoint second-serious-comparison run",
+            command=command,
             status="success",
         ).to_dict(),
         create_parents=True,
@@ -986,7 +1028,7 @@ def _write_run_artifacts(
     append_jsonl(
         family_paths.run_index,
         {
-            "run_family_id": EVALUATION_RUN_FAMILY_ID,
+            "run_family_id": run_family_id,
             "run_id": run_id,
             "environment_id": spec.environment_instance_id,
             "mode_id": DEFAULT_RUNTIME_MODE_ID,
@@ -1001,8 +1043,8 @@ def _write_run_artifacts(
     write_json(
         family_paths.summary_json,
         {
-            "evaluation_id": EVALUATION_ID,
-            "run_family_id": EVALUATION_RUN_FAMILY_ID,
+            "evaluation_id": evaluation_id,
+            "run_family_id": run_family_id,
             "run_id": run_id,
             "candidate_group_id": candidate.candidate_group_id,
             "schema_class_id": candidate.schema_class_id,
@@ -1045,9 +1087,15 @@ def _write_run_artifacts(
     )
 
 
-def _episode_row(row, *, run_mode: str, candidate: RuntimeCandidate) -> ComparisonEpisodeRow:
+def _episode_row(
+    row,
+    *,
+    run_mode: str,
+    candidate: RuntimeCandidate,
+    evaluation_id: str = EVALUATION_ID,
+) -> ComparisonEpisodeRow:
     return ComparisonEpisodeRow(
-        evaluation_id=EVALUATION_ID,
+        evaluation_id=evaluation_id,
         run_id=row.run_id,
         run_mode=run_mode,
         candidate_group_id=candidate.candidate_group_id,
@@ -1071,9 +1119,15 @@ def _episode_row(row, *, run_mode: str, candidate: RuntimeCandidate) -> Comparis
     )
 
 
-def _step_row(row, *, run_mode: str, candidate: RuntimeCandidate) -> ComparisonStepRow:
+def _step_row(
+    row,
+    *,
+    run_mode: str,
+    candidate: RuntimeCandidate,
+    evaluation_id: str = EVALUATION_ID,
+) -> ComparisonStepRow:
     return ComparisonStepRow(
-        evaluation_id=EVALUATION_ID,
+        evaluation_id=evaluation_id,
         run_id=row.run_id,
         run_mode=run_mode,
         candidate_group_id=candidate.candidate_group_id,
@@ -1098,9 +1152,15 @@ def _step_row(row, *, run_mode: str, candidate: RuntimeCandidate) -> ComparisonS
     )
 
 
-def _control_row(row, *, run_mode: str, candidate: RuntimeCandidate) -> ComparisonControlEventRow:
+def _control_row(
+    row,
+    *,
+    run_mode: str,
+    candidate: RuntimeCandidate,
+    evaluation_id: str = EVALUATION_ID,
+) -> ComparisonControlEventRow:
     return ComparisonControlEventRow(
-        evaluation_id=EVALUATION_ID,
+        evaluation_id=evaluation_id,
         run_id=row.run_id,
         run_mode=run_mode,
         candidate_group_id=candidate.candidate_group_id,
@@ -1123,9 +1183,15 @@ def _control_row(row, *, run_mode: str, candidate: RuntimeCandidate) -> Comparis
     )
 
 
-def _lift_row(row, *, run_mode: str, candidate: RuntimeCandidate) -> ComparisonLiftFiberEventRow:
+def _lift_row(
+    row,
+    *,
+    run_mode: str,
+    candidate: RuntimeCandidate,
+    evaluation_id: str = EVALUATION_ID,
+) -> ComparisonLiftFiberEventRow:
     return ComparisonLiftFiberEventRow(
-        evaluation_id=EVALUATION_ID,
+        evaluation_id=evaluation_id,
         run_id=row.run_id,
         run_mode=run_mode,
         candidate_group_id=candidate.candidate_group_id,
@@ -1169,9 +1235,10 @@ def _abc_selection_row(
     *,
     run_mode: str,
     candidate: RuntimeCandidate,
+    evaluation_id: str = EVALUATION_ID,
 ) -> ComparisonABCSelectionEventRow:
     return ComparisonABCSelectionEventRow(
-        evaluation_id=EVALUATION_ID,
+        evaluation_id=evaluation_id,
         run_id=row.run_id,
         run_mode=run_mode,
         candidate_group_id=candidate.candidate_group_id,
@@ -1205,9 +1272,10 @@ def _abc_tier_signal_row(
     *,
     run_mode: str,
     candidate: RuntimeCandidate,
+    evaluation_id: str = EVALUATION_ID,
 ) -> ComparisonABCTierSignalEventRow:
     return ComparisonABCTierSignalEventRow(
-        evaluation_id=EVALUATION_ID,
+        evaluation_id=evaluation_id,
         run_id=row.run_id,
         run_mode=run_mode,
         candidate_group_id=candidate.candidate_group_id,
@@ -1251,9 +1319,10 @@ def _learner_update_row(
     *,
     run_mode: str,
     candidate: RuntimeCandidate,
+    evaluation_id: str = EVALUATION_ID,
 ) -> ComparisonLearnerUpdateEventRow:
     return ComparisonLearnerUpdateEventRow(
-        evaluation_id=EVALUATION_ID,
+        evaluation_id=evaluation_id,
         run_id=row.run_id,
         run_mode=run_mode,
         candidate_group_id=candidate.candidate_group_id,
@@ -1278,9 +1347,10 @@ def _tier_transition_row(
     *,
     candidate: RuntimeCandidate,
     tier_jump_policy: TierJumpPolicy,
+    evaluation_id: str = EVALUATION_ID,
 ) -> ComparisonTierTransitionEventRow:
     return ComparisonTierTransitionEventRow(
-        evaluation_id=EVALUATION_ID,
+        evaluation_id=evaluation_id,
         run_id=row.run_id,
         run_mode=row.run_mode,
         candidate_group_id=candidate.candidate_group_id,
@@ -1306,6 +1376,7 @@ def _tower_shape_summary_rows(
     run_id: str,
     run_mode: str,
     replicate_index: int,
+    evaluation_id: str = EVALUATION_ID,
 ) -> tuple[ComparisonTowerShapeSummaryRow, ...]:
     base_state_count = max(1, len(build.graph.states))
     rows = []
@@ -1316,7 +1387,7 @@ def _tower_shape_summary_rows(
         largest_share = max(member_counts, default=0) / base_state_count
         rows.append(
             ComparisonTowerShapeSummaryRow(
-                evaluation_id=EVALUATION_ID,
+                evaluation_id=evaluation_id,
                 run_id=run_id,
                 run_mode=run_mode,
                 candidate_group_id=candidate.candidate_group_id,
@@ -1336,9 +1407,7 @@ def _tower_shape_summary_rows(
                 else 0,
                 largest_state_cell_share=largest_share,
                 full_collapse=tier_index > 0 and state_cell_count == 1,
-                liftability_semantics_id=(
-                    STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID
-                ),
+                liftability_semantics_id=(STATE_COLLAPSER_V072_POINTWISE_LIFTABILITY_SEMANTICS_ID),
                 executable_semantics="static_quotient_action_storage_not_pointwise",
                 raw_action_cell_storage_count=_raw_action_cell_count(
                     build.tower.action_layers[tier_index]
@@ -1354,11 +1423,13 @@ def _run_index_row(
     artifact_root: Path,
     run_mode: str,
     record: ComparisonRunRecord,
+    *,
+    evaluation_id: str = EVALUATION_ID,
 ) -> ComparisonRunIndexRow:
     result = record.result
     candidate = record.candidate
     return ComparisonRunIndexRow(
-        evaluation_id=EVALUATION_ID,
+        evaluation_id=evaluation_id,
         run_id="" if result is None else result.run_id,
         run_mode=run_mode,
         candidate_group_id=candidate.candidate_group_id,

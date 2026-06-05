@@ -5,10 +5,11 @@
 This repository is active. It is no longer paused on the first serious
 counterpoint evaluation.
 
-As of 2026-06-02, the implemented repo state is:
+As of 2026-06-05, the implemented repo state is:
 
 - shared benchmark machinery exists;
-- `state_collapser` is pinned through the `v0.7.1` active-tier integration;
+- `state_collapser` is pinned through the `v0.7.2` pointwise-liftability
+  integration;
 - `counterpoint_symbolic_v001` has tiny, small, and medium fixtures;
 - graph, schema, direct, tower-smoke, and serious-learning commands are
   runnable;
@@ -23,10 +24,19 @@ As of 2026-06-02, the implemented repo state is:
 - noisy-rate full-tower training-health diagnostic machinery exists for
   smoke-scale tower-only training runs, aggregation, source-bound repo
   readouts, and human-readable interpretation;
-- four repo-side counterpoint evaluation readouts exist:
+- second serious schema-comparison machinery exists for matched Schema 0
+  versus Schema 1 first-sustained-hit smoke comparisons, aggregation,
+  source-bound repo readouts, and human-readable interpretation;
+- small paired replicate probe machinery exists for seed-paired Schema 0
+  versus Schema 1 next-measure smoke comparisons, aggregation, source-bound
+  repo readouts, and human-readable interpretation;
+- seven repo-side counterpoint evaluation readouts exist:
   `first_serious_learning`, `one_third_schema_tower_diagnostics`,
-  `noisy_rate_contraction_diagnostics`, and
-  `noisy_rate_full_tower_training_diagnostic`.
+  `noisy_rate_contraction_diagnostics`,
+  `contraction_fraction_sweep_diagnostics`,
+  `noisy_rate_full_tower_training_diagnostic`,
+  `second_serious_schema_comparison`, and
+  `small_paired_replicate_probe`.
 
 The current serious-learning default linearization condition is:
 
@@ -42,44 +52,47 @@ general performance claim.
 
 The immediate next fork is a Project Owner decision, not automatic execution.
 
-The newly implemented noisy-rate contraction diagnostic has a checked-in smoke
-run:
+The current next-measure learning-comparison path is:
+
+```text
+threshold_frontier_probe -> small_paired_replicate_probe meaningful run -> larger comparison design
+```
+
+The small paired replicate probe has been implemented and smoke-tested:
+
+```text
+docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/
+```
+
+The checked-in `smoke_001` artifact proves the paired-replicate machinery and
+readout path, but it is behaviorally claim-blocked: both arms were transient
+only under the four-episode smoke budget at `R=13.0`.
+
+Do not treat that smoke as evidence against Schema 1 or against tower learning.
+It is an implementation smoke result.
+
+The meaningful paired-replicate run should wait for either:
+
+- threshold-frontier output that selects a sharper threshold; or
+- an explicit Project Owner threshold override.
+
+The relevant design/gameplan surfaces are:
+
+```text
+docs/design/first_counterpoint_environment/threshold_frontier_probe/
+docs/design/first_counterpoint_environment/small_paired_replicate_probe/
+```
+
+The noisy-rate contraction and full-tower training-health diagnostics remain
+supporting structural/training-health evidence:
 
 ```text
 docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/
-```
-
-The smoke result says the machinery works and, on the small smoke budget, the
-requested rates `1/144`, `1/36`, and `1/18` do not fully collapse the first
-projection. That is implementation and structural diagnostic evidence only.
-Do not inflate it into a full small/medium conclusion.
-
-The next decision is whether the Project Owner wants to authorize the full
-small+medium noisy-rate validation budget from:
-
-```text
-docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction_diagnostics/03_counterpoint_noisy_rate_contraction_diagnostics_implementation_gameplan.md
-```
-
-If full validation is authorized, run it through the same artifact/readout
-discipline and then interpret the result before designing learning comparisons.
-
-A second decision lock now exists for the noisy-rate full-tower training-health
-diagnostic:
-
-```text
 docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/
 ```
 
-The checked-in `smoke_001` result says the repo can select non-collapsed
-noisy-rate towers from the parent readout, rebuild their full available towers,
-preserve learner state across episodes, and emit concrete-step, lift,
-controller, tier, and learner-update evidence. The smoke selected two `1/144`
-candidates and classified both as `trainable_clean`.
-
-Do not inflate that into a direct-vs-tower comparison or the main full
-diagnostic result. The main noisy-rate full-tower training budget remains
-locked until the Project Owner explicitly authorizes it.
+Do not inflate those diagnostics into direct-vs-tower comparison claims or the
+main serious comparison.
 
 The previous one-third diagnostic remains a diagnosing issue, not a negative
 learning result. Do not summarize it as "one-third failed" or "tower learning
@@ -91,8 +104,8 @@ current small/medium fixtures, while base-tier concrete execution and lift
 remain healthy.
 ```
 
-After the noisy-rate diagnostic lesson is settled, the likely next major design
-block is:
+If the paired-replicate signal survives a meaningful run, the likely next major
+design block is:
 
 ```text
 counterpoint learning comparisons

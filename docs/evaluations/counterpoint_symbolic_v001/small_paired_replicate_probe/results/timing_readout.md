@@ -1,0 +1,7 @@
+# Timing Readout
+
+Evaluation-level timing summary rows are in:
+
+```text
+/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/smoke_001/evaluations/counterpoint_small_paired_replicate_probe_v001/results/timing_summary.csv
+```

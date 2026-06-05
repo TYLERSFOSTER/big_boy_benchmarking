@@ -1,0 +1,3 @@
+evaluation_id,schema_class_id,event_count,successful_update_count
+counterpoint_small_paired_replicate_probe_v001,schema0_no_contraction,40,40
+counterpoint_small_paired_replicate_probe_v001,schema1_noisy_rate_one_drop,40,40

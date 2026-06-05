@@ -18,7 +18,7 @@ adapters live in [`state_collapser`](https://github.com/TYLERSFOSTER/state_colla
 
 This project uses [`uv`](https://docs.astral.sh/uv/) for dependency management.
 `state_collapser` is a first-class dependency, pinned to the public
-`state_collapser` `v0.7.1` release tag:
+`state_collapser` `v0.7.2` release tag:
 
 ```bash
 uv sync --group dev
@@ -38,7 +38,7 @@ uv run ruff check .
 
 ## Current Status
 
-`big_boy_benchmarking` has five repo-side counterpoint evaluation readouts and
+`big_boy_benchmarking` has seven repo-side counterpoint evaluation readouts and
 several supporting smoke/diagnostic surfaces.
 
 Implemented infrastructure:
@@ -55,6 +55,8 @@ Implemented infrastructure:
   noisy-rate full-tower training-health diagnostics;
 - second serious schema-comparison machinery for matched Schema 0 versus
   Schema 1 first-sustained-hit evaluation;
+- small paired replicate probe machinery for seed-paired Schema 0 versus
+  Schema 1 next-measure evaluation;
 - repo-side human-readable readout protocol and local status badges.
 
 The serious-learning default linearization condition is
@@ -69,8 +71,10 @@ until explicitly designed, implemented, and validated.
 | Counterpoint first serious learning v001, artifact run `pi0_h_evaluation_001` | Complete structural-limit diagnostic | [README](docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/result_readout.md), [diagnostics](docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/results/diagnostic_findings.md) | The harness, artifact pipeline, direct baselines, empty tower shell, and human readout path work on `counterpoint_symbolic_n3_small_v001`; non-empty tower arms are dominated by full or near-full first-projection collapse and lift/action-realization effects. |
 | Counterpoint one-third schema tower diagnostics v001, artifact run `small_medium_validation_001` | Complete structural-limit diagnostic | [README](docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/result_readout.md), [summary](docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/results/summary.md) | The source-local one-third schema runs through upstream ABC control on `small` and `medium`; all 24 locked runs fully collapse at the first projection, but runtime execution itself does not stall: 3,840 concrete steps and 3,840 / 3,840 successful lift attempts. |
 | Counterpoint noisy-rate contraction diagnostics v001, artifact run `smoke_001` | Complete smoke diagnostic; full validation pending | [README](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/README.md), [summary](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/results/summary.md), [source coverage](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/results/source_coverage.md) | The new edge-global noisy-rate selector, metadata/runtime selected-edge consistency checks, source-coverage tables, threshold summaries, badges, and readout path work on the `small` smoke budget. In the smoke run, `1/144`, `1/36`, and `1/18` do not fully collapse the first projection; this is implementation and diagnostic evidence, not full small+medium validation. |
+| Counterpoint contraction fraction sweep diagnostics v001, artifact run `smoke_001` | Complete smoke diagnostic | [README](docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/README.md), [summary](docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/results/summary.md), [sweep verdict](docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/results/sweep_verdict.md) | The n-over-18 source-local fraction sweep completed and showed immediate first-projection collapse at `1/18` on the checked-in small smoke budget; `6/18` matches the legacy one-third endpoint. This is structural diagnostic evidence, not learning-performance evidence. |
 | Counterpoint noisy-rate full-tower training diagnostic v001, artifact run `smoke_001` | Complete smoke training-health diagnostic; main full budget pending | [README](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/result_readout.md), [findings](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/results/diagnostic_findings.md) | The repo can select non-collapsed noisy-rate candidates from the parent readout, rebuild their full available towers, preserve learner state across episodes, and emit tower-only training-health evidence. The checked-in smoke run selected two `1/144` candidates, emitted 64 concrete steps and 80 successful learner updates, and classified both as `trainable_clean`; this is not a direct-vs-tower comparison and not the main full diagnostic budget. |
 | Counterpoint second serious schema comparison v001, artifact run `smoke_001` | Complete implementation smoke; calibration and serious medium run pending | [README](docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/result_readout.md), [paired comparison](docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/results/paired_comparison_readout.md) | The repo can run the matched active-tier comparison harness for Schema 0 no-contraction versus a selected Schema 1 one-drop noisy-rate candidate, emit explicit threshold/persistence windows, and produce paired schema-comparison tables. The checked-in run uses a smoke threshold and one small candidate only; it is not a calibrated or serious medium result. |
+| Counterpoint small paired replicate probe v001, artifact run `smoke_001` | Complete implementation smoke; meaningful threshold-frontier-selected run pending | [README](docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/result_readout.md), [paired replicate readout](docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/results/paired_replicate_readout.md) | The repo can run the new seed-paired replicate probe surface for one corrected wide candidate, preserve shared seed-bundle identity, and emit pair-distribution, margin, hit-rate, lift, tower, timing, and readout tables. The checked-in smoke used `R=13.0`, one pair, and four episodes per arm; both arms were transient only, so the behavioral claim is blocked while the machinery is verified. |
 
 Supporting smoke/diagnostic result notes:
 
@@ -104,6 +108,9 @@ The completed counterpoint readouts support these claims:
 - the current noisy-rate smoke run on `small` does not show full first-projection
   collapse for `1/144`, `1/36`, or `1/18`, but full small+medium validation has
   not yet been authorized or run;
+- the contraction-fraction sweep smoke shows that the current source-local
+  `n/18` rule can collapse immediately at `1/18`, so it is a diagnostic lesson
+  about local quota semantics rather than a negative learning result;
 - selected non-collapsed noisy-rate towers from the checked-in smoke parent
   readout can be run through a tower-only training-health smoke budget with
   persistent learner state, concrete steps, lift evidence, tier/controller
@@ -112,6 +119,11 @@ The completed counterpoint readouts support these claims:
   against a selected Schema 1 noisy-rate one-drop candidate under the same
   active-tier tower-control runtime, seed bundle, threshold policy, and
   artifact/readout workflow;
+- the small paired replicate probe can repeat that matched comparison surface
+  across seed bundles and write pair-level margin, hit-rate, lift, tower, and
+  timing tables; the checked-in smoke verifies the machinery but is
+  behaviorally claim-blocked because both arms were transient only under the
+  four-episode smoke budget;
 - random tower schemas expose schema-seed-dependent
   `no_lift_candidate_from_current_state` lift/action-realization failures.
 
@@ -130,6 +142,10 @@ The current readouts do **not yet** support:
 - calibrated second-serious schema comparison claims; the checked-in second
   serious comparison artifact is implementation smoke only and uses a smoke
   threshold.
+- meaningful small paired replicate claims; the checked-in paired-replicate
+  artifact is implementation smoke only, and the intended meaningful run is
+  waiting on a threshold-frontier-selected threshold or explicit Project Owner
+  override.
 
 Known documentation/artifact notes:
 
@@ -141,6 +157,9 @@ Known documentation/artifact notes:
   coverage, metadata/runtime consistency, monotonicity, threshold, tower-shape,
   endpoint-coalescence, tier occupancy, lift, concrete-step, and ABC summary
   tables;
+- the contraction-fraction sweep readout includes promoted schema-fraction,
+  tower-shape, endpoint-coalescence, collapse-threshold, legacy-equivalence,
+  tier, lift, concrete-step, controller, and ABC summary tables;
 - the noisy-rate full-tower training readout includes selected-candidate,
   tower-shape, training-episode, training-curve, tier-occupancy,
   executability, lift, concrete-step, controller-action, ABC, learner-update,
@@ -149,6 +168,9 @@ Known documentation/artifact notes:
   threshold-window, first-sustained-hit, paired-comparison, claim-summary,
   tower-shape, tier, lift, concrete-step, controller, ABC, learner-update, and
   timing tables;
+- the small paired replicate probe readout includes pair-distribution,
+  pair-level margin, schema-arm distribution, sustained-hit-rate, seed-bundle,
+  lift, tower-shape, timing, and artifact provenance tables;
 - design learning from these evaluations is preserved under
   [system learning from evaluations](docs/design/system_learning_from_evaluations/README.md).
 
@@ -403,3 +425,34 @@ The checked-in `smoke_001` second-serious run proves the matched comparison
 machinery and readout path. Calibration must run before choosing the serious
 threshold, and the serious `medium` run remains decision-locked until four
 eligible medium Schema 1 candidates are available and explicitly authorized.
+
+Small paired replicate probe:
+
+```bash
+export BBB_PAIRED_REPLICATE_ROOT="$PWD/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/<run-label>"
+
+uv run python -m big_boy_benchmarking.cli counterpoint paired-replicate-probe run \
+  --artifact-root "$BBB_PAIRED_REPLICATE_ROOT" \
+  --candidate-readout-source "$PWD/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/readout_source.json" \
+  --threshold-value <locked-smoke-threshold-or-po-override> \
+  --candidate-cap 1 \
+  --episodes <episode-count> \
+  --replicates <matched-pair-count> \
+  --locked-by <operator-or-run-id> \
+  --linearization-mode tensor_available_disabled
+
+uv run python -m big_boy_benchmarking.cli counterpoint paired-replicate-probe summarize \
+  --artifact-root "$BBB_PAIRED_REPLICATE_ROOT"
+```
+
+Durable repo-side readout target:
+
+```text
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/readout_source.json
+```
+
+The checked-in `smoke_001` paired-replicate run verifies the seed-paired
+machinery and readout path. The intended meaningful run should use a threshold
+selected by the threshold-frontier probe, or an explicit Project Owner
+threshold override, before scaling to the agreed `8` matched pairs and `16`
+episodes per arm.

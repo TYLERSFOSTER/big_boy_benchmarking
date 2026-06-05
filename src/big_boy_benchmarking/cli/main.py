@@ -10,6 +10,9 @@ from pathlib import Path
 from big_boy_benchmarking.artifacts.schemas import ARTIFACT_SCHEMA_VERSION
 from big_boy_benchmarking.artifacts.validators import validate_artifact_schema_version
 from big_boy_benchmarking.artifacts.writers import append_jsonl, write_csv, write_json
+from big_boy_benchmarking.environments.counterpoint import (
+    small_paired_replicate_probe as paired_replicate_probe,
+)
 from big_boy_benchmarking.environments.counterpoint.artifacts import (
     write_environment_artifacts,
     write_schema_artifacts,
@@ -189,6 +192,9 @@ from big_boy_benchmarking.environments.counterpoint.serious_learning.docs_writer
 from big_boy_benchmarking.environments.counterpoint.serious_learning.runner import (
     run_budget_locked_serious_learning,
     run_calibration,
+)
+from big_boy_benchmarking.environments.counterpoint.small_paired_replicate_probe import (
+    paths as paired_replicate_paths,
 )
 from big_boy_benchmarking.modes.contracts import validate_mode_contract
 from big_boy_benchmarking.modes.linearization import (
@@ -686,6 +692,61 @@ def build_parser() -> argparse.ArgumentParser:
     second_serious_summarize_parser.add_argument("--artifact-root", required=True, type=Path)
     second_serious_summarize_parser.add_argument("--docs-root", type=Path)
 
+    paired_probe_parser = counterpoint_subparsers.add_parser("paired-replicate-probe")
+    paired_probe_subparsers = paired_probe_parser.add_subparsers(
+        dest="paired_replicate_probe_command",
+        required=True,
+    )
+
+    paired_probe_run_parser = paired_probe_subparsers.add_parser("run")
+    paired_probe_run_parser.add_argument(
+        "--artifact-root",
+        type=Path,
+        default=paired_replicate_paths.default_artifact_root("smoke_001"),
+    )
+    paired_probe_run_parser.add_argument(
+        "--candidate-readout-source",
+        type=Path,
+        default=paired_replicate_paths.default_candidate_readout_source(),
+    )
+    paired_probe_run_parser.add_argument(
+        "--candidate-id",
+        action="append",
+        default=None,
+        help="target a specific eligible Schema 1 candidate id from candidate_summary.csv",
+    )
+    paired_probe_run_parser.add_argument("--candidate-cap", type=int, default=1)
+    paired_probe_run_parser.add_argument("--threshold-value", type=float)
+    paired_probe_run_parser.add_argument("--threshold-frontier-readout-source", type=Path)
+    paired_probe_run_parser.add_argument("--instance-id", default="wide_span18")
+    paired_probe_run_parser.add_argument(
+        "--episodes",
+        type=int,
+        default=paired_replicate_probe.DEFAULT_EPISODES_PER_REPLICATE,
+    )
+    paired_probe_run_parser.add_argument(
+        "--replicates",
+        type=int,
+        default=paired_replicate_probe.DEFAULT_REPLICATES_PER_ARM,
+    )
+    paired_probe_run_parser.add_argument("--base-seed", type=int, default=0)
+    paired_probe_run_parser.add_argument("--locked-by", default="cli")
+    paired_probe_run_parser.add_argument("--horizon", type=int)
+    paired_probe_run_parser.add_argument("--controller-event-ceiling", type=int)
+    paired_probe_run_parser.add_argument(
+        "--run-mode",
+        choices=paired_replicate_probe.RUN_MODE_IDS,
+    )
+    paired_probe_run_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
+
+    paired_probe_summarize_parser = paired_probe_subparsers.add_parser("summarize")
+    paired_probe_summarize_parser.add_argument("--artifact-root", required=True, type=Path)
+    paired_probe_summarize_parser.add_argument("--docs-root", type=Path)
+
     return parser
 
 
@@ -848,6 +909,8 @@ def _run_counterpoint_command(args: argparse.Namespace) -> int:
         return _run_counterpoint_noisy_rate_full_train_command(args)
     if args.counterpoint_command == "second-serious-comparison":
         return _run_counterpoint_second_serious_comparison_command(args)
+    if args.counterpoint_command == "paired-replicate-probe":
+        return _run_counterpoint_paired_replicate_probe_command(args)
 
     raise ValueError(f"unknown counterpoint command: {args.counterpoint_command}")
 
@@ -1177,6 +1240,52 @@ def _run_counterpoint_second_serious_comparison_command(args: argparse.Namespace
     raise ValueError(f"unknown second-serious-comparison command: {args.second_serious_command}")
 
 
+def _run_counterpoint_paired_replicate_probe_command(args: argparse.Namespace) -> int:
+    if hasattr(args, "linearization_mode"):
+        _require_paired_replicate_linearization(args.linearization_mode)
+
+    if args.paired_replicate_probe_command == "run":
+        result = paired_replicate_probe.run_small_paired_replicate_probe(
+            artifact_root=args.artifact_root,
+            candidate_readout_source=args.candidate_readout_source,
+            threshold_value=args.threshold_value,
+            threshold_frontier_readout_source=args.threshold_frontier_readout_source,
+            instance_id=args.instance_id,
+            candidate_cap=args.candidate_cap,
+            target_candidate_ids=tuple(args.candidate_id or ()),
+            training_replicates_per_arm=args.replicates,
+            episodes_per_replicate=args.episodes,
+            base_seed=args.base_seed,
+            locked_by=args.locked_by,
+            run_mode=args.run_mode,
+            horizon_override=args.horizon,
+            controller_event_ceiling=args.controller_event_ceiling,
+            linearization_mode_id=args.linearization_mode,
+        )
+        print(json.dumps(result, sort_keys=True))
+        return 0 if result["status"] == "complete" else 2
+
+    if args.paired_replicate_probe_command == "summarize":
+        summary = paired_replicate_probe.aggregate_small_paired_replicate_probe_results(
+            args.artifact_root,
+            docs_root=args.docs_root,
+        )
+        docs = paired_replicate_probe.write_small_paired_replicate_probe_docs(
+            artifact_root=args.artifact_root,
+            docs_root=args.docs_root,
+            command_lines=(
+                "uv run python -m big_boy_benchmarking.cli counterpoint "
+                "paired-replicate-probe summarize --artifact-root <artifact-root>",
+            ),
+        )
+        print(json.dumps({"status": summary["status"], "docs": docs}, sort_keys=True))
+        return 0 if summary["status"] == "complete" else 2
+
+    raise ValueError(
+        f"unknown paired-replicate-probe command: {args.paired_replicate_probe_command}"
+    )
+
+
 def _require_serious_linearization(linearization_mode_id: str) -> None:
     if linearization_mode_id != "tensor_available_disabled":
         raise ValueError(
@@ -1221,6 +1330,14 @@ def _require_second_serious_linearization(linearization_mode_id: str) -> None:
     if linearization_mode_id != "tensor_available_disabled":
         raise ValueError(
             "counterpoint second-serious-comparison uses tensor_available_disabled; "
+            f"reserved linearization mode rejected: {linearization_mode_id}"
+        )
+
+
+def _require_paired_replicate_linearization(linearization_mode_id: str) -> None:
+    if linearization_mode_id != "tensor_available_disabled":
+        raise ValueError(
+            "counterpoint paired-replicate-probe uses tensor_available_disabled; "
             f"reserved linearization mode rejected: {linearization_mode_id}"
         )
 
