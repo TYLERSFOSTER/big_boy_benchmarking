@@ -6,7 +6,7 @@ Initial discussion document for `big_boy_benchmarking`.
 
 This document is not an implementation blueprint.
 
-This document is not an implementation gameplan.
+This document is not an implementation workplan.
 
 This document is not approval to edit benchmark code.
 
@@ -829,7 +829,7 @@ The Project Owner can then decide whether to switch context and patch
 
 ## Potential Repository Layout
 
-This is a discussion proposal, not a gameplan.
+This is a discussion proposal, not a workplan.
 
 Possible layout:
 

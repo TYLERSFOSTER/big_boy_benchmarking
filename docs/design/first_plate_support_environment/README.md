@@ -24,14 +24,14 @@ Use these filenames unless a later design turn explicitly changes the sequence.
 ```text
 design_discussion.md
 01_001_plate_support_environment_bbb_build_blueprint.md
-01_002_plate_support_environment_bbb_build_implementation_gameplan.md
+01_002_plate_support_environment_bbb_build_implementation_workplan.md
 01_003_plate_support_environment_bbb_build_implementation_log.md
 ```
 
 The blueprint should preserve Project Owner attribution for all decisions made
 in `design_discussion.md`.
 
-The implementation gameplan must follow the repo's `prime_directive` and use
+The implementation workplan must follow the repo's `prime_directive` and use
 Phase.Stage.Action discipline.
 
 The implementation log should be written during execution, not reconstructed

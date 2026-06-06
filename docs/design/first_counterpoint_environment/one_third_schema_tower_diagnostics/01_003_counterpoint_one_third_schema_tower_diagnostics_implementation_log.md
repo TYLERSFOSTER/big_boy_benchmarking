@@ -10,10 +10,10 @@ Branch:
 codex/one-third-schema-tower-diagnostics
 ```
 
-Source gameplan:
+Source workplan:
 
 ```text
-docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/01_002_counterpoint_one_third_schema_tower_diagnostics_implementation_gameplan.md
+docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/01_002_counterpoint_one_third_schema_tower_diagnostics_implementation_workplan.md
 ```
 
 Source blueprint:
@@ -27,10 +27,10 @@ docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/01
 The Project Owner instructed:
 
 ```text
-Ok implement thsi folowing prime_driective, step-by-step, on new branch as specified: docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/01_002_counterpoint_one_third_schema_tower_diagnostics_implementation_gameplan.md
+Ok implement thsi folowing prime_driective, step-by-step, on new branch as specified: docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/01_002_counterpoint_one_third_schema_tower_diagnostics_implementation_workplan.md
 ```
 
-This log records execution of that gameplan.
+This log records execution of that workplan.
 
 ## Initial Repo State
 
@@ -1163,7 +1163,7 @@ Notes:
 - `small_medium_validation_001` is the final readout binding and contains both
   locked diagnostic fixtures.
 - `small_validation_001` and `medium_validation_001` correspond to explicit
-  gameplan validation actions.
+  workplan validation actions.
 - `dev_probe_001` was a preliminary implementation probe and is recorded as
   such. It has not been removed.
 - New one-third diagnostics readout surface size was measured as about 37 MB

@@ -15,7 +15,7 @@
   "expected_file_policy": {
     "conditional": {},
     "expectation_sources": [
-      "docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/01_002_counterpoint_one_third_schema_tower_diagnostics_implementation_gameplan.md"
+      "docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/01_002_counterpoint_one_third_schema_tower_diagnostics_implementation_workplan.md"
     ],
     "expected_absent_is_gap": [],
     "not_applicable": [

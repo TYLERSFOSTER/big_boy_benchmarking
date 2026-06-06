@@ -16,7 +16,7 @@ available tower and run a real tower-only training budget on it.
 
 - Design discussion opened.
 - Draft blueprint written.
-- Implementation gameplan written.
+- Implementation workplan written.
 - Implementation smoke completed on
   `codex/noisy-rate-full-tower-training-diagnostic`.
 - Repo readout surface generated at:
@@ -40,5 +40,5 @@ traces.
 
 - [Design Discussion](design_discussion.md)
 - [Blueprint](01_counterpoint_noisy_rate_full_tower_training_diagnostic_blueprint.md)
-- [Implementation Gameplan](02_counterpoint_noisy_rate_full_tower_training_diagnostic_implementation_gameplan.md)
+- [Implementation Workplan](02_counterpoint_noisy_rate_full_tower_training_diagnostic_implementation_workplan.md)
 - [Implementation Log](03_counterpoint_noisy_rate_full_tower_training_diagnostic_implementation_log.md)

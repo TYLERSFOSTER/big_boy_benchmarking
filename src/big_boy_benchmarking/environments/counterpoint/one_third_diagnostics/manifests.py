@@ -161,7 +161,7 @@ def expected_file_policy() -> dict[str, Any]:
         ],
         "expectation_sources": [
             "docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/"
-            "01_002_counterpoint_one_third_schema_tower_diagnostics_implementation_gameplan.md"
+            "01_002_counterpoint_one_third_schema_tower_diagnostics_implementation_workplan.md"
         ],
     }
 

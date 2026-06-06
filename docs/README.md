@@ -19,7 +19,7 @@ The corresponding protocols are:
 
 Use the folders this way:
 
-- `design/`: design discussions, blueprints, implementation gameplans, and
+- `design/`: design discussions, blueprints, implementation workplans, and
   implementation logs.
 - `environments/`: human descriptions of environment families, fixtures,
   contracts, diagnostics, and claim boundaries.

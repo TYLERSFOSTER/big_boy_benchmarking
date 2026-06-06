@@ -1,8 +1,8 @@
-# Counterpoint n-over-18 Contraction Fraction Sweep Implementation Gameplan
+# Counterpoint n-over-18 Contraction Fraction Sweep Implementation Workplan
 
 Date: 2026-06-01
 
-Status: implementation gameplan, not yet executed
+Status: implementation workplan, not yet executed
 
 Repository:
 
@@ -18,7 +18,7 @@ docs/design/system_learning_from_evaluations/counterpoint_one_third_schema_unexp
 
 ## Purpose
 
-This gameplan translates the n-over-18 contraction fraction sweep blueprint
+This workplan translates the n-over-18 contraction fraction sweep blueprint
 into Phase.Stage.Action implementation work.
 
 The target is a diagnostic evaluation for the existing counterpoint
@@ -50,26 +50,26 @@ This is not approval to edit `/Users/foster/state_collapser`.
 
 This document is not approval to implement.
 
-The Project Owner requested this gameplan from the blueprint:
+The Project Owner requested this workplan from the blueprint:
 
 ```text
-Ok turn this into a Phase.Stage.Action style implmentation gameplan. Follwo prime_directive in doing so `docs/design/system_learning_from_evaluations/counterpoint_one_third_schema_unexpected_collapse/03_n_over_18_contraction_fraction_sweep_blueprint.md`
+Ok turn this into a Phase.Stage.Action style implmentation workplan. Follwo prime_directive in doing so `docs/design/system_learning_from_evaluations/counterpoint_one_third_schema_unexpected_collapse/03_n_over_18_contraction_fraction_sweep_blueprint.md`
 ```
 
 Therefore this document may be created now.
 
 Source, test, CLI, fixture, artifact-schema, and evaluation-readout
 implementation must not begin until the Project Owner explicitly approves
-execution of this exact gameplan.
+execution of this exact workplan.
 
 ## Source Authority
 
-This gameplan follows:
+This workplan follows:
 
 - `docs/prime_directive/prime_directive.md`
 - `docs/prime_directive/git_practices.md`
 - `docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md`
-- `docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md`
+- `docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md`
 - `docs/prime_directive/common_failure_mode_004_false_attribution_and_invented_project_owner_turns.md`
 - `docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md`
 - `docs/prime_directive/artifact_table_to_readable_document_protocol.md`
@@ -83,7 +83,7 @@ This gameplan follows:
 
 ## PO Attribution Preservation
 
-This gameplan preserves the source blueprint's PO Attribution Ledger. It does
+This workplan preserves the source blueprint's PO Attribution Ledger. It does
 not add invented Project Owner turns.
 
 Project Owner-originated design locks carried into implementation:
@@ -105,7 +105,7 @@ Consultant implementation assumptions are explicitly labeled below.
 ## Fixed Design Locks For Execution
 
 These locks are binding if the Project Owner later says to execute this
-gameplan.
+workplan.
 
 ### Environment Lock
 
@@ -181,7 +181,7 @@ block 1: ceil(remaining / 3)
 block 2: ceil(remaining / 3)
 ```
 
-The old observed singleton collapse happened at tier `1`, so this gameplan
+The old observed singleton collapse happened at tier `1`, so this workplan
 compares `6/18` to the old first scheduled block only.
 
 The implementation must verify that `6/18` selects the same source-local edge
@@ -247,7 +247,7 @@ Do not implement on `main` unless the Project Owner explicitly authorizes that.
 
 ## Implementation Log Requirement
 
-When this gameplan is executed, create and maintain:
+When this workplan is executed, create and maintain:
 
 ```text
 docs/design/system_learning_from_evaluations/counterpoint_one_third_schema_unexpected_collapse/05_n_over_18_contraction_fraction_sweep_implementation_log.md
@@ -263,13 +263,13 @@ The log must record:
 - artifact runs;
 - surprises and failures;
 - stop conditions encountered;
-- Project Owner clarifications after this gameplan.
+- Project Owner clarifications after this workplan.
 
 ## Global Stop Conditions
 
 Stop and ask the Project Owner if:
 
-- explicit approval to execute this gameplan has not been received;
+- explicit approval to execute this workplan has not been received;
 - branch or dirty status would mix unrelated work into this implementation;
 - any action would require editing `/Users/foster/state_collapser`;
 - any action would alter the `counterpoint_symbolic_v001` environment;
@@ -289,7 +289,7 @@ Stop and ask the Project Owner if:
 ## Phase 0. Stage 0. Action 1: Confirm Execution Authority
 
 Before edits, confirm that the Project Owner explicitly requested execution of
-this exact gameplan.
+this exact workplan.
 
 If not approved, stop.
 
@@ -323,7 +323,7 @@ docs/design/system_learning_from_evaluations/counterpoint_one_third_schema_unexp
 
 Initialize it with:
 
-- source gameplan path;
+- source workplan path;
 - branch name;
 - execution start timestamp;
 - current `git status --short`;
@@ -336,8 +336,8 @@ Immediately before code edits, re-read:
 
 ```text
 docs/design/system_learning_from_evaluations/counterpoint_one_third_schema_unexpected_collapse/03_n_over_18_contraction_fraction_sweep_blueprint.md
-docs/design/system_learning_from_evaluations/counterpoint_one_third_schema_unexpected_collapse/04_n_over_18_contraction_fraction_sweep_implementation_gameplan.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/design/system_learning_from_evaluations/counterpoint_one_third_schema_unexpected_collapse/04_n_over_18_contraction_fraction_sweep_implementation_workplan.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 docs/prime_directive/common_failure_mode_004_false_attribution_and_invented_project_owner_turns.md
 ```
 

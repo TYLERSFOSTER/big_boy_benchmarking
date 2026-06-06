@@ -190,10 +190,10 @@ Source artifact root:
 > So my readiness estimate is:
 >
 > - Quick prototype/smoke: close. The runner, training loop, threshold logic, and artifacts can mostly be reused.
-> - Clean benchmark implementation: medium. We need a short redesign blueprint and gameplan because this changes the meaning of Schema 1, the candidate manifest, the source binding, the claim boundary, and the expected tower-shape diagnostics.
+> - Clean benchmark implementation: medium. We need a short redesign blueprint and workplan because this changes the meaning of Schema 1, the candidate manifest, the source binding, the claim boundary, and the expected tower-shape diagnostics.
 > - Main conceptual ambiguity: what exactly "same contraction schema at total tier, iterated" means operationally. I think the intended semantics are: choose the noisy-rate contraction rule once at the total/base tier, then repeatedly apply the induced quotient/contraction process to produce tiers until the tower reaches a degenerate top tier. But we need to be precise about whether each later tier reuses the original total-tier edge selection, projects that selection forward, or re-runs the same noisy-rate rule on the current quotient graph.
 >
-> My recommendation: do not patch this directly into the current runner yet. Make a small redesign document for "Schema 1 full iterated tower to degenerate tier" under the second serious evaluation design folder, then turn that into a Phase.Stage.Action gameplan. The implementation should likely preserve the existing one-drop result as historical evidence and create a new artifact label/run mode for the iterated-to-degenerate Schema 1 comparison.
+> My recommendation: do not patch this directly into the current runner yet. Make a small redesign document for "Schema 1 full iterated tower to degenerate tier" under the second serious evaluation design folder, then turn that into a Phase.Stage.Action workplan. The implementation should likely preserve the existing one-drop result as historical evidence and create a new artifact label/run mode for the iterated-to-degenerate Schema 1 comparison.
 
 #### Project Owner / Evaluator Turn
 

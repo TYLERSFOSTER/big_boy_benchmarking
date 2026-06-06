@@ -4,15 +4,15 @@ Source blueprint:
 
 - `docs/design/first_counterpoint_environment/01_002_counterpoint_hidden_graph_and_contraction_schema_benchmark_blueprint.md`
 
-Implementation gameplan:
+Implementation workplan:
 
-- `docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_gameplan.md`
+- `docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_workplan.md`
 
 First serious learning design:
 
 - `docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/design_discussion.md`
 - `docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_001_counterpoint_first_serious_learning_evaluation_blueprint.md`
-- `docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_gameplan.md`
+- `docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_workplan.md`
 
 ## Family Identity
 

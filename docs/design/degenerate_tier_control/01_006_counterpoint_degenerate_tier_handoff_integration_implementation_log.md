@@ -10,10 +10,10 @@ Repository:
 /Users/foster/big_boy_benchmarking
 ```
 
-Gameplan:
+Workplan:
 
 ```text
-docs/design/degenerate_tier_control/01_005_counterpoint_degenerate_tier_handoff_integration_implementation_gameplan.md
+docs/design/degenerate_tier_control/01_005_counterpoint_degenerate_tier_handoff_integration_implementation_workplan.md
 ```
 
 ## Execution Approval
@@ -21,10 +21,10 @@ docs/design/degenerate_tier_control/01_005_counterpoint_degenerate_tier_handoff_
 The Project Owner approved execution with:
 
 ```text
-execute `docs/design/degenerate_tier_control/01_005_counterpoint_degenerate_tier_handoff_integration_implementation_gameplan.md`
+execute `docs/design/degenerate_tier_control/01_005_counterpoint_degenerate_tier_handoff_integration_implementation_workplan.md`
 ```
 
-This log records execution under that gameplan.
+This log records execution under that workplan.
 
 ## Phase 0: Execution Authority And Reality Binding
 
@@ -36,7 +36,7 @@ Status: completed.
 
 Evidence:
 
-- Project Owner explicitly named the exact gameplan file and said `execute`.
+- Project Owner explicitly named the exact workplan file and said `execute`.
 
 ### Phase 0.Stage 0.1.Action 0.1.2
 
@@ -50,12 +50,12 @@ Files read:
 docs/prime_directive/prime_directive.md
 docs/prime_directive/git_practices.md
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 ```
 
 Relevant binding:
 
-- approved gameplan execution requires Phase.Stage.Action discipline;
+- approved workplan execution requires Phase.Stage.Action discipline;
 - branch discipline applies before implementation edits;
 - pre-existing dirty work must not be silently absorbed into this execution.
 
@@ -121,7 +121,7 @@ Status: blocked pending Project Owner decision.
 
 Reason:
 
-The gameplan says:
+The workplan says:
 
 ```text
 If matching uncommitted handoff-integration edits already exist before branch
@@ -150,7 +150,7 @@ Matching degenerate-tier design files currently untracked:
 ```text
 docs/design/degenerate_tier_control/01_003_big_boy_benchmarking_handoff_note.md
 docs/design/degenerate_tier_control/01_004_counterpoint_degenerate_tier_handoff_integration_blueprint.md
-docs/design/degenerate_tier_control/01_005_counterpoint_degenerate_tier_handoff_integration_implementation_gameplan.md
+docs/design/degenerate_tier_control/01_005_counterpoint_degenerate_tier_handoff_integration_implementation_workplan.md
 docs/design/degenerate_tier_control/error_diagnosis_conversation.md
 ```
 

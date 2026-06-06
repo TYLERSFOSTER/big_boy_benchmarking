@@ -8,16 +8,16 @@ Branch:
 codex/noisy-rate-full-tower-training-diagnostic
 ```
 
-Source gameplan:
+Source workplan:
 
 ```text
-docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic/02_counterpoint_noisy_rate_full_tower_training_diagnostic_implementation_gameplan.md
+docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic/02_counterpoint_noisy_rate_full_tower_training_diagnostic_implementation_workplan.md
 ```
 
 Execution instruction:
 
 ```text
-execute `02_counterpoint_noisy_rate_full_tower_training_diagnostic_implementation_gameplan.md`
+execute `02_counterpoint_noisy_rate_full_tower_training_diagnostic_implementation_workplan.md`
 ```
 
 ## Initial Git State
@@ -34,12 +34,12 @@ Initial `git status --short --branch` after branch creation:
 Dirty-state note:
 
 - `docs/design/system_learning_from_evaluations/README.md` is related to this
-  design/gameplan thread.
+  design/workplan thread.
 - `docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic/`
-  is related to this design/gameplan thread.
+  is related to this design/workplan thread.
 - `docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/README.md`
   was already modified before this implementation interval. It is related to
-  the parent noisy-rate diagnostic conversation/readout, but this gameplan does
+  the parent noisy-rate diagnostic conversation/readout, but this workplan does
   not require touching it. Leave it unchanged unless the Project Owner gives a
   direct instruction.
 
@@ -71,7 +71,7 @@ Stop and ask the Project Owner if:
 
 ## Running Phase.Stage.Action Checklist
 
-- Phase 0. Stage 0. Action 1: completed. Project Owner explicitly requested execution of this exact gameplan.
+- Phase 0. Stage 0. Action 1: completed. Project Owner explicitly requested execution of this exact workplan.
 - Phase 0. Stage 0. Action 2: completed. Execution authority is present, so implementation may proceed.
 - Phase 0. Stage 0. Action 3: completed. Exact execution instruction recorded above.
 - Phase 0. Stage 1. Action 1: completed. `git status --short --branch` inspected.
@@ -86,7 +86,7 @@ Stop and ask the Project Owner if:
 - Phase 0. Stage 2. Action 5: completed. Serious-learning tower-control persistent training surfaces re-read and reused.
 - Phase 0. Stage 2. Action 6: completed. Source surface mapping recorded below.
 - Phase 0. Stage 3. Action 1: completed. This implementation log was created.
-- Phase 0. Stage 3. Action 2: completed. Log includes branch, instruction, gameplan, initial dirty state, stop conditions, and checklist.
+- Phase 0. Stage 3. Action 2: completed. Log includes branch, instruction, workplan, initial dirty state, stop conditions, and checklist.
 - Phase 0. Stage 3. Action 3: completed. This log was updated through smoke completion and final verification.
 - Phase 1. Stage 1. Actions 1-5: completed. Evaluation, run-family, and run-mode ids added and tested.
 - Phase 1. Stage 2. Actions 1-10: completed. New `noisy_rate_full_training` package scaffold added.
@@ -138,8 +138,8 @@ Stop and ask the Project Owner if:
   `docs/prime_directive/common_failure_mode_004_false_attribution_and_invented_project_owner_turns.md`
 - Source design:
   `docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic/01_counterpoint_noisy_rate_full_tower_training_diagnostic_blueprint.md`
-- Source gameplan:
-  `docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic/02_counterpoint_noisy_rate_full_tower_training_diagnostic_implementation_gameplan.md`
+- Source workplan:
+  `docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic/02_counterpoint_noisy_rate_full_tower_training_diagnostic_implementation_workplan.md`
 - Parent candidate source:
   `docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json`
 - New package:

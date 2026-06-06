@@ -73,7 +73,7 @@ episodes, while the sustained-hit rule is 4-of-5, so no arm can satisfy the
 windowed criterion. Do not treat that smoke as frontier evidence.
 
 The meaningful threshold-frontier run should use the six-threshold,
-eight-episode budget from the gameplan:
+eight-episode budget from the workplan:
 
 ```text
 docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/v072_pointwise_frontier_001
@@ -97,7 +97,7 @@ The meaningful paired-replicate run should wait for either:
 - meaningful threshold-frontier output that selects a sharper threshold; or
 - an explicit Project Owner threshold override.
 
-The relevant design/gameplan surfaces are:
+The relevant design/workplan surfaces are:
 
 ```text
 docs/design/first_counterpoint_environment/threshold_frontier_probe/
@@ -137,7 +137,7 @@ understood. It should compare learning behavior on counterpoint under explicit
 baselines, schema choices, budgets, seeds, linearization condition, artifact
 contracts, and human-readable readout requirements. Do not jump straight from
 diagnostics into a learning-comparison implementation without a
-blueprint/gameplan and explicit Project Owner approval.
+blueprint/workplan and explicit Project Owner approval.
 
 ## Root Contribution Rule
 
@@ -157,23 +157,23 @@ state.
 
 ## Prime Directive
 
-Before executing an approved blueprint or implementation gameplan, reread:
+Before executing an approved blueprint or implementation workplan, reread:
 
 ```text
 docs/prime_directive/prime_directive.md
 docs/prime_directive/git_practices.md
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 ```
 
-When a gameplan uses `Phase.Stage.Action`, execute those items as written.
+When a workplan uses `Phase.Stage.Action`, execute those items as written.
 Do not silently simplify, reorder, replace, or partially satisfy the approved
 plan.
 
 ## Git Discipline
 
 Use a task branch for approved implementation work, especially when the work is
-attached to a blueprint and gameplan.
+attached to a blueprint and workplan.
 
 Default branch shape:
 
@@ -187,7 +187,7 @@ Do not rewrite or revert unrelated user changes.
 
 Use the docs folders this way:
 
-- `docs/design/`: design discussions, blueprints, implementation gameplans,
+- `docs/design/`: design discussions, blueprints, implementation workplans,
   and implementation logs.
 - `docs/environments/`: human summaries of environment families, fixtures,
   contracts, diagnostics, and claim boundaries.

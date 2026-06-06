@@ -1,8 +1,8 @@
-# Counterpoint Degenerate-Tier Handoff Integration Implementation Gameplan
+# Counterpoint Degenerate-Tier Handoff Integration Implementation Workplan
 
 Date: 2026-05-30
 
-Status: implementation gameplan, not yet executed under this gameplan
+Status: implementation workplan, not yet executed under this workplan
 
 Repository:
 
@@ -18,7 +18,7 @@ docs/design/degenerate_tier_control/01_004_counterpoint_degenerate_tier_handoff_
 
 ## Purpose
 
-This gameplan translates the corrected degenerate-tier handoff integration
+This workplan translates the corrected degenerate-tier handoff integration
 blueprint into Phase.Stage.Action implementation work.
 
 The work is intentionally narrow:
@@ -30,13 +30,13 @@ invalid_action_index failure path is gone, and return to the original
 counterpoint evaluation evidence.
 ```
 
-This gameplan does not create a new action-realization design block.
+This workplan does not create a new action-realization design block.
 
 ## Execution Authority Status
 
 This document is not approval to implement.
 
-The Project Owner asked for this gameplan:
+The Project Owner asked for this workplan:
 
 ```text
 OK NOW give this a re-read, and follow prime_directive to turn it into a
@@ -46,22 +46,22 @@ Phase.Stage.Action gamplan
 Therefore this document may be created now.
 
 Source, test, dependency, lockfile, artifact, and evaluation-readout
-implementation must not begin under this gameplan until the Project Owner
+implementation must not begin under this workplan until the Project Owner
 explicitly approves execution of this exact file.
 
 ## Source Authority
 
-This gameplan follows:
+This workplan follows:
 
 - `docs/prime_directive/prime_directive.md`
 - `docs/prime_directive/git_practices.md`
 - `docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md`
-- `docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md`
+- `docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md`
 - `docs/design/degenerate_tier_control/error_diagnosis_conversation.md`
 - `docs/design/degenerate_tier_control/01_003_big_boy_benchmarking_handoff_note.md`
 - `docs/design/degenerate_tier_control/01_004_counterpoint_degenerate_tier_handoff_integration_blueprint.md`
 - `docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_001_counterpoint_first_serious_learning_evaluation_blueprint.md`
-- `docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_gameplan.md`
+- `docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_workplan.md`
 - `docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/README.md`
 
 ## Fixed Implementation Decisions
@@ -102,7 +102,7 @@ tier is executable if:
 ```
 
 Do not replace this with a broader concrete lift-candidate predicate in this
-gameplan.
+workplan.
 
 ### Evaluation Scope
 
@@ -114,13 +114,13 @@ counterpoint_symbolic_n3_small_v001
 tensor_available_disabled
 ```
 
-This gameplan may run the smallest-valid serious-learning smoke for validation.
+This workplan may run the smallest-valid serious-learning smoke for validation.
 It must not silently change the serious evaluation budget, arms, schemas, or
 claim boundary.
 
 ## Non-Goals
 
-This gameplan does not:
+This workplan does not:
 
 - add concrete candidate-selection policy;
 - decide one action-cell versus multiple concrete candidate options;
@@ -139,11 +139,11 @@ record it as evidence and stop if addressing it would change scope.
 
 Stop and ask the Project Owner if:
 
-- execution of this exact gameplan has not been approved;
+- execution of this exact workplan has not been approved;
 - branch or dirty-worktree state would mix unrelated source/test changes into
   this implementation;
 - existing uncommitted implementation edits are present and it is unclear
-  whether to adopt, move, or recommit them under this gameplan;
+  whether to adopt, move, or recommit them under this workplan;
 - `state_collapser v0.7.1` cannot be installed from the public tag;
 - installed `state_collapser` does not report version `0.7.1`;
 - `ExploitExploreTowerRuntime` does not expose `tier_is_executable`;
@@ -182,7 +182,7 @@ docs/design/degenerate_tier_control/01_006_counterpoint_degenerate_tier_handoff_
 
 The log must record:
 
-- approval to execute this exact gameplan;
+- approval to execute this exact workplan;
 - initial branch and dirty state;
 - how any pre-existing matching edits were handled;
 - every completed Phase.Stage.Action;
@@ -201,14 +201,14 @@ The log must record:
 Confirm the Project Owner explicitly approved execution of this exact file:
 
 ```text
-docs/design/degenerate_tier_control/01_005_counterpoint_degenerate_tier_handoff_integration_implementation_gameplan.md
+docs/design/degenerate_tier_control/01_005_counterpoint_degenerate_tier_handoff_integration_implementation_workplan.md
 ```
 
 Acceptance criteria:
 
 - approval is recorded in the implementation log;
 - no source, test, dependency, lockfile, artifact, or evaluation-readout edits
-  occur under this gameplan before approval.
+  occur under this workplan before approval.
 
 #### Action 0.1.2
 
@@ -218,13 +218,13 @@ Reread Prime Directive files:
 docs/prime_directive/prime_directive.md
 docs/prime_directive/git_practices.md
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 ```
 
 Acceptance criteria:
 
 - implementation log records the reread;
-- no contradiction is found between this gameplan and the Prime Directive.
+- no contradiction is found between this workplan and the Prime Directive.
 
 ### Stage 0.2: Inspect Git State
 
@@ -599,7 +599,7 @@ Acceptance criteria:
 
 - implementation log records which tower arms executed concrete steps;
 - implementation log records any remaining failure reasons;
-- any new failure reason is recorded as evidence, not fixed in this gameplan
+- any new failure reason is recorded as evidence, not fixed in this workplan
   unless it is directly the old degenerate-tier failure.
 
 ## Phase 6: Evaluation Readout Resume Point
@@ -674,11 +674,11 @@ Acceptance criteria:
 
 - final branch and dirty state are recorded;
 - unrelated pre-existing changes are not claimed as part of this handoff;
-- final report separates this gameplan's changes from other repo changes.
+- final report separates this workplan's changes from other repo changes.
 
 ## Completion Criteria
 
-This gameplan is complete when:
+This workplan is complete when:
 
 - `state_collapser v0.7.1` is pinned, locked, installed, and verified;
 - BBB dependency tests require the handoff runtime surface;
@@ -692,7 +692,7 @@ This gameplan is complete when:
 - the old `invalid_action_index` / `action_index_out_of_range` empty-vocabulary
   failure path is absent from smoke artifacts;
 - implementation log records any remaining failure evidence without expanding
-  this gameplan's scope.
+  this workplan's scope.
 
 ## Explicitly Deferred Work
 

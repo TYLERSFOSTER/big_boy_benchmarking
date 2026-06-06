@@ -8,7 +8,7 @@ Upstream authority:
 
 ```text
 docs/design/synthetic_blow_revisions_02/01_001_synthetic_blow_revisions_02_blueprint.md
-docs/design/synthetic_blow_revisions_02/01_002_synthetic_blow_revisions_02_implementation_gameplan.md
+docs/design/synthetic_blow_revisions_02/01_002_synthetic_blow_revisions_02_implementation_workplan.md
 docs/code_review/03_001_synthetic_blow_full_repo_review_current_state.md
 ```
 

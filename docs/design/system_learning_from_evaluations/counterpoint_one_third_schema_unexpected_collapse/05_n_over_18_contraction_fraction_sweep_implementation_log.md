@@ -8,10 +8,10 @@ Branch:
 codex/contraction-fraction-sweep-diagnostics
 ```
 
-Source gameplan:
+Source workplan:
 
 ```text
-docs/design/system_learning_from_evaluations/counterpoint_one_third_schema_unexpected_collapse/04_n_over_18_contraction_fraction_sweep_implementation_gameplan.md
+docs/design/system_learning_from_evaluations/counterpoint_one_third_schema_unexpected_collapse/04_n_over_18_contraction_fraction_sweep_implementation_workplan.md
 ```
 
 Initial `git status --short`:
@@ -41,11 +41,11 @@ Stop and ask the Project Owner if:
 
 ## Phase.Stage.Action Checklist
 
-- Phase 0. Stage 0. Action 1: completed. Execution authority confirmed by PO request to execute the gameplan.
+- Phase 0. Stage 0. Action 1: completed. Execution authority confirmed by PO request to execute the workplan.
 - Phase 0. Stage 0. Action 2: completed. Working tree inspected; no dirty files reported.
 - Phase 0. Stage 0. Action 3: completed. Created and switched to `codex/contraction-fraction-sweep-diagnostics`.
 - Phase 0. Stage 0. Action 4: completed. Created this implementation log.
-- Phase 0. Stage 1. Action 1: completed. Re-read blueprint, gameplan, gameplan rewrite discipline, and false-attribution discipline.
+- Phase 0. Stage 1. Action 1: completed. Re-read blueprint, workplan, workplan rewrite discipline, and false-attribution discipline.
 - Phase 0. Stage 1. Action 2: completed. Mapped one-third surfaces. The actual CLI surface is `src/big_boy_benchmarking/cli/main.py`, not `src/big_boy_benchmarking/cli.py`; this is a repo layout correction, not a scope change.
 - Phase 1. Stage 1. Action 1: completed. Added stable fraction sweep schema ids.
 - Phase 1. Stage 1. Action 2: completed. Added shared source-local fraction selection helper.
@@ -87,7 +87,7 @@ Stop and ask the Project Owner if:
 - Phase 7. Stage 1. Action 2: completed. Summarized smoke artifacts and generated repo readout surface.
 - Phase 7. Stage 1. Action 3: completed. Applied the human-readability protocol expectations to the generated smoke readout surface and corrected the docs writer so the README opens with badges/verdict, identifies smoke scope, preserves the exact protocol command, includes protected clarification turns, avoids learning claims, and distinguishes active action-cell counts from raw historical action records.
 - Phase 7. Stage 2. Action 1: completed. Reviewed generated smoke readout and fixed implementation/source-binding issues in the docs writer.
-- Phase 8. Stage 1. Action 1: completed as a decision stop. Full small+medium validation has not been explicitly authorized; per gameplan, execution stops before Phase 8. Stage 1. Action 2.
+- Phase 8. Stage 1. Action 1: completed as a decision stop. Full small+medium validation has not been explicitly authorized; per workplan, execution stops before Phase 8. Stage 1. Action 2.
 - Phase 8. Stage 1. Action 2: pending PO authorization. Full validation artifacts were not run.
 - Phase 8. Stage 1. Action 3: pending PO authorization. Full validation artifacts were not summarized.
 - Phase 8. Stage 1. Action 4: pending PO authorization. Full validation human readout was not generated.
@@ -99,7 +99,7 @@ Stop and ask the Project Owner if:
 
 - No source edits have been made at log creation time.
 - Planned source edits: `ids.py`, `schemas.py`, `tower_adapter.py`, new `fraction_sweep_diagnostics/` package, `cli/main.py`, and focused tests. Existing `one_third_diagnostics/` should remain behaviorally intact.
-- Surprise: the gameplan referenced `src/big_boy_benchmarking/cli.py`, but the repo uses `src/big_boy_benchmarking/cli/main.py`.
+- Surprise: the workplan referenced `src/big_boy_benchmarking/cli.py`, but the repo uses `src/big_boy_benchmarking/cli/main.py`.
 - Decision: did not add a separate dry-run CLI command; the same validation behavior is covered by hard-stop runner validation and focused tests, avoiding unnecessary CLI surface expansion.
 - Regression surprise: `test_ids.py` caught that the concrete fraction schema id duplicated the schema family id. Fixed by keeping `counterpoint_outgoing_fraction_sweep_schema_v001` as the family id and using `counterpoint_outgoing_fraction_sweep_single_block_schema_v001` as the concrete schema id prefix.
 - Smoke run result: the smoke shape used the small fixture, numerators `1,6`, schema seed `0`, one replicate, one episode, and no-contraction control. It produced 3 runs and all required result tables.

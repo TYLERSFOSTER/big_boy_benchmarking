@@ -20,7 +20,7 @@ docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_full_tower_
 
 This is a design blueprint.
 
-This is not an implementation gameplan.
+This is not an implementation workplan.
 
 This is not approval to edit source code.
 
@@ -32,7 +32,7 @@ environment.
 This is not approval to edit `/Users/foster/state_collapser`.
 
 This blueprint turns the Project Owner's stated next evaluation shape into a
-concrete design target. A later Phase.Stage.Action implementation gameplan
+concrete design target. A later Phase.Stage.Action implementation workplan
 must translate this blueprint into executable work before source changes
 begin.
 
@@ -636,7 +636,7 @@ warnings.jsonl
 ```
 
 If learner internals cannot currently expose `learner_update_events.csv`, the
-implementation gameplan must either add that evidence or explicitly record why
+implementation workplan must either add that evidence or explicitly record why
 the training claim is limited.
 
 ## Evaluation-Level Result Tables
@@ -1067,9 +1067,9 @@ These are consultant-authored open questions, not Project Owner statements.
 ## Blueprint Completion Condition
 
 This blueprint is complete enough to generate a Phase.Stage.Action
-implementation gameplan after Project Owner approval.
+implementation workplan after Project Owner approval.
 
-The gameplan should begin by re-reading the Prime Directive, this blueprint,
+The workplan should begin by re-reading the Prime Directive, this blueprint,
 the parent noisy-rate diagnostic blueprint/log/readout, and the current noisy-
 rate runner source.
 

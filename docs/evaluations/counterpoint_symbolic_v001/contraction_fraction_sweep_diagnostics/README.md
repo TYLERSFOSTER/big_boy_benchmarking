@@ -199,6 +199,6 @@ execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at 
 
 #### Embedded Engineering Consultant / Codex Turn
 
-> Created `docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction_diagnostics/` as the design-side home for the proposed noisy-rate follow-up evaluation. I copied the motivating readout conversation into `01_fraction_sweep_readout_conversation_archive.md` and added a local `README.md` that records the current status as design conversation only: no blueprint, no gameplan, no implementation, and no artifacts yet.
+> Created `docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction_diagnostics/` as the design-side home for the proposed noisy-rate follow-up evaluation. I copied the motivating readout conversation into `01_fraction_sweep_readout_conversation_archive.md` and added a local `README.md` that records the current status as design conversation only: no blueprint, no workplan, no implementation, and no artifacts yet.
 >
 > I also added the folder to the system-learning index so future LLM/engineer passes can detect it by the phrases `noisy-rate contraction`, `Bernoulli edge selection`, and `zero-selected sources`.

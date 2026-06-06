@@ -17,4 +17,4 @@ Implemented fields include:
 - failed lift reason counts.
 
 Tiny diagnostics are exact. Larger diagnostics may be sampled if a later
-approved gameplan expands the scale.
+approved workplan expands the scale.

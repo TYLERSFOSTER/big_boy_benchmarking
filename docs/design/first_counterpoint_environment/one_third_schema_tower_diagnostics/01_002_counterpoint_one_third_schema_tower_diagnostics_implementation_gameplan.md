@@ -1,8 +1,8 @@
-# Counterpoint One-Third Schema Tower Diagnostics Implementation Gameplan
+# Counterpoint One-Third Schema Tower Diagnostics Implementation Workplan
 
 Date: 2026-05-31
 
-Status: implementation gameplan, not yet executed
+Status: implementation workplan, not yet executed
 
 Repository:
 
@@ -18,7 +18,7 @@ docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/01
 
 ## Purpose
 
-This gameplan translates the one-third counterpoint tower diagnostics blueprint
+This workplan translates the one-third counterpoint tower diagnostics blueprint
 into Phase.Stage.Action implementation work.
 
 The target is a diagnostic evaluation for:
@@ -46,26 +46,26 @@ This is not approval to edit `/Users/foster/state_collapser`.
 
 This document is not approval to implement.
 
-The Project Owner asked for this gameplan from the blueprint:
+The Project Owner asked for this workplan from the blueprint:
 
 ```text
-Ok can you now use docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/01_001_counterpoint_one_third_schema_tower_diagnostics_blueprint.md to geenrate implementation gameplan in Phase.Stage.Action form, following prime_directive?
+Ok can you now use docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/01_001_counterpoint_one_third_schema_tower_diagnostics_blueprint.md to geenrate implementation workplan in Phase.Stage.Action form, following prime_directive?
 ```
 
 Therefore this document may be created now.
 
 Source, test, CLI, fixture, artifact-schema, and evaluation-readout
 implementation must not begin until the Project Owner explicitly approves
-execution of this exact gameplan.
+execution of this exact workplan.
 
 ## Source Authority
 
-This gameplan follows:
+This workplan follows:
 
 - `docs/prime_directive/prime_directive.md`
 - `docs/prime_directive/git_practices.md`
 - `docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md`
-- `docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md`
+- `docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md`
 - `docs/prime_directive/common_failure_mode_004_false_attribution_and_invented_project_owner_turns.md`
 - `docs/prime_directive/environment_construction_for_benchmark_evaluations_protocol.md`
 - `docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md`
@@ -147,7 +147,7 @@ medium
 Do not add a `tiny` smoke path for this evaluation.
 
 Current repo reality: BBB has `tiny` and `small` implemented; `medium` is only
-reserved in docs. Therefore this gameplan includes an explicit medium-fixture
+reserved in docs. Therefore this workplan includes an explicit medium-fixture
 implementation phase.
 
 ### Runtime Budget
@@ -199,7 +199,7 @@ BBB must not copy controller policy and then treat the copy as source of truth.
 
 Stop and ask the Project Owner if:
 
-- explicit approval to execute this gameplan has not been received;
+- explicit approval to execute this workplan has not been received;
 - branch or dirty status would mix unrelated work into this implementation;
 - any action would require editing `/Users/foster/state_collapser`;
 - installed `state_collapser` lacks the upstream ABC helper surfaces used by
@@ -215,7 +215,7 @@ Stop and ask the Project Owner if:
 - a required table would be omitted without an explicit expected-file policy;
 - exact implementation of any Phase.Stage.Action would require a weaker
   substitute, hidden simplification, or unapproved reordering;
-- a generated gameplan action would require changing the approved scope into a
+- a generated workplan action would require changing the approved scope into a
   direct-vs-tower comparison.
 
 ## Required Branch Discipline
@@ -231,7 +231,7 @@ Do not implement on `main` unless the Project Owner explicitly authorizes that.
 
 ## Implementation Log Requirement
 
-When this gameplan is executed, create and maintain:
+When this workplan is executed, create and maintain:
 
 ```text
 docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/01_003_counterpoint_one_third_schema_tower_diagnostics_implementation_log.md
@@ -245,12 +245,12 @@ The log must record:
 - tests and command outputs;
 - runtime surprises;
 - any stop condition encountered;
-- any Project Owner clarifications after this gameplan.
+- any Project Owner clarifications after this workplan.
 
 ## Phase 0. Stage 0. Action 1: Confirm Execution Authority
 
 Before edits, confirm that the Project Owner explicitly requested execution of
-this exact gameplan.
+this exact workplan.
 
 If not approved, stop.
 
@@ -272,7 +272,7 @@ Record:
 
 - branch;
 - short git status;
-- whether the new blueprint and gameplan are tracked or untracked;
+- whether the new blueprint and workplan are tracked or untracked;
 - whether unrelated user changes exist.
 
 Do not revert unrelated changes.
@@ -1253,7 +1253,7 @@ Report:
 - any stop conditions encountered;
 - remaining risks.
 
-Do not claim the gameplan was executed if any Phase.Stage.Action item was
+Do not claim the workplan was executed if any Phase.Stage.Action item was
 skipped or replaced.
 
 ## Expected File Touch List

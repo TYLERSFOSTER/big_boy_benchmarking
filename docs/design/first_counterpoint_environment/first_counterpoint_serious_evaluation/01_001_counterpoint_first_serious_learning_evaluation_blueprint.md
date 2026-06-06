@@ -20,7 +20,7 @@ docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation
 
 This is a design blueprint.
 
-This is not an implementation gameplan.
+This is not an implementation workplan.
 
 This is not approval to edit source code.
 
@@ -33,7 +33,7 @@ docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation
 into a coherent benchmark design for the first serious counterpoint learning
 evaluation.
 
-A later Phase.Stage.Action implementation gameplan must translate this
+A later Phase.Stage.Action implementation workplan must translate this
 blueprint into executable work before code changes begin.
 
 ## Source Authority
@@ -376,7 +376,7 @@ counterpoint_projection_audit_schema_v001
 Random balanced and random unbalanced arms must not be represented by one lucky
 draw.
 
-The implementation gameplan should define a deterministic schema-seed suite for
+The implementation workplan should define a deterministic schema-seed suite for
 each random family.
 
 The calibration pass may determine how large the random schema suite can be
@@ -503,7 +503,7 @@ FiberConditionedStage
 ```
 
 If implementation research shows this cannot be bound to counterpoint without
-upstream changes, the implementation gameplan must stop and record that
+upstream changes, the implementation workplan must stop and record that
 condition. It must not silently substitute ordinary tower-position-key
 tabular-Q as the serious tower result.
 
@@ -595,7 +595,7 @@ locked_at
 
 All serious arms must use the same locked budget.
 
-If calibration proves the proposed evaluation is too expensive, the gameplan
+If calibration proves the proposed evaluation is too expensive, the workplan
 must stop and report the measured cause. It should not quietly shrink the run
 until it becomes another smoke test.
 
@@ -934,7 +934,7 @@ The future reserved console command remains:
 bbb
 ```
 
-The exact command names can be refined in the implementation gameplan, but the
+The exact command names can be refined in the implementation workplan, but the
 user-facing workflow should keep calibration, serious run, and summarization
 distinct.
 
@@ -971,7 +971,7 @@ tower_control_with_fiber_conditioned_substages
 This blueprint requires making the active tower-control learning path real for
 counterpoint.
 
-The implementation gameplan should decide whether to:
+The implementation workplan should decide whether to:
 
 1. make `tower_exploit_explore` runnable for counterpoint;
 2. add counterpoint-specific arm ids while preserving the global mode id;
@@ -1066,7 +1066,7 @@ Disallowed first-result statements:
 
 ## Implementation Stop Conditions
 
-The implementation gameplan must stop and report if:
+The implementation workplan must stop and report if:
 
 - active-tier exploit/explore surfaces cannot be bound to the counterpoint
   environment without upstream changes;
@@ -1086,7 +1086,7 @@ The implementation gameplan must stop and report if:
 
 ## Blueprint Acceptance Criteria
 
-This blueprint is complete enough to become an implementation gameplan when the
+This blueprint is complete enough to become an implementation workplan when the
 Project Owner accepts these design commitments:
 
 - the serious fixture is `small`;
@@ -1100,9 +1100,9 @@ Project Owner accepts these design commitments:
 - the implementation must stop rather than silently demote tower-control to
   ordinary tower-position-key tabular-Q.
 
-## Gameplan Requirements
+## Workplan Requirements
 
-The next implementation gameplan should use Phase.Stage.Action discipline.
+The next implementation workplan should use Phase.Stage.Action discipline.
 
 It should include at least:
 
@@ -1127,5 +1127,5 @@ It should include at least:
 18. final lint/test run;
 19. implementation log.
 
-No source implementation should begin until that gameplan exists and the
+No source implementation should begin until that workplan exists and the
 Project Owner approves execution.

@@ -1,8 +1,8 @@
-# Counterpoint Noisy-Rate Contraction Diagnostics Implementation Gameplan
+# Counterpoint Noisy-Rate Contraction Diagnostics Implementation Workplan
 
 Date: 2026-06-01
 
-Status: implementation gameplan, not yet executed
+Status: implementation workplan, not yet executed
 
 Repository:
 
@@ -18,7 +18,7 @@ docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction
 
 ## Purpose
 
-This gameplan translates the noisy-rate contraction diagnostics blueprint into
+This workplan translates the noisy-rate contraction diagnostics blueprint into
 Phase.Stage.Action implementation work.
 
 The target is a sibling diagnostic evaluation for the existing counterpoint
@@ -50,7 +50,7 @@ This is not approval to edit `/Users/foster/state_collapser`.
 
 This document is not approval to implement.
 
-The Project Owner requested this gameplan from the blueprint:
+The Project Owner requested this workplan from the blueprint:
 
 ```text
 Give this a re-read and then write full implementatino gamplan using Phase.Staage.Action style, and follwoing prime_directuve
@@ -60,22 +60,22 @@ Therefore this document may be created now.
 
 Source, test, CLI, artifact-schema, evaluation-readout, and benchmark-run
 implementation must not begin until the Project Owner explicitly approves
-execution of this exact gameplan.
+execution of this exact workplan.
 
-If the Project Owner later says to execute this gameplan without overriding the
+If the Project Owner later says to execute this workplan without overriding the
 consultant defaults below, implementation should treat those defaults as the
-approved execution settings for this gameplan. If the Project Owner overrides
-any default before execution, update this gameplan or record the override in
+approved execution settings for this workplan. If the Project Owner overrides
+any default before execution, update this workplan or record the override in
 the implementation log before source edits.
 
 ## Source Authority
 
-This gameplan follows:
+This workplan follows:
 
 - `docs/prime_directive/prime_directive.md`
 - `docs/prime_directive/git_practices.md`
 - `docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md`
-- `docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md`
+- `docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md`
 - `docs/prime_directive/common_failure_mode_004_false_attribution_and_invented_project_owner_turns.md`
 - `docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md`
 - `docs/prime_directive/artifact_table_to_readable_document_protocol.md`
@@ -89,7 +89,7 @@ This gameplan follows:
 
 ## PO Attribution Preservation
 
-This gameplan preserves the source blueprint's PO Attribution Ledger. It does
+This workplan preserves the source blueprint's PO Attribution Ledger. It does
 not add invented Project Owner turns.
 
 Project Owner-originated design locks carried into implementation:
@@ -103,14 +103,14 @@ Project Owner-originated design locks carried into implementation:
 4. The Project Owner asked to create the new evaluation design folder and copy
    the motivating conversation there.
 5. The Project Owner requested a full blueprint, and then this
-   Phase.Stage.Action gameplan.
+   Phase.Stage.Action workplan.
 
 Consultant-authored defaults and recommendations are explicitly labeled below.
 
 ## Consultant Defaults For Execution
 
 These defaults are consultant-authored. They become execution assumptions only
-if the Project Owner later approves execution of this gameplan without
+if the Project Owner later approves execution of this workplan without
 overriding them.
 
 1. Use coupled Bernoulli edge-threshold selection:
@@ -184,7 +184,7 @@ overriding them.
 
 ## Fixed Design Locks
 
-These locks are binding if this gameplan is later executed.
+These locks are binding if this workplan is later executed.
 
 ### Environment Lock
 
@@ -272,7 +272,7 @@ Do not implement on `main` unless the Project Owner explicitly authorizes that.
 
 ## Implementation Log Requirement
 
-When this gameplan is executed, create and maintain:
+When this workplan is executed, create and maintain:
 
 ```text
 docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction_diagnostics/04_counterpoint_noisy_rate_contraction_diagnostics_implementation_log.md
@@ -288,13 +288,13 @@ The log must record:
 - artifact runs;
 - surprises and failures;
 - stop conditions encountered;
-- Project Owner clarifications after this gameplan.
+- Project Owner clarifications after this workplan.
 
 ## Global Stop Conditions
 
 Stop and ask the Project Owner if:
 
-- explicit approval to execute this exact gameplan has not been received;
+- explicit approval to execute this exact workplan has not been received;
 - branch or dirty status would mix unrelated work into this implementation;
 - any action would require editing `/Users/foster/state_collapser`;
 - any action would alter `counterpoint_symbolic_v001` environment semantics;
@@ -317,7 +317,7 @@ Stop and ask the Project Owner if:
 ## Phase 0. Stage 0. Action 1: Confirm Execution Authority
 
 Before implementation edits, confirm that the Project Owner explicitly
-requested execution of this exact gameplan.
+requested execution of this exact workplan.
 
 If not approved, stop.
 
@@ -351,7 +351,7 @@ docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction
 
 Initialize it with:
 
-- source gameplan path;
+- source workplan path;
 - branch name;
 - execution start timestamp;
 - current `git status --short`;
@@ -364,9 +364,9 @@ Immediately before code edits, re-read:
 
 ```text
 docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction_diagnostics/02_counterpoint_noisy_rate_contraction_diagnostics_blueprint.md
-docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction_diagnostics/03_counterpoint_noisy_rate_contraction_diagnostics_implementation_gameplan.md
+docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction_diagnostics/03_counterpoint_noisy_rate_contraction_diagnostics_implementation_workplan.md
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 docs/prime_directive/common_failure_mode_004_false_attribution_and_invented_project_owner_turns.md
 docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md
 docs/prime_directive/artifact_table_to_readable_document_protocol.md
@@ -1455,6 +1455,6 @@ a map, not permission to make unrelated edits.
 
 ## Implementation Readiness
 
-This gameplan is ready for Project Owner review.
+This workplan is ready for Project Owner review.
 
 It is not yet authorized for execution.

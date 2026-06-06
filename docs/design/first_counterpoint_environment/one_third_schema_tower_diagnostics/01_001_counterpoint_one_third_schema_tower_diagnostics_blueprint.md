@@ -20,7 +20,7 @@ docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/
 
 This is a design blueprint.
 
-This is not an implementation gameplan.
+This is not an implementation workplan.
 
 This is not approval to edit source code.
 
@@ -35,7 +35,7 @@ docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/de
 into a detailed benchmark-evaluation design for a one-third contraction schema
 diagnostic on the existing counterpoint environment family.
 
-A later Phase.Stage.Action implementation gameplan must translate this
+A later Phase.Stage.Action implementation workplan must translate this
 blueprint into executable work before code changes begin.
 
 ## Source Authority
@@ -201,7 +201,7 @@ one_third_schema_diagnostics_small_001
 one_third_schema_diagnostics_smoke_001
 ```
 
-The implementation gameplan should choose final names once the PO answers the
+The implementation workplan should choose final names once the PO answers the
 schema-rule and run-scope questions at the bottom of this document.
 
 ## Settled Decisions
@@ -636,7 +636,7 @@ Risks:
 
 ### Blueprint Recommendation
 
-Unless the PO corrects this, the later gameplan should implement:
+Unless the PO corrects this, the later workplan should implement:
 
 ```text
 seeded per-source outgoing thirds
@@ -1542,7 +1542,7 @@ The generated `glossary.md` must define:
 
 ## Implementation Surface Expectations
 
-This is not a gameplan, but the later gameplan will likely touch these areas.
+This is not a workplan, but the later workplan will likely touch these areas.
 
 ### Counterpoint Ids
 
@@ -1635,7 +1635,7 @@ uv run python -m big_boy_benchmarking.cli counterpoint one-third-diagnostics sum
   --artifact-root docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/<run-label>
 ```
 
-The final CLI naming should be settled in the implementation gameplan.
+The final CLI naming should be settled in the implementation workplan.
 
 ## Validation Requirements
 
@@ -1661,7 +1661,7 @@ Tests should verify:
 
 ### Smoke Runs
 
-The gameplan should include a tiny smoke run that proves:
+The workplan should include a tiny smoke run that proves:
 
 - the CLI works;
 - artifacts land under the repo readout surface;
@@ -1670,7 +1670,7 @@ The gameplan should include a tiny smoke run that proves:
 
 ### Main Diagnostic Run
 
-The gameplan should include a small diagnostic run that proves:
+The workplan should include a small diagnostic run that proves:
 
 - tower geometry is inspectable;
 - control events are emitted;
@@ -1700,7 +1700,7 @@ Stop before implementation if:
 These are consultant-authored open questions, not Project Owner statements.
 
 They are the real remaining ambiguities that should be answered before the
-implementation gameplan.
+implementation workplan.
 
 ### Question 1: Operational Meaning Of "One Third"
 
@@ -1782,7 +1782,7 @@ Current options:
 How much controller runtime should the first diagnostic use?
 
 The run needs enough events to inspect ABC occupancy, but it is not a
-performance comparison. The implementation gameplan can propose a concrete
+performance comparison. The implementation workplan can propose a concrete
 budget after this design choice is clear.
 
 #### PO Reply:
@@ -1793,10 +1793,10 @@ budget after this design choice is clear.
 > performance-budget question.
 >
 > Since you answered "small and medium" and explicitly rejected `tiny`, the
-> implementation gameplan should not use `tiny` for this evaluation. There is a
+> implementation workplan should not use `tiny` for this evaluation. There is a
 > current repo reality issue, though: BBB currently implements `tiny` and
 > `small`, while `medium` is only a reserved scale tier in the docs. So the
-> gameplan needs an explicit prerequisite action to add and document
+> workplan needs an explicit prerequisite action to add and document
 > `counterpoint_symbolic_n3_medium_v001`, or it must stop if that fixture cannot
 > be responsibly defined.
 >
@@ -1844,15 +1844,15 @@ or should it use a different threshold?
 
 ## Blueprint Completion Checklist
 
-This blueprint is complete enough for a Phase.Stage.Action gameplan when:
+This blueprint is complete enough for a Phase.Stage.Action workplan when:
 
 - the PO accepts or corrects the recommended one-third schema rule;
 - schema seed policy is settled;
 - fixture scope is settled;
 - main diagnostic budget policy is settled or delegated to calibration;
 - structural-limit threshold policy is settled;
-- the later gameplan preserves the upstream-ABC boundary.
+- the later workplan preserves the upstream-ABC boundary.
 
-Until then, the implementation gameplan may be drafted with explicit decision
+Until then, the implementation workplan may be drafted with explicit decision
 locks, but it must not quietly implement a different schema or controller
 interpretation.

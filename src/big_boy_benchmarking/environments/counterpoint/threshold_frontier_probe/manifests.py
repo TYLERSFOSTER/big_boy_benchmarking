@@ -224,7 +224,7 @@ def readout_source_payload(
             "docs/design/first_counterpoint_environment/threshold_frontier_probe/README.md",
         ],
         "methodology_summary_sources": [
-            "docs/design/first_counterpoint_environment/threshold_frontier_probe/01_002_counterpoint_threshold_frontier_probe_implementation_gameplan.md",
+            "docs/design/first_counterpoint_environment/threshold_frontier_probe/01_002_counterpoint_threshold_frontier_probe_implementation_workplan.md",
             "docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md",
         ],
         "structural_limit_checks": [
@@ -271,7 +271,7 @@ def readout_source_payload(
                 "tensor-enabled runtime records",
             ],
             "expectation_sources": [
-                "docs/design/first_counterpoint_environment/threshold_frontier_probe/01_002_counterpoint_threshold_frontier_probe_implementation_gameplan.md"
+                "docs/design/first_counterpoint_environment/threshold_frontier_probe/01_002_counterpoint_threshold_frontier_probe_implementation_workplan.md"
             ],
         },
         "claim_boundary": [

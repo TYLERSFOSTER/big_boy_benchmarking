@@ -76,20 +76,20 @@ docs/prime_directive/
 The important process rules that shaped this work:
 
 - do not implement before explicit Project Owner approval;
-- treat approved gameplans as law during implementation;
+- treat approved workplans as law during implementation;
 - execute Phase.Stage.Action items in order;
 - stop on ambiguity, missing prerequisite infrastructure, surprise, or required
   simplification;
 - do not edit upstream `/Users/foster/state_collapser`;
-- do not rewrite gameplans while implementing them unless the PO explicitly
+- do not rewrite workplans while implementing them unless the PO explicitly
   approves an amendment;
 - avoid fake completion, especially around tower integration and artifact
   surfaces.
 
-This mattered. The counterpoint gameplan initially stopped at its prerequisite
+This mattered. The counterpoint workplan initially stopped at its prerequisite
 infrastructure gate because shared benchmark machinery was missing. Work then
 shifted to designing and implementing shared machinery first. After that merged
-back into the counterpoint branch/main, the counterpoint gameplan resumed from
+back into the counterpoint branch/main, the counterpoint workplan resumed from
 the recorded pause point.
 
 ## Design Lineage
@@ -113,7 +113,7 @@ Key docs:
 docs/design/first_infrastructure_slice/01_001_initial_benchmarking_goals_discussion.md
 docs/design/first_infrastructure_slice/01_002_state_collapser_read_only_reconnaissance.md
 docs/design/first_infrastructure_slice/01_003_benchmark_system_and_artifact_contract_blueprint.md
-docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_gameplan.md
+docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md
 ```
 
 Key decisions:
@@ -131,13 +131,13 @@ Key decisions:
 ### Shared Benchmark Machinery
 
 The shared benchmark machinery work created the infrastructure the environment
-gameplan needed.
+workplan needed.
 
 Key docs:
 
 ```text
 docs/design/shared_benchmark_machinery/01_001_shared_benchmark_machinery_design.md
-docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_gameplan.md
+docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_workplan.md
 docs/design/shared_benchmark_machinery/01_003_shared_benchmark_machinery_implementation_log.md
 ```
 
@@ -188,7 +188,7 @@ Key docs:
 ```text
 docs/design/first_counterpoint_environment/01_001_counterpoint_environment_design_discussion.md
 docs/design/first_counterpoint_environment/01_002_counterpoint_hidden_graph_and_contraction_schema_benchmark_blueprint.md
-docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_gameplan.md
+docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_workplan.md
 docs/design/first_counterpoint_environment/01_004_counterpoint_hidden_graph_and_contraction_schema_implementation_log.md
 ```
 
@@ -225,8 +225,8 @@ Important recent commits:
 cbd3b17 Ignore macOS metadata files
 8566d07 Implement shared benchmark machinery slice
 d9d6360 artifacts design
-3b3ffa4 first environment design and gameplan: RL counterpoint
-4a6e7a2 first infrastructure slice gameplan
+3b3ffa4 first environment design and workplan: RL counterpoint
+4a6e7a2 first infrastructure slice workplan
 7fcc560 benchmarking first blueprint
 65e5a80 benchmarking design conversation in-progress
 ```
@@ -1378,7 +1378,7 @@ What we cannot honestly claim yet:
 
 ## The First Real Benchmark Matrix To Design Next
 
-The next sensible design artifact should be a concrete run matrix gameplan.
+The next sensible design artifact should be a concrete run matrix workplan.
 
 Suggested first serious matrix:
 
@@ -1631,7 +1631,7 @@ Start with a design doc, not code.
 Suggested prompt:
 
 ```text
-Create a Phase.Stage.Action design/gameplan for the first serious
+Create a Phase.Stage.Action design/workplan for the first serious
 counterpoint_symbolic_v001 small-fixture benchmark matrix, using the current
 shared machinery and preserving the claim boundary.
 ```

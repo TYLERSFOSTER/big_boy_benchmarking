@@ -192,7 +192,7 @@ def expected_file_policy() -> dict[str, Any]:
         "expectation_sources": [
             "docs/design/system_learning_from_evaluations/"
             "counterpoint_one_third_schema_unexpected_collapse/"
-            "04_n_over_18_contraction_fraction_sweep_implementation_gameplan.md"
+            "04_n_over_18_contraction_fraction_sweep_implementation_workplan.md"
         ],
     }
 

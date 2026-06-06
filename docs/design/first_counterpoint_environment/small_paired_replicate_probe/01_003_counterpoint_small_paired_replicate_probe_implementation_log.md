@@ -8,16 +8,16 @@ Branch:
 codex/small-paired-replicate-probe
 ```
 
-Source gameplan:
+Source workplan:
 
 ```text
-docs/design/first_counterpoint_environment/small_paired_replicate_probe/01_002_counterpoint_small_paired_replicate_probe_implementation_gameplan.md
+docs/design/first_counterpoint_environment/small_paired_replicate_probe/01_002_counterpoint_small_paired_replicate_probe_implementation_workplan.md
 ```
 
 Execution instruction:
 
 ```text
-Execute `docs/design/first_counterpoint_environment/small_paired_replicate_probe/01_002_counterpoint_small_paired_replicate_probe_implementation_gameplan.md`
+Execute `docs/design/first_counterpoint_environment/small_paired_replicate_probe/01_002_counterpoint_small_paired_replicate_probe_implementation_workplan.md`
 ```
 
 Initial repo state:
@@ -37,11 +37,11 @@ git checkout -b codex/small-paired-replicate-probe
 ### Phase 0: Authority, Branch, And Reality Check
 
 - Phase 0. Stage 0. Action 1: Completed. The Project Owner explicitly asked
-  to execute this exact gameplan.
+  to execute this exact workplan.
 - Phase 0. Stage 0. Action 2: Completed. Execution authority was present.
 - Phase 0. Stage 0. Action 3: Completed. Exact execution instruction recorded
   above.
-- Phase 0. Stage 0. Action 4: Completed. The original gameplan-generation
+- Phase 0. Stage 0. Action 4: Completed. The original workplan-generation
   request is distinguished from this execution request.
 - Phase 0. Stage 1. Action 1: Completed. Initial `git status --short --branch`
   showed clean `main`.
@@ -54,7 +54,7 @@ git checkout -b codex/small-paired-replicate-probe
 - Phase 0. Stage 1. Action 5: Completed. Branch creation and initial dirty
   state recorded here.
 - Phase 0. Stage 2. Action 1: Completed. Re-read Prime Directive source
-  authority named by the gameplan.
+  authority named by the workplan.
 - Phase 0. Stage 2. Action 2: Completed. Re-read the source blueprint.
 - Phase 0. Stage 2. Action 3: Completed. Re-read threshold-frontier design
   context available at execution time.
@@ -75,7 +75,7 @@ git checkout -b codex/small-paired-replicate-probe
   must parameterize that identity before the paired probe can use it honestly.
 - Phase 0. Stage 3. Action 1: Completed. This log was created.
 - Phase 0. Stage 3. Action 2: Completed. Branch, instruction, source
-  gameplan, initial state, and stop conditions are recorded.
+  workplan, initial state, and stop conditions are recorded.
 - Phase 0. Stage 3. Action 3: Completed. This log was updated after
   implementation and verification.
 

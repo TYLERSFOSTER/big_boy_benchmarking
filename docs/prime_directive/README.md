@@ -23,7 +23,7 @@ The core collaboration and execution discipline lives in:
 - `git_practices.md`
 - `common_failure_mode_001.md`
 - `common_failure_mode_002_implementation_without_owner_approval.md`
-- `common_failure_mode_003_gameplan_rewrite_during_implementation.md`
+- `common_failure_mode_003_workplan_rewrite_during_implementation.md`
 
 When the Project Owner asks for a human-readable run report, remind them of the
 explicit protocol/source-binding command:

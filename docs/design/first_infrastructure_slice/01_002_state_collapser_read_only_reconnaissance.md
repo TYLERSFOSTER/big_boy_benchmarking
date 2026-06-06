@@ -60,7 +60,7 @@ Primary synthetic-Blow review and revision docs:
 - `/Users/foster/state_collapser/docs/code_review/synthetic_blow_review_kit/source_notes.md`
 - `/Users/foster/state_collapser/docs/code_review/synthetic_blow_review_kit/synthetic_blow.md`
 - `/Users/foster/state_collapser/docs/design/synthetic_blow_revisions_01/01_001_synthetic_blow_review_revision_blueprint.md`
-- `/Users/foster/state_collapser/docs/design/synthetic_blow_revisions_01/01_002_synthetic_blow_review_revision_implementation_gameplan.md`
+- `/Users/foster/state_collapser/docs/design/synthetic_blow_revisions_01/01_002_synthetic_blow_review_revision_implementation_workplan.md`
 - `/Users/foster/state_collapser/docs/design/synthetic_blow_revisions_01/01_003_synthetic_blow_review_revision_implementation_log.md`
 
 Evaluation and public-readiness docs:

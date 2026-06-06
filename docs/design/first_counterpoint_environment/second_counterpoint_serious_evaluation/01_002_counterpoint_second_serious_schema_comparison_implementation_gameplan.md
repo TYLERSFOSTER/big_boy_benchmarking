@@ -1,8 +1,8 @@
-# Counterpoint Second Serious Schema Comparison Implementation Gameplan
+# Counterpoint Second Serious Schema Comparison Implementation Workplan
 
 Date: 2026-06-03
 
-Status: implementation gameplan, not executed
+Status: implementation workplan, not executed
 
 Repository:
 
@@ -18,7 +18,7 @@ docs/design/first_counterpoint_environment/second_counterpoint_serious_evaluatio
 
 ## Purpose
 
-This gameplan translates the second serious counterpoint schema-comparison
+This workplan translates the second serious counterpoint schema-comparison
 blueprint into Phase.Stage.Action implementation work.
 
 The target evaluation is:
@@ -57,16 +57,16 @@ episodes per replicate: 256 to start
 linearization mode: tensor_available_disabled
 ```
 
-This gameplan creates the path to implement the evaluation. It does not
+This workplan creates the path to implement the evaluation. It does not
 authorize source edits, benchmark artifact runs, or the serious locked budget
-until the Project Owner explicitly requests execution of this exact gameplan.
+until the Project Owner explicitly requests execution of this exact workplan.
 
 ## Execution Authority Status
 
-The Project Owner requested this gameplan:
+The Project Owner requested this workplan:
 
 ```text
-Follow `prime_directive` to write Phase.Stage.Action implemetation gameplan for
+Follow `prime_directive` to write Phase.Stage.Action implemetation workplan for
 this:
 `docs/design/first_counterpoint_environment/second_counterpoint_serious_evaluation/01_001_counterpoint_second_serious_schema_comparison_blueprint.md`
 ```
@@ -75,19 +75,19 @@ Therefore this document may be written now.
 
 This instruction is not implementation approval.
 
-If the Project Owner later says to execute this gameplan, implementation should
+If the Project Owner later says to execute this workplan, implementation should
 follow this document as written. If any Phase.Stage.Action item cannot be
 implemented as written, stop and ask for Project Owner guidance before
 substituting, simplifying, or reordering.
 
 ## Source Authority
 
-This gameplan follows:
+This workplan follows:
 
 - `docs/prime_directive/prime_directive.md`
 - `docs/prime_directive/git_practices.md`
 - `docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md`
-- `docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md`
+- `docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md`
 - `docs/prime_directive/common_failure_mode_004_false_attribution_and_invented_project_owner_turns.md`
 - `docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md`
 - `docs/prime_directive/artifact_table_to_readable_document_protocol.md`
@@ -103,7 +103,7 @@ This gameplan follows:
 
 ## PO Attribution Preservation
 
-This gameplan preserves the blueprint's Project Owner-originated design locks.
+This workplan preserves the blueprint's Project Owner-originated design locks.
 It does not invent Project Owner turns.
 
 Project Owner-originated locks carried into implementation:
@@ -148,7 +148,7 @@ The currently checked-in noisy-rate full-tower training diagnostic readout is a
 Therefore, implementation must not pretend four `medium` Schema 1 candidates
 already exist in that source.
 
-This gameplan allows implementation of the evaluation machinery, calibration,
+This workplan allows implementation of the evaluation machinery, calibration,
 source validation, and smoke runs. Before any serious `medium` locked run, the
 implementation must verify that the candidate source provides four eligible
 `medium` one-drop Schema 1 candidates, or stop and ask the Project Owner which
@@ -258,7 +258,7 @@ Project Owner explicitly authorizes TeX work.
 
 Stop and ask the Project Owner if:
 
-- execution of this gameplan has not been explicitly approved;
+- execution of this workplan has not been explicitly approved;
 - working tree state would mix unrelated TeX/root document changes into this
   implementation;
 - a source edit would touch `/Users/foster/state_collapser`;
@@ -288,12 +288,12 @@ Stop and ask the Project Owner if:
 #### Phase 0. Stage 0: Execution Authority
 
 - Phase 0. Stage 0. Action 1: Confirm the Project Owner has explicitly asked
-  to execute this exact gameplan.
+  to execute this exact workplan.
 - Phase 0. Stage 0. Action 2: If execution authority is absent, stop before
   source edits.
 - Phase 0. Stage 0. Action 3: Record the exact execution instruction in the
   implementation log.
-- Phase 0. Stage 0. Action 4: Record that this gameplan itself was requested
+- Phase 0. Stage 0. Action 4: Record that this workplan itself was requested
   on 2026-06-03 but was not implementation approval.
 
 #### Phase 0. Stage 1: Working Tree And Branch Discipline
@@ -316,7 +316,7 @@ Stop and ask the Project Owner if:
 #### Phase 0. Stage 2: Source Re-Read
 
 - Phase 0. Stage 2. Action 1: Re-read Prime Directive source authority listed
-  in this gameplan.
+  in this workplan.
 - Phase 0. Stage 2. Action 2: Re-read the source blueprint.
 - Phase 0. Stage 2. Action 3: Re-read the design discussion.
 - Phase 0. Stage 2. Action 4: Re-read noisy-rate contraction diagnostic source
@@ -342,7 +342,7 @@ Stop and ask the Project Owner if:
   ```
 
 - Phase 0. Stage 3. Action 2: Include branch, execution instruction, source
-  gameplan, initial dirty state, stop conditions, and running
+  workplan, initial dirty state, stop conditions, and running
   Phase.Stage.Action checklist.
 - Phase 0. Stage 3. Action 3: Keep the log updated throughout implementation.
 
@@ -1031,7 +1031,7 @@ Stop and ask the Project Owner if:
 
 - Phase 11. Stage 1. Action 1: Update the design folder README if one exists,
   or create one if needed.
-- Phase 11. Stage 1. Action 2: Link the blueprint, gameplan, and
+- Phase 11. Stage 1. Action 2: Link the blueprint, workplan, and
   implementation log.
 - Phase 11. Stage 1. Action 3: Record implementation smoke status.
 - Phase 11. Stage 1. Action 4: Record serious-run decision lock.
@@ -1143,7 +1143,7 @@ Implementation is complete only when:
 
 ## Final Reporting Requirements
 
-When this gameplan is executed, final reporting must include:
+When this workplan is executed, final reporting must include:
 
 - branch name;
 - implementation log path;

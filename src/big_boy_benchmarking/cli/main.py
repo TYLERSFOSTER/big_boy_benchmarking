@@ -1248,7 +1248,7 @@ def _run_counterpoint_second_serious_comparison_command(args: argparse.Namespace
         ):
             raise ValueError(
                 "serious second-serious-comparison run requires candidate-cap 4 "
-                "unless a later PO-approved gameplan changes that lock"
+                "unless a later PO-approved workplan changes that lock"
             )
         if (
             args.run_mode == "serious_schema_comparison_first_sustained_hit"
@@ -1256,7 +1256,7 @@ def _run_counterpoint_second_serious_comparison_command(args: argparse.Namespace
         ):
             raise ValueError(
                 "serious second-serious-comparison run requires 256 episodes "
-                "unless a later PO-approved gameplan changes that lock"
+                "unless a later PO-approved workplan changes that lock"
             )
         result = run_second_serious_comparison(
             artifact_root=args.artifact_root,

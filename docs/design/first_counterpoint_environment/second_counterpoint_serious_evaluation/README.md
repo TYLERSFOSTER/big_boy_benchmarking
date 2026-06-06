@@ -13,8 +13,8 @@ counterpoint_second_serious_schema_comparison_v001
   Codex design discussion.
 - [01_001_counterpoint_second_serious_schema_comparison_blueprint.md](01_001_counterpoint_second_serious_schema_comparison_blueprint.md):
   detailed blueprint.
-- [01_002_counterpoint_second_serious_schema_comparison_implementation_gameplan.md](01_002_counterpoint_second_serious_schema_comparison_implementation_gameplan.md):
-  Phase.Stage.Action implementation gameplan.
+- [01_002_counterpoint_second_serious_schema_comparison_implementation_workplan.md](01_002_counterpoint_second_serious_schema_comparison_implementation_workplan.md):
+  Phase.Stage.Action implementation workplan.
 - [01_003_counterpoint_second_serious_schema_comparison_implementation_log.md](01_003_counterpoint_second_serious_schema_comparison_implementation_log.md):
   execution log for the implementation branch.
 

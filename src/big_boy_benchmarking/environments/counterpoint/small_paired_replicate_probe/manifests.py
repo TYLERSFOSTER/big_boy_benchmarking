@@ -228,7 +228,7 @@ def readout_source_payload(
             "docs/design/first_counterpoint_environment/small_paired_replicate_probe/README.md",
         ],
         "methodology_summary_sources": [
-            "docs/design/first_counterpoint_environment/small_paired_replicate_probe/01_002_counterpoint_small_paired_replicate_probe_implementation_gameplan.md",
+            "docs/design/first_counterpoint_environment/small_paired_replicate_probe/01_002_counterpoint_small_paired_replicate_probe_implementation_workplan.md",
             "docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md",
         ],
         "structural_limit_checks": [

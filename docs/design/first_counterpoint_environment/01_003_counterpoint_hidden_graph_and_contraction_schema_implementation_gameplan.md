@@ -1,4 +1,4 @@
-# Counterpoint Hidden Graph And Contraction Schema Implementation Gameplan
+# Counterpoint Hidden Graph And Contraction Schema Implementation Workplan
 
 Status: initial Phase.Stage.Action implementation blueprint
 
@@ -16,11 +16,11 @@ Supporting design context:
 - `docs/design/first_infrastructure_slice/01_001_initial_benchmarking_goals_discussion.md`
 - `docs/design/first_infrastructure_slice/01_002_state_collapser_read_only_reconnaissance.md`
 - `docs/design/first_infrastructure_slice/01_003_benchmark_system_and_artifact_contract_blueprint.md`
-- `docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_gameplan.md`
+- `docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md`
 
-## Gameplan Scope
+## Workplan Scope
 
-This gameplan implements the first serious counterpoint benchmark family described by the source blueprint:
+This workplan implements the first serious counterpoint benchmark family described by the source blueprint:
 
 ```text
 counterpoint-like finite hidden graph family
@@ -38,7 +38,7 @@ The central experimental object is a benchmark-owned hidden state/action graph w
 
 ## Required Execution Discipline
 
-This gameplan uses `Phase.Stage.Action` format.
+This workplan uses `Phase.Stage.Action` format.
 
 If the Project Owner later approves implementation, implementation must execute actions as written, in order, unless the Project Owner explicitly authorizes a change.
 
@@ -54,7 +54,7 @@ If an action cannot be completed exactly as written, the implementation must sto
 
 ## Prime Directive Compliance Contract
 
-This gameplan must be executed under the repository Prime Directive.
+This workplan must be executed under the repository Prime Directive.
 
 Prime Directive source files:
 
@@ -62,24 +62,24 @@ Prime Directive source files:
 docs/prime_directive/prime_directive.md
 docs/prime_directive/common_failure_mode_001.md
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 docs/prime_directive/consultant_tricks.md
 docs/prime_directive/git_practices.md
 ```
 
-Operational consequences for this gameplan:
+Operational consequences for this workplan:
 
 1. Do not implement before explicit Project Owner approval.
-2. Do not treat creation of this gameplan as implementation approval.
+2. Do not treat creation of this workplan as implementation approval.
 3. Before source/test implementation work, create or switch to a dedicated implementation branch.
 4. Reconstruct global repo state before edits.
-5. Treat this gameplan as law during implementation.
+5. Treat this workplan as law during implementation.
 6. Re-read each `Phase.Stage.Action` before executing it.
 7. Maintain a running implementation log.
 8. Stop on ambiguity, surprise, failed baseline, unresolved PO decision, missing prerequisite infrastructure, or need for simplification.
 9. Do not edit upstream `/Users/foster/state_collapser`.
 10. Do not use git destructively.
-11. Do not silently absorb the first infrastructure-slice gameplan into this gameplan.
+11. Do not silently absorb the first infrastructure-slice workplan into this workplan.
 
 The implementation branch should be:
 
@@ -89,7 +89,7 @@ codex/counterpoint-hidden-graph-schema-benchmark
 
 unless the Project Owner explicitly names a different branch.
 
-## Current Repo Baseline At Gameplan Creation
+## Current Repo Baseline At Workplan Creation
 
 Observed current package files:
 
@@ -111,7 +111,7 @@ Observed current package facts:
 - current source package is still a small dependency probe
 - current observed implementation does not yet show the first infrastructure-slice modules
 
-This baseline is only the observed state when this gameplan was written. Execution must re-check reality before edits.
+This baseline is only the observed state when this workplan was written. Execution must re-check reality before edits.
 
 ## Prerequisite Warning
 
@@ -126,26 +126,26 @@ The source blueprint depends on infrastructure contracts from the first infrastr
 - human-facing docs folders,
 - and runner skeletons.
 
-At gameplan creation time, those modules were not observed in `src/`.
+At workplan creation time, those modules were not observed in `src/`.
 
-Therefore this gameplan contains an explicit prerequisite gate.
+Therefore this workplan contains an explicit prerequisite gate.
 
 If the infrastructure slice has not been implemented by the time this plan is executed, implementation must stop and ask the Project Owner whether to:
 
-- execute `docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_gameplan.md` first,
-- or write an amended combined gameplan that explicitly includes the missing prerequisite work.
+- execute `docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md` first,
+- or write an amended combined workplan that explicitly includes the missing prerequisite work.
 
-The implementer must not silently implement infrastructure work as an unnamed side effect of this counterpoint gameplan.
+The implementer must not silently implement infrastructure work as an unnamed side effect of this counterpoint workplan.
 
 ## Pause Marker: 2026-05-28 Prerequisite Gate
 
-This gameplan was executed through `Phase 0.7.1` on branch:
+This workplan was executed through `Phase 0.7.1` on branch:
 
 ```text
 codex/counterpoint-hidden-graph-schema-benchmark
 ```
 
-The implementation stopped exactly where this gameplan requires it to stop:
+The implementation stopped exactly where this workplan requires it to stop:
 
 ```text
 Phase 0.7.1: Prerequisite Infrastructure Gate
@@ -173,12 +173,12 @@ Owner decision after the stop:
 ```text
 Pause this counterpoint implementation here.
 Design and implement the shared benchmark machinery first.
-Return to this gameplan afterward.
+Return to this workplan afterward.
 ```
 
 Where to pick back up:
 
-1. Finish the shared benchmark machinery design and implementation in its own approved design/gameplan flow.
+1. Finish the shared benchmark machinery design and implementation in its own approved design/workplan flow.
 2. Return to this counterpoint branch or a fresh counterpoint implementation branch, as directed by the Project Owner.
 3. Re-open the implementation log:
 
@@ -223,7 +223,7 @@ except for read-only inspection or explicitly approved command execution.
 
 ## Target End State
 
-When fully executed, this gameplan should leave the repo with:
+When fully executed, this workplan should leave the repo with:
 
 - a benchmark-owned counterpoint environment package;
 - versioned instance, state, action, legality, reward, label, mask, and terminal contracts;
@@ -257,7 +257,7 @@ Re-read every Prime Directive file:
 docs/prime_directive/prime_directive.md
 docs/prime_directive/common_failure_mode_001.md
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 docs/prime_directive/consultant_tricks.md
 docs/prime_directive/git_practices.md
 ```
@@ -269,7 +269,7 @@ Acceptance:
   - explicit PO approval before source/test implementation;
   - dedicated branch before source/test edits;
   - global state reconstruction;
-  - gameplan-as-law execution;
+  - workplan-as-law execution;
   - stop on ambiguity, surprise, failed baseline, missing prerequisite, or required simplification.
 
 #### Action 0.1.2
@@ -312,7 +312,7 @@ Re-read infrastructure design context:
 docs/design/first_infrastructure_slice/01_001_initial_benchmarking_goals_discussion.md
 docs/design/first_infrastructure_slice/01_002_state_collapser_read_only_reconnaissance.md
 docs/design/first_infrastructure_slice/01_003_benchmark_system_and_artifact_contract_blueprint.md
-docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_gameplan.md
+docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md
 ```
 
 Acceptance:
@@ -324,7 +324,7 @@ Acceptance:
 
 #### Action 0.2.1
 
-Confirm explicit Project Owner approval to implement this exact gameplan.
+Confirm explicit Project Owner approval to implement this exact workplan.
 
 Acceptance:
 
@@ -384,7 +384,7 @@ docs/design/first_counterpoint_environment/01_004_counterpoint_hidden_graph_and_
 
 The log must include:
 
-- source gameplan path;
+- source workplan path;
 - source blueprint path;
 - approval statement;
 - starting git status;
@@ -490,7 +490,7 @@ Acceptance:
 
 Stop condition:
 
-- if the infrastructure slice is absent or incomplete, stop and ask the Project Owner whether to execute the infrastructure gameplan first or authorize an amended combined gameplan.
+- if the infrastructure slice is absent or incomplete, stop and ask the Project Owner whether to execute the infrastructure workplan first or authorize an amended combined workplan.
 
 Resume condition:
 
@@ -725,7 +725,7 @@ Record medium/large/stress as reserved, not first-slice claims.
 
 Acceptance:
 
-- implementation log states that first implementation must not make performance claims about medium/large/stress unless explicitly added by later PO-approved gameplan.
+- implementation log states that first implementation must not make performance claims about medium/large/stress unless explicitly added by later PO-approved workplan.
 
 ## Phase 2: Counterpoint Package Skeleton
 
@@ -1738,7 +1738,7 @@ docs/methods/counterpoint_lift_fibers.md
 
 Acceptance:
 
-- each method doc links back to the source blueprint and this gameplan.
+- each method doc links back to the source blueprint and this workplan.
 - each method doc distinguishes exact, sampled, online, and posthoc diagnostics.
 
 ### Stage 11.3: Experiment Doc
@@ -1975,11 +1975,11 @@ Stop condition:
 
 ## Phase 14: Completion Review
 
-### Stage 14.1: Gameplan Compliance Audit
+### Stage 14.1: Workplan Compliance Audit
 
 #### Action 14.1.1
 
-Review every Phase.Stage.Action item in this gameplan against the implementation log.
+Review every Phase.Stage.Action item in this workplan against the implementation log.
 
 Acceptance:
 
@@ -2056,7 +2056,7 @@ Required report contents:
 Acceptance:
 
 - report distinguishes completed exact actions from blocked or deferred actions.
-- report does not claim serious benchmark results unless explicitly produced by this gameplan.
+- report does not claim serious benchmark results unless explicitly produced by this workplan.
 
 ## Mandatory Stop Conditions
 
@@ -2086,7 +2086,7 @@ Any simplification must be explicitly authorized by the Project Owner and record
 
 ## Reserved Future Work
 
-The following are intentionally not part of this gameplan unless separately approved:
+The following are intentionally not part of this workplan unless separately approved:
 
 - medium/large/stress benchmark result claims;
 - deep RL learners;
@@ -2097,7 +2097,7 @@ The following are intentionally not part of this gameplan unless separately appr
 - upstream `state_collapser` changes;
 - import of old `rl_counterpoint` code.
 
-## Gameplan Close
+## Workplan Close
 
 This document converts the counterpoint hidden-graph and contraction-schema benchmark blueprint into an executable Phase.Stage.Action implementation plan.
 

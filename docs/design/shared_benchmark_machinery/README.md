@@ -21,7 +21,7 @@ and later environment families should build on:
 
 ## Boundary
 
-This folder is for design artifacts, implementation gameplans, implementation
+This folder is for design artifacts, implementation workplans, implementation
 logs, and resume notes.
 
 Current workflow-facing protocols live under:

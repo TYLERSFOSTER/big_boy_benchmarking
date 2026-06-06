@@ -1,8 +1,8 @@
-# Counterpoint Noisy-Rate Full-Tower Training Diagnostic Implementation Gameplan
+# Counterpoint Noisy-Rate Full-Tower Training Diagnostic Implementation Workplan
 
 Date: 2026-06-02
 
-Status: implementation gameplan, not yet executed
+Status: implementation workplan, not yet executed
 
 Repository:
 
@@ -18,7 +18,7 @@ docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_full_tower_
 
 ## Purpose
 
-This gameplan translates the full-tower training diagnostic blueprint into
+This workplan translates the full-tower training diagnostic blueprint into
 Phase.Stage.Action implementation work.
 
 The target is a sibling evaluation for the existing counterpoint environment
@@ -53,37 +53,37 @@ Owner explicitly authorizes that budget.
 
 This document is not approval to implement.
 
-The Project Owner requested this gameplan from the blueprint:
+The Project Owner requested this workplan from the blueprint:
 
 ```text
 Following `prime_directive`, turn
 `docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic/01_counterpoint_noisy_rate_full_tower_training_diagnostic_blueprint.md`
-into a implementation gameplan in Phase.Stage.Action format
+into a implementation workplan in Phase.Stage.Action format
 ```
 
 Therefore this document may be created now.
 
 Source, test, CLI, artifact-schema, evaluation-readout, and benchmark-run
 implementation must not begin until the Project Owner explicitly approves
-execution of this exact gameplan.
+execution of this exact workplan.
 
-If the Project Owner later says to execute this gameplan without overriding the
+If the Project Owner later says to execute this workplan without overriding the
 consultant defaults below, implementation should treat those defaults as the
 approved execution settings for the implementation and smoke-validation
 portion. The main full training budget remains a decision lock unless the
 Project Owner explicitly authorizes it.
 
 If the Project Owner overrides any default before execution, update this
-gameplan or record the override in the implementation log before source edits.
+workplan or record the override in the implementation log before source edits.
 
 ## Source Authority
 
-This gameplan follows:
+This workplan follows:
 
 - `docs/prime_directive/prime_directive.md`
 - `docs/prime_directive/git_practices.md`
 - `docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md`
-- `docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md`
+- `docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md`
 - `docs/prime_directive/common_failure_mode_004_false_attribution_and_invented_project_owner_turns.md`
 - `docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md`
 - `docs/prime_directive/artifact_table_to_readable_document_protocol.md`
@@ -101,7 +101,7 @@ This gameplan follows:
 
 ## PO Attribution Preservation
 
-This gameplan preserves the source blueprint's PO Attribution Ledger. It does
+This workplan preserves the source blueprint's PO Attribution Ledger. It does
 not add invented Project Owner turns.
 
 Project Owner-originated design locks carried into implementation:
@@ -125,14 +125,14 @@ Project Owner-originated design locks carried into implementation:
 4. The Project Owner requested a blueprint in the full-tower training
    diagnostic folder.
 5. The Project Owner requested this Phase.Stage.Action implementation
-   gameplan.
+   workplan.
 
 Consultant-authored defaults and recommendations are explicitly labeled below.
 
 ## Consultant Defaults For Execution
 
 These defaults are consultant-authored. They become execution assumptions only
-if the Project Owner later approves execution of this gameplan without
+if the Project Owner later approves execution of this workplan without
 overriding them.
 
 1. Use the evaluation id:
@@ -210,7 +210,7 @@ overriding them.
 
 ## Fixed Design Locks
 
-These locks are binding if this gameplan is later executed.
+These locks are binding if this workplan is later executed.
 
 ### Environment Lock
 
@@ -254,7 +254,7 @@ tier 0: base counterpoint graph
 tier 1: quotient after the single selected noisy-rate contraction block
 ```
 
-Do not silently reinterpret this gameplan as a deep repeated-contraction tower
+Do not silently reinterpret this workplan as a deep repeated-contraction tower
 implementation.
 
 If the implementation discovers that a candidate has more than two tiers, it
@@ -331,7 +331,7 @@ Stop and ask the Project Owner if:
 #### Phase 0. Stage 0: Execution Authority
 
 - Phase 0. Stage 0. Action 1: Confirm the Project Owner has explicitly asked
-  to execute this exact gameplan.
+  to execute this exact workplan.
 - Phase 0. Stage 0. Action 2: If execution authority is absent, stop before
   source edits.
 - Phase 0. Stage 0. Action 3: Record the exact execution instruction in the
@@ -356,7 +356,7 @@ Stop and ask the Project Owner if:
 #### Phase 0. Stage 2: Source Re-Read
 
 - Phase 0. Stage 2. Action 1: Re-read the Prime Directive source authority
-  listed in this gameplan.
+  listed in this workplan.
 - Phase 0. Stage 2. Action 2: Re-read the source blueprint.
 - Phase 0. Stage 2. Action 3: Re-read the parent noisy-rate diagnostic
   blueprint, implementation log, and current readout.
@@ -376,7 +376,7 @@ Stop and ask the Project Owner if:
   ```
 
 - Phase 0. Stage 3. Action 2: Include branch, execution instruction, source
-  gameplan, initial dirty state, stop conditions, and the Phase.Stage.Action
+  workplan, initial dirty state, stop conditions, and the Phase.Stage.Action
   checklist.
 - Phase 0. Stage 3. Action 3: Keep the log updated as actions are completed,
   blocked, skipped with explicit reason, or pending decision lock.
@@ -427,7 +427,7 @@ Stop and ask the Project Owner if:
 - Phase 1. Stage 3. Action 9: Include linearization mode validation locked to
   `tensor_available_disabled`.
 - Phase 1. Stage 3. Action 10: Include base seed and locked-by fields.
-- Phase 1. Stage 3. Action 11: Define smoke defaults from this gameplan.
+- Phase 1. Stage 3. Action 11: Define smoke defaults from this workplan.
 - Phase 1. Stage 3. Action 12: Define full-budget defaults but mark them as
   decision-locked in documentation and runbook.
 
@@ -968,11 +968,11 @@ Phase 0. Stage 3. Action 1: pending
 Phase 0. Stage 3. Action 2: pending
 Phase 0. Stage 3. Action 3: pending
 Phase 1. Stage 1 through Phase 11. Stage 3: pending, expand in the log from
-this gameplan before implementation begins.
+this workplan before implementation begins.
 ```
 
 The log may expand the remaining phases into a complete checklist, but it must
-not delete or weaken any Phase.Stage.Action item from this gameplan.
+not delete or weaken any Phase.Stage.Action item from this workplan.
 
 ## Command Templates
 
@@ -1033,7 +1033,7 @@ Implementation is complete only when:
 
 ## Final Reporting Requirements
 
-When this gameplan is executed, the final report must include:
+When this workplan is executed, the final report must include:
 
 - branch name;
 - implementation log path;

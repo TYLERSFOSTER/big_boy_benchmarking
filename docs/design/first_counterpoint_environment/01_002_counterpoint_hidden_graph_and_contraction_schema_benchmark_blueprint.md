@@ -4,15 +4,15 @@
 
 Draft blueprint for the first serious benchmark environment family in `big_boy_benchmarking`.
 
-This is not an implementation gameplan.
+This is not an implementation workplan.
 
-This document specifies the intended environment family, schema families, benchmark modes, diagnostics, artifacts, and remaining PO questions. A later implementation gameplan must translate this into Phase.Stage.Action execution steps before code is written.
+This document specifies the intended environment family, schema families, benchmark modes, diagnostics, artifacts, and remaining PO questions. A later implementation workplan must translate this into Phase.Stage.Action execution steps before code is written.
 
 ## Intended Reader
 
 This document is directed to Codex and the PO.
 
-Codex should treat it as the working design contract for the first counterpoint benchmark family unless superseded by a later design or implementation gameplan.
+Codex should treat it as the working design contract for the first counterpoint benchmark family unless superseded by a later design or implementation workplan.
 
 ## Source Corpus
 
@@ -21,7 +21,7 @@ This blueprint follows:
 - `docs/design/first_infrastructure_slice/01_001_initial_benchmarking_goals_discussion.md`
 - `docs/design/first_infrastructure_slice/01_002_state_collapser_read_only_reconnaissance.md`
 - `docs/design/first_infrastructure_slice/01_003_benchmark_system_and_artifact_contract_blueprint.md`
-- `docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_gameplan.md`
+- `docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md`
 - `docs/design/first_counterpoint_environment/01_001_counterpoint_environment_design_discussion.md`
 - Read-only inspection of `/Users/foster/state_collapser/docs`
 - Read-only inspection of root `*.md` docs in `/Users/foster/state_collapser`
@@ -33,8 +33,8 @@ This blueprint follows:
 This document follows the present repo discipline:
 
 - Design first.
-- Blueprint before gameplan.
-- Gameplan before implementation.
+- Blueprint before workplan.
+- Workplan before implementation.
 - `big_boy_benchmarking` owns substantive benchmark work.
 - `state_collapser` is read-only during this work unless explicitly authorized otherwise.
 - Existing upstream examples are reality-binding smoke surfaces, not serious evidence.
@@ -1296,7 +1296,7 @@ Codex next turn:
 
 The scale ladder must make exact diagnostics feasible early while preserving a path toward real pressure.
 
-The exact numbers below are draft instance-shape recommendations. The implementation gameplan should validate them by quick enumeration before committing final fixture ids.
+The exact numbers below are draft instance-shape recommendations. The implementation workplan should validate them by quick enumeration before committing final fixture ids.
 
 ### Tiny
 
@@ -1440,7 +1440,7 @@ Expected evidence:
 
 PO:
 
-Should the first implementation gameplan choose tiny/small numeric parameters by hand, or should it begin with a quick enumeration tool that searches for fixtures in target state/edge/path-count ranges?
+Should the first implementation workplan choose tiny/small numeric parameters by hand, or should it begin with a quick enumeration tool that searches for fixtures in target state/edge/path-count ranges?
 
 Codex recommendation:
 
@@ -1893,7 +1893,7 @@ src/big_boy_benchmarking/
 
 This is a sketch, not an instruction to implement yet.
 
-The implementation gameplan must inspect the actual repo package layout before deciding final paths.
+The implementation workplan must inspect the actual repo package layout before deciding final paths.
 
 ## Risks
 
@@ -1950,7 +1950,7 @@ Make reward bundles versioned and modular from the first implementation.
 The next design-to-implementation sequence should produce:
 
 1. Final PO answers to the turn questions in this blueprint.
-2. A Phase.Stage.Action implementation gameplan.
+2. A Phase.Stage.Action implementation workplan.
 3. A tiny instance spec with target exact-count feasibility.
 4. A small instance spec for first learning smoke.
 5. A reward bundle v001.
@@ -2038,7 +2038,7 @@ Codex next turn:
 
 PO:
 
-Should the first implementation gameplan choose tiny/small numeric parameters by hand, or should it begin with a quick enumeration tool that searches for fixtures in target state/edge/path-count ranges?
+Should the first implementation workplan choose tiny/small numeric parameters by hand, or should it begin with a quick enumeration tool that searches for fixtures in target state/edge/path-count ranges?
 
 Codex recommendation:
 
@@ -2068,4 +2068,4 @@ The design is intentionally stricter than a toy environment:
 - explicit diagnostics,
 - and explicit failure controls.
 
-If the PO accepts the remaining turn-question answers, the next artifact should be a detailed Phase.Stage.Action implementation gameplan for `counterpoint_symbolic_v001`.
+If the PO accepts the remaining turn-question answers, the next artifact should be a detailed Phase.Stage.Action implementation workplan for `counterpoint_symbolic_v001`.

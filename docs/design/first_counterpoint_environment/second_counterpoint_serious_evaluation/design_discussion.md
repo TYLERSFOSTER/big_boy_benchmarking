@@ -20,7 +20,7 @@ Discussion surface opened.
 
 No blueprint exists yet.
 
-No implementation gameplan exists yet.
+No implementation workplan exists yet.
 
 No source edits, runtime changes, benchmark runs, or artifact writes are
 authorized by this document.

@@ -1,8 +1,8 @@
-# Counterpoint First Serious Learning Evaluation Implementation Gameplan
+# Counterpoint First Serious Learning Evaluation Implementation Workplan
 
 Date: 2026-05-29
 
-Status: implementation gameplan, not yet executed
+Status: implementation workplan, not yet executed
 
 Repository:
 
@@ -18,7 +18,7 @@ docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation
 
 ## Purpose
 
-This gameplan translates the first serious counterpoint learning evaluation
+This workplan translates the first serious counterpoint learning evaluation
 blueprint into Phase.Stage.Action implementation work.
 
 The target is not another smoke runner.
@@ -50,25 +50,25 @@ with:
 
 This document is not approval to implement.
 
-The Project Owner asked for this gameplan:
+The Project Owner asked for this workplan:
 
 ```text
-Ok use that bluerint to make Phase.Stage.Action gameplan follow prime directive
+Ok use that bluerint to make Phase.Stage.Action workplan follow prime directive
 ```
 
 Therefore this document may be created now.
 
 Source, test, CLI, artifact-schema, and result-doc implementation must not begin
-until the Project Owner explicitly approves execution of this exact gameplan.
+until the Project Owner explicitly approves execution of this exact workplan.
 
 ## Source Authority
 
-This gameplan follows:
+This workplan follows:
 
 - `docs/prime_directive/prime_directive.md`
 - `docs/prime_directive/git_practices.md`
 - `docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md`
-- `docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md`
+- `docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md`
 - `docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/design_discussion.md`
 - `docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_001_counterpoint_first_serious_learning_evaluation_blueprint.md`
 - `docs/design/first_counterpoint_environment/01_002_counterpoint_hidden_graph_and_contraction_schema_benchmark_blueprint.md`
@@ -88,7 +88,7 @@ This gameplan follows:
 
 ## Fixed Implementation Decisions
 
-These decisions are fixed for this gameplan.
+These decisions are fixed for this workplan.
 
 ### Serious Fixture
 
@@ -158,7 +158,7 @@ tensor_available_disabled
 ```
 
 Do not make `tensor_enabled_cpu` or `tensor_enabled_cuda` runnable in this
-gameplan.
+workplan.
 
 ### Artifact Schema Version
 
@@ -186,7 +186,7 @@ Do not move design docs out of `docs/design`.
 
 Stop and ask the Project Owner if:
 
-- explicit approval to execute this gameplan has not been received;
+- explicit approval to execute this workplan has not been received;
 - the branch or dirty status at execution time differs in a way that could mix
   unrelated source/test changes into this work;
 - any action would require editing `/Users/foster/state_collapser`;
@@ -209,7 +209,7 @@ Stop and ask the Project Owner if:
   matrix;
 - a serious budget would need to be shrunk until it is just smoke;
 - a phase would require simplifying, approximating, or substituting a weaker
-  implementation for an action in this gameplan;
+  implementation for an action in this workplan;
 - tests only pass by making CPU/CUDA tensor modes runnable;
 - the implementation would need to reorder phases in a way not authorized by
   this document.
@@ -223,7 +223,7 @@ to:
 codex/counterpoint-serious-learning-eval
 ```
 
-Do not execute this gameplan directly on `main`.
+Do not execute this workplan directly on `main`.
 
 ## Required Running Implementation Log
 
@@ -235,7 +235,7 @@ docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation
 
 The log must record:
 
-- approval to execute this gameplan;
+- approval to execute this workplan;
 - starting branch and status;
 - every completed Phase.Stage.Action;
 - exact commands run;
@@ -253,7 +253,7 @@ The log must record:
 Confirm that the Project Owner explicitly approved execution of this exact file:
 
 ```text
-docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_gameplan.md
+docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_workplan.md
 ```
 
 Acceptance criteria:
@@ -270,13 +270,13 @@ Re-read Prime Directive files:
 docs/prime_directive/prime_directive.md
 docs/prime_directive/git_practices.md
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 ```
 
 Acceptance criteria:
 
 - implementation log records the re-read;
-- no contradiction is found between this gameplan and the Prime Directive.
+- no contradiction is found between this workplan and the Prime Directive.
 
 ### Stage 0.2: Inspect Git State And Branch
 
@@ -305,7 +305,7 @@ Acceptance criteria:
 
 - branch exists;
 - implementation log records the branch;
-- gameplan and design docs remain present.
+- workplan and design docs remain present.
 
 ### Stage 0.3: Bind Source Reality
 
@@ -351,7 +351,7 @@ src/big_boy_benchmarking/cli/main.py
 Acceptance criteria:
 
 - implementation log records the current code surfaces;
-- any mismatch with this gameplan stops execution.
+- any mismatch with this workplan stops execution.
 
 #### Action 0.3.3
 
@@ -1396,7 +1396,7 @@ docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation
 
 Acceptance criteria:
 
-- note points to this gameplan;
+- note points to this workplan;
 - note does not rewrite the discussion history;
 - PO corrections remain attributed.
 
@@ -1543,7 +1543,7 @@ Acceptance criteria:
 
 ## Completion Criteria
 
-This gameplan is complete when:
+This workplan is complete when:
 
 - serious learning arm contracts exist and validate;
 - serious budget and seed-suite contracts exist and validate;

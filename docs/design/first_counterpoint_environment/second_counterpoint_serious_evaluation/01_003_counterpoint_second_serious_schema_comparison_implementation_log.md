@@ -8,16 +8,16 @@ Branch:
 codex/second-serious-schema-comparison
 ```
 
-Source gameplan:
+Source workplan:
 
 ```text
-docs/design/first_counterpoint_environment/second_counterpoint_serious_evaluation/01_002_counterpoint_second_serious_schema_comparison_implementation_gameplan.md
+docs/design/first_counterpoint_environment/second_counterpoint_serious_evaluation/01_002_counterpoint_second_serious_schema_comparison_implementation_workplan.md
 ```
 
 Execution instruction:
 
 ```text
-execute `docs/design/first_counterpoint_environment/second_counterpoint_serious_evaluation/01_002_counterpoint_second_serious_schema_comparison_implementation_gameplan.md`
+execute `docs/design/first_counterpoint_environment/second_counterpoint_serious_evaluation/01_002_counterpoint_second_serious_schema_comparison_implementation_workplan.md`
 ```
 
 ## Initial Git State
@@ -38,7 +38,7 @@ M  tropicalization_and_binary_coset_towers.out
 M  tropicalization_and_binary_coset_towers.pdf
 M  tropicalization_and_binary_coset_towers.synctex.gz
 M  tropicalization_and_binary_coset_towers.tex
-?? docs/design/first_counterpoint_environment/second_counterpoint_serious_evaluation/01_002_counterpoint_second_serious_schema_comparison_implementation_gameplan.md
+?? docs/design/first_counterpoint_environment/second_counterpoint_serious_evaluation/01_002_counterpoint_second_serious_schema_comparison_implementation_workplan.md
 ```
 
 Dirty-state boundary:
@@ -49,14 +49,14 @@ Dirty-state boundary:
 - The noisy-rate full-tower training diagnostic README contains prior
   discussion/readout changes and is not part of this implementation unless the
   Project Owner explicitly redirects.
-- The design discussion, blueprint, and gameplan are source authority for this
+- The design discussion, blueprint, and workplan are source authority for this
   implementation and were already present before source-code work began.
 
 ## Stop Conditions
 
 Stop and ask the Project Owner if:
 
-- execution of this gameplan has not been explicitly approved;
+- execution of this workplan has not been explicitly approved;
 - working tree state would mix unrelated TeX/root document changes into this
   implementation;
 - a source edit would touch `/Users/foster/state_collapser`;
@@ -81,10 +81,10 @@ Stop and ask the Project Owner if:
 
 ## Running Phase.Stage.Action Checklist
 
-- Phase 0. Stage 0. Action 1: completed. Project Owner explicitly requested execution of this exact gameplan.
+- Phase 0. Stage 0. Action 1: completed. Project Owner explicitly requested execution of this exact workplan.
 - Phase 0. Stage 0. Action 2: completed. Execution authority is present.
 - Phase 0. Stage 0. Action 3: completed. Exact execution instruction recorded above.
-- Phase 0. Stage 0. Action 4: completed. Gameplan request was not implementation approval until the later execution instruction.
+- Phase 0. Stage 0. Action 4: completed. Workplan request was not implementation approval until the later execution instruction.
 - Phase 0. Stage 1. Action 1: completed. `git status --short --branch` inspected.
 - Phase 0. Stage 1. Action 2: completed. Dirty files recorded above.
 - Phase 0. Stage 1. Action 3: completed. Implementation will not touch unrelated dirty files.
@@ -344,5 +344,5 @@ Pre-existing/unrelated staged or dirty surfaces still present and not touched
 by this implementation:
 
 - root TeX source, PDF, bibliography, and TeX sidecars;
-- pre-existing second-serious design discussion/blueprint/gameplan files;
+- pre-existing second-serious design discussion/blueprint/workplan files;
 - prior engineer-continuity and noisy-rate full-tower README edits.

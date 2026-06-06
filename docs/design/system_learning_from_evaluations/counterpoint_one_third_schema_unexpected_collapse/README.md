@@ -7,7 +7,7 @@ This folder preserves durable design memory from the one-third schema tower diag
 - Generated/readout surface: `docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/README.md`
 - Design discussion: `docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/design_discussion.md`
 - Blueprint: `docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/01_001_counterpoint_one_third_schema_tower_diagnostics_blueprint.md`
-- Gameplan: `docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/01_002_counterpoint_one_third_schema_tower_diagnostics_implementation_gameplan.md`
+- Workplan: `docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/01_002_counterpoint_one_third_schema_tower_diagnostics_implementation_workplan.md`
 
 ## Why This Exists
 
@@ -32,14 +32,14 @@ Current status: unresolved, with a smoke-verified follow-up diagnostic now imple
 - [Issue And Next Tests](01_issue_and_next_tests.md)
 - [Readout Conversation Archive](02_readout_conversation_archive.md)
 - [n-over-18 Contraction Fraction Sweep Blueprint](03_n_over_18_contraction_fraction_sweep_blueprint.md)
-- [n-over-18 Contraction Fraction Sweep Implementation Gameplan](04_n_over_18_contraction_fraction_sweep_implementation_gameplan.md)
+- [n-over-18 Contraction Fraction Sweep Implementation Workplan](04_n_over_18_contraction_fraction_sweep_implementation_workplan.md)
 - [n-over-18 Contraction Fraction Sweep Implementation Log](05_n_over_18_contraction_fraction_sweep_implementation_log.md)
 - Smoke readout surface: `docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/README.md`
 - Smoke artifact root: `docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/`
 
 ## Current Follow-Up Decision
 
-The next unresolved decision is whether to authorize the full small+medium validation run from the implementation gameplan:
+The next unresolved decision is whether to authorize the full small+medium validation run from the implementation workplan:
 
 ```text
 docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/small_medium_validation_001/

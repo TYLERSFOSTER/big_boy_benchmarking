@@ -16,10 +16,10 @@ Implementation branch:
 codex/state-collapser-v0-7-bbb-integration
 ```
 
-Source gameplan:
+Source workplan:
 
 ```text
-docs/design/shared_benchmark_machinery/01_005_state_collapser_v0_7_tensorization_integration_gameplan.md
+docs/design/shared_benchmark_machinery/01_005_state_collapser_v0_7_tensorization_integration_workplan.md
 ```
 
 ## Approval Statement
@@ -31,13 +31,13 @@ integrate state_collapser v0.7.0 into BBB shared machinery, then resume serious
 counterpoint design discussion
 ```
 
-Codex created the Phase.Stage.Action gameplan, then the Project Owner replied:
+Codex created the Phase.Stage.Action workplan, then the Project Owner replied:
 
 ```text
 proceed
 ```
 
-This is recorded as approval to execute the exact gameplan named above.
+This is recorded as approval to execute the exact workplan named above.
 
 ## Phase.Stage.Action Log
 
@@ -47,7 +47,7 @@ This is recorded as approval to execute the exact gameplan named above.
 
 Status: complete.
 
-Project Owner approval to execute this gameplan was received in conversation.
+Project Owner approval to execute this workplan was received in conversation.
 No source, test, dependency, or lockfile edits occurred before approval.
 
 #### Action 0.1.2
@@ -60,10 +60,10 @@ Re-read:
 docs/prime_directive/prime_directive.md
 docs/prime_directive/git_practices.md
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 ```
 
-No contradiction was found between the gameplan and the Prime Directive.
+No contradiction was found between the workplan and the Prime Directive.
 
 #### Action 0.2.1
 
@@ -73,7 +73,7 @@ Starting status before implementation branch creation:
 
 ```text
 ## main...origin/main [ahead 1]
-?? docs/design/shared_benchmark_machinery/01_005_state_collapser_v0_7_tensorization_integration_gameplan.md
+?? docs/design/shared_benchmark_machinery/01_005_state_collapser_v0_7_tensorization_integration_workplan.md
 ```
 
 No unexpected source/test changes were present.
@@ -92,7 +92,7 @@ Status after branch creation:
 
 ```text
 ## codex/state-collapser-v0-7-bbb-integration
-?? docs/design/shared_benchmark_machinery/01_005_state_collapser_v0_7_tensorization_integration_gameplan.md
+?? docs/design/shared_benchmark_machinery/01_005_state_collapser_v0_7_tensorization_integration_workplan.md
 ```
 
 #### Action 0.3.1
@@ -185,7 +185,7 @@ Initial result:
 failed to open file `/Users/foster/.cache/uv/sdists-v9/.git`: Operation not permitted
 ```
 
-This matched the gameplan's sandbox/cache stop condition, so Codex reran with
+This matched the workplan's sandbox/cache stop condition, so Codex reran with
 escalated permission.
 
 Escalated command:
@@ -856,7 +856,7 @@ All checks passed!
 
 Status: complete.
 
-This implementation log records every gameplan Phase.Stage.Action as complete.
+This implementation log records every workplan Phase.Stage.Action as complete.
 No actions were blocked or skipped by later PO instruction.
 
 Serious counterpoint design discussion was resumed in:
@@ -908,7 +908,7 @@ Final result:
  M tests/test_state_collapser_dependency.py
  M tests/upstream/test_state_collapser_dependency_state.py
  M uv.lock
-?? docs/design/shared_benchmark_machinery/01_005_state_collapser_v0_7_tensorization_integration_gameplan.md
+?? docs/design/shared_benchmark_machinery/01_005_state_collapser_v0_7_tensorization_integration_workplan.md
 ?? docs/design/shared_benchmark_machinery/01_006_state_collapser_v0_7_tensorization_integration_implementation_log.md
 ?? src/big_boy_benchmarking/modes/linearization.py
 ?? src/big_boy_benchmarking/upstream/linearization.py

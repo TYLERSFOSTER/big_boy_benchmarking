@@ -26,7 +26,7 @@ docs/design/first_counterpoint_environment/second_counterpoint_serious_evaluatio
 
 This is a design blueprint.
 
-This is not an implementation gameplan.
+This is not an implementation workplan.
 
 This is not approval to edit source code.
 
@@ -38,7 +38,7 @@ This is not approval to change the `counterpoint_symbolic_v001` environment.
 
 This is not approval to edit `/Users/foster/state_collapser`.
 
-A later Phase.Stage.Action implementation gameplan must translate this
+A later Phase.Stage.Action implementation workplan must translate this
 blueprint into executable work before source changes begin.
 
 ## Source Authority
@@ -752,8 +752,8 @@ Budget should be locked before serious execution in:
 evaluation_budget_lock.json
 ```
 
-The implementation gameplan should not run the serious locked budget without
-explicit Project Owner authorization if the gameplan only authorizes
+The implementation workplan should not run the serious locked budget without
+explicit Project Owner authorization if the workplan only authorizes
 implementation smoke.
 
 ## Seed Policy
@@ -1522,7 +1522,7 @@ These are recommendations, not Project Owner decisions.
 ## Blueprint Completion Criteria
 
 This blueprint is complete enough to produce a Phase.Stage.Action implementation
-gameplan once the Project Owner either answers the open questions or accepts
+workplan once the Project Owner either answers the open questions or accepts
 consultant defaults for them.
 
 It is not complete enough to run the serious evaluation directly.
@@ -1530,8 +1530,8 @@ It is not complete enough to run the serious evaluation directly.
 The next artifact should be:
 
 ```text
-docs/design/first_counterpoint_environment/second_counterpoint_serious_evaluation/01_002_counterpoint_second_serious_schema_comparison_implementation_gameplan.md
+docs/design/first_counterpoint_environment/second_counterpoint_serious_evaluation/01_002_counterpoint_second_serious_schema_comparison_implementation_workplan.md
 ```
 
-That gameplan must follow Phase.Stage.Action discipline and preserve all stop
+That workplan must follow Phase.Stage.Action discipline and preserve all stop
 conditions above.

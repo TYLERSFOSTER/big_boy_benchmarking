@@ -4,15 +4,15 @@
 
 Status: initial environment-build blueprint.
 
-This is a blueprint, not an implementation gameplan.
+This is a blueprint, not an implementation workplan.
 
-The implementation gameplan should be generated next, in Phase.Stage.Action
+The implementation workplan should be generated next, in Phase.Stage.Action
 form, after Project Owner review or approval.
 
 Expected next files:
 
 ```text
-docs/design/first_plate_support_environment/01_002_plate_support_environment_bbb_build_implementation_gameplan.md
+docs/design/first_plate_support_environment/01_002_plate_support_environment_bbb_build_implementation_workplan.md
 docs/design/first_plate_support_environment/01_003_plate_support_environment_bbb_build_implementation_log.md
 ```
 
@@ -1613,6 +1613,6 @@ Likely first serious evaluation direction:
 - flat/default schema structural controls.
 
 That later evaluation should be designed under the evaluation construction
-protocol and should create its own design, blueprint, gameplan, logs, run
+protocol and should create its own design, blueprint, workplan, logs, run
 artifacts, and human-readable readout.
 

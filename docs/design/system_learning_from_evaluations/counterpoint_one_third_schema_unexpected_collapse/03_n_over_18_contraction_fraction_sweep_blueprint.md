@@ -20,7 +20,7 @@ docs/design/system_learning_from_evaluations/counterpoint_one_third_schema_unexp
 
 This is a design blueprint.
 
-This is not an implementation gameplan.
+This is not an implementation workplan.
 
 This is not approval to edit source code.
 
@@ -28,7 +28,7 @@ This is not approval to run benchmark artifacts.
 
 This blueprint converts the unexpected one-third collapse archive and the
 Project Owner's requested evaluation redesign into a concrete diagnostic
-evaluation design. A later Phase.Stage.Action implementation gameplan must
+evaluation design. A later Phase.Stage.Action implementation workplan must
 translate this blueprint into executable work before code changes begin.
 
 ## Source Authority
@@ -94,7 +94,7 @@ consultant labels.
 We have enough discussion to write this blueprint.
 
 We do not yet have enough authority to implement it. Implementation should wait
-for a Phase.Stage.Action gameplan and an explicit execution request.
+for a Phase.Stage.Action workplan and an explicit execution request.
 
 The remaining ambiguities are ordinary design details rather than blockers to
 blueprint creation. They are recorded under "Open Questions For Project Owner"
@@ -829,7 +829,7 @@ uv run python -m big_boy_benchmarking.cli counterpoint fraction-sweep summarize 
   --artifact-root docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/small_medium_validation_001
 ```
 
-The exact CLI names should be finalized in the implementation gameplan.
+The exact CLI names should be finalized in the implementation workplan.
 
 ## Budget Recommendation
 
@@ -853,7 +853,7 @@ diagnostic grounded in already-understood artifact conventions.
 Risk:
 
 The sweep multiplies the number of arms by six. If runtime is too heavy, the
-gameplan can define a smoke subset first, but the full evidence run should use
+workplan can define a smoke subset first, but the full evidence run should use
 small+medium if feasible.
 
 ## Open Questions For Project Owner
@@ -927,10 +927,10 @@ Stop and return to design if:
 
 ## Blueprint Completion Criteria
 
-This blueprint is complete enough to generate a Phase.Stage.Action gameplan
+This blueprint is complete enough to generate a Phase.Stage.Action workplan
 when the Project Owner requests one.
 
-The gameplan should:
+The workplan should:
 
 - preserve this PO attribution ledger;
 - treat open questions as explicit decision locks or assumptions;

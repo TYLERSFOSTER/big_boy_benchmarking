@@ -7,7 +7,7 @@ Initial discussion document for the first non-smoke evaluation block for
 
 This document is not an implementation blueprint.
 
-This document is not an implementation gameplan.
+This document is not an implementation workplan.
 
 This document is not approval to edit benchmark code.
 
@@ -127,7 +127,7 @@ docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation
 ```
 
 This discussion should eventually produce a blueprint and then a
-Phase.Stage.Action implementation gameplan.
+Phase.Stage.Action implementation workplan.
 
 ## Key Distinction: Two Evaluation Layers
 
@@ -627,7 +627,7 @@ Agreed. I will treat tensorization as a blocker for this serious evaluation
 block.
 
 That means this design block should pause here. We should not continue into a
-blueprint or Phase.Stage.Action implementation gameplan for the first serious
+blueprint or Phase.Stage.Action implementation workplan for the first serious
 counterpoint evaluation until `state_collapser` has a tensor-capable
 architecture available as part of the package surface.
 
@@ -1178,7 +1178,7 @@ work and directed work to move to tensorization. The PO requested a root
 
 ```text
 Codex agreed to treat tensorization as a blocker for this serious evaluation
-block, pause blueprint/gameplan work, create the local continuity note, and add a
+block, pause blueprint/workplan work, create the local continuity note, and add a
 read-only-derived alignment note in `state_collapser` for the tensorization work.
 The next resume gate is whether `state_collapser` has a tensor-capable
 architecture where tensor paths can be explicitly disabled or enabled.
@@ -1298,10 +1298,10 @@ serious tower evaluation.
 ### Implementation Continuity Note - 2026-05-29
 
 Codex created and began executing the Phase.Stage.Action implementation
-gameplan:
+workplan:
 
 ```text
-docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_gameplan.md
+docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_workplan.md
 ```
 
 The implementation log is:

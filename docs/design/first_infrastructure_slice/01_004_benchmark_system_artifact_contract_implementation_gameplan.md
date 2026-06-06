@@ -1,6 +1,6 @@
-# Benchmark System Artifact Contract Implementation Gameplan
+# Benchmark System Artifact Contract Implementation Workplan
 
-Status: initial implementation gameplan
+Status: initial implementation workplan
 
 Created: 2026-05-27
 
@@ -15,21 +15,21 @@ Supporting design context:
 - `docs/design/01_001_initial_benchmarking_goals_discussion.md`
 - `docs/design/01_002_state_collapser_read_only_reconnaissance.md`
 
-## Gameplan Scope
+## Workplan Scope
 
-This gameplan implements the first infrastructure slice authorized by the
+This workplan implements the first infrastructure slice authorized by the
 blueprint:
 
 ```text
 artifact skeleton + mode registry + contract tests + readout-discipline upstream smoke
 ```
 
-It is deliberately an infrastructure gameplan. It does not implement the first
+It is deliberately an infrastructure workplan. It does not implement the first
 serious counterpoint-like benchmark family.
 
 ## Required Execution Discipline
 
-This gameplan uses `Phase.Stage.Action` format.
+This workplan uses `Phase.Stage.Action` format.
 
 If the Project Owner later approves implementation, implementation must execute
 the actions as written, in order, unless the Project Owner explicitly authorizes
@@ -44,7 +44,7 @@ stop and ask the Project Owner for guidance.
 
 ## Prime Directive Compliance Contract
 
-This gameplan must be executed under the repository's Prime Directive.
+This workplan must be executed under the repository's Prime Directive.
 
 Prime Directive source files:
 
@@ -52,23 +52,23 @@ Prime Directive source files:
 docs/prime_directive/prime_directive.md
 docs/prime_directive/common_failure_mode_001.md
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 docs/prime_directive/consultant_tricks.md
 docs/prime_directive/git_practices.md
 ```
 
-Operational consequences for this gameplan:
+Operational consequences for this workplan:
 
 1. Do not implement before explicit Project Owner approval.
 2. After approval, create or switch to a dedicated implementation branch before
    source/test implementation work.
 3. Perform global state reconstruction before edits.
-4. Treat this gameplan as law during implementation.
+4. Treat this workplan as law during implementation.
 5. Re-read each Phase.Stage.Action before executing it.
 6. Maintain a running implementation log.
 7. Stop on ambiguity, surprise, scope conflict, failed baseline, or need for
    simplification.
-8. Do not silently rewrite, compress, reorder, or reinterpret the gameplan.
+8. Do not silently rewrite, compress, reorder, or reinterpret the workplan.
 9. Do not edit upstream `state_collapser`.
 10. Do not use git destructively.
 
@@ -156,7 +156,7 @@ Re-read every Prime Directive file before any source/test edit:
 docs/prime_directive/prime_directive.md
 docs/prime_directive/common_failure_mode_001.md
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 docs/prime_directive/consultant_tricks.md
 docs/prime_directive/git_practices.md
 ```
@@ -165,11 +165,11 @@ Acceptance:
 
 - implementation log explicitly confirms all six files were re-read.
 - implementation log records the operational obligations relevant to this
-  gameplan:
+  workplan:
   - explicit approval before implementation;
   - dedicated branch before source/test edits;
   - global state reconstruction;
-  - gameplan-as-law execution;
+  - workplan-as-law execution;
   - stop on ambiguity/surprise.
 
 #### Action 0.1.2
@@ -180,19 +180,19 @@ Re-read the design authority files:
 docs/design/01_001_initial_benchmarking_goals_discussion.md
 docs/design/01_002_state_collapser_read_only_reconnaissance.md
 docs/design/01_003_benchmark_system_and_artifact_contract_blueprint.md
-docs/design/01_004_benchmark_system_artifact_contract_implementation_gameplan.md
+docs/design/01_004_benchmark_system_artifact_contract_implementation_workplan.md
 ```
 
 Acceptance:
 
 - implementation log confirms these files were re-read.
-- implementation log records this gameplan as the implementation authority.
+- implementation log records this workplan as the implementation authority.
 
 ### Stage 0.2: Project Owner Approval Gate
 
 #### Action 0.2.1
 
-Confirm Project Owner approval to implement this exact gameplan before editing
+Confirm Project Owner approval to implement this exact workplan before editing
 source or test files.
 
 Acceptance:
@@ -253,7 +253,7 @@ docs/design/01_005_benchmark_system_artifact_contract_implementation_log.md
 
 The log must include:
 
-- source gameplan path;
+- source workplan path;
 - approval statement;
 - starting git status;
 - starting file inventory;
@@ -1239,11 +1239,11 @@ Stop condition:
 
 ## Phase 11: Final Consistency And Handoff
 
-### Stage 11.1: Gameplan Completion Audit
+### Stage 11.1: Workplan Completion Audit
 
 #### Action 11.1.1
 
-Review this gameplan and mark each Phase.Stage.Action item in the implementation
+Review this workplan and mark each Phase.Stage.Action item in the implementation
 log as:
 
 ```text
@@ -1325,10 +1325,10 @@ docs/design/01_005_benchmark_system_artifact_contract_implementation_log.md
 
 ## Explicit Approval Boundary
 
-This gameplan is not itself approval to implement.
+This workplan is not itself approval to implement.
 
 Implementation requires a separate Project Owner instruction approving execution
-of this gameplan.
+of this workplan.
 
-Once approved, this gameplan is law unless the Project Owner explicitly changes
+Once approved, this workplan is law unless the Project Owner explicitly changes
 it.

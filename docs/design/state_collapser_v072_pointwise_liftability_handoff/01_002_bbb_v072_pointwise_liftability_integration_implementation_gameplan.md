@@ -1,8 +1,8 @@
-# BBB v0.7.2 Pointwise Liftability Integration Implementation Gameplan
+# BBB v0.7.2 Pointwise Liftability Integration Implementation Workplan
 
 Date: 2026-06-04
 
-Status: implementation gameplan, not executed
+Status: implementation workplan, not executed
 
 Repository:
 
@@ -24,7 +24,7 @@ docs/design/state_collapser_v072_pointwise_liftability_handoff/01_003_bbb_v072_p
 
 ## Purpose
 
-This gameplan translates the BBB `state_collapser` `v0.7.2` pointwise
+This workplan translates the BBB `state_collapser` `v0.7.2` pointwise
 liftability integration blueprint into exact `Phase.Stage.Action`
 implementation work.
 
@@ -54,34 +54,34 @@ PartitionTower.assert_consistent(...)
 
 This document is not source-code implementation approval.
 
-The Project Owner requested this gameplan with:
+The Project Owner requested this workplan with:
 
 ```text
 I agree with all your recommendations here:
 `docs/design/state_collapser_v072_pointwise_liftability_handoff/01_001_bbb_v072_pointwise_liftability_integration_blueprint.md`
-Make Pahse.Stage.Action gameplan following `prime_directive`
+Make Pahse.Stage.Action workplan following `prime_directive`
 ```
 
 Therefore this document may be created now.
 
 Source-code, test, CLI, artifact-schema, readout, and benchmark-run execution
 must not begin until the Project Owner explicitly asks to execute this exact
-gameplan.
+workplan.
 
-If the Project Owner later says to execute this gameplan, implementation must
+If the Project Owner later says to execute this workplan, implementation must
 follow this document in order. If any `Phase.Stage.Action` item cannot be
 implemented as written, the implementing consultant must stop and ask for
 Project Owner guidance before substituting, simplifying, or reordering.
 
 ## Source Authority
 
-This gameplan follows:
+This workplan follows:
 
 - `docs/prime_directive/prime_directive.md`
 - `docs/prime_directive/git_practices.md`
 - `docs/prime_directive/common_failure_mode_001.md`
 - `docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md`
-- `docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md`
+- `docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md`
 - `docs/prime_directive/common_failure_mode_004_false_attribution_and_invented_project_owner_turns.md`
 - `docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md`
 - `docs/prime_directive/artifact_table_to_readable_document_protocol.md`
@@ -92,7 +92,7 @@ This gameplan follows:
 
 ## Project Owner Attribution Preservation
 
-This gameplan does not invent Project Owner turns.
+This workplan does not invent Project Owner turns.
 
 Project Owner-originated correction carried into implementation:
 
@@ -183,7 +183,7 @@ Do not use the older folder-only wording as the canonical command.
 ### Compatibility Lock
 
 Add clearer artifact fields where needed, but do not perform a broad artifact
-schema migration unless this exact gameplan says so.
+schema migration unless this exact workplan says so.
 
 If old fields remain, their generated prose must state their current meaning
 under `state_collapser` `v0.7.2`.
@@ -221,7 +221,7 @@ codex/bbb-v072-pointwise-liftability
 If a branch with that name already exists, inspect it before use and record the
 decision in the implementation log.
 
-Do not execute this gameplan directly on `main` unless the Project Owner
+Do not execute this workplan directly on `main` unless the Project Owner
 explicitly overrides branch discipline.
 
 ## Required Implementation Log
@@ -252,7 +252,7 @@ Before implementation, re-read:
 
 ```text
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 docs/prime_directive/common_failure_mode_004_false_attribution_and_invented_project_owner_turns.md
 docs/prime_directive/git_practices.md
 docs/design/state_collapser_v072_pointwise_liftability_handoff/01_001_bbb_v072_pointwise_liftability_integration_blueprint.md
@@ -325,7 +325,7 @@ Final Audit
 Verification:
 
 - log file exists;
-- log file names this gameplan and source blueprint.
+- log file names this workplan and source blueprint.
 
 ## Phase 0. Stage 1. Action 1: Verify Dependency Version And API Signatures
 
@@ -1056,7 +1056,7 @@ Required behavior:
 - Schema 0/no-contraction arms record the same semantics metadata when they run
   through tower-control paths;
 - aggregation preserves pointwise candidate and lift-failure evidence;
-- manifests point to this blueprint and this gameplan as method sources;
+- manifests point to this blueprint and this workplan as method sources;
 - generated `readout_source.json` records `liftability_semantics_id`.
 
 Verification:
@@ -1409,7 +1409,7 @@ Verification:
 
 ## Phase 9. Stage 0. Action 4: Final Phase.Stage.Action Audit
 
-Review this gameplan against the implementation log.
+Review this workplan against the implementation log.
 
 For every action, record one status:
 
@@ -1495,7 +1495,7 @@ Phase 9. Stage 0. Action 5
 
 ## Completion Definition
 
-This gameplan is complete only when:
+This workplan is complete only when:
 
 1. all implementation actions are completed as written or explicitly resolved
    by Project Owner instruction;

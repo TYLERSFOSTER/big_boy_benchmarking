@@ -12,10 +12,10 @@ Implementation branch:
 codex/counterpoint-hidden-graph-schema-benchmark
 ```
 
-Source gameplan:
+Source workplan:
 
 ```text
-docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_gameplan.md
+docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_workplan.md
 ```
 
 Source blueprint:
@@ -29,10 +29,10 @@ docs/design/first_counterpoint_environment/01_002_counterpoint_hidden_graph_and_
 The Project Owner instructed:
 
 ```text
-execute `docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_gameplan.md`
+execute `docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_workplan.md`
 ```
 
-This is recorded as explicit approval to execute the exact gameplan named above.
+This is recorded as explicit approval to execute the exact workplan named above.
 
 ## Prime Directive Rebind
 
@@ -44,7 +44,7 @@ Re-read Prime Directive files:
 docs/prime_directive/prime_directive.md
 docs/prime_directive/common_failure_mode_001.md
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 docs/prime_directive/consultant_tricks.md
 docs/prime_directive/git_practices.md
 ```
@@ -54,10 +54,10 @@ Operational obligations recorded:
 - explicit PO approval before source/test implementation;
 - dedicated branch before source/test edits;
 - global state reconstruction before edits;
-- gameplan-as-law execution;
+- workplan-as-law execution;
 - re-read each Phase.Stage.Action before executing it;
 - stop on ambiguity, surprise, failed baseline, missing prerequisite, or required simplification;
-- no silent rewrite, compression, reordering, or reinterpretation of this gameplan;
+- no silent rewrite, compression, reordering, or reinterpretation of this workplan;
 - do not edit upstream `/Users/foster/state_collapser`;
 - do not use git destructively.
 
@@ -102,7 +102,7 @@ Re-read infrastructure design context:
 docs/design/first_infrastructure_slice/01_001_initial_benchmarking_goals_discussion.md
 docs/design/first_infrastructure_slice/01_002_state_collapser_read_only_reconnaissance.md
 docs/design/first_infrastructure_slice/01_003_benchmark_system_and_artifact_contract_blueprint.md
-docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_gameplan.md
+docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md
 ```
 
 Recorded inherited obligations:
@@ -113,7 +113,7 @@ Recorded inherited obligations:
 - timing must separate online and posthoc costs;
 - compatibility and morphism readouts are not default hot-path metrics;
 - exact diagnostics on tiny instances and sampled diagnostics on larger instances;
-- infrastructure slice must not be silently absorbed into this gameplan.
+- infrastructure slice must not be silently absorbed into this workplan.
 
 ## Starting Git State
 
@@ -165,7 +165,7 @@ src/big_boy_benchmarking/_version.py
 assets/images/BBB_light.png
 assets/images/BBB_dark.png
 README.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
 docs/prime_directive/git_practices.md
 docs/prime_directive/prime_directive.md
@@ -174,9 +174,9 @@ docs/prime_directive/common_failure_mode_001.md
 docs/design/first_infrastructure_slice/01_002_state_collapser_read_only_reconnaissance.md
 docs/design/first_infrastructure_slice/01_003_benchmark_system_and_artifact_contract_blueprint.md
 docs/design/first_infrastructure_slice/01_001_initial_benchmarking_goals_discussion.md
-docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_gameplan.md
+docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md
 docs/design/first_counterpoint_environment/01_002_counterpoint_hidden_graph_and_contraction_schema_benchmark_blueprint.md
-docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_gameplan.md
+docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_workplan.md
 docs/design/first_counterpoint_environment/01_004_counterpoint_hidden_graph_and_contraction_schema_implementation_log.md
 docs/design/first_counterpoint_environment/01_001_counterpoint_environment_design_discussion.md
 tests/test_state_collapser_dependency.py
@@ -287,7 +287,7 @@ Stop condition triggered:
 The first infrastructure slice is absent or incomplete.
 ```
 
-Per the gameplan, implementation must stop and ask the Project Owner whether to execute the infrastructure gameplan first or authorize an amended combined gameplan.
+Per the workplan, implementation must stop and ask the Project Owner whether to execute the infrastructure workplan first or authorize an amended combined workplan.
 
 ## Baseline Validation Results
 
@@ -337,7 +337,7 @@ The Project Owner instructed:
 resume
 ```
 
-This resumes the same approved counterpoint gameplan from the recorded pause
+This resumes the same approved counterpoint workplan from the recorded pause
 point after the shared benchmark machinery implementation was committed and
 merged into the active counterpoint branch.
 
@@ -451,7 +451,7 @@ Any ambiguity, surprise, missing prerequisite, or required simplification trigge
 
 ## Phase 1: PO Decision Lock And Benchmark Identity
 
-Phase 1 uses the explicit defaults encoded in the approved gameplan. No later PO
+Phase 1 uses the explicit defaults encoded in the approved workplan. No later PO
 instruction in the source docs or current resume instruction changes these
 defaults.
 
@@ -507,14 +507,14 @@ nontrivial path-volume growth
 ```
 
 Medium, large, and stress tiers are reserved. This first implementation must not
-make performance claims about those tiers unless a later PO-approved gameplan
+make performance claims about those tiers unless a later PO-approved workplan
 explicitly adds them.
 
 ## PO Clarifications
 
 2026-05-28:
 
-The Project Owner agreed that pausing here makes sense and directed that the counterpoint gameplan should contain a clear note about where to pick back up.
+The Project Owner agreed that pausing here makes sense and directed that the counterpoint workplan should contain a clear note about where to pick back up.
 
 Recorded owner intent:
 
@@ -529,7 +529,7 @@ Design and implement the shared benchmark machinery first:
 - runner skeletons
 - upstream integration
 - CLI
-Then return to this counterpoint gameplan.
+Then return to this counterpoint workplan.
 ```
 
 ## Stop And Resume Events
@@ -545,8 +545,8 @@ The prerequisite infrastructure slice is absent or incomplete.
 Required PO decision:
 
 ```text
-Execute docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_gameplan.md first,
-or authorize an amended combined gameplan.
+Execute docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md first,
+or authorize an amended combined workplan.
 ```
 
 PO decision recorded:
@@ -659,7 +659,7 @@ If Phase 0.7.1 passes, continue at Phase 0.8.
 | 13.3.1 | completed | Direct masked-random and tabular-Q smokes wrote run artifacts and timing segments. |
 | 13.4.1 | completed | Schema diagnostics smoke wrote artifacts for empty, random balanced, structured motion, random unbalanced, bad, and projection audit. |
 | 13.5.1 | completed | Tower smoke completed for empty, structured motion, and random balanced schemas with readout flags off. |
-| 14.1.1 | completed | This completion table audits every gameplan action. |
+| 14.1.1 | completed | This completion table audits every workplan action. |
 | 14.2.1 | completed | Artifact families verified by smoke artifact inventory. |
 | 14.3.1 | completed | Human-facing docs match implemented smoke reality and preserve claim boundary. |
 | 14.4.1 | completed | Final validation and dirty git state recorded below. |

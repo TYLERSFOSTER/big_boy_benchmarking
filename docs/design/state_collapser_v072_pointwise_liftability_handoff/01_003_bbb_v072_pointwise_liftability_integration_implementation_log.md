@@ -14,15 +14,15 @@ Source blueprint:
 docs/design/state_collapser_v072_pointwise_liftability_handoff/01_001_bbb_v072_pointwise_liftability_integration_blueprint.md
 ```
 
-Source gameplan:
+Source workplan:
 
 ```text
-docs/design/state_collapser_v072_pointwise_liftability_handoff/01_002_bbb_v072_pointwise_liftability_integration_implementation_gameplan.md
+docs/design/state_collapser_v072_pointwise_liftability_handoff/01_002_bbb_v072_pointwise_liftability_integration_implementation_workplan.md
 ```
 
 ## Starting State
 
-- Project Owner explicitly requested execution of the source gameplan.
+- Project Owner explicitly requested execution of the source workplan.
 - Required authority documents were re-read before source edits.
 - Starting branch before implementation branch creation:
 
@@ -43,7 +43,7 @@ docs/design/state_collapser_v072_pointwise_liftability_handoff/01_002_bbb_v072_p
 
 - Phase 0. Stage 0. Action 1: completed as written. Re-read the required
   Prime Directive failure-mode docs, git practices doc, source blueprint, and
-  source gameplan before source edits.
+  source workplan before source edits.
 - Phase 0. Stage 0. Action 2: completed as written. Inspected git status and
   recorded starting state.
 - Phase 0. Stage 0. Action 3: completed as written. Created and switched to
@@ -134,7 +134,7 @@ docs/design/state_collapser_v072_pointwise_liftability_handoff/01_002_bbb_v072_p
 - Phase 6. Stage 0. Action 4: completed as written. Second-serious docs writer
   preserves the protected turn section across regeneration.
 - Phase 7. Stage 0. Action 1: completed as written. Focused test paths from
-  the gameplan passed.
+  the workplan passed.
 - Phase 7. Stage 0. Action 2: completed as written. Full pytest suite passed.
 - Phase 7. Stage 0. Action 3: completed as written. Ruff passed on touched
   Python files.
@@ -146,7 +146,7 @@ docs/design/state_collapser_v072_pointwise_liftability_handoff/01_002_bbb_v072_p
 - Phase 8. Stage 1. Action 1: blocked with Project Owner guidance needed.
   The configured parent candidate readout source contains one eligible
   `wide_span18` candidate and zero eligible `medium` candidates, so the
-  gameplan's required medium four-candidate calibration cannot start without
+  workplan's required medium four-candidate calibration cannot start without
   changing candidate source or approved target instance.
 
 ## API Reconnaissance
@@ -300,7 +300,7 @@ uv run python -m big_boy_benchmarking.cli counterpoint serious-learning run --ar
 ## Surprises And Stop Conditions
 
 - Phase 8. Stage 1. Action 1 is blocked by candidate-source mismatch. The
-  gameplan requires medium corrected calibration using four eligible candidates,
+  workplan requires medium corrected calibration using four eligible candidates,
   but the configured parent source currently has one eligible `wide_span18`
   candidate and no eligible `medium` candidates.
 - The second-serious CLI correctly rejected `/private/tmp` artifact roots

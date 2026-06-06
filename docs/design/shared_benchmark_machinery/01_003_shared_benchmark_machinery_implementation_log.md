@@ -12,10 +12,10 @@ Implementation branch:
 codex/shared-benchmark-machinery
 ```
 
-Source gameplan:
+Source workplan:
 
 ```text
-docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_gameplan.md
+docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_workplan.md
 ```
 
 ## Approval Statement
@@ -23,10 +23,10 @@ docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_impleme
 The Project Owner instructed:
 
 ```text
-execute docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_gameplan.md
+execute docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_workplan.md
 ```
 
-This is recorded as explicit approval to execute the exact gameplan named
+This is recorded as explicit approval to execute the exact workplan named
 above.
 
 ## Source Authority
@@ -46,13 +46,13 @@ docs/design/shared_benchmark_machinery/README.md
 Amended infrastructure source:
 
 ```text
-docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_gameplan.md
+docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md
 ```
 
 Counterpoint prerequisite gate source:
 
 ```text
-docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_gameplan.md
+docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_workplan.md
 docs/design/first_counterpoint_environment/01_004_counterpoint_hidden_graph_and_contraction_schema_implementation_log.md
 ```
 
@@ -66,7 +66,7 @@ Re-read Prime Directive files:
 docs/prime_directive/prime_directive.md
 docs/prime_directive/common_failure_mode_001.md
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 docs/prime_directive/consultant_tricks.md
 docs/prime_directive/git_practices.md
 ```
@@ -76,7 +76,7 @@ Operational obligations recorded:
 - Project Owner approval required before source/test implementation;
 - dedicated branch required for this implementation interval;
 - global state reconstruction before edits;
-- gameplan-as-law execution after approval;
+- workplan-as-law execution after approval;
 - re-read each Phase.Stage.Action before executing it;
 - stop on ambiguity, surprise, failed baseline, missing upstream surface, or
   required simplification;
@@ -92,14 +92,14 @@ Re-read design authority files:
 ```text
 docs/design/shared_benchmark_machinery/README.md
 docs/design/shared_benchmark_machinery/01_001_shared_benchmark_machinery_design.md
-docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_gameplan.md
-docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_gameplan.md
+docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_workplan.md
+docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md
 docs/design/first_counterpoint_environment/01_004_counterpoint_hidden_graph_and_contraction_schema_implementation_log.md
 ```
 
 Recorded constraints:
 
-- older first-infrastructure-slice gameplan is amended source authority, not
+- older first-infrastructure-slice workplan is amended source authority, not
   obsolete history;
 - counterpoint implementation remains paused until shared machinery prerequisite
   gate passes;
@@ -123,7 +123,7 @@ Before shared-machinery branch creation:
 Tracked shared machinery and counterpoint log files were confirmed by:
 
 ```text
-git ls-files docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_gameplan.md docs/design/shared_benchmark_machinery/01_001_shared_benchmark_machinery_design.md docs/design/shared_benchmark_machinery/README.md docs/design/first_counterpoint_environment/01_004_counterpoint_hidden_graph_and_contraction_schema_implementation_log.md
+git ls-files docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_workplan.md docs/design/shared_benchmark_machinery/01_001_shared_benchmark_machinery_design.md docs/design/shared_benchmark_machinery/README.md docs/design/first_counterpoint_environment/01_004_counterpoint_hidden_graph_and_contraction_schema_implementation_log.md
 ```
 
 Phase 0.4.2 completed.
@@ -164,7 +164,7 @@ LICENSE
 tests/test_state_collapser_dependency.py
 docs/design/shared_benchmark_machinery/README.md
 docs/design/shared_benchmark_machinery/01_001_shared_benchmark_machinery_design.md
-docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_gameplan.md
+docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_workplan.md
 docs/design/shared_benchmark_machinery/01_003_shared_benchmark_machinery_implementation_log.md
 docs/design/first_infrastructure_slice/*
 docs/design/first_counterpoint_environment/*
@@ -449,7 +449,7 @@ Observed:
 False stop:
 
 ```text
-The gameplan requires first smoke coverage for plate_support_env and
+The workplan requires first smoke coverage for plate_support_env and
 rl_counterpoint_v3. Those surfaces are absent from the installed pinned
 state_collapser dependency, but present in the local upstream repo.
 ```
@@ -458,7 +458,7 @@ Corrected status:
 
 ```text
 The installed pinned state_collapser dependency can import both required smoke
-surfaces. Resume the gameplan at Phase 2.
+surfaces. Resume the workplan at Phase 2.
 ```
 
 No upstream files were edited.
@@ -498,7 +498,7 @@ Counterpoint resume-gate status:
 
 ```text
 Shared machinery prerequisite is now satisfied for the paused counterpoint
-gameplan's gate at the level requested by this implementation slice:
+workplan's gate at the level requested by this implementation slice:
 artifact writers, mode registry, seed bundles, event row types, timing helpers,
 runner skeletons, upstream integration, and CLI are present and validated.
 ```
@@ -506,7 +506,7 @@ runner skeletons, upstream integration, and CLI are present and validated.
 Recommended next owner decision:
 
 ```text
-Return to docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_gameplan.md,
+Return to docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_workplan.md,
 re-run its Phase 0.5, Phase 0.6, and Phase 0.7.1 gates, then continue at Phase
 0.8 if the gate passes.
 ```

@@ -9,7 +9,7 @@ This is for a proposed new evaluation on the existing
 
 This is not a blueprint.
 
-This is not a gameplan.
+This is not a workplan.
 
 This is not approval to implement code or run artifacts.
 

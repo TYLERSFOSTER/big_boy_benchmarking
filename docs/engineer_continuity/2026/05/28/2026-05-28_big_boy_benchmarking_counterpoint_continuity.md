@@ -44,7 +44,7 @@ Recent commit history of interest:
 cbd3b17 Ignore macOS metadata files
 8566d07 Implement shared benchmark machinery slice
 d9d6360 artifacts design
-3b3ffa4 first environment design and gameplan: RL counterpoint
+3b3ffa4 first environment design and workplan: RL counterpoint
 ```
 
 Validation state at the stopping point:
@@ -91,7 +91,7 @@ The important behavioral constraints that shaped the repo work:
 
 - Do not implement beyond approved scope.
 - Use explicit design docs before implementation when the work is architecturally meaningful.
-- Convert design into a Phase.Stage.Action-style gameplan before execution.
+- Convert design into a Phase.Stage.Action-style workplan before execution.
 - Preserve turn-by-turn owner conversation where ambiguity exists.
 - Stop on real ambiguity, missing prerequisites, or dependency risk.
 - Avoid silent simplification, silent reordering, and "helpful" rewriting of user intent.
@@ -138,7 +138,7 @@ Key files:
 docs/design/first_infrastructure_slice/01_001_initial_benchmarking_goals_discussion.md
 docs/design/first_infrastructure_slice/01_002_state_collapser_read_only_reconnaissance.md
 docs/design/first_infrastructure_slice/01_003_benchmark_system_and_artifact_contract_blueprint.md
-docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_gameplan.md
+docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md
 ```
 
 This arc established the need for:
@@ -156,7 +156,7 @@ This arc established the need for:
 - Upstream integration guards.
 - A CLI.
 
-It also introduced the requirement that gameplans use `Phase.Stage.Action` labels. That became a hard convention.
+It also introduced the requirement that workplans use `Phase.Stage.Action` labels. That became a hard convention.
 
 ### 4.2 Shared benchmark machinery
 
@@ -170,7 +170,7 @@ Key files:
 
 ```text
 docs/design/shared_benchmark_machinery/01_001_shared_benchmark_machinery_design.md
-docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_gameplan.md
+docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_workplan.md
 docs/design/shared_benchmark_machinery/01_003_shared_benchmark_machinery_implementation_log.md
 ```
 
@@ -202,7 +202,7 @@ Key files:
 ```text
 docs/design/first_counterpoint_environment/01_001_counterpoint_environment_design_discussion.md
 docs/design/first_counterpoint_environment/01_002_counterpoint_hidden_graph_and_contraction_schema_benchmark_blueprint.md
-docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_gameplan.md
+docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_workplan.md
 docs/design/first_counterpoint_environment/01_004_counterpoint_hidden_graph_and_contraction_schema_implementation_log.md
 ```
 

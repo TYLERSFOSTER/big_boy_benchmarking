@@ -16,10 +16,10 @@ Implementation branch:
 codex/counterpoint-serious-learning-eval
 ```
 
-Source gameplan:
+Source workplan:
 
 ```text
-docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_gameplan.md
+docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_workplan.md
 ```
 
 ## Approval Statement
@@ -27,10 +27,10 @@ docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation
 The Project Owner asked:
 
 ```text
-execute `01_002_counterpoint_first_serious_learning_evaluation_implementation_gameplan.md`
+execute `01_002_counterpoint_first_serious_learning_evaluation_implementation_workplan.md`
 ```
 
-This is recorded as approval to execute the exact gameplan named above.
+This is recorded as approval to execute the exact workplan named above.
 
 ## Phase.Stage.Action Log
 
@@ -40,7 +40,7 @@ This is recorded as approval to execute the exact gameplan named above.
 
 Status: complete.
 
-Project Owner approval to execute the gameplan was received in conversation.
+Project Owner approval to execute the workplan was received in conversation.
 No source, test, CLI, or artifact-schema implementation edits occurred before
 approval.
 
@@ -54,10 +54,10 @@ Re-read:
 docs/prime_directive/prime_directive.md
 docs/prime_directive/git_practices.md
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 ```
 
-No contradiction was found between the gameplan and the Prime Directive.
+No contradiction was found between the workplan and the Prime Directive.
 
 #### Action 0.2.1
 
@@ -69,10 +69,10 @@ Starting status before implementation branch creation:
 ## main...origin/main
  M docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/design_discussion.md
 ?? docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_001_counterpoint_first_serious_learning_evaluation_blueprint.md
-?? docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_gameplan.md
+?? docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_workplan.md
 ```
 
-The dirty files were the directly related discussion, blueprint, and gameplan
+The dirty files were the directly related discussion, blueprint, and workplan
 artifacts for this work. No unrelated source/test dirty files were present.
 
 #### Action 0.2.2
@@ -140,7 +140,7 @@ Reality notes:
 - Shared artifact, timing, seed, mode, and linearization helpers exist and can
   be extended without changing artifact schema version.
 
-No mismatch with the gameplan was found.
+No mismatch with the workplan was found.
 
 #### Action 0.3.3
 
@@ -946,7 +946,7 @@ Appended a continuity note to:
 docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/design_discussion.md
 ```
 
-The note points to the implementation gameplan and implementation log without
+The note points to the implementation workplan and implementation log without
 rewriting the discussion history. PO corrections remain attributed above it.
 
 ### Phase 11: Validation And Smoke Runs
@@ -1111,7 +1111,7 @@ All checks passed!
 
 Status: complete.
 
-Every Phase.Stage.Action in the gameplan is recorded above as complete. No stop
+Every Phase.Stage.Action in the workplan is recorded above as complete. No stop
 condition was encountered.
 
 Final claim boundary:
@@ -1157,7 +1157,7 @@ Final status:
  M tests/test_state_collapser_dependency.py
  M tests/upstream/test_state_collapser_dependency_state.py
 ?? docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_001_counterpoint_first_serious_learning_evaluation_blueprint.md
-?? docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_gameplan.md
+?? docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_workplan.md
 ?? docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_003_counterpoint_first_serious_learning_evaluation_implementation_log.md
 ?? docs/methods/counterpoint_serious_learning.md
 ?? src/big_boy_benchmarking/environments/counterpoint/serious_learning/

@@ -8,10 +8,10 @@ Branch:
 codex/noisy-rate-contraction-diagnostics
 ```
 
-Source gameplan:
+Source workplan:
 
 ```text
-docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction_diagnostics/03_counterpoint_noisy_rate_contraction_diagnostics_implementation_gameplan.md
+docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction_diagnostics/03_counterpoint_noisy_rate_contraction_diagnostics_implementation_workplan.md
 ```
 
 Initial `git status --short --branch` after branch creation:
@@ -34,7 +34,7 @@ files were observed before branch creation.
 
 Stop and ask the Project Owner if:
 
-- explicit approval to execute this exact gameplan has not been received;
+- explicit approval to execute this exact workplan has not been received;
 - branch or dirty status would mix unrelated work into this implementation;
 - any action would require editing `/Users/foster/state_collapser`;
 - any action would alter `counterpoint_symbolic_v001` environment semantics;
@@ -56,7 +56,7 @@ Stop and ask the Project Owner if:
 
 ## Initial Phase.Stage.Action Checklist
 
-- Phase 0. Stage 0. Action 1: completed. Execution authority confirmed by PO request to execute this gameplan.
+- Phase 0. Stage 0. Action 1: completed. Execution authority confirmed by PO request to execute this workplan.
 - Phase 0. Stage 0. Action 2: completed. Working tree inspected; dirty files are related noisy-rate design/readout docs from the preceding design interval.
 - Phase 0. Stage 0. Action 3: completed. Created and switched to `codex/noisy-rate-contraction-diagnostics`.
 - Phase 0. Stage 0. Action 4: completed. Created this implementation log.

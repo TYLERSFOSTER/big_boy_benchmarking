@@ -1,8 +1,8 @@
-# Counterpoint Small Paired Replicate Probe Implementation Gameplan
+# Counterpoint Small Paired Replicate Probe Implementation Workplan
 
 Date: 2026-06-05
 
-Status: implementation gameplan, not executed
+Status: implementation workplan, not executed
 
 Repository:
 
@@ -18,7 +18,7 @@ docs/design/first_counterpoint_environment/small_paired_replicate_probe/01_001_c
 
 ## Purpose
 
-This gameplan translates the small paired replicate probe blueprint into
+This workplan translates the small paired replicate probe blueprint into
 Phase.Stage.Action implementation work.
 
 The target evaluation is:
@@ -63,11 +63,11 @@ frontier, unless the Project Owner later overrides that ordering.
 
 ## Execution Authority Status
 
-The Project Owner requested this gameplan:
+The Project Owner requested this workplan:
 
 ```text
 Following `prime_directive`, generate and extremely detailed implementation
-gameplan from
+workplan from
 `docs/design/first_counterpoint_environment/small_paired_replicate_probe/01_001_counterpoint_small_paired_replicate_probe_blueprint.md`
 in Phase.Stage.Action format
 ```
@@ -76,19 +76,19 @@ Therefore this document may be written now.
 
 This instruction is not implementation approval.
 
-If the Project Owner later says to execute this exact gameplan, implementation
+If the Project Owner later says to execute this exact workplan, implementation
 must follow this document as written. If any Phase.Stage.Action item cannot be
 implemented as written, stop and ask for Project Owner guidance before
 substituting, simplifying, or reordering.
 
 ## Source Authority
 
-This gameplan follows:
+This workplan follows:
 
 - `docs/prime_directive/prime_directive.md`
 - `docs/prime_directive/git_practices.md`
 - `docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md`
-- `docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md`
+- `docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md`
 - `docs/prime_directive/common_failure_mode_004_false_attribution_and_invented_project_owner_turns.md`
 - `docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md`
 - `docs/prime_directive/artifact_table_to_readable_document_protocol.md`
@@ -106,7 +106,7 @@ This gameplan follows:
 
 ## PO Attribution Preservation
 
-This gameplan preserves the source blueprint's PO Attribution Ledger. It does
+This workplan preserves the source blueprint's PO Attribution Ledger. It does
 not add invented Project Owner turns.
 
 Project Owner-originated requests carried into implementation:
@@ -117,7 +117,7 @@ Project Owner-originated requests carried into implementation:
 3. The Project Owner asked for blueprints in the respective folders.
 4. The Project Owner stated that answers would be written in the documents.
 5. The Project Owner requested this Phase.Stage.Action implementation
-   gameplan.
+   workplan.
 
 Project Owner answers present in the blueprint:
 
@@ -165,7 +165,7 @@ under later execution approval:
 
 ## Dependency On Threshold Frontier
 
-This gameplan is implementation-ready, but the main evaluation run has a
+This workplan is implementation-ready, but the main evaluation run has a
 threshold dependency.
 
 The Project Owner agreed:
@@ -322,7 +322,7 @@ Project Owner explicitly authorizes TeX work.
 
 Stop and ask the Project Owner if:
 
-- execution of this gameplan has not been explicitly approved;
+- execution of this workplan has not been explicitly approved;
 - working tree state would mix unrelated TeX/root document changes into this
   implementation;
 - a source edit would touch `/Users/foster/state_collapser`;
@@ -351,12 +351,12 @@ Stop and ask the Project Owner if:
 #### Phase 0. Stage 0: Execution Authority
 
 - Phase 0. Stage 0. Action 1: Confirm the Project Owner has explicitly asked
-  to execute this exact gameplan.
+  to execute this exact workplan.
 - Phase 0. Stage 0. Action 2: If execution authority is absent, stop before
   source edits.
 - Phase 0. Stage 0. Action 3: Record the exact execution instruction in the
   implementation log.
-- Phase 0. Stage 0. Action 4: Record that this gameplan itself was requested
+- Phase 0. Stage 0. Action 4: Record that this workplan itself was requested
   on 2026-06-05 but was not implementation approval.
 
 #### Phase 0. Stage 1: Working Tree And Branch Discipline
@@ -379,10 +379,10 @@ Stop and ask the Project Owner if:
 #### Phase 0. Stage 2: Source Re-Read
 
 - Phase 0. Stage 2. Action 1: Re-read Prime Directive source authority listed
-  in this gameplan.
+  in this workplan.
 - Phase 0. Stage 2. Action 2: Re-read the source blueprint.
 - Phase 0. Stage 2. Action 3: Re-read the threshold-frontier README and any
-  threshold-frontier blueprint/gameplan/readout that exists at execution time.
+  threshold-frontier blueprint/workplan/readout that exists at execution time.
 - Phase 0. Stage 2. Action 4: Re-read the current second-serious comparison
   readout source and README.
 - Phase 0. Stage 2. Action 5: Re-read the current noisy-rate full-tower
@@ -407,7 +407,7 @@ Stop and ask the Project Owner if:
   ```
 
 - Phase 0. Stage 3. Action 2: Include branch, execution instruction, source
-  gameplan, initial dirty state, stop conditions, and running
+  workplan, initial dirty state, stop conditions, and running
   Phase.Stage.Action checklist.
 - Phase 0. Stage 3. Action 3: Keep the log updated throughout implementation.
 
@@ -557,7 +557,7 @@ Stop and ask the Project Owner if:
 - Phase 2. Stage 1. Action 3: Define the expected field or table path for a
   frontier-selected threshold.
 - Phase 2. Stage 1. Action 4: If the threshold-frontier implementation uses a
-  different field name than this plan predicts, stop and update this gameplan
+  different field name than this plan predicts, stop and update this workplan
   or record explicit Project Owner authorization before adapting.
 - Phase 2. Stage 1. Action 5: Write `threshold_policy_manifest.json` with:
 
@@ -1137,7 +1137,7 @@ Stop and ask the Project Owner if:
 ## Suggested Execution Commands After Implementation
 
 These commands are not execution authorization. They are the intended command
-shape once the gameplan has been implemented and the Project Owner has
+shape once the workplan has been implemented and the Project Owner has
 approved the relevant run.
 
 Minimal smoke:
@@ -1198,7 +1198,7 @@ Implementation is complete only when:
 
 ## Non-Goals
 
-This gameplan does not implement:
+This workplan does not implement:
 
 - the threshold frontier probe itself;
 - multi-candidate generalization;

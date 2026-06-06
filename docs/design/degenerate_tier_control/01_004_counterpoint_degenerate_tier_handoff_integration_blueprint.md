@@ -20,7 +20,7 @@ docs/design/degenerate_tier_control/
 
 This is a design blueprint.
 
-This is not an implementation gameplan.
+This is not an implementation workplan.
 
 This is not approval to edit source code.
 
@@ -54,11 +54,11 @@ This blueprint follows:
 - `docs/prime_directive/prime_directive.md`
 - `docs/prime_directive/git_practices.md`
 - `docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md`
-- `docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md`
+- `docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md`
 - `docs/design/degenerate_tier_control/error_diagnosis_conversation.md`
 - `docs/design/degenerate_tier_control/01_003_big_boy_benchmarking_handoff_note.md`
 - `docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_001_counterpoint_first_serious_learning_evaluation_blueprint.md`
-- `docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_gameplan.md`
+- `docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_workplan.md`
 - `docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/README.md`
 
 ## Corrected Understanding
@@ -260,9 +260,9 @@ non-empty tower schema arms
 artifact-backed human-readable readout
 ```
 
-## Required Gameplan Shape
+## Required Workplan Shape
 
-A corresponding implementation gameplan should be Phase.Stage.Action and should
+A corresponding implementation workplan should be Phase.Stage.Action and should
 stay narrow.
 
 It should not introduce new PO questions about:
@@ -286,7 +286,7 @@ Project Owner whether to open a separate design block.
 ## Blueprint Readiness
 
 This blueprint is ready to become a narrow Phase.Stage.Action implementation
-gameplan.
+workplan.
 
 There are no new PO questions in this blueprint.
 

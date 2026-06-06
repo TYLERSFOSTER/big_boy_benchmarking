@@ -26,7 +26,7 @@ docs/design/first_counterpoint_environment/threshold_frontier_probe/README.md
 
 This is a design blueprint.
 
-This is not an implementation gameplan.
+This is not an implementation workplan.
 
 This is not approval to edit source code.
 
@@ -38,7 +38,7 @@ This is not approval to change the `counterpoint_symbolic_v001` environment.
 
 This is not approval to edit `/Users/foster/state_collapser`.
 
-A later Phase.Stage.Action implementation gameplan must translate this
+A later Phase.Stage.Action implementation workplan must translate this
 blueprint into executable work before source edits or benchmark runs begin.
 
 ## Source Authority
@@ -568,8 +568,8 @@ Pending.
 
 ## Blueprint Readiness
 
-This blueprint is close to implementation-gameplan ready after the Project
+This blueprint is close to implementation-workplan ready after the Project
 Owner answers the threshold grid and budget questions.
 
 If the Project Owner accepts the consultant recommendations, no additional
-design discussion is required before writing a Phase.Stage.Action gameplan.
+design discussion is required before writing a Phase.Stage.Action workplan.

@@ -1,12 +1,12 @@
-# Shared Benchmark Machinery Implementation Gameplan
+# Shared Benchmark Machinery Implementation Workplan
 
-Status: initial implementation gameplan
+Status: initial implementation workplan
 
 Created: 2026-05-28
 
 Repository: `/Users/foster/big_boy_benchmarking`
 
-This is a gameplan only.
+This is a workplan only.
 
 This is not approval to implement.
 
@@ -30,13 +30,13 @@ docs/design/shared_benchmark_machinery/README.md
 Amended infrastructure source:
 
 ```text
-docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_gameplan.md
+docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md
 ```
 
 Counterpoint prerequisite gate source:
 
 ```text
-docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_gameplan.md
+docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_workplan.md
 docs/design/first_counterpoint_environment/01_004_counterpoint_hidden_graph_and_contraction_schema_implementation_log.md
 ```
 
@@ -46,14 +46,14 @@ Prime Directive source:
 docs/prime_directive/prime_directive.md
 docs/prime_directive/common_failure_mode_001.md
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 docs/prime_directive/consultant_tricks.md
 docs/prime_directive/git_practices.md
 ```
 
 ## Realignment Contract
 
-This gameplan is deliberately narrow.
+This workplan is deliberately narrow.
 
 It does not implement source code.
 
@@ -71,7 +71,7 @@ later be approved, executed, logged, tested, and audited.
 The following decisions are already recorded in the design source and are used
 as constraints here:
 
-- amend the existing first-infrastructure-slice gameplan rather than erasing it;
+- amend the existing first-infrastructure-slice workplan rather than erasing it;
 - include both `plate_support_env` and `rl_counterpoint_v3` in first smoke
   coverage;
 - reserve the future `bbb` command name now;
@@ -79,14 +79,14 @@ as constraints here:
 - include the human-facing docs skeleton in the first shared-machinery
   implementation.
 
-This gameplan does not invent additional owner decisions.
+This workplan does not invent additional owner decisions.
 
 When an action reaches an unresolved design choice, the action contains a stop
 condition rather than a guessed answer.
 
 ## Execution Discipline
 
-If the Project Owner later approves execution of this exact gameplan, the
+If the Project Owner later approves execution of this exact workplan, the
 implementation must proceed in `Phase.Stage.Action` order unless the Project
 Owner explicitly authorizes a different order.
 
@@ -111,7 +111,7 @@ codex/shared-benchmark-machinery
 If that branch already exists, switch to it non-destructively.
 
 If the current worktree contains unrelated dirty files, record them before
-branch work begins. If those dirty files overlap the paths in this gameplan,
+branch work begins. If those dirty files overlap the paths in this workplan,
 stop and ask for owner guidance before touching source or test files.
 
 ## Implementation Non-Goals
@@ -168,7 +168,7 @@ Ground-truth files:
 docs/prime_directive/prime_directive.md
 docs/prime_directive/common_failure_mode_001.md
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 docs/prime_directive/consultant_tricks.md
 docs/prime_directive/git_practices.md
 ```
@@ -176,7 +176,7 @@ docs/prime_directive/git_practices.md
 Machine action:
 
 ```bash
-cat docs/prime_directive/prime_directive.md docs/prime_directive/common_failure_mode_001.md docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md docs/prime_directive/consultant_tricks.md docs/prime_directive/git_practices.md
+cat docs/prime_directive/prime_directive.md docs/prime_directive/common_failure_mode_001.md docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md docs/prime_directive/consultant_tricks.md docs/prime_directive/git_practices.md
 ```
 
 Acceptance:
@@ -184,7 +184,7 @@ Acceptance:
 - implementation log records that all six files were re-read;
 - implementation log records the active obligations:
   - Project Owner approval required before source/test implementation;
-  - gameplan is law after approval;
+  - workplan is law after approval;
   - dedicated branch required for this implementation interval;
   - global state reconstruction before edits;
   - stop on surprise, ambiguity, failed baseline, or required simplification.
@@ -195,9 +195,9 @@ Tests:
 
 Failure hypotheses:
 
-1. A prime-directive file may have changed since this gameplan was written.
+1. A prime-directive file may have changed since this workplan was written.
 2. The file list may be stale or incomplete.
-3. A newer directive may supersede an assumption in this gameplan.
+3. A newer directive may supersede an assumption in this workplan.
 
 Stop condition:
 
@@ -217,20 +217,20 @@ Ground-truth files:
 ```text
 docs/design/shared_benchmark_machinery/README.md
 docs/design/shared_benchmark_machinery/01_001_shared_benchmark_machinery_design.md
-docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_gameplan.md
+docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md
 docs/design/first_counterpoint_environment/01_004_counterpoint_hidden_graph_and_contraction_schema_implementation_log.md
 ```
 
 Machine action:
 
 ```bash
-cat docs/design/shared_benchmark_machinery/README.md docs/design/shared_benchmark_machinery/01_001_shared_benchmark_machinery_design.md docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_gameplan.md docs/design/first_counterpoint_environment/01_004_counterpoint_hidden_graph_and_contraction_schema_implementation_log.md
+cat docs/design/shared_benchmark_machinery/README.md docs/design/shared_benchmark_machinery/01_001_shared_benchmark_machinery_design.md docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md docs/design/first_counterpoint_environment/01_004_counterpoint_hidden_graph_and_contraction_schema_implementation_log.md
 ```
 
 Acceptance:
 
 - implementation log records these files as the active design authority;
-- implementation log records that the older infrastructure gameplan is amended
+- implementation log records that the older infrastructure workplan is amended
   source authority, not obsolete history;
 - implementation log records that counterpoint remains paused until the shared
   machinery prerequisite gate passes.
@@ -241,7 +241,7 @@ Tests:
 
 Failure hypotheses:
 
-1. The design file may have been edited after this gameplan was created.
+1. The design file may have been edited after this workplan was created.
 2. The counterpoint pause log may name a different resume gate.
 3. The old infrastructure plan may conflict with the shared machinery design.
 
@@ -261,7 +261,7 @@ Prevent implementation without explicit approval.
 Ground-truth files:
 
 ```text
-docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_gameplan.md
+docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_workplan.md
 ```
 
 Machine action:
@@ -273,7 +273,7 @@ Record the Project Owner's explicit execution instruction in the implementation 
 Acceptance:
 
 - implementation log quotes or precisely summarizes the approval instruction;
-- approval names this gameplan path or otherwise clearly binds this exact plan.
+- approval names this workplan path or otherwise clearly binds this exact plan.
 
 Tests:
 
@@ -415,7 +415,7 @@ Final Handoff
 Acceptance:
 
 - log file exists before implementation source/test edits;
-- log identifies this gameplan as the source gameplan;
+- log identifies this workplan as the source workplan;
 - log has a section where each action can be marked `completed`, `blocked`, or
   `deferred by explicit owner authorization`.
 
@@ -469,7 +469,7 @@ Tests:
 
 Failure hypotheses:
 
-1. The repo may contain new files not reflected in this gameplan.
+1. The repo may contain new files not reflected in this workplan.
 2. Generated artifacts may already exist.
 3. Existing package directories may make some create actions into update actions.
 
@@ -525,7 +525,7 @@ Failure hypotheses:
 
 Stop condition:
 
-- if existing package structure is materially different from this gameplan,
+- if existing package structure is materially different from this workplan,
   stop and update the plan only with owner approval.
 
 #### Action 0.6.3
@@ -627,7 +627,7 @@ Record that implementation will follow this plan exactly.
 Ground-truth files:
 
 ```text
-docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_gameplan.md
+docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_workplan.md
 docs/design/shared_benchmark_machinery/01_003_shared_benchmark_machinery_implementation_log.md
 ```
 
@@ -657,13 +657,13 @@ Tests:
 
 Failure hypotheses:
 
-1. The owner may authorize only part of this gameplan.
+1. The owner may authorize only part of this workplan.
 2. A source document may require plan amendment before execution.
 3. Existing worktree state may require a different branch strategy.
 
 Stop condition:
 
-- if the owner changes execution scope, amend the gameplan before implementing.
+- if the owner changes execution scope, amend the workplan before implementing.
 
 ## Phase 1: Artifact And Human Documentation Skeleton
 
@@ -2598,7 +2598,7 @@ Make execution history auditable.
 Ground-truth files:
 
 ```text
-docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_gameplan.md
+docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_workplan.md
 docs/design/shared_benchmark_machinery/01_003_shared_benchmark_machinery_implementation_log.md
 ```
 
@@ -2626,7 +2626,7 @@ Failure hypotheses:
 
 Stop condition:
 
-- if any action was implemented as a weaker substitute, mark the gameplan
+- if any action was implemented as a weaker substitute, mark the workplan
   blocked rather than complete.
 
 ### Stage 12.2: Artifact Hygiene Check
@@ -2684,7 +2684,7 @@ Record whether the paused counterpoint implementation may resume.
 Ground-truth files:
 
 ```text
-docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_gameplan.md
+docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_workplan.md
 docs/design/first_counterpoint_environment/01_004_counterpoint_hidden_graph_and_contraction_schema_implementation_log.md
 src/big_boy_benchmarking/artifacts/
 src/big_boy_benchmarking/modes/
@@ -2715,8 +2715,8 @@ Failure hypotheses:
 
 1. Shared machinery may be complete enough for counterpoint but missing one
    optional smoke path.
-2. Counterpoint gameplan may require a stricter gate than this plan.
-3. Owner may want a new counterpoint resume gameplan before implementation.
+2. Counterpoint workplan may require a stricter gate than this plan.
+3. Owner may want a new counterpoint resume workplan before implementation.
 
 Stop condition:
 
@@ -2853,14 +2853,14 @@ src/big_boy_benchmarking/__init__.py
 
 ## Explicit Approval Boundary
 
-This gameplan is not approval to implement.
+This workplan is not approval to implement.
 
 Implementation requires a separate Project Owner instruction approving
 execution of:
 
 ```text
-docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_gameplan.md
+docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_workplan.md
 ```
 
-Once approved, this gameplan is law unless the Project Owner explicitly amends
+Once approved, this workplan is law unless the Project Owner explicitly amends
 it.

@@ -26,7 +26,7 @@ docs/design/first_counterpoint_environment/small_paired_replicate_probe/README.m
 
 This is a design blueprint.
 
-This is not an implementation gameplan.
+This is not an implementation workplan.
 
 This is not approval to edit source code.
 
@@ -38,7 +38,7 @@ This is not approval to change the `counterpoint_symbolic_v001` environment.
 
 This is not approval to edit `/Users/foster/state_collapser`.
 
-A later Phase.Stage.Action implementation gameplan must translate this
+A later Phase.Stage.Action implementation workplan must translate this
 blueprint into executable work before source edits or benchmark runs begin.
 
 ## Source Authority
@@ -610,7 +610,7 @@ I agree.
 
 ## Blueprint Readiness
 
-This blueprint is implementation-gameplan ready if the Project Owner accepts
+This blueprint is implementation-workplan ready if the Project Owner accepts
 `R = 13.0`, `8` matched pairs, and `16` episodes per arm.
 
 If the Project Owner wants the threshold-frontier probe to run first, this

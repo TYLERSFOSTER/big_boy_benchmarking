@@ -11,9 +11,9 @@ Primary environment: `counterpoint_symbolic_v001`
 Primary affected subsystem: counterpoint active-tier tower control, tower
 diagnostics, and human-readable evaluation readouts
 
-This document is a blueprint, not an implementation gameplan. The next
+This document is a blueprint, not an implementation workplan. The next
 artifact should translate this into a `Phase.Stage.Action` implementation
-gameplan before source-code execution.
+workplan before source-code execution.
 
 ## Source Material
 
@@ -79,7 +79,7 @@ This blueprint follows the repo's prime-directive discipline:
    correction.
 4. Do not rewrite existing evaluation history silently.
 5. Do not implement from this blueprint until a separate Phase.Stage.Action
-   gameplan exists and execution is approved.
+   workplan exists and execution is approved.
 6. If implementation discovers that the observed upstream API behaves
    differently from the signatures above, stop the affected action and update
    the plan rather than silently substituting a different semantics.
@@ -165,7 +165,7 @@ src/big_boy_benchmarking/environments/counterpoint/second_serious_comparison/eve
 ```
 
 The dependency pin has already been updated to `state_collapser` `v0.7.2` in
-the current repository state. The implementation gameplan should verify this
+the current repository state. The implementation workplan should verify this
 at its first step rather than assuming it remains true.
 
 Focused current behavior in BBB:
@@ -776,7 +776,7 @@ raw_action_cell_storage_count
 ```
 
 However, changing public CSV field names can break existing tests/readers. The
-gameplan should decide whether to:
+workplan should decide whether to:
 
 1. add the new field while preserving the old field for compatibility; or
 2. rename the field in new evaluation families only; or
@@ -912,11 +912,11 @@ and a targeted Ruff check on touched files.
 The repo currently has some pre-existing broad Ruff debt in generated/evaluation
 writer files. The implementation should avoid adding new lint issues in touched
 files, but it does not need to refactor unrelated existing line-length debt
-unless the gameplan explicitly includes that cleanup.
+unless the workplan explicitly includes that cleanup.
 
 ## Implementation Surfaces
 
-The Phase.Stage.Action gameplan should inspect and probably edit these files.
+The Phase.Stage.Action workplan should inspect and probably edit these files.
 
 ### Dependency Probe
 
@@ -1145,7 +1145,7 @@ Mitigation:
 
 ## Open Questions For Project Owner
 
-These are not blockers for writing the implementation gameplan, but they should
+These are not blockers for writing the implementation workplan, but they should
 be answered before rerunning durable evaluations.
 
 ### Question 1: First Corrected Durable Rerun
@@ -1191,11 +1191,11 @@ Codex recommendation: archive only if the README contains substantial
 conversation or interpretive discussion. Otherwise, preserving old artifacts
 and writing clear supersession language is enough.
 
-## Blueprint-To-Gameplan Translation Notes
+## Blueprint-To-Workplan Translation Notes
 
-The next document should be a Phase.Stage.Action implementation gameplan.
+The next document should be a Phase.Stage.Action implementation workplan.
 
-Recommended gameplan structure:
+Recommended workplan structure:
 
 ```text
 Phase 1: Reconnaissance and API verification
@@ -1208,10 +1208,10 @@ Phase 7: Tests and verification
 Phase 8: Corrected rerun instructions and handoff
 ```
 
-The gameplan should include an implementation log section or companion log
+The workplan should include an implementation log section or companion log
 file, because this work touches multiple evaluations and must preserve
 provenance carefully.
 
-The gameplan should also require a new implementation branch before source-code
+The workplan should also require a new implementation branch before source-code
 execution, unless the Project Owner explicitly instructs otherwise.
 

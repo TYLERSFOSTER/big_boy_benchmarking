@@ -39,7 +39,7 @@ That is forbidden.
 
 This repository uses documents as authority surfaces.
 
-Blueprints, gameplans, design discussions, implementation logs, evaluation
+Blueprints, workplans, design discussions, implementation logs, evaluation
 readouts, and Prime Directive files are not just prose. They become future
 context for implementation decisions.
 
@@ -113,7 +113,7 @@ The LLM must not:
   or documents;
 - convert a consultant recommendation into a settled PO decision;
 - convert a consultant question into a PO-authored prompt;
-- create "turn slots" in blueprints or gameplans unless explicitly requested,
+- create "turn slots" in blueprints or workplans unless explicitly requested,
   and even then never fill those slots with invented PO content;
 - use document structure to imply authority that the model does not have.
 
@@ -210,12 +210,12 @@ Decision Locks
 Every question in those sections is consultant-authored unless it quotes a real
 Project Owner statement with citation.
 
-### Gameplans
+### Workplans
 
-Gameplans must use implementation discipline, especially `Phase.Stage.Action`
+Workplans must use implementation discipline, especially `Phase.Stage.Action`
 when required by the Project Owner.
 
-Gameplans may contain:
+Workplans may contain:
 
 ```text
 Decision Locks Before Implementation
@@ -321,7 +321,7 @@ If the Project Owner says "full stop," obey immediately.
 
 ## Pre-Write Checklist
 
-Before writing or editing any design, blueprint, gameplan, log, or readout, the
+Before writing or editing any design, blueprint, workplan, log, or readout, the
 LLM must check:
 
 - Am I putting words under a Project Owner heading?

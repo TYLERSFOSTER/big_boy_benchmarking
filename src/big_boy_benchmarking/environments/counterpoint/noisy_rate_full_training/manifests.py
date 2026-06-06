@@ -19,10 +19,10 @@ BLUEPRINT_PATH = (
     "counterpoint_noisy_rate_full_tower_training_diagnostic/"
     "01_counterpoint_noisy_rate_full_tower_training_diagnostic_blueprint.md"
 )
-GAMEPLAN_PATH = (
+WORKPLAN_PATH = (
     "docs/design/system_learning_from_evaluations/"
     "counterpoint_noisy_rate_full_tower_training_diagnostic/"
-    "02_counterpoint_noisy_rate_full_tower_training_diagnostic_implementation_gameplan.md"
+    "02_counterpoint_noisy_rate_full_tower_training_diagnostic_implementation_workplan.md"
 )
 ARCHIVE_PATH = (
     "docs/design/system_learning_from_evaluations/"
@@ -52,7 +52,7 @@ def evaluation_manifest_payload(*, budget: NoisyRateFullTrainingBudget) -> dict[
         "goal_criteria": goal_criteria(),
         "methodology_source_references": [
             BLUEPRINT_PATH,
-            GAMEPLAN_PATH,
+            WORKPLAN_PATH,
             "docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md",
             "docs/prime_directive/artifact_table_to_readable_document_protocol.md",
         ],
@@ -160,7 +160,7 @@ def readout_source_payload(
         "goal_summary_sources": [BLUEPRINT_PATH, ARCHIVE_PATH],
         "methodology_summary_sources": [
             BLUEPRINT_PATH,
-            GAMEPLAN_PATH,
+            WORKPLAN_PATH,
             "docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md",
         ],
         "structural_limit_checks": structural_limit_checks(),
@@ -202,7 +202,7 @@ def expected_file_policy() -> dict[str, Any]:
             "deep repeated-contraction tower artifacts",
             "tensor-enabled conversion records",
         ],
-        "expectation_sources": [GAMEPLAN_PATH],
+        "expectation_sources": [WORKPLAN_PATH],
     }
 
 

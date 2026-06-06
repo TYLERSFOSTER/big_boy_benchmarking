@@ -8,16 +8,16 @@ Branch:
 codex/threshold-frontier-probe
 ```
 
-Source gameplan:
+Source workplan:
 
 ```text
-docs/design/first_counterpoint_environment/threshold_frontier_probe/01_002_counterpoint_threshold_frontier_probe_implementation_gameplan.md
+docs/design/first_counterpoint_environment/threshold_frontier_probe/01_002_counterpoint_threshold_frontier_probe_implementation_workplan.md
 ```
 
 Execution instruction:
 
 ```text
-execute `docs/design/first_counterpoint_environment/threshold_frontier_probe/01_002_counterpoint_threshold_frontier_probe_implementation_gameplan.md`
+execute `docs/design/first_counterpoint_environment/threshold_frontier_probe/01_002_counterpoint_threshold_frontier_probe_implementation_workplan.md`
 ```
 
 Initial repo state:
@@ -37,11 +37,11 @@ git checkout -b codex/threshold-frontier-probe
 ### Phase 0: Authority, Branch, And Reality Check
 
 - Phase 0. Stage 0. Action 1: Completed. The Project Owner explicitly asked
-  to execute this exact gameplan.
+  to execute this exact workplan.
 - Phase 0. Stage 0. Action 2: Completed. Execution authority was present.
 - Phase 0. Stage 0. Action 3: Completed. Exact execution instruction recorded
   above.
-- Phase 0. Stage 0. Action 4: Completed. The gameplan-generation request is
+- Phase 0. Stage 0. Action 4: Completed. The workplan-generation request is
   distinguished from this execution request.
 - Phase 0. Stage 1. Action 1: Completed. Initial `git status --short --branch`
   showed clean `main` ahead of `origin/main` by one commit.
@@ -65,7 +65,7 @@ git checkout -b codex/threshold-frontier-probe
   the canonical second-serious repo readout.
 - Phase 0. Stage 3. Action 1: Completed. This log was created.
 - Phase 0. Stage 3. Action 2: Completed. Branch, execution instruction, source
-  gameplan, initial state, stop conditions, and checklist are recorded.
+  workplan, initial state, stop conditions, and checklist are recorded.
 - Phase 0. Stage 3. Action 3: Completed. This log was updated after
   implementation and verification.
 
@@ -237,7 +237,7 @@ uv run python -m big_boy_benchmarking.cli counterpoint threshold-frontier summar
   behavior.
 - Phase 8. Stage 3: Deferred. The first meaningful frontier run should use the
   full six-threshold, eight-episode `v072_pointwise_frontier_001` budget from
-  the gameplan. It was not run in this implementation pass because the wide
+  the workplan. It was not run in this implementation pass because the wide
   two-threshold smoke took several minutes and the meaningful run is
   substantially larger; it should be launched as the next explicit PO-directed
   artifact run.

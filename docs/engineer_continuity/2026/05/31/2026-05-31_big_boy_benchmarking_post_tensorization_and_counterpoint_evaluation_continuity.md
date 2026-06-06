@@ -112,14 +112,14 @@ The short version:
 | Topic | Origin | Codex role | Durable result |
 | --- | --- | --- | --- |
 | Tensorization pause | Project Owner caught the methodological distinction between pre-tensor and tensor-capable-disabled benchmarking. | Codex investigated, accepted the correction, documented the pause, then integrated the later upstream surface. | `state_collapser` v0.7.x integration and `tensor_available_disabled` benchmark mode. |
-| First serious evaluation shape | Project Owner redirected the work away from another structural-only block and said to do one learning test. | Codex converted the design into a serious learning/control evaluation with structural diagnostics as supporting evidence. | `first_counterpoint_serious_evaluation` blueprint/gameplan and serious-learning runner. |
+| First serious evaluation shape | Project Owner redirected the work away from another structural-only block and said to do one learning test. | Codex converted the design into a serious learning/control evaluation with structural diagnostics as supporting evidence. | `first_counterpoint_serious_evaluation` blueprint/workplan and serious-learning runner. |
 | Serious fixture scope | Project Owner answered that `small` is the serious fixture and `tiny` stays smoke/test-only. | Codex encoded small as the serious run fixture and kept tiny as calibration/smoke. | `counterpoint_symbolic_n3_small_v001` first serious readout; tiny labeled non-evidence. |
 | Required baseline matrix | Project Owner required all proposed baselines, not a subset. | Codex kept masked-random, direct tabular-Q, empty schema, random balanced, random unbalanced, structured motion, and bad/adversarial arms. | Seven-arm first serious learning matrix. |
 | Tower-evaluation meaning | Project Owner rejected Codex's loose tower-semantics answer and directed research in existing BBB and `state_collapser` docs/code. | Codex researched and bound the serious tower arm to upstream active-tier exploit/explore tower-control semantics. | Tower arms use `ExploitExploreTowerRuntime`/`ActiveTierController` rather than vague tower metadata. |
 | Result-claim questioning | Project Owner rejected generic "what claim should this support?" questions as misaligned. | Codex narrowed the claim to one serious learning/control test on the small fixture with bounded non-claims. | Claim boundary in first serious blueprint/readout. |
 | Budget questioning | Project Owner rejected invented budget-choice questions. | Codex moved budget choice into an engineering calibration step followed by a locked run budget. | Calibration/run split in serious-learning CLI and docs. |
 | Evaluation docs placement | Project Owner identified that loose docs would confuse users and should live under a parent folder in `docs`. | Codex created/used `docs/evaluations/` as the result-facing parent. | `docs/evaluations/counterpoint_symbolic_v001/...`. |
-| Degenerate-tier handoff scope | Project Owner corrected Codex's over-broad blueprint and narrowed the work back to upstream handoff integration. | Codex rewrote the blueprint/gameplan and implemented the narrow handoff. | BBB adapter supplies `tier_is_executable` to upstream runtime. |
+| Degenerate-tier handoff scope | Project Owner corrected Codex's over-broad blueprint and narrowed the work back to upstream handoff integration. | Codex rewrote the blueprint/workplan and implemented the narrow handoff. | BBB adapter supplies `tier_is_executable` to upstream runtime. |
 | Degenerate-tier failure mechanism | Project Owner drove the clarification of tower-arm meaning, zero returns, and whether the problem was missing rewards/model versus action realization. | Codex investigated artifacts and upstream code read-only, then reported the zero-step/lift mechanism. | `error_diagnosis_conversation.md` and later handoff integration work. |
 | Hop-to-executable-tier rule | Project Owner identified the simple control-law correction: if a tier is degenerate/non-executable, move to a finer executable tier. | Codex translated the insight into ownership analysis and BBB handoff requirements. | Upstream `state_collapser` handoff plus BBB `tier_is_executable` wiring. |
 | Handoff ownership | Project Owner suspected the durable fix belonged in `state_collapser`, not just BBB or one evaluation. | Codex agreed with the split: generic control invariant upstream, counterpoint realization local. | `state_collapser` v0.7.1 handoff integrated downstream. |
@@ -134,7 +134,7 @@ The short version:
 | Binary search explanation device | Project Owner requested binary search as a durable explanation analogy. | Codex added it to the relevant design-learning docs. | `docs/design/system_learning_from_evaluations/README.md`. |
 | One-third evaluation placement | Project Owner clarified that this was a new evaluation on the existing counterpoint environment, not a new environment. | Codex created the right design/evaluation surfaces and implemented them there. | `one_third_schema_tower_diagnostics` under counterpoint environment/evaluation docs. |
 | One-third tier-occupancy intent | Project Owner requested tier-occupancy details during training/control as a sanity check for whether hierarchy use could plausibly improve behavior. | Codex initially misunderstood the control polarity, then corrected after PO-directed research. | One-third diagnostics records ABC/tier signal and occupancy summaries. |
-| ABC correction for one-third | Project Owner rejected Codex's U-shape interpretation and directed detailed research into `state_collapser` ABC/Always-Be-Closing design. | Codex corrected the runtime model to "find lowest executable unclosed" and stopped treating U-shape as the law. | One-third blueprint/gameplan tests upstream ABC behavior rather than a homegrown policy. |
+| ABC correction for one-third | Project Owner rejected Codex's U-shape interpretation and directed detailed research into `state_collapser` ABC/Always-Be-Closing design. | Codex corrected the runtime model to "find lowest executable unclosed" and stopped treating U-shape as the law. | One-third blueprint/workplan tests upstream ABC behavior rather than a homegrown policy. |
 | Use upstream ABC, do not rewrite it | Project Owner emphasized that ABC logic already exists in `state_collapser` and BBB is trying to test it. | Codex constrained BBB to schema construction, `tier_is_executable`, instrumentation, and artifact reporting. | One-third runner delegates to upstream `ActiveTierController`/`ExploitExploreTowerRuntime`. |
 | False attribution failure | Project Owner caught and rejected Codex writing blueprint material as if PO turns existed. | Codex added a Prime Directive failure-mode document and now must preserve blank turn slots unless real PO text exists. | `common_failure_mode_004_false_attribution_and_invented_project_owner_turns.md`. |
 
@@ -191,7 +191,7 @@ structured motion tower-control tabular
 bad/adversarial tower-control tabular
 ```
 
-Codex's role was to translate those decisions into a blueprint, gameplan,
+Codex's role was to translate those decisions into a blueprint, workplan,
 implementation, and readout. The decision to make this a first serious learning
 test did not originate with Codex.
 
@@ -521,7 +521,7 @@ This became:
 
 ```text
 docs/design/degenerate_tier_control/01_004_counterpoint_degenerate_tier_handoff_integration_blueprint.md
-docs/design/degenerate_tier_control/01_005_counterpoint_degenerate_tier_handoff_integration_implementation_gameplan.md
+docs/design/degenerate_tier_control/01_005_counterpoint_degenerate_tier_handoff_integration_implementation_workplan.md
 docs/design/degenerate_tier_control/01_006_counterpoint_degenerate_tier_handoff_integration_implementation_log.md
 ```
 
@@ -668,7 +668,7 @@ Primary docs:
 
 ```text
 docs/design/shared_benchmark_machinery/01_004_state_collapser_tensorization_resume_note.md
-docs/design/shared_benchmark_machinery/01_005_state_collapser_v0_7_tensorization_integration_gameplan.md
+docs/design/shared_benchmark_machinery/01_005_state_collapser_v0_7_tensorization_integration_workplan.md
 docs/design/shared_benchmark_machinery/01_006_state_collapser_v0_7_tensorization_integration_implementation_log.md
 ```
 
@@ -738,7 +738,7 @@ Design docs:
 ```text
 docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/design_discussion.md
 docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_001_counterpoint_first_serious_learning_evaluation_blueprint.md
-docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_gameplan.md
+docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_002_counterpoint_first_serious_learning_evaluation_implementation_workplan.md
 docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/01_003_counterpoint_first_serious_learning_evaluation_implementation_log.md
 ```
 
@@ -870,7 +870,7 @@ Design and implementation docs:
 docs/design/degenerate_tier_control/error_diagnosis_conversation.md
 docs/design/degenerate_tier_control/01_003_big_boy_benchmarking_handoff_note.md
 docs/design/degenerate_tier_control/01_004_counterpoint_degenerate_tier_handoff_integration_blueprint.md
-docs/design/degenerate_tier_control/01_005_counterpoint_degenerate_tier_handoff_integration_implementation_gameplan.md
+docs/design/degenerate_tier_control/01_005_counterpoint_degenerate_tier_handoff_integration_implementation_workplan.md
 docs/design/degenerate_tier_control/01_006_counterpoint_degenerate_tier_handoff_integration_implementation_log.md
 ```
 
@@ -1174,7 +1174,7 @@ Key files:
 ```text
 design_discussion.md
 01_001_counterpoint_one_third_schema_tower_diagnostics_blueprint.md
-01_002_counterpoint_one_third_schema_tower_diagnostics_implementation_gameplan.md
+01_002_counterpoint_one_third_schema_tower_diagnostics_implementation_workplan.md
 01_003_counterpoint_one_third_schema_tower_diagnostics_implementation_log.md
 ```
 

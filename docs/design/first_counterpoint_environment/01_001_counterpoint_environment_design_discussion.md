@@ -7,7 +7,7 @@ Initial design discussion for the first serious benchmark environment family in
 
 This document is not an implementation blueprint.
 
-This document is not an implementation gameplan.
+This document is not an implementation workplan.
 
 This document is not approval to edit benchmark code.
 
@@ -55,13 +55,13 @@ I interpret this as:
 - `docs/prime_directive/prime_directive.md`
 - `docs/prime_directive/common_failure_mode_001.md`
 - `docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md`
-- `docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md`
+- `docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md`
 - `docs/prime_directive/consultant_tricks.md`
 - `docs/prime_directive/git_practices.md`
 - `docs/design/first_infrastructure_slice/01_001_initial_benchmarking_goals_discussion.md`
 - `docs/design/first_infrastructure_slice/01_002_state_collapser_read_only_reconnaissance.md`
 - `docs/design/first_infrastructure_slice/01_003_benchmark_system_and_artifact_contract_blueprint.md`
-- `docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_gameplan.md`
+- `docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md`
 
 ### `/Users/foster/rl_counterpoint`
 
@@ -411,7 +411,7 @@ My current recommendation is:
 
 - keep upstream `rl_counterpoint_v3` as smoke/reference;
 - design `counterpoint_symbolic_v001` in this repo as the serious family;
-- implement it later only after the environment blueprint and gameplan are
+- implement it later only after the environment blueprint and workplan are
   approved.
 
 Reason:

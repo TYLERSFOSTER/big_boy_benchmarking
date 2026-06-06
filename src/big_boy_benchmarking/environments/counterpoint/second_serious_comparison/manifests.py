@@ -192,7 +192,7 @@ def readout_source_payload(
             "docs/design/first_counterpoint_environment/second_counterpoint_serious_evaluation/design_discussion.md",
         ],
         "methodology_summary_sources": [
-            "docs/design/first_counterpoint_environment/second_counterpoint_serious_evaluation/01_002_counterpoint_second_serious_schema_comparison_implementation_gameplan.md",
+            "docs/design/first_counterpoint_environment/second_counterpoint_serious_evaluation/01_002_counterpoint_second_serious_schema_comparison_implementation_workplan.md",
             "docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md",
         ],
         "structural_limit_checks": [

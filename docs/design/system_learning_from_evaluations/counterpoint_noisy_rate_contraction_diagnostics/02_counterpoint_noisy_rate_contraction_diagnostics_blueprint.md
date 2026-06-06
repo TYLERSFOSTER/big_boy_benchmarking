@@ -20,7 +20,7 @@ docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction
 
 This is a design blueprint.
 
-This is not an implementation gameplan.
+This is not an implementation workplan.
 
 This is not approval to edit source code.
 
@@ -33,7 +33,7 @@ This is not approval to edit `/Users/foster/state_collapser`.
 
 This blueprint turns the noisy-rate contraction discussion into a concrete
 diagnostic evaluation design. A later Phase.Stage.Action implementation
-gameplan must translate this blueprint into executable work before source
+workplan must translate this blueprint into executable work before source
 changes begin.
 
 ## Source Authority
@@ -995,7 +995,7 @@ Interpretation: invalid run; fix selection consistency before making claims.
 ## Expected Source Changes
 
 This section is not implementation approval. It is a map for the later
-gameplan.
+workplan.
 
 Likely source additions:
 
@@ -1112,7 +1112,7 @@ The following are consultant recommendations, not PO decisions:
 
 The Project Owner slots below remain unanswered unless the Project Owner
 actually writes into them. The consultant answer slots are filled with
-consultant-authored defaults so a later gameplan can proceed if the Project
+consultant-authored defaults so a later workplan can proceed if the Project
 Owner explicitly accepts defaults or executes without overriding them.
 
 ### Question 1: Selector Model
@@ -1236,7 +1236,7 @@ Owner explicitly accepts defaults or executes without overriding them.
 > noisy-rate diagnostic tests the sharper hypothesis: whether collapse persists
 > once many sources are allowed to select zero arrows.
 >
-> The noisy-rate gameplan should still include its own full-validation decision
+> The noisy-rate workplan should still include its own full-validation decision
 > lock before expensive artifact generation.
 
 ### Question 5: Naming
@@ -1268,6 +1268,6 @@ Owner explicitly accepts defaults or executes without overriding them.
 
 This blueprint is ready for Project Owner review.
 
-It is ready to support a Phase.Stage.Action implementation gameplan using the
+It is ready to support a Phase.Stage.Action implementation workplan using the
 consultant defaults above, provided the Project Owner explicitly approves
-gameplan execution and does not override those defaults.
+workplan execution and does not override those defaults.

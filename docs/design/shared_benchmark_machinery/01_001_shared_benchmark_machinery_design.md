@@ -4,7 +4,7 @@
 
 Initial consolidated design document.
 
-This is not an implementation gameplan.
+This is not an implementation workplan.
 
 This is not approval to edit source or tests.
 
@@ -18,8 +18,8 @@ This document follows:
 - `docs/design/first_infrastructure_slice/01_001_initial_benchmarking_goals_discussion.md`
 - `docs/design/first_infrastructure_slice/01_002_state_collapser_read_only_reconnaissance.md`
 - `docs/design/first_infrastructure_slice/01_003_benchmark_system_and_artifact_contract_blueprint.md`
-- `docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_gameplan.md`
-- `docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_gameplan.md`
+- `docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md`
+- `docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_workplan.md`
 - `docs/design/first_counterpoint_environment/01_004_counterpoint_hidden_graph_and_contraction_schema_implementation_log.md`
 - Read-only inspection of `/Users/foster/state_collapser` docs and source surfaces
 
@@ -56,7 +56,7 @@ src/big_boy_benchmarking/_version.py
 src/big_boy_benchmarking/state_collapser_probe.py
 ```
 
-The current repo does already contain a strong first infrastructure-slice blueprint and implementation gameplan. The purpose of this document is not to ignore those. The purpose is to consolidate them with the current understanding of `state_collapser`, so the next implementation gameplan can be less accidental and more clearly shared-machinery-first.
+The current repo does already contain a strong first infrastructure-slice blueprint and implementation workplan. The purpose of this document is not to ignore those. The purpose is to consolidate them with the current understanding of `state_collapser`, so the next implementation workplan can be less accidental and more clearly shared-machinery-first.
 
 ## Design Verdict
 
@@ -94,17 +94,17 @@ The boundary is important. `state_collapser` is not the benchmark manager. Its o
 
 The reply pass resolved the open choices that were previously written as questions.
 
-### Existing Infrastructure Gameplan
+### Existing Infrastructure Workplan
 
 Decision:
 
 ```text
-Amend the existing first-infrastructure-slice gameplan.
+Amend the existing first-infrastructure-slice workplan.
 ```
 
 Consequence:
 
-The older infrastructure gameplan remains real project history. The next implementation plan should not pretend to supersede it wholesale. It should amend, clarify, and execute the shared machinery work with the current counterpoint prerequisite in view.
+The older infrastructure workplan remains real project history. The next implementation plan should not pretend to supersede it wholesale. It should amend, clarify, and execute the shared machinery work with the current counterpoint prerequisite in view.
 
 ### First Smoke Environments
 
@@ -171,10 +171,10 @@ The first implementation should create the environment, experiment, result, and 
 | --- | ---: | --- |
 | BBB design intent | 8.5/10 | Existing docs already describe the measurement machine clearly. |
 | BBB implementation | 1/10 | Source package is still only dependency probe. |
-| Existing infrastructure gameplan fit | 7.5/10 | Strong coverage, but should be refreshed against current upstream reality before execution. |
+| Existing infrastructure workplan fit | 7.5/10 | Strong coverage, but should be refreshed against current upstream reality before execution. |
 | `state_collapser` runtime contract clarity | 8/10 | Good enough for adapters, but mostly provisional. |
 | `state_collapser` benchmark artifact support | 2.5/10 | Smoke benchmark exists, persistent artifact harness does not. |
-| Combined readiness for shared machinery design | 8/10 | Ready for design and then gameplan. |
+| Combined readiness for shared machinery design | 8/10 | Ready for design and then workplan. |
 
 ## Non-Goals
 
@@ -835,15 +835,15 @@ And the following surfaces:
 - timing segments;
 - runner skeletons.
 
-Only then should the counterpoint gameplan continue at:
+Only then should the counterpoint workplan continue at:
 
 ```text
 Phase 0.8
 ```
 
-## Relationship To Existing Infrastructure Gameplan
+## Relationship To Existing Infrastructure Workplan
 
-The existing first infrastructure-slice gameplan is still highly relevant.
+The existing first infrastructure-slice workplan is still highly relevant.
 
 The owner decision is to amend rather than erase it.
 
@@ -857,7 +857,7 @@ This shared-machinery design should therefore be read as an amendment layer:
 - include the human-facing docs skeleton;
 - preserve Prime Directive execution discipline.
 
-The next gameplan should be written in this folder because this is now the active design area. It should explicitly identify the older infrastructure gameplan as amended source authority rather than obsolete material.
+The next workplan should be written in this folder because this is now the active design area. It should explicitly identify the older infrastructure workplan as amended source authority rather than obsolete material.
 
 ## Proposed First Implementation Slice
 

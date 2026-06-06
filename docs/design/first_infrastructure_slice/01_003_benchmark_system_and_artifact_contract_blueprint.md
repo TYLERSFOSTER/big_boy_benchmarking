@@ -13,7 +13,7 @@ Related design inputs:
 
 ## Blueprint Verdict
 
-We are ready for a first blueprint, but not yet for an implementation gameplan.
+We are ready for a first blueprint, but not yet for an implementation workplan.
 
 The thing ready to blueprint is not:
 
@@ -48,7 +48,7 @@ The core bet is simple:
 > Build the measurement machine before arguing about the first big result.
 
 If this blueprint is accepted, the next document can be an implementation
-gameplan for the artifact skeleton, readout-discipline smoke test, and first
+workplan for the artifact skeleton, readout-discipline smoke test, and first
 upstream smoke matrix.
 
 ## Authority Boundaries
@@ -345,7 +345,7 @@ Use big_boy_benchmarking as the import package.
 ```text
 Accepted. The import package should be `big_boy_benchmarking`.
 
-This means the first implementation gameplan can assume:
+This means the first implementation workplan can assume:
 
 - `src/big_boy_benchmarking/` exists;
 - CLI modules live under `big_boy_benchmarking.cli`;
@@ -2288,7 +2288,7 @@ Required:
 
 ## Turn Question 10: Test-First Discipline
 
-Should the first implementation gameplan explicitly start with artifact/mode
+Should the first implementation workplan explicitly start with artifact/mode
 contract tests before runner code?
 
 Recommendation:
@@ -2335,13 +2335,13 @@ They are not about making the code fancy. They prevent a future result from
 being meaningless because a file changed shape, a mode silently changed
 meaning, or a metric accidentally pulled an expensive readout into the hot path.
 
-So yes: the first implementation gameplan should start with artifact/mode
+So yes: the first implementation workplan should start with artifact/mode
 contract tests before runner code.
 ```
 
 ## First Implementation Slice
 
-This is not a full gameplan, but this blueprint should point toward the first
+This is not a full workplan, but this blueprint should point toward the first
 slice.
 
 Recommended first implementation scope:
@@ -2390,7 +2390,7 @@ It creates the thing every later serious run needs:
 
 ## Blueprint Acceptance Criteria
 
-This blueprint is ready to become an implementation gameplan when the Project
+This blueprint is ready to become an implementation workplan when the Project
 Owner accepts or edits these decisions:
 
 1. import package name;
@@ -2405,7 +2405,7 @@ Owner accepts or edits these decisions:
 9. CLI naming posture;
 10. test-first implementation discipline.
 
-Not every answer must be perfect. But the implementation gameplan should know
+Not every answer must be perfect. But the implementation workplan should know
 which way to lean.
 
 ## PO Decision Summary After First Blueprint Reply
@@ -2427,16 +2427,16 @@ decisions:
 10. Test-first discipline: accepted, with contracts explained as engineering
     promises enforced by tests.
 
-## Implementation Gameplan Readiness
+## Implementation Workplan Readiness
 
-This blueprint is now ready to become an implementation gameplan for the first
+This blueprint is now ready to become an implementation workplan for the first
 slice:
 
 ```text
 artifact skeleton + mode registry + contract tests + readout-discipline upstream smoke
 ```
 
-The implementation gameplan should not yet attempt the first serious
+The implementation workplan should not yet attempt the first serious
 counterpoint-like environment family. That should be the next design blueprint
 after the artifact/mode measurement machine exists.
 
@@ -2637,7 +2637,7 @@ Recommended first policy:
 
 ### First Implementation Implication
 
-The first implementation gameplan should include creation of:
+The first implementation workplan should include creation of:
 
 ```text
 docs/environments/

@@ -1,8 +1,8 @@
-# State Collapser v0.7 Tensorization Integration Gameplan
+# State Collapser v0.7 Tensorization Integration Workplan
 
 Date: 2026-05-29
 
-Status: implementation gameplan, not yet executed
+Status: implementation workplan, not yet executed
 
 Repository:
 
@@ -12,7 +12,7 @@ Repository:
 
 ## Purpose
 
-This gameplan defines the local `big_boy_benchmarking` integration work needed
+This workplan defines the local `big_boy_benchmarking` integration work needed
 after upstream `state_collapser` released the first tensorization boundary in
 `v0.7.0`.
 
@@ -34,27 +34,27 @@ The Project Owner has identified the desired work:
 integrate state_collapser v0.7.0 into BBB shared machinery
 ```
 
-However, this exact gameplan did not exist when that instruction was given.
+However, this exact workplan did not exist when that instruction was given.
 
 Therefore:
 
 - this document may be reviewed and corrected by the Project Owner;
 - source/test/lockfile execution should begin only after the Project Owner
-  explicitly approves execution of this gameplan;
-- when approved, execution must follow this gameplan in order unless the
+  explicitly approves execution of this workplan;
+- when approved, execution must follow this workplan in order unless the
   Project Owner explicitly changes it.
 
 ## Source Authority
 
-This gameplan follows:
+This workplan follows:
 
 - `docs/prime_directive/prime_directive.md`
 - `docs/prime_directive/git_practices.md`
 - `docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md`
-- `docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md`
+- `docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md`
 - `CONTRIBUTING.md`
 - `docs/design/shared_benchmark_machinery/01_001_shared_benchmark_machinery_design.md`
-- `docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_gameplan.md`
+- `docs/design/shared_benchmark_machinery/01_002_shared_benchmark_machinery_implementation_workplan.md`
 - `docs/design/shared_benchmark_machinery/01_003_shared_benchmark_machinery_implementation_log.md`
 - `docs/design/shared_benchmark_machinery/01_004_state_collapser_tensorization_resume_note.md`
 - `docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/design_discussion.md`
@@ -64,7 +64,7 @@ This gameplan follows:
 
 ## Current Reality Bound By This Plan
 
-Observed local BBB state before this gameplan:
+Observed local BBB state before this workplan:
 
 ```text
 ## main...origin/main [ahead 1]
@@ -92,7 +92,7 @@ state_collapser.__version__ = 0.6.0
 Upstream `/Users/foster/state_collapser` now exposes the required tensorization
 surface in release `v0.7.0`.
 
-## Fixed Decisions For This Gameplan
+## Fixed Decisions For This Workplan
 
 These decisions are encoded here so the Project Owner can approve or correct
 them before execution.
@@ -236,7 +236,7 @@ Stop and ask the Project Owner if:
 - the required tensorization imports fail after the dependency update;
 - the `v0.7.0` tag does not resolve;
 - changing the lockfile requires network access that fails under sandboxing;
-- the current branch or git status diverges from this gameplan's assumptions;
+- the current branch or git status diverges from this workplan's assumptions;
 - an implementation action requires editing `/Users/foster/state_collapser`;
 - a source action would require reinterpreting tensorization as the existing
   execution-mode axis;
@@ -301,7 +301,7 @@ instead of editing the lockfile by hand.
 Confirm the Project Owner explicitly approved execution of this file:
 
 ```text
-docs/design/shared_benchmark_machinery/01_005_state_collapser_v0_7_tensorization_integration_gameplan.md
+docs/design/shared_benchmark_machinery/01_005_state_collapser_v0_7_tensorization_integration_workplan.md
 ```
 
 Acceptance criteria:
@@ -317,13 +317,13 @@ Re-read Prime Directive files:
 docs/prime_directive/prime_directive.md
 docs/prime_directive/git_practices.md
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
-docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
 ```
 
 Acceptance criteria:
 
 - implementation log records the re-read;
-- no contradictions are found between this gameplan and the Prime Directive.
+- no contradictions are found between this workplan and the Prime Directive.
 
 ### Stage 0.2: Create Implementation Branch
 
@@ -391,7 +391,7 @@ src/big_boy_benchmarking/cli/main.py
 Acceptance criteria:
 
 - implementation log records that these files were read;
-- any mismatch with this gameplan stops execution.
+- any mismatch with this workplan stops execution.
 
 ## Phase 1: Dependency Pin And Import Gate
 

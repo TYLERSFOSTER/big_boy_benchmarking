@@ -28,7 +28,7 @@
   "expected_files": {
     "conditional": {},
     "expectation_sources": [
-      "docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction_diagnostics/03_counterpoint_noisy_rate_contraction_diagnostics_implementation_gameplan.md"
+      "docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction_diagnostics/03_counterpoint_noisy_rate_contraction_diagnostics_implementation_workplan.md"
     ],
     "expected_absent_is_gap": [],
     "not_applicable": [
@@ -116,7 +116,7 @@
   ],
   "methodology_summary_sources": [
     "docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction_diagnostics/02_counterpoint_noisy_rate_contraction_diagnostics_blueprint.md",
-    "docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction_diagnostics/03_counterpoint_noisy_rate_contraction_diagnostics_implementation_gameplan.md",
+    "docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_contraction_diagnostics/03_counterpoint_noisy_rate_contraction_diagnostics_implementation_workplan.md",
     "docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md"
   ],
   "rates": [

@@ -273,7 +273,7 @@ The first implementation slice should probably add:
 - a CPU-enabled smoke runner path if Torch is available,
 - and tests proving reserved modes are rejected unless explicitly allowed.
 
-This should be gameplanned separately before source edits.
+This should be workplanned separately before source edits.
 
 ## Validation Evidence From Upstream
 
@@ -332,7 +332,7 @@ Updated: 2026-05-29
 The local BBB integration work is now being executed under:
 
 ```text
-docs/design/shared_benchmark_machinery/01_005_state_collapser_v0_7_tensorization_integration_gameplan.md
+docs/design/shared_benchmark_machinery/01_005_state_collapser_v0_7_tensorization_integration_workplan.md
 ```
 
 The running implementation log is:

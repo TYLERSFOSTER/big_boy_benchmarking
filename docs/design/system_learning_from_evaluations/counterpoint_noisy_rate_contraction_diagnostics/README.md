@@ -31,7 +31,7 @@ scheduled edges.
 
 - [Fraction Sweep Readout Conversation Archive](01_fraction_sweep_readout_conversation_archive.md)
 - [Noisy-Rate Contraction Diagnostics Blueprint](02_counterpoint_noisy_rate_contraction_diagnostics_blueprint.md)
-- [Noisy-Rate Contraction Diagnostics Implementation Gameplan](03_counterpoint_noisy_rate_contraction_diagnostics_implementation_gameplan.md)
+- [Noisy-Rate Contraction Diagnostics Implementation Workplan](03_counterpoint_noisy_rate_contraction_diagnostics_implementation_workplan.md)
 - [Noisy-Rate Contraction Diagnostics Implementation Log](04_counterpoint_noisy_rate_contraction_diagnostics_implementation_log.md)
 
 ## Initial Design Hypothesis

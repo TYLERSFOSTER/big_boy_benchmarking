@@ -51,7 +51,7 @@
   "expected_files": {
     "conditional": {},
     "expectation_sources": [
-      "docs/design/first_counterpoint_environment/threshold_frontier_probe/01_002_counterpoint_threshold_frontier_probe_implementation_gameplan.md"
+      "docs/design/first_counterpoint_environment/threshold_frontier_probe/01_002_counterpoint_threshold_frontier_probe_implementation_workplan.md"
     ],
     "expected_absent_is_gap": [],
     "not_applicable": [
@@ -107,7 +107,7 @@
   ],
   "liftability_semantics_id": "state_collapser_v072_pointwise",
   "methodology_summary_sources": [
-    "docs/design/first_counterpoint_environment/threshold_frontier_probe/01_002_counterpoint_threshold_frontier_probe_implementation_gameplan.md",
+    "docs/design/first_counterpoint_environment/threshold_frontier_probe/01_002_counterpoint_threshold_frontier_probe_implementation_workplan.md",
     "docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md"
   ],
   "recommended_replicate_probe_threshold": 13.0,
