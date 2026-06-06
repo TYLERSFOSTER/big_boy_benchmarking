@@ -1,0 +1,3 @@
+{"diagnostic_name": "valid_state_count", "exact_or_sampled": "exact", "lifecycle": "posthoc", "readout_backed": false, "run_id": "plate_support_5x5_default_v001-readiness-seed0", "schema_id": null, "tier_index": null, "value": "89"}
+{"diagnostic_name": "shortest_path_length", "exact_or_sampled": "exact", "lifecycle": "posthoc", "readout_backed": false, "run_id": "plate_support_5x5_default_v001-readiness-seed0", "schema_id": null, "tier_index": null, "value": "6"}
+{"diagnostic_name": "default_tower_max_depth", "exact_or_sampled": "sampled", "lifecycle": "posthoc", "readout_backed": true, "run_id": "plate_support_5x5_default_v001-readiness-seed0", "schema_id": "upstream_default_plate_support_schema_v001", "tier_index": null, "value": "2"}

@@ -1,0 +1,23 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "budget": {
+    "random_policy_episodes": 1000,
+    "tower_probe_sample_size": 20,
+    "tower_probe_steps": 20
+  },
+  "command": "uv run python -m big_boy_benchmarking.cli plate-support readiness --artifact-root docs/environments/plate_support_5x5_default_v001/readiness/dev_001",
+  "controller_id": "none",
+  "diagnostic_profile": "environment_readiness",
+  "environment_id": "plate_support_5x5_default_v001",
+  "learner_id": "tabular_q",
+  "linearization_benchmark_label": "tensor_available_disabled",
+  "linearization_enabled": false,
+  "linearization_mode_id": "tensor_available_disabled",
+  "mode_id": "tower_nonempty_schema_tabular",
+  "run_family_id": "plate_support_environment_readiness_v001",
+  "run_id": "plate_support_5x5_default_v001-readiness-seed0",
+  "schema_id": "upstream_default_plate_support_schema_v001",
+  "seed_bundle_id": "seed-7fe8666539580bdb",
+  "status": "success",
+  "timing_profile": "diagnostic_readout"
+}

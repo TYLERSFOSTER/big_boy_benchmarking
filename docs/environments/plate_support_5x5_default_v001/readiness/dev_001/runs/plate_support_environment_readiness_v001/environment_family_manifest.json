@@ -1,0 +1,8 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "description": "Constrained robotics-style upstream PlateSupport environment.",
+  "environment_family_id": "plate_support",
+  "environment_ids": [
+    "plate_support_5x5_default_v001"
+  ]
+}

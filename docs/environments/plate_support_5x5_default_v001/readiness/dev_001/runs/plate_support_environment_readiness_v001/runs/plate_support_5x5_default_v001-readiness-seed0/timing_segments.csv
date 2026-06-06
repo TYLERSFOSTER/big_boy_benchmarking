@@ -1,0 +1,6 @@
+run_id,segment_name,category,seconds,online
+plate_support_5x5_default_v001-readiness-seed0,posthoc_diagnostics,posthoc,0.40164962504059076,False
+plate_support_5x5_default_v001-readiness-seed0,environment_reset,algorithm_online,0.0008455000352114439,True
+plate_support_5x5_default_v001-readiness-seed0,compatibility_readout,readout,0.0003548329696059227,False
+plate_support_5x5_default_v001-readiness-seed0,encoding_registry_build,linearization_setup,3.5415985621511936e-05,True
+plate_support_5x5_default_v001-readiness-seed0,linearization_report_build,linearization_setup,0.0004523330135270953,True

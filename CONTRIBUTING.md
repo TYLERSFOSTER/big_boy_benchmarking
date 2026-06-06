@@ -284,6 +284,17 @@ uv run python -m big_boy_benchmarking.cli counterpoint tower-smoke \
   --seed 2
 ```
 
+PlateSupport environment-readiness command:
+
+```bash
+uv run python -m big_boy_benchmarking.cli plate-support readiness \
+  --artifact-root docs/environments/plate_support_5x5_default_v001/readiness/dev_001
+```
+
+This command writes environment-readiness artifacts under `docs/environments/`,
+not `docs/evaluations/`. It is an environment construction check, not a
+learning evaluation.
+
 Counterpoint serious-learning commands:
 
 ```bash

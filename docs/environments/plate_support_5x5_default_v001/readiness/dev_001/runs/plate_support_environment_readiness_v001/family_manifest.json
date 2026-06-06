@@ -1,0 +1,5 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "description": "PlateSupport environment-readiness diagnostics.",
+  "run_family_id": "plate_support_environment_readiness_v001"
+}

@@ -1,0 +1,65 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "linearization_mode_contract": {
+    "artifact_claim_level": "tensor_capable_disabled_smoke",
+    "constructs_linearized_records": false,
+    "constructs_torch_batches": false,
+    "conversion_timing_required": true,
+    "debug_record_export_allowed": false,
+    "expected_benchmark_label": "tensor_available_disabled",
+    "linearization_mode_id": "tensor_available_disabled",
+    "linearization_state": "PRESENT_DISABLED",
+    "numeric_backend": "NUMPY",
+    "report_required": true,
+    "requires_cuda": false,
+    "requires_numpy": true,
+    "requires_torch": false,
+    "reserved_reason": null,
+    "runnable": true,
+    "tensor_device_kind": "NONE"
+  },
+  "mode_contract": {
+    "controller_regime": "none",
+    "diagnostic_profile": {
+      "profile_id": "diagnostic",
+      "structural_diagnostics": "sampled"
+    },
+    "environment_coupling": "tower_runtime",
+    "learner_id": "tabular_q",
+    "mode_id": "tower_nonempty_schema_tabular",
+    "morphism_policy": {
+      "allowed": false,
+      "reason": "default hot path excludes morphism construction",
+      "requested": false
+    },
+    "online_costs_excluded": [
+      "morphism_construction"
+    ],
+    "online_costs_included": [
+      "environment_reset",
+      "environment_step",
+      "tower_reset",
+      "tower_update",
+      "learner_act"
+    ],
+    "readout_policy": {
+      "allowed": true,
+      "reason": "diagnostic mode explicitly requests compatibility readout",
+      "requested": true
+    },
+    "reserved_reason": null,
+    "runnable": true,
+    "schema_mode": "dimensionwise",
+    "timing_profile": {
+      "include_morphism": false,
+      "include_readout": true,
+      "profile_id": "diagnostic_readout"
+    },
+    "training_surface": "tower"
+  },
+  "mode_id": "tower_nonempty_schema_tabular",
+  "morphism_requested": false,
+  "readout_requested": true,
+  "uses_compatibility_readout": true,
+  "uses_morphism": false
+}

@@ -1,0 +1,8 @@
+step_index,state_id,action_index,action_label,next_state_id,reward
+0,plate_support_state:x2:y2:theta0:e1-1-1,1,plate_x_minus,plate_support_state:x1:y2:theta0:e1-1-1,-1.0
+1,plate_support_state:x1:y2:theta0:e1-1-1,6,arm1_extend,plate_support_state:x1:y2:theta0:e2-1-1,-1.0
+2,plate_support_state:x1:y2:theta0:e2-1-1,8,arm2_extend,plate_support_state:x1:y2:theta0:e2-2-1,-1.0
+3,plate_support_state:x1:y2:theta0:e2-2-1,10,arm3_extend,plate_support_state:x1:y2:theta0:e2-2-2,-1.0
+4,plate_support_state:x1:y2:theta0:e2-2-2,3,plate_y_minus,plate_support_state:x1:y1:theta0:e2-2-2,-1.0
+5,plate_support_state:x1:y1:theta0:e2-2-2,4,theta_plus,plate_support_state:x1:y1:theta1:e2-2-2,100.0
+6,plate_support_state:x1:y1:theta1:e2-2-2,,terminal,plate_support_state:x1:y1:theta1:e2-2-2,

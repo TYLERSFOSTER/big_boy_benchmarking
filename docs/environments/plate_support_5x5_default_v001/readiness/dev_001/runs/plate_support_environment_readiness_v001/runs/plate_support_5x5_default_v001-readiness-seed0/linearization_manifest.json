@@ -1,0 +1,52 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "conversion_records_exported": false,
+  "debug_record_artifacts": [],
+  "linearization_config": {
+    "debug_export_records": false,
+    "derived_benchmark_label": "tensor_available_disabled",
+    "device_kind": "NONE",
+    "dtype": null,
+    "encoder_registry_id": "363db0878bddf861d8f65fae1cfbc697f69c2355558d41f705712a4e756fe2c4",
+    "include_diagnostics": false,
+    "linearization_state": "PRESENT_DISABLED",
+    "mask_dtype": "bool",
+    "max_action_count": 12,
+    "max_tower_depth": 2,
+    "numeric_backend": "NUMPY",
+    "sequence_length": null,
+    "strict": true
+  },
+  "linearization_mode_id": "tensor_available_disabled",
+  "linearization_report": {
+    "backend_available": true,
+    "benchmark_label": "tensor_available_disabled",
+    "conversion_count": 0,
+    "conversion_elapsed_seconds": 0.0,
+    "cuda_available": false,
+    "debug_record_exported": false,
+    "device_kind": "NONE",
+    "dtype": null,
+    "enabled": false,
+    "encoder_registry_id": "363db0878bddf861d8f65fae1cfbc697f69c2355558d41f705712a4e756fe2c4",
+    "linearization_state": "PRESENT_DISABLED",
+    "mask_dtype": "bool",
+    "max_action_count": 12,
+    "max_tower_depth": 2,
+    "metadata": {
+      "environment_family_id": "plate_support",
+      "environment_instance_id": "plate_support_5x5_default_v001",
+      "mode_id": "tower_nonempty_schema_tabular",
+      "runner": "plate_support_environment_readiness"
+    },
+    "numeric_backend": "NUMPY",
+    "numpy_available": true,
+    "numpy_version": "2.4.6",
+    "schema_fingerprint": "6ebd86acfe42317610ce2797ed6184a9da50551e52caa3e1aca75a3b80cf7e2d",
+    "torch_available": false,
+    "torch_version": null,
+    "tower_fingerprint": "363db0878bddf861d8f65fae1cfbc697f69c2355558d41f705712a4e756fe2c4"
+  },
+  "report_source": "state_collapser.training.build_linearization_report",
+  "run_id": "plate_support_5x5_default_v001-readiness-seed0"
+}

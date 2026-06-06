@@ -202,6 +202,12 @@ from big_boy_benchmarking.environments.counterpoint.small_paired_replicate_probe
 from big_boy_benchmarking.environments.counterpoint.threshold_frontier_probe import (
     paths as threshold_frontier_paths,
 )
+from big_boy_benchmarking.environments.plate_support.ids import (
+    DEFAULT_INSTANCE_ID as PLATE_SUPPORT_DEFAULT_INSTANCE_ID,
+)
+from big_boy_benchmarking.environments.plate_support.runner import (
+    run_plate_support_environment_readiness,
+)
 from big_boy_benchmarking.modes.contracts import validate_mode_contract
 from big_boy_benchmarking.modes.linearization import (
     iter_linearization_mode_contracts,
@@ -273,6 +279,30 @@ def build_parser() -> argparse.ArgumentParser:
     summary_parser.add_argument(
         "--run-family-id",
         default="upstream_smoke_readout_discipline_v001",
+    )
+
+    plate_support_parser = subparsers.add_parser("plate-support")
+    plate_support_subparsers = plate_support_parser.add_subparsers(
+        dest="plate_support_command",
+        required=True,
+    )
+    plate_support_readiness_parser = plate_support_subparsers.add_parser("readiness")
+    plate_support_readiness_parser.add_argument("--artifact-root", required=True, type=Path)
+    plate_support_readiness_parser.add_argument(
+        "--instance-id",
+        default=PLATE_SUPPORT_DEFAULT_INSTANCE_ID,
+        choices=(PLATE_SUPPORT_DEFAULT_INSTANCE_ID,),
+    )
+    plate_support_readiness_parser.add_argument("--run-id")
+    plate_support_readiness_parser.add_argument("--random-policy-episodes", type=int, default=1000)
+    plate_support_readiness_parser.add_argument("--random-policy-seed", type=int, default=0)
+    plate_support_readiness_parser.add_argument("--tower-probe-steps", type=int, default=20)
+    plate_support_readiness_parser.add_argument("--tower-probe-sample-size", type=int, default=20)
+    plate_support_readiness_parser.add_argument("--docs-path", type=Path)
+    plate_support_readiness_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
     )
 
     counterpoint_parser = subparsers.add_parser("counterpoint")
@@ -815,6 +845,40 @@ def _counterpoint_spec(instance_id: str):
     if instance_id == "small":
         return default_small_spec()
     raise ValueError(f"unknown counterpoint instance id: {instance_id}")
+
+
+def _run_plate_support_command(args: argparse.Namespace) -> int:
+    if args.plate_support_command == "readiness":
+        if args.linearization_mode != "tensor_available_disabled":
+            raise ValueError(
+                "PlateSupport readiness uses tensor_available_disabled; "
+                f"reserved linearization mode rejected: {args.linearization_mode}"
+            )
+        result = run_plate_support_environment_readiness(
+            artifact_root=args.artifact_root,
+            instance_id=args.instance_id,
+            run_id=args.run_id,
+            random_policy_episodes=args.random_policy_episodes,
+            random_policy_seed=args.random_policy_seed,
+            tower_probe_steps=args.tower_probe_steps,
+            tower_probe_sample_size=args.tower_probe_sample_size,
+            docs_path=args.docs_path,
+            linearization_mode_id=args.linearization_mode,
+        )
+        print(
+            json.dumps(
+                {
+                    "status": result.status,
+                    "run_id": result.run_id,
+                    "summary_path": result.summary_path,
+                    "artifact_count": len(result.artifact_paths),
+                },
+                sort_keys=True,
+            )
+        )
+        return 0 if result.status == "success" else 2
+
+    raise ValueError(f"unknown PlateSupport command: {args.plate_support_command}")
 
 
 def _run_counterpoint_command(args: argparse.Namespace) -> int:
@@ -1498,6 +1562,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         summary = summarize_upstream_smoke(args.artifact_root, args.run_family_id)
         print(json.dumps(summary, sort_keys=True))
         return 0
+
+    if args.command == "plate-support":
+        return _run_plate_support_command(args)
 
     if args.command == "counterpoint":
         return _run_counterpoint_command(args)

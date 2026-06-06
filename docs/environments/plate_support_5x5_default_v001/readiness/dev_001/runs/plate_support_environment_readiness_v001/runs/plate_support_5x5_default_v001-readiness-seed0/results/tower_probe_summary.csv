@@ -1,0 +1,3 @@
+schema_id,upstream_schema_mode,env_name,steps,sample_size,seed,use_contraction_policy,reset_on_terminal,max_depth,scheduled_assignment_count,unscheduled_assignment_count,depth_curve,reset_event_count
+upstream_default_plate_support_schema_v001,default,plate_support_env,20,20,1869645362,True,True,2,96,0,"[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]",0
+no_contraction_schema_v001,none,plate_support_env,20,20,1869645362,True,True,1,0,96,"[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]",0

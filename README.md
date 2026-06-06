@@ -38,8 +38,9 @@ uv run ruff check .
 
 ## Current Status
 
-`big_boy_benchmarking` has eight repo-side counterpoint evaluation readouts and
-several supporting smoke/diagnostic surfaces.
+`big_boy_benchmarking` has eight repo-side counterpoint evaluation readouts, a
+first-class PlateSupport environment-readiness surface, and several supporting
+smoke/diagnostic surfaces.
 
 Implemented infrastructure:
 
@@ -59,12 +60,21 @@ Implemented infrastructure:
   corrected Schema 0 versus Schema 1 comparison surface;
 - small paired replicate probe machinery for seed-paired Schema 0 versus
   Schema 1 next-measure evaluation;
+- `plate_support`, a first-class BBB environment family wrapping the upstream
+  constrained robotics-style PlateSupport example with structural readiness
+  artifacts and human environment docs;
 - repo-side human-readable readout protocol and local status badges.
 
 The serious-learning default linearization condition is
 `tensor_available_disabled`: the tensorization boundary exists and is recorded,
 but tensor execution is disabled. CPU/CUDA tensor-enabled modes remain reserved
 until explicitly designed, implemented, and validated.
+
+## Completed Environment Readiness Surfaces
+
+| Environment | Status | Human-readable page | What we can conclude |
+| --- | --- | --- | --- |
+| PlateSupport 5x5 default v001, readiness run `dev_001` | Complete environment-readiness surface | [environment page](docs/environments/plate_support_5x5_default_v001.md), [artifact index](docs/environments/plate_support_5x5_default_v001/readiness/dev_001/artifact_index.md), [readout source](docs/environments/plate_support_5x5_default_v001/readiness/dev_001/readout_source.json) | BBB can bind the upstream `plate_support_env` surface as a first-class constrained robotics-style environment, enumerate 2700 candidate states and 89 valid states, confirm all valid states are reachable from start, distinguish invalid self-loops from valid clipped self-transitions, record a 6-step shortest start-goal path, run default-vs-flat tower readiness probes, and write shared BBB artifacts. This is environment readiness, not learning-performance evidence. |
 
 ## Completed Evaluation Readouts
 
@@ -135,6 +145,11 @@ The completed counterpoint readouts support these claims:
   four-episode smoke budget;
 - random tower schemas expose schema-seed-dependent
   `no_lift_candidate_from_current_state` lift/action-realization failures.
+- PlateSupport is now environment-ready inside BBB: the checked-in readiness
+  run proves import health, exact valid-graph enumeration, start-goal
+  nontriviality, invalid/self-transition diagnostics, tower-shape availability,
+  training-surface availability, and artifact/doc generation under
+  `docs/environments/`.
 
 The current readouts do **not yet** support:
 
@@ -158,6 +173,8 @@ The current readouts do **not yet** support:
   artifact is implementation smoke only, and the intended meaningful run should
   use a threshold selected by a meaningful threshold-frontier run or explicit
   Project Owner override.
+- PlateSupport learning claims; no PlateSupport evaluation folder, learning
+  budget, or flat-vs-tower comparison has been designed or run yet.
 
 Known documentation/artifact notes:
 
@@ -251,6 +268,14 @@ Run a harness smoke into an explicit artifact root with:
 uv run python -m big_boy_benchmarking.cli run-upstream-smoke \
   --smoke-id plate_support_env \
   --artifact-root <artifact-root>
+```
+
+Run the first-class PlateSupport environment-readiness surface into the
+repo-side environment docs path with:
+
+```bash
+uv run python -m big_boy_benchmarking.cli plate-support readiness \
+  --artifact-root docs/environments/plate_support_5x5_default_v001/readiness/dev_001
 ```
 
 The future installed command name `bbb` is reserved, but this slice exposes the

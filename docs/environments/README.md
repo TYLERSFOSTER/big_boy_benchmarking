@@ -24,3 +24,17 @@ Follow:
 ```text
 docs/prime_directive/environment_construction_for_benchmark_evaluations_protocol.md
 ```
+
+## Current Environment Pages
+
+- [Counterpoint symbolic v001](counterpoint_symbolic_v001.md): benchmark-owned
+  symbolic hidden-graph environment used by the current counterpoint evaluation
+  suite.
+- [PlateSupport 5x5 default v001](plate_support_5x5_default_v001.md):
+  first-class BBB environment-readiness surface for the upstream constrained
+  robotics-style PlateSupport example.
+- [Upstream smoke PlateSupport](upstream_smoke_plate_support.md): smoke-only
+  upstream import/readout-discipline page, not the first-class environment
+  readiness surface.
+- [Upstream smoke rl_counterpoint_v3](upstream_smoke_rl_counterpoint_v3.md):
+  smoke-only upstream import/readout-discipline page.

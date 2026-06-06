@@ -1,0 +1,2 @@
+status,environment_instance_id,candidate_state_count,valid_state_count,reachable_state_count,shortest_path_length,default_schema_max_depth
+success,plate_support_5x5_default_v001,2700,89,89,6,2

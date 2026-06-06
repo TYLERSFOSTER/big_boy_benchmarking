@@ -1,0 +1,1 @@
+{"artifact_schema_version": "bbb.v001", "ended_at": "2026-06-06T16:47:31.094014+00:00", "environment_id": "plate_support_5x5_default_v001", "mode_id": "tower_nonempty_schema_tabular", "run_family_id": "plate_support_environment_readiness_v001", "run_id": "plate_support_5x5_default_v001-readiness-seed0", "started_at": "2026-06-06T16:47:30.665624+00:00", "status": "success"}

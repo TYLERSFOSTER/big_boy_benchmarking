@@ -1,0 +1,17 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "environment_instance_id": "plate_support_5x5_default_v001",
+  "readiness_run_family_id": "plate_support_environment_readiness_v001",
+  "schema_probes": [
+    {
+      "claim_boundary": "tower depth only; not learning performance evidence",
+      "schema_id": "upstream_default_plate_support_schema_v001",
+      "upstream_schema_mode": "default"
+    },
+    {
+      "claim_boundary": "flat structural control only",
+      "schema_id": "no_contraction_schema_v001",
+      "upstream_schema_mode": "none"
+    }
+  ]
+}
