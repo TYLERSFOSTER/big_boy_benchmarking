@@ -1,0 +1,89 @@
+{
+  "artifact_run_label": "smoke_001",
+  "artifact_schema_version": "bbb.v001",
+  "badge_policy": {
+    "dimensions": [
+      "artifact_status",
+      "behavioral_status",
+      "goal_status",
+      "claim_scope",
+      "provenance_status"
+    ]
+  },
+  "claim_boundary": [
+    "Stage 1 may claim structural and tower diagnostics are complete",
+    "Stage 1 may claim schema sweep readiness if downstream_readiness_summary allows it",
+    "Stage 1 may not claim tower learning benefit or comparison success"
+  ],
+  "environment_family_id": "plate_support",
+  "environment_instance_id": "plate_support_5x5_default_v001",
+  "evaluation_id": "plate_support_gauntlet_structural_tower_diagnostics_v001",
+  "expected_files": {
+    "conditional": {},
+    "expectation_sources": [
+      "docs/design/first_plate_support_environment/standard_gauntlet_suite/01_structural_and_tower_diagnostics/01_001_plate_support_structural_and_tower_diagnostics_blueprint.md"
+    ],
+    "expected_absent_is_gap": [],
+    "not_applicable": [],
+    "required": [
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/identity_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/state_space_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/action_table.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/transition_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/shortest_path_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/validity_predicate_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/geometry_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/random_policy_recon_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/tower_shape_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/training_surface_availability.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/downstream_readiness_summary.csv"
+    ]
+  },
+  "goal_criteria": [
+    {
+      "claim_if_met": "Stage 2 schema sweep may consume Stage 1 artifacts",
+      "claim_if_not_met": "Downstream schema sweep is blocked until Stage 1 is repaired",
+      "failure_signal": "downstream_readiness_summary.csv has a blocking_reason",
+      "goal_id": "plate_support_stage1_ready_for_schema_sweep",
+      "partial_signal": "diagnostic tables exist but warning fields are nonempty",
+      "question": "Is PlateSupport structurally ready for the schema sweep stage?",
+      "success_signal": "downstream_readiness_summary.csv ready_for_schema_sweep is true"
+    }
+  ],
+  "goal_summary_sources": [
+    "docs/design/first_plate_support_environment/standard_gauntlet_suite/01_structural_and_tower_diagnostics/01_001_plate_support_structural_and_tower_diagnostics_blueprint.md",
+    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/method.md"
+  ],
+  "methodology_summary_sources": [
+    "docs/design/first_plate_support_environment/standard_gauntlet_suite/01_structural_and_tower_diagnostics/01_001_plate_support_structural_and_tower_diagnostics_blueprint.md",
+    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/method.md",
+    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/runbook.md"
+  ],
+  "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics",
+  "repo_root": "/Users/foster/big_boy_benchmarking",
+  "run_mode": "stage1_structural_diagnostics",
+  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics",
+  "source_binding_type": "evaluation_readout_source",
+  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics",
+  "source_files": {
+    "action_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/action_table.csv",
+    "downstream_readiness_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/downstream_readiness_summary.csv",
+    "geometry_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/geometry_summary.csv",
+    "identity_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/identity_summary.csv",
+    "random_policy_recon_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/random_policy_recon_summary.csv",
+    "shortest_path_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/shortest_path_summary.csv",
+    "state_space_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/state_space_summary.csv",
+    "tower_shape_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/tower_shape_summary.csv",
+    "training_surface_availability": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/training_surface_availability.csv",
+    "transition_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/transition_summary.csv",
+    "validity_predicate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/structural_and_tower_diagnostics/results/validity_predicate_summary.csv"
+  },
+  "structural_limit_checks": [
+    {
+      "check_id": "stage1_schema_sweep_gate",
+      "claim_effect": "blocks schema sweep and all downstream claims",
+      "interpretation_if_triggered": "The environment diagnostic stage completed enough to explain the block, but Stage 2 must not run until the blocking reason is resolved.",
+      "trigger": "ready_for_schema_sweep is false"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+suite_id,stage_id,run_label,status,started_at,ended_at,artifact_schema_version
+plate_support_standard_gauntlet_v001,plate_support_gauntlet_candidate_discovery_v001,smoke_001,complete,2026-06-06T20:58:55.876465+00:00,2026-06-06T20:58:55.876606+00:00,bbb.v001

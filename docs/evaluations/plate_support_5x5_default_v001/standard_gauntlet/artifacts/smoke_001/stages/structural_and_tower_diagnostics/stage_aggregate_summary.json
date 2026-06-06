@@ -1,0 +1,8 @@
+{
+  "blocking_reason": "",
+  "claim_boundary": "diagnostic-only; schema-sweep readiness if pass criteria hold",
+  "claim_status": "diagnostic_complete",
+  "ready_for_schema_sweep": true,
+  "stage_id": "plate_support_gauntlet_structural_tower_diagnostics_v001",
+  "status": "complete"
+}

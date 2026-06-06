@@ -396,6 +396,8 @@ Not inherited:
 
 ## Open Questions For Project Owner
 
+These are consultant-authored open questions, not Project Owner statements.
+
 ### Question 1: Candidate Cap
 
 Consultant recommendation for first implementation:
@@ -406,10 +408,10 @@ warning_candidate_cap = 1
 degeneracy_anchor_cap = 1
 ```
 
-Project Owner response:
+Resolution status:
 
 ```text
-TODO
+Pending Project Owner answer.
 ```
 
 ### Question 2: Upstream Default Candidate Treatment
@@ -418,10 +420,10 @@ Consultant recommendation: include upstream default as a candidate if it meets
 eligibility, because it is the known upstream schema. If it is the only eligible
 candidate, mark the suite warning rather than blocked.
 
-Project Owner response:
+Resolution status:
 
 ```text
-TODO
+Pending Project Owner answer.
 ```
 
 ### Question 3: Warning Candidate Authorization
@@ -429,10 +431,10 @@ TODO
 Consultant recommendation: Stage 3 may select warning candidates, but Stage 4
 should require explicit budget-lock acknowledgement before training them.
 
-Project Owner response:
+Resolution status:
 
 ```text
-TODO
+Pending Project Owner answer.
 ```
 
 ## Expected Next Blueprint

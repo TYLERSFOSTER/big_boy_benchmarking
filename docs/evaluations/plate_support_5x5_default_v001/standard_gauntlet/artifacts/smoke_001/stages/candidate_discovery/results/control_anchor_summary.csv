@@ -1,0 +1,2 @@
+candidate_id,schema_id,schema_family_id,schema_seed,selection_status,allowed_downstream_stage
+plate_support_candidate:no_contraction:0:3348f86d2c,plate_support_schema_no_contraction_v001,no_contraction,0,selected_control_anchor,diagnostic_control

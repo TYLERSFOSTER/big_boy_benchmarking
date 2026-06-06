@@ -1,0 +1,72 @@
+{
+  "artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001",
+  "artifact_schema_version": "bbb.v001",
+  "environment_doc": "/Users/foster/big_boy_benchmarking/docs/environments/plate_support_5x5_default_v001.md",
+  "readiness_artifact_root": "/Users/foster/big_boy_benchmarking/docs/environments/plate_support_5x5_default_v001/readiness/dev_001",
+  "readiness_run_family_summary": "/Users/foster/big_boy_benchmarking/docs/environments/plate_support_5x5_default_v001/readiness/dev_001/runs/plate_support_environment_readiness_v001/summaries/summary.json",
+  "readiness_source": "/Users/foster/big_boy_benchmarking/docs/environments/plate_support_5x5_default_v001/readiness/dev_001/readout_source.json",
+  "stage_id": "plate_support_gauntlet_structural_tower_diagnostics_v001",
+  "state_collapser_dependency_state": {
+    "cuda_available": null,
+    "dependency_spec": "state-collapser[rl] @ git+https://github.com/TYLERSFOSTER/state_collapser.git@v0.7.2",
+    "git_ahead_behind": null,
+    "git_branch": null,
+    "git_commit": null,
+    "git_dirty": null,
+    "import_version": "0.7.2",
+    "inspection_status": "ok",
+    "linearization_import_status": "ok",
+    "linearization_symbols": [
+      "EncodingRegistry",
+      "LinearizationConfig",
+      "LinearizationReport",
+      "LinearizationState",
+      "NumericBackend",
+      "TensorDeviceKind",
+      "build_linearization_report"
+    ],
+    "serious_training_import_status": "ok",
+    "serious_training_symbols": [
+      "ActionDecision",
+      "ActionSelectionInput",
+      "FiberConditionedStage",
+      "FrozenQuotientBehavior",
+      "LiftSelector",
+      "PathFiber",
+      "TabularQLearner",
+      "TrainingTransition",
+      "deterministic_first_lift_selector"
+    ],
+    "source_path": "/Users/foster/big_boy_benchmarking/.venv/lib/python3.11/site-packages/state_collapser",
+    "torch_import_status": "missing",
+    "tower_control_import_status": "ok",
+    "tower_control_symbols": [
+      "ActiveTierController",
+      "ActiveTierState",
+      "ControlAction",
+      "FrozenLowerContext",
+      "LiftResolveExecutor",
+      "TierLearner",
+      "TierSignalState"
+    ],
+    "tower_partition_import_status": "ok",
+    "tower_partition_method_status": "ok",
+    "tower_partition_methods": [
+      "invariant_report",
+      "assert_consistent",
+      "executable_lift_candidates",
+      "tier_is_executable_from_state"
+    ],
+    "tower_partition_symbols": [
+      "PartitionInvariantIssue",
+      "PartitionInvariantReport",
+      "PartitionTower",
+      "action_layer_invariant_report"
+    ],
+    "tower_runtime_import_status": "ok",
+    "tower_runtime_symbols": [
+      "ExploitExploreTowerRuntime"
+    ]
+  },
+  "suite_id": "plate_support_standard_gauntlet_v001"
+}

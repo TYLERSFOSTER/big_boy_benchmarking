@@ -459,16 +459,18 @@ Not inherited:
 
 ## Open Questions For Project Owner
 
+These are consultant-authored open questions, not Project Owner statements.
+
 ### Question 1: Include Experimental Geometry Schemas?
 
 Consultant recommendation: include them in the blueprint as desired schema
 families, but require implementation to stop if upstream schema surfaces cannot
 represent them honestly.
 
-Project Owner response:
+Resolution status:
 
 ```text
-TODO
+Pending Project Owner answer.
 ```
 
 ### Question 2: Initial Sweep Budget
@@ -477,10 +479,10 @@ Consultant recommendation: first run should be smoke/dev, with no serious
 training budget. Include no-contraction, upstream default, a small action-
 category set, and a small edge-global noisy-rate set.
 
-Project Owner response:
+Resolution status:
 
 ```text
-TODO
+Pending Project Owner answer.
 ```
 
 ### Question 3: Edge-Global Denominator
@@ -489,10 +491,10 @@ Consultant recommendation: use valid non-self edge count (`388`) as the primary
 denominator if the schema operates over executable transition edges. Use valid
 state count (`89`) only for state-based selection policies.
 
-Project Owner response:
+Resolution status:
 
 ```text
-TODO
+Pending Project Owner answer.
 ```
 
 ## Expected Next Blueprint

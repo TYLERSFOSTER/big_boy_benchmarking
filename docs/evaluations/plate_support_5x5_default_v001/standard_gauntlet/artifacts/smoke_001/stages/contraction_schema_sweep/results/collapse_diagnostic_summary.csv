@@ -1,0 +1,17 @@
+schema_id,schema_family_id,schema_seed,structural_class,largest_cell_share,near_full_collapse_threshold,blocking_reason
+plate_support_schema_no_contraction_v001,no_contraction,0,flat_control,0.1111111111111111,0.9,
+plate_support_schema_upstream_default_v001,upstream_default,0,full_first_projection_collapse,1.0,0.9,full_first_projection_collapse
+plate_support_schema_plate_motion_actions_v001,action_category,0,construction_failed,0.0,0.9,current upstream PlateSupport probe accepts only schema_mode default or none; action-category schema construction is unavailable
+plate_support_schema_arm_extension_actions_v001,action_category,0,construction_failed,0.0,0.9,current upstream PlateSupport probe accepts only schema_mode default or none; action-category schema construction is unavailable
+plate_support_schema_motion_vs_support_actions_v001,action_category,0,construction_failed,0.0,0.9,current upstream PlateSupport probe accepts only schema_mode default or none; action-category schema construction is unavailable
+plate_support_schema_edge_global_noisy_rate_001_over_388_v001,edge_global_noisy_rate,0,construction_failed,0.0,0.9,current upstream PlateSupport schema surface does not expose edge-global selected-edge schema construction
+plate_support_schema_edge_global_noisy_rate_002_over_388_v001,edge_global_noisy_rate,0,construction_failed,0.0,0.9,current upstream PlateSupport schema surface does not expose edge-global selected-edge schema construction
+plate_support_schema_edge_global_noisy_rate_004_over_388_v001,edge_global_noisy_rate,0,construction_failed,0.0,0.9,current upstream PlateSupport schema surface does not expose edge-global selected-edge schema construction
+plate_support_schema_edge_global_noisy_rate_008_over_388_v001,edge_global_noisy_rate,0,construction_failed,0.0,0.9,current upstream PlateSupport schema surface does not expose edge-global selected-edge schema construction
+plate_support_schema_position_only_v001,geometry_coordinate,0,construction_failed,0.0,0.9,state-feature PlateSupport schema construction is not exposed by the current upstream probe/runtime API
+plate_support_schema_orientation_only_v001,geometry_coordinate,0,construction_failed,0.0,0.9,state-feature PlateSupport schema construction is not exposed by the current upstream probe/runtime API
+plate_support_schema_support_pattern_only_v001,geometry_coordinate,0,construction_failed,0.0,0.9,state-feature PlateSupport schema construction is not exposed by the current upstream probe/runtime API
+plate_support_schema_reachability_pattern_only_v001,geometry_coordinate,0,construction_failed,0.0,0.9,state-feature PlateSupport schema construction is not exposed by the current upstream probe/runtime API
+plate_support_schema_position_support_v001,geometry_coordinate,0,construction_failed,0.0,0.9,state-feature PlateSupport schema construction is not exposed by the current upstream probe/runtime API
+plate_support_schema_full_single_block_v001,controlled_degeneracy,0,construction_failed,0.0,0.9,controlled degeneracy anchors require schema construction surfaces not currently exposed for PlateSupport
+plate_support_schema_source_local_one_drop_v001,controlled_degeneracy,0,construction_failed,0.0,0.9,controlled degeneracy anchors require schema construction surfaces not currently exposed for PlateSupport

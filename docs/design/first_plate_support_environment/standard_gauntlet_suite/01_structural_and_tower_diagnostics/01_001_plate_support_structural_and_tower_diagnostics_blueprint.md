@@ -436,6 +436,8 @@ What is not inherited:
 
 ## Open Questions For Project Owner
 
+These are consultant-authored open questions, not Project Owner statements.
+
 ### Question 1: Readiness Source
 
 Consultant recommendation: default to:
@@ -444,10 +446,10 @@ Consultant recommendation: default to:
 docs/environments/plate_support_5x5_default_v001/readiness/dev_001/readout_source.json
 ```
 
-Project Owner response:
+Resolution status:
 
 ```text
-TODO
+Pending Project Owner answer.
 ```
 
 ### Question 2: Should Stage 1 Rerun Diagnostics Or Promote Readiness Artifacts?
@@ -456,10 +458,10 @@ Consultant recommendation: do both lightly. Reuse readiness artifact tables as
 source provenance, but rerun exact structural diagnostics inside Stage 1 so
 stage artifacts are self-contained and stale-readiness mismatch can be detected.
 
-Project Owner response:
+Resolution status:
 
 ```text
-TODO
+Pending Project Owner answer.
 ```
 
 ### Question 3: Random Policy Recon Budget
@@ -467,10 +469,10 @@ TODO
 Consultant recommendation: retain `1000` episodes for Stage 1 smoke/dev because
 it is cheap and gives stable reconnaissance.
 
-Project Owner response:
+Resolution status:
 
 ```text
-TODO
+Pending Project Owner answer.
 ```
 
 ## Expected Next Blueprint

@@ -457,16 +457,18 @@ Not inherited:
 
 ## Open Questions For Project Owner
 
+These are consultant-authored open questions, not Project Owner statements.
+
 ### Question 1: Preferred Target Style
 
 Consultant recommendation: prioritize `binary_success` and `first_hit`, then
 use return thresholds as support. Use sustained-hit only if the budget is long
 enough.
 
-Project Owner response:
+Resolution status:
 
 ```text
-TODO
+Pending Project Owner answer.
 ```
 
 ### Question 2: Calibration Budget
@@ -479,10 +481,10 @@ episodes_per_replicate = 32
 max_steps_per_episode = 50
 ```
 
-Project Owner response:
+Resolution status:
 
 ```text
-TODO
+Pending Project Owner answer.
 ```
 
 ### Question 3: Include Direct Baseline Calibration?
@@ -490,10 +492,10 @@ TODO
 Consultant recommendation: yes. Stage 5 needs baseline calibration evidence if
 Stage 6 will compare against a baseline.
 
-Project Owner response:
+Resolution status:
 
 ```text
-TODO
+Pending Project Owner answer.
 ```
 
 ## Expected Next Blueprint

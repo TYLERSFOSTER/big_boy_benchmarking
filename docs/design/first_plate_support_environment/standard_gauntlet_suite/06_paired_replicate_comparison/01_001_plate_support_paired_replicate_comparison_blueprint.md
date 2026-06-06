@@ -1031,15 +1031,17 @@ interesting, but the readout should say that this is the apparent mechanism.
 A tower arm that reaches the goal faster but has many lift failures needs a
 runtime caveat.
 
-## Project Owner Questions
+## Open Questions For Project Owner
 
-### Project Owner Response: Primary Baseline
+These are consultant-authored open questions, not Project Owner statements.
+
+### Question 1: Primary Baseline
 
 Should the first claim-bearing comparison use direct concrete training as the
 primary baseline, no-contraction tower control as the primary baseline, or report
 both with one designated primary?
 
-### Consultant Turn
+Consultant recommendation:
 
 My recommendation is to report both if implementation cost is reasonable, but
 designate direct concrete training as the primary human-facing baseline. The
@@ -1047,25 +1049,25 @@ no-contraction tower control should be an engineering control that tells us
 whether any difference is due to contraction rather than the runner/controller
 machinery.
 
-### Project Owner Response: First Serious Budget
+### Question 2: First Serious Budget
 
 For the first serious PlateSupport paired comparison, should we use the
 development default of 5 replicates per arm and 32 episodes per replicate, or
 choose a different budget after Stage 5 calibration?
 
-### Consultant Turn
+Consultant recommendation:
 
 My recommendation is to let Stage 5 supply the final budget. If we need a fixed
 first implementation default, I would use 5 replicates per arm and 32 episodes
 per replicate because PlateSupport random success is low enough that tiny
 episode counts are likely to be misleading.
 
-### Project Owner Response: Evidence Threshold
+### Question 3: Evidence Threshold
 
 What minimum directional advantage should count as a positive signal in the
 first PlateSupport paired comparison?
 
-### Consultant Turn
+Consultant recommendation:
 
 My recommendation is not to require statistical strength yet. For the first
 gauntlet comparison, use `positive_signal` for a clean directional improvement

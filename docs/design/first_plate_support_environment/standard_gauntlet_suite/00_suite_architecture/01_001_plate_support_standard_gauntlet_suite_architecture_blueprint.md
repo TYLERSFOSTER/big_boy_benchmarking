@@ -482,6 +482,8 @@ This suite architecture must not:
 
 ## Open Design Questions For Project Owner
 
+These are consultant-authored open questions, not Project Owner statements.
+
 ### Question 1: Umbrella Name
 
 Consultant recommendation:
@@ -490,10 +492,10 @@ Consultant recommendation:
 plate_support_standard_gauntlet_v001
 ```
 
-Project Owner response:
+Resolution status:
 
 ```text
-TODO
+Pending Project Owner answer.
 ```
 
 ### Question 2: First Run Mode
@@ -514,10 +516,10 @@ Consultant recommendation: use `smoke_001` for the first code path, but allow
 stage-level budgets to be richer than trivial one-episode smoke where required
 for feasibility.
 
-Project Owner response:
+Resolution status:
 
 ```text
-TODO
+Pending Project Owner answer.
 ```
 
 ### Question 3: One Workplan Or Staged Workplans
@@ -526,10 +528,10 @@ Consultant recommendation: one umbrella blueprint, child-stage blueprints, then
 staged implementation workplans. A single giant workplan is possible only if it
 has hard stop gates between stages.
 
-Project Owner response:
+Resolution status:
 
 ```text
-TODO
+Pending Project Owner answer.
 ```
 
 ## Expected Next Blueprint

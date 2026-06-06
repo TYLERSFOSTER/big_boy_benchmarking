@@ -1,0 +1,79 @@
+{
+  "artifact_run_label": "smoke_001",
+  "artifact_schema_version": "bbb.v001",
+  "claim_boundary": [
+    "Stage 2 may claim schema arms are flat, nonflat, degenerate, or unsupported",
+    "Stage 2 may emit candidate signals for Stage 3",
+    "Stage 2 may not select final candidates or claim training benefit"
+  ],
+  "environment_family_id": "plate_support",
+  "environment_instance_id": "plate_support_5x5_default_v001",
+  "evaluation_id": "plate_support_gauntlet_contraction_schema_sweep_v001",
+  "expected_files": {
+    "conditional": {},
+    "expectation_sources": [
+      "docs/design/first_plate_support_environment/standard_gauntlet_suite/02_contraction_schema_sweep/01_001_plate_support_contraction_schema_sweep_blueprint.md"
+    ],
+    "expected_absent_is_gap": [],
+    "not_applicable": [],
+    "required": [
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/schema_arm_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/schema_construction_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/schema_selection_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/tower_shape_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/tier_occupancy_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/tier_executability_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/endpoint_coalescence_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/collapse_diagnostic_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/schema_candidate_signal_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/timing_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/downstream_candidate_input_summary.csv"
+    ]
+  },
+  "goal_criteria": [
+    {
+      "claim_if_met": "Stage 3 may consume candidate-signal rows",
+      "claim_if_not_met": "Candidate discovery is blocked by schema sweep failure",
+      "failure_signal": "mandatory no-contraction or upstream-default arms fail",
+      "goal_id": "plate_support_stage2_schema_candidate_signals",
+      "partial_signal": "mandatory arms run but custom arms are unsupported",
+      "question": "Which PlateSupport schema arms are structured, degenerate, or blocked?",
+      "success_signal": "schema_candidate_signal_summary.csv contains structured rows"
+    }
+  ],
+  "goal_summary_sources": [
+    "docs/design/first_plate_support_environment/standard_gauntlet_suite/02_contraction_schema_sweep/01_001_plate_support_contraction_schema_sweep_blueprint.md",
+    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/contraction_schema_sweep/method.md"
+  ],
+  "methodology_summary_sources": [
+    "docs/design/first_plate_support_environment/standard_gauntlet_suite/02_contraction_schema_sweep/01_001_plate_support_contraction_schema_sweep_blueprint.md",
+    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/contraction_schema_sweep/method.md",
+    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/contraction_schema_sweep/runbook.md"
+  ],
+  "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/contraction_schema_sweep",
+  "run_mode": "stage2_schema_sweep",
+  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep",
+  "source_binding_type": "evaluation_readout_source",
+  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep",
+  "source_files": {
+    "collapse_diagnostic_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/collapse_diagnostic_summary.csv",
+    "downstream_candidate_input_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/downstream_candidate_input_summary.csv",
+    "endpoint_coalescence_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/endpoint_coalescence_summary.csv",
+    "schema_arm_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/schema_arm_summary.csv",
+    "schema_candidate_signal_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/schema_candidate_signal_summary.csv",
+    "schema_construction_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/schema_construction_summary.csv",
+    "schema_selection_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/schema_selection_summary.csv",
+    "tier_executability_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/tier_executability_summary.csv",
+    "tier_occupancy_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/tier_occupancy_summary.csv",
+    "timing_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/timing_summary.csv",
+    "tower_shape_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/tower_shape_summary.csv"
+  },
+  "structural_limit_checks": [
+    {
+      "check_id": "custom_schema_not_supported",
+      "claim_effect": "blocks that arm from candidate selection",
+      "interpretation_if_triggered": "The current upstream API cannot honestly represent that schema family.",
+      "trigger": "schema_construction_summary.csv construction_status is not_supported"
+    }
+  ]
+}

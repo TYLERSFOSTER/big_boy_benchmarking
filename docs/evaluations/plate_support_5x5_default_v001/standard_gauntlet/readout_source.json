@@ -1,0 +1,144 @@
+{
+  "artifact_run_label": "smoke_001",
+  "artifact_schema_version": "bbb.v001",
+  "badge_policy": {
+    "dimensions": [
+      "artifact_status",
+      "behavioral_status",
+      "goal_status",
+      "claim_scope",
+      "provenance_status"
+    ]
+  },
+  "claim_boundary": [
+    "Architecture scaffold and future gauntlet source binding only until run artifacts exist",
+    "No tower-performance claim is supported by the not-yet-run source binding"
+  ],
+  "environment_family_id": "plate_support",
+  "environment_instance_id": "plate_support_5x5_default_v001",
+  "evaluation_id": "plate_support_standard_gauntlet_v001",
+  "expected_files": {
+    "conditional": {
+      "after_suite_run": [
+        "evaluation_manifest.json",
+        "evaluation_stage_manifest.json",
+        "evaluation_budget_lock.json",
+        "environment_source_manifest.json",
+        "readiness_source_manifest.json",
+        "stage_run_index.csv",
+        "stage_status_summary.csv"
+      ]
+    },
+    "expectation_sources": [
+      "docs/design/first_plate_support_environment/standard_gauntlet_suite/00_suite_architecture/01_001_plate_support_standard_gauntlet_suite_architecture_blueprint.md",
+      "docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md"
+    ],
+    "expected_absent_is_gap": [],
+    "not_applicable": [],
+    "pending_not_yet_run": [
+      "evaluation_manifest.json",
+      "evaluation_stage_manifest.json",
+      "evaluation_budget_lock.json",
+      "environment_source_manifest.json",
+      "readiness_source_manifest.json",
+      "stage_run_index.csv",
+      "stage_status_summary.csv"
+    ],
+    "required": []
+  },
+  "goal_criteria": [
+    {
+      "claim_if_met": "PlateSupport has completed the standard gauntlet run mode",
+      "claim_if_not_met": "PlateSupport has not completed the standard gauntlet; inspect the first blocked stage",
+      "failure_signal": "required stage source artifacts are missing or protocol-blocked",
+      "goal_id": "plate_support_standard_gauntlet_stage_progression",
+      "partial_signal": "one or more early diagnostic stages complete before a gate blocks",
+      "question": "Can PlateSupport move from readiness through staged diagnostic, candidate, training-health, calibration, and comparison evidence?",
+      "success_signal": "stage_status_summary.csv shows all enabled stages complete"
+    }
+  ],
+  "goal_summary_sources": [
+    "docs/design/first_plate_support_environment/standard_gauntlet_suite/00_suite_architecture/01_001_plate_support_standard_gauntlet_suite_architecture_blueprint.md",
+    "docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/method.md"
+  ],
+  "methodology_summary_sources": [
+    "docs/design/first_plate_support_environment/standard_gauntlet_suite/00_suite_architecture/01_001_plate_support_standard_gauntlet_suite_architecture_blueprint.md",
+    "docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/method.md",
+    "docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/runbook.md"
+  ],
+  "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet",
+  "run_mode": "not_yet_run",
+  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001",
+  "source_binding_type": "evaluation_readout_source",
+  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/evaluations/plate_support_standard_gauntlet_v001",
+  "source_files": {
+    "aggregate_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/evaluations/plate_support_standard_gauntlet_v001/stage_status_summary.csv",
+    "run_index": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/evaluations/plate_support_standard_gauntlet_v001/stage_run_index.csv"
+  },
+  "stage_definitions": [
+    {
+      "required_predecessor_stage_ids": [],
+      "short_name": "structural_and_tower_diagnostics",
+      "stage_id": "plate_support_gauntlet_structural_tower_diagnostics_v001",
+      "stage_number": 1
+    },
+    {
+      "required_predecessor_stage_ids": [
+        "plate_support_gauntlet_structural_tower_diagnostics_v001"
+      ],
+      "short_name": "contraction_schema_sweep",
+      "stage_id": "plate_support_gauntlet_contraction_schema_sweep_v001",
+      "stage_number": 2
+    },
+    {
+      "required_predecessor_stage_ids": [
+        "plate_support_gauntlet_contraction_schema_sweep_v001"
+      ],
+      "short_name": "candidate_discovery",
+      "stage_id": "plate_support_gauntlet_candidate_discovery_v001",
+      "stage_number": 3
+    },
+    {
+      "required_predecessor_stage_ids": [
+        "plate_support_gauntlet_candidate_discovery_v001"
+      ],
+      "short_name": "tower_training_health",
+      "stage_id": "plate_support_gauntlet_tower_training_health_v001",
+      "stage_number": 4
+    },
+    {
+      "required_predecessor_stage_ids": [
+        "plate_support_gauntlet_structural_tower_diagnostics_v001",
+        "plate_support_gauntlet_tower_training_health_v001"
+      ],
+      "short_name": "threshold_frontier_calibration",
+      "stage_id": "plate_support_gauntlet_threshold_frontier_calibration_v001",
+      "stage_number": 5
+    },
+    {
+      "required_predecessor_stage_ids": [
+        "plate_support_gauntlet_candidate_discovery_v001",
+        "plate_support_gauntlet_tower_training_health_v001",
+        "plate_support_gauntlet_threshold_frontier_calibration_v001"
+      ],
+      "short_name": "paired_replicate_comparison",
+      "stage_id": "plate_support_gauntlet_paired_replicate_comparison_v001",
+      "stage_number": 6
+    },
+    {
+      "required_predecessor_stage_ids": [],
+      "short_name": "readout_and_system_learning",
+      "stage_id": "plate_support_gauntlet_readout_system_learning_v001",
+      "stage_number": 7
+    }
+  ],
+  "stage_readout_source_paths": [],
+  "structural_limit_checks": [
+    {
+      "check_id": "stage_gate_block",
+      "claim_effect": "blocks claims owned by downstream stages",
+      "interpretation_if_triggered": "The suite produced useful diagnostic evidence but cannot support later-stage claims until the blocked gate is resolved.",
+      "trigger": "stage_status_summary.csv records protocol_blocked or artifact_incomplete"
+    }
+  ]
+}

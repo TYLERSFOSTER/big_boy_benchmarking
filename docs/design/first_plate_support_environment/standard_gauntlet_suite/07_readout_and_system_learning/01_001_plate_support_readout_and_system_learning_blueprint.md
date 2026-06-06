@@ -364,14 +364,15 @@ Recommended heading:
 
 `## Clarifying Conversation`
 
-Recommended initial structure:
+Recommended initial structure, expressed here as placeholders rather than
+transcript headings:
 
 ```
-### Evaluator Turn 1
+Clarification slot 1, evaluator-authored content:
 
 _Add clarifying question or interpretation here._
 
-### Consultant Turn 1
+Clarification slot 1, consultant-authored response:
 
 _Add response here._
 ```
@@ -835,54 +836,58 @@ For PlateSupport, the diagnostic path is part of the result:
 
 Readers should be able to see where the evidence came from.
 
-## Project Owner Questions
+## Open Questions For Project Owner
 
-### Project Owner Response: Single README Or Per-Stage READMEs
+These are consultant-authored open questions, not Project Owner statements.
+
+### Question 1: Single README Or Per-Stage READMEs
 
 Should the first implementation generate one top-level README with linked
 per-stage result files, or should each stage also get its own README?
 
-### Consultant Turn
+Consultant recommendation:
 
 My recommendation is one top-level README plus linked per-stage result files for
 the first implementation. Per-stage READMEs can come later if the suite readout
 becomes too large.
 
-### Project Owner Response: System-Learning Archive By Default
+### Question 2: System-Learning Archive By Default
 
 Should every completed PlateSupport gauntlet run create a system-learning folder,
 or should the archive only be created when a human/LLM identifies a durable
 lesson?
 
-### Consultant Turn
+Consultant recommendation:
 
 My recommendation is to create the archive only when there is a durable lesson.
 The generated readout can include `results/system_learning_prompt.md` every time,
 but an archive folder should mean "there is something worth preserving."
 
-### Project Owner Response: Badge Density
+### Question 3: Badge Density
 
 How many badges should appear at the top of the suite README before it becomes
 too noisy?
 
-### Consultant Turn
+Consultant recommendation:
 
 My recommendation is 8 to 10 badges maximum at the top: suite status, artifacts,
 structural readiness, candidates, training health, target calibration, paired
 comparison, claim status, liftability semantics, and provenance. More detailed
 status can live in `results/stage_status.md`.
 
-### Project Owner Response: Clarifying Turn Labels
+### Question 4: Clarifying Conversation Labels
 
-Should generated PlateSupport readouts use `Evaluator Turn` and `Consultant Turn`
-labels, or `Project Owner Turn` and `Codex Turn` labels?
+Should generated PlateSupport readouts label clarification entries by role, for
+example evaluator-authored clarification and consultant-authored response, or by
+specific participant names only when those participants actually supplied the
+content?
 
-### Consultant Turn
+Consultant recommendation:
 
-My recommendation is `Evaluator Turn` and `Consultant Turn` in generated
-evaluation readouts unless the Project Owner is explicitly writing the turn.
-This avoids accidental false attribution while still giving us a conversational
-surface for clarification.
+My recommendation is to use role labels in generated evaluation readouts unless
+the Project Owner is explicitly writing the content. This avoids accidental
+false attribution while still giving us a conversational surface for
+clarification.
 
 ## Expected Next Design Step
 

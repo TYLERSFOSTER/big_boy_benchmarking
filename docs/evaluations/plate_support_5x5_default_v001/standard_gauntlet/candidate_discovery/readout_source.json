@@ -1,0 +1,62 @@
+{
+  "artifact_run_label": "smoke_001",
+  "artifact_schema_version": "bbb.v001",
+  "claim_boundary": [
+    "Stage 3 may claim candidates were classified or not found",
+    "Stage 3 may not claim training health or performance benefit"
+  ],
+  "environment_family_id": "plate_support",
+  "environment_instance_id": "plate_support_5x5_default_v001",
+  "evaluation_id": "plate_support_gauntlet_candidate_discovery_v001",
+  "expected_files": {
+    "conditional": {},
+    "expectation_sources": [
+      "docs/design/first_plate_support_environment/standard_gauntlet_suite/03_candidate_discovery/01_001_plate_support_candidate_discovery_blueprint.md"
+    ],
+    "expected_absent_is_gap": [],
+    "not_applicable": [],
+    "required": [
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/candidate_discovery/results/candidate_eligibility_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/candidate_discovery/results/selected_candidate_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/candidate_discovery/results/blocked_candidate_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/candidate_discovery/results/control_anchor_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/candidate_discovery/results/degeneracy_anchor_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/candidate_discovery/results/candidate_source_trace.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/candidate_discovery/results/downstream_training_health_input_summary.csv"
+    ]
+  },
+  "goal_criteria": [
+    {
+      "claim_if_met": "Stage 4 tower training health may run",
+      "claim_if_not_met": "Stage 4 is blocked by candidate_not_found",
+      "failure_signal": "candidate manifest missing or source trace incomplete",
+      "goal_id": "plate_support_stage3_training_candidates",
+      "partial_signal": "control or degeneracy anchors exist but no training candidate",
+      "question": "Did Stage 2 yield any selected training candidates?",
+      "success_signal": "downstream_training_health_input_summary.csv has rows"
+    }
+  ],
+  "goal_summary_sources": [
+    "docs/design/first_plate_support_environment/standard_gauntlet_suite/03_candidate_discovery/01_001_plate_support_candidate_discovery_blueprint.md",
+    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/candidate_discovery/method.md"
+  ],
+  "methodology_summary_sources": [
+    "docs/design/first_plate_support_environment/standard_gauntlet_suite/03_candidate_discovery/01_001_plate_support_candidate_discovery_blueprint.md",
+    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/candidate_discovery/method.md",
+    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/candidate_discovery/runbook.md"
+  ],
+  "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/candidate_discovery",
+  "run_mode": "stage3_candidate_discovery",
+  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/candidate_discovery",
+  "source_binding_type": "evaluation_readout_source",
+  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/candidate_discovery",
+  "source_files": {
+    "blocked_candidate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/candidate_discovery/results/blocked_candidate_summary.csv",
+    "candidate_eligibility_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/candidate_discovery/results/candidate_eligibility_summary.csv",
+    "candidate_source_trace": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/candidate_discovery/results/candidate_source_trace.csv",
+    "control_anchor_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/candidate_discovery/results/control_anchor_summary.csv",
+    "degeneracy_anchor_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/candidate_discovery/results/degeneracy_anchor_summary.csv",
+    "downstream_training_health_input_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/candidate_discovery/results/downstream_training_health_input_summary.csv",
+    "selected_candidate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/candidate_discovery/results/selected_candidate_summary.csv"
+  }
+}

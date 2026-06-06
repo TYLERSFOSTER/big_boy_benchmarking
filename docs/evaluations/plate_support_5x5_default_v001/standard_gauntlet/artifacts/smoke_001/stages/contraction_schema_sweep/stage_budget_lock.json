@@ -1,0 +1,28 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "edge_global_numerators": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "linearization_mode_id": "tensor_available_disabled",
+  "locked_by": "foster",
+  "near_full_collapse_threshold": 0.9,
+  "run_label": "smoke_001",
+  "schema_families": [
+    "no_contraction",
+    "upstream_default",
+    "action_category",
+    "edge_global_noisy_rate",
+    "geometry_coordinate",
+    "controlled_degeneracy"
+  ],
+  "schema_seeds": [
+    0
+  ],
+  "stage_id": "plate_support_gauntlet_contraction_schema_sweep_v001",
+  "suite_id": "plate_support_standard_gauntlet_v001",
+  "tower_probe_sample_size": 20,
+  "tower_probe_steps": 20
+}

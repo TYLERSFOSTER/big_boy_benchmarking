@@ -208,6 +208,45 @@ from big_boy_benchmarking.environments.plate_support.ids import (
 from big_boy_benchmarking.environments.plate_support.runner import (
     run_plate_support_environment_readiness,
 )
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.gates import (
+    gate_for_stage as plate_support_gauntlet_gate_for_stage,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.ids import (
+    STAGE_DEFINITIONS as PLATE_SUPPORT_GAUNTLET_STAGE_DEFINITIONS,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.ids import (
+    STAGE_IDS as PLATE_SUPPORT_GAUNTLET_STAGE_IDS,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.ids import (
+    SUITE_ID as PLATE_SUPPORT_GAUNTLET_SUITE_ID,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.paths import (
+    default_readiness_source_path as plate_support_gauntlet_readiness_source_path,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.paths import (
+    suite_artifact_root as plate_support_gauntlet_artifact_root,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.paths import (
+    suite_readout_surface as plate_support_gauntlet_readout_surface,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.structural_and_tower_diagnostics.config import (
+    StructuralDiagnosticsConfig as PlateSupportStructuralDiagnosticsConfig,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.structural_and_tower_diagnostics.runner import (
+    run_structural_and_tower_diagnostics as run_plate_support_structural_diagnostics,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.contraction_schema_sweep.config import (
+    SchemaSweepConfig as PlateSupportSchemaSweepConfig,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.contraction_schema_sweep.runner import (
+    run_contraction_schema_sweep as run_plate_support_schema_sweep,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.candidate_discovery.config import (
+    CandidateDiscoveryConfig as PlateSupportCandidateDiscoveryConfig,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.candidate_discovery.runner import (
+    run_candidate_discovery as run_plate_support_candidate_discovery,
+)
 from big_boy_benchmarking.modes.contracts import validate_mode_contract
 from big_boy_benchmarking.modes.linearization import (
     iter_linearization_mode_contracts,
@@ -300,6 +339,107 @@ def build_parser() -> argparse.ArgumentParser:
     plate_support_readiness_parser.add_argument("--tower-probe-sample-size", type=int, default=20)
     plate_support_readiness_parser.add_argument("--docs-path", type=Path)
     plate_support_readiness_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
+
+    plate_support_gauntlet_parser = plate_support_subparsers.add_parser("standard-gauntlet")
+    plate_support_gauntlet_subparsers = plate_support_gauntlet_parser.add_subparsers(
+        dest="standard_gauntlet_command",
+        required=True,
+    )
+    plate_support_gauntlet_inspect_parser = plate_support_gauntlet_subparsers.add_parser(
+        "inspect-architecture"
+    )
+    plate_support_gauntlet_inspect_parser.add_argument("--repo-root", required=True, type=Path)
+    plate_support_gauntlet_inspect_parser.add_argument("--run-label", default="smoke_001")
+    plate_support_gauntlet_inspect_parser.add_argument(
+        "--readiness-run-label",
+        default="dev_001",
+    )
+    plate_support_structural_parser = plate_support_gauntlet_subparsers.add_parser(
+        "structural-diagnostics"
+    )
+    plate_support_structural_subparsers = plate_support_structural_parser.add_subparsers(
+        dest="structural_diagnostics_command",
+        required=True,
+    )
+    plate_support_structural_run_parser = plate_support_structural_subparsers.add_parser("run")
+    plate_support_structural_run_parser.add_argument("--repo-root", required=True, type=Path)
+    plate_support_structural_run_parser.add_argument("--artifact-root", required=True, type=Path)
+    plate_support_structural_run_parser.add_argument("--readiness-source", required=True, type=Path)
+    plate_support_structural_run_parser.add_argument("--run-label", default="smoke_001")
+    plate_support_structural_run_parser.add_argument("--locked-by", required=True)
+    plate_support_structural_run_parser.add_argument("--random-policy-seed", type=int, default=0)
+    plate_support_structural_run_parser.add_argument(
+        "--random-policy-episodes",
+        type=int,
+        default=1000,
+    )
+    plate_support_structural_run_parser.add_argument("--tower-probe-steps", type=int, default=20)
+    plate_support_structural_run_parser.add_argument(
+        "--tower-probe-sample-size",
+        type=int,
+        default=20,
+    )
+    plate_support_structural_run_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
+    plate_support_schema_sweep_parser = plate_support_gauntlet_subparsers.add_parser(
+        "schema-sweep"
+    )
+    plate_support_schema_sweep_subparsers = plate_support_schema_sweep_parser.add_subparsers(
+        dest="schema_sweep_command",
+        required=True,
+    )
+    plate_support_schema_sweep_run_parser = plate_support_schema_sweep_subparsers.add_parser("run")
+    plate_support_schema_sweep_run_parser.add_argument("--repo-root", required=True, type=Path)
+    plate_support_schema_sweep_run_parser.add_argument("--artifact-root", required=True, type=Path)
+    plate_support_schema_sweep_run_parser.add_argument("--stage1-source", required=True, type=Path)
+    plate_support_schema_sweep_run_parser.add_argument("--run-label", default="smoke_001")
+    plate_support_schema_sweep_run_parser.add_argument("--locked-by", required=True)
+    plate_support_schema_sweep_run_parser.add_argument("--schema-seed", action="append", type=int)
+    plate_support_schema_sweep_run_parser.add_argument(
+        "--edge-global-numerator",
+        action="append",
+        type=int,
+    )
+    plate_support_schema_sweep_run_parser.add_argument("--tower-probe-steps", type=int, default=20)
+    plate_support_schema_sweep_run_parser.add_argument(
+        "--tower-probe-sample-size",
+        type=int,
+        default=20,
+    )
+    plate_support_schema_sweep_run_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
+    plate_support_candidate_parser = plate_support_gauntlet_subparsers.add_parser(
+        "candidate-discovery"
+    )
+    plate_support_candidate_subparsers = plate_support_candidate_parser.add_subparsers(
+        dest="candidate_discovery_command",
+        required=True,
+    )
+    plate_support_candidate_run_parser = plate_support_candidate_subparsers.add_parser("run")
+    plate_support_candidate_run_parser.add_argument("--repo-root", required=True, type=Path)
+    plate_support_candidate_run_parser.add_argument("--artifact-root", required=True, type=Path)
+    plate_support_candidate_run_parser.add_argument(
+        "--schema-sweep-source",
+        required=True,
+        type=Path,
+    )
+    plate_support_candidate_run_parser.add_argument("--run-label", default="smoke_001")
+    plate_support_candidate_run_parser.add_argument("--locked-by", required=True)
+    plate_support_candidate_run_parser.add_argument("--clean-candidate-cap", type=int, default=2)
+    plate_support_candidate_run_parser.add_argument("--warning-candidate-cap", type=int, default=1)
+    plate_support_candidate_run_parser.add_argument("--degeneracy-anchor-cap", type=int, default=1)
+    plate_support_candidate_run_parser.add_argument("--allow-warning-selection", action="store_true")
+    plate_support_candidate_run_parser.add_argument(
         "--linearization-mode",
         choices=_linearization_mode_ids(),
         default="tensor_available_disabled",
@@ -877,6 +1017,188 @@ def _run_plate_support_command(args: argparse.Namespace) -> int:
             )
         )
         return 0 if result.status == "success" else 2
+
+    if args.plate_support_command == "standard-gauntlet":
+        if args.standard_gauntlet_command == "inspect-architecture":
+            gates = {
+                stage_id: {
+                    "required_predecessor_statuses": {
+                        predecessor: list(statuses)
+                        for predecessor, statuses in plate_support_gauntlet_gate_for_stage(
+                            stage_id
+                        ).required_predecessor_statuses.items()
+                    },
+                    "required_source_artifact_roles": list(
+                        plate_support_gauntlet_gate_for_stage(
+                            stage_id
+                        ).required_source_artifact_roles
+                    ),
+                    "claim_boundary": plate_support_gauntlet_gate_for_stage(
+                        stage_id
+                    ).claim_boundary,
+                    "allow_any_prior_artifact": plate_support_gauntlet_gate_for_stage(
+                        stage_id
+                    ).allow_any_prior_artifact,
+                }
+                for stage_id in PLATE_SUPPORT_GAUNTLET_STAGE_IDS
+            }
+            print(
+                json.dumps(
+                    {
+                        "status": "ok",
+                        "suite_id": PLATE_SUPPORT_GAUNTLET_SUITE_ID,
+                        "stage_definitions": [
+                            {
+                                "stage_number": stage.stage_number,
+                                "stage_id": stage.stage_id,
+                                "short_name": stage.short_name,
+                                "required_predecessor_stage_ids": list(
+                                    stage.required_predecessor_stage_ids
+                                ),
+                            }
+                            for stage in PLATE_SUPPORT_GAUNTLET_STAGE_DEFINITIONS
+                        ],
+                        "paths": {
+                            "repo_readout_surface": str(
+                                plate_support_gauntlet_readout_surface(args.repo_root)
+                            ),
+                            "source_artifact_root": str(
+                                plate_support_gauntlet_artifact_root(
+                                    args.repo_root,
+                                    args.run_label,
+                                )
+                            ),
+                            "readiness_source": str(
+                                plate_support_gauntlet_readiness_source_path(
+                                    args.repo_root,
+                                    readiness_run_label=args.readiness_run_label,
+                                )
+                            ),
+                        },
+                        "gates": gates,
+                    },
+                    sort_keys=True,
+                )
+            )
+            return 0
+
+        if args.standard_gauntlet_command == "structural-diagnostics":
+            if args.structural_diagnostics_command == "run":
+                if args.linearization_mode != "tensor_available_disabled":
+                    raise ValueError(
+                        "PlateSupport Stage 1 uses tensor_available_disabled; "
+                        f"reserved linearization mode rejected: {args.linearization_mode}"
+                    )
+                result = run_plate_support_structural_diagnostics(
+                    PlateSupportStructuralDiagnosticsConfig(
+                        artifact_root=args.artifact_root,
+                        run_label=args.run_label,
+                        readiness_source_path=args.readiness_source,
+                        locked_by=args.locked_by,
+                        random_policy_seed=args.random_policy_seed,
+                        random_policy_episode_count=args.random_policy_episodes,
+                        tower_probe_steps=args.tower_probe_steps,
+                        tower_probe_sample_size=args.tower_probe_sample_size,
+                        linearization_mode_id=args.linearization_mode,
+                    ),
+                    repo_root=args.repo_root,
+                )
+                print(
+                    json.dumps(
+                        {
+                            "status": result.status,
+                            "stage_root": str(result.stage_root),
+                            "readout_source": str(result.readout_source_path),
+                            "artifact_count": len(result.artifact_paths),
+                            "failure_reason": result.failure_reason,
+                        },
+                        sort_keys=True,
+                    )
+                )
+                return 0 if result.status == "complete" else 2
+            raise ValueError(
+                "unknown PlateSupport structural diagnostics command: "
+                f"{args.structural_diagnostics_command}"
+            )
+
+        if args.standard_gauntlet_command == "schema-sweep":
+            if args.schema_sweep_command == "run":
+                if args.linearization_mode != "tensor_available_disabled":
+                    raise ValueError(
+                        "PlateSupport Stage 2 uses tensor_available_disabled; "
+                        f"reserved linearization mode rejected: {args.linearization_mode}"
+                    )
+                result = run_plate_support_schema_sweep(
+                    PlateSupportSchemaSweepConfig(
+                        artifact_root=args.artifact_root,
+                        run_label=args.run_label,
+                        stage1_readout_source_path=args.stage1_source,
+                        locked_by=args.locked_by,
+                        schema_seeds=tuple(args.schema_seed or (0,)),
+                        edge_global_numerators=tuple(
+                            args.edge_global_numerator or (1, 2, 4, 8)
+                        ),
+                        tower_probe_steps=args.tower_probe_steps,
+                        tower_probe_sample_size=args.tower_probe_sample_size,
+                        linearization_mode_id=args.linearization_mode,
+                    ),
+                    repo_root=args.repo_root,
+                )
+                print(
+                    json.dumps(
+                        {
+                            "status": result.status,
+                            "stage_root": str(result.stage_root),
+                            "readout_source": str(result.readout_source_path),
+                            "artifact_count": len(result.artifact_paths),
+                            "failure_reason": result.failure_reason,
+                        },
+                        sort_keys=True,
+                    )
+                )
+                return 0 if result.status == "complete" else 2
+            raise ValueError(
+                f"unknown PlateSupport schema sweep command: {args.schema_sweep_command}"
+            )
+
+        if args.standard_gauntlet_command == "candidate-discovery":
+            if args.candidate_discovery_command == "run":
+                if args.linearization_mode != "tensor_available_disabled":
+                    raise ValueError(
+                        "PlateSupport Stage 3 uses tensor_available_disabled; "
+                        f"reserved linearization mode rejected: {args.linearization_mode}"
+                    )
+                result = run_plate_support_candidate_discovery(
+                    PlateSupportCandidateDiscoveryConfig(
+                        artifact_root=args.artifact_root,
+                        run_label=args.run_label,
+                        schema_sweep_source_path=args.schema_sweep_source,
+                        locked_by=args.locked_by,
+                        clean_candidate_cap=args.clean_candidate_cap,
+                        warning_candidate_cap=args.warning_candidate_cap,
+                        degeneracy_anchor_cap=args.degeneracy_anchor_cap,
+                        allow_warning_selection=args.allow_warning_selection,
+                        linearization_mode_id=args.linearization_mode,
+                    ),
+                    repo_root=args.repo_root,
+                )
+                print(
+                    json.dumps(
+                        {
+                            "status": result.status,
+                            "stage_root": str(result.stage_root),
+                            "readout_source": str(result.readout_source_path),
+                            "artifact_count": len(result.artifact_paths),
+                            "failure_reason": result.failure_reason,
+                        },
+                        sort_keys=True,
+                    )
+                )
+                return 0 if result.status == "complete" else 2
+            raise ValueError(
+                "unknown PlateSupport candidate discovery command: "
+                f"{args.candidate_discovery_command}"
+            )
 
     raise ValueError(f"unknown PlateSupport command: {args.plate_support_command}")
 

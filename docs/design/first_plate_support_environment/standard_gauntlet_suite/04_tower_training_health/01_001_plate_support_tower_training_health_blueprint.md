@@ -445,15 +445,17 @@ Not inherited:
 
 ## Open Questions For Project Owner
 
+These are consultant-authored open questions, not Project Owner statements.
+
 ### Question 1: Use Upstream Training Helpers Or BBB-Controlled Runner?
 
 Consultant recommendation: prefer BBB-controlled runner if upstream helpers do
 not expose detailed event hooks.
 
-Project Owner response:
+Resolution status:
 
 ```text
-TODO
+Pending Project Owner answer.
 ```
 
 ### Question 2: First Health Budget
@@ -466,10 +468,10 @@ episodes_per_replicate = 16
 max_steps_per_episode = 50
 ```
 
-Project Owner response:
+Resolution status:
 
 ```text
-TODO
+Pending Project Owner answer.
 ```
 
 ### Question 3: Warning Candidate Training
@@ -477,10 +479,10 @@ TODO
 Consultant recommendation: default to no warning-candidate training unless no
 clean candidates exist and the budget lock explicitly records why.
 
-Project Owner response:
+Resolution status:
 
 ```text
-TODO
+Pending Project Owner answer.
 ```
 
 ## Expected Next Blueprint

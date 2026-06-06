@@ -1,0 +1,8 @@
+{
+  "blocking_reason": "candidate_not_found",
+  "claim_boundary": "candidate classification only; no training or comparison claim",
+  "claim_status": "candidate_not_found",
+  "selected_training_candidate_count": 0,
+  "selected_warning_candidate_count": 0,
+  "status": "complete"
+}

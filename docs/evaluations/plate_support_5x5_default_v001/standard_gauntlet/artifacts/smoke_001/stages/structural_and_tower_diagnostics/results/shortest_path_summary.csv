@@ -1,0 +1,2 @@
+shortest_path_length,goal_one_step_from_start,action_labels,reward_sequence,total_shortest_path_reward,terminal_state_id,claim_boundary
+6,False,plate_x_minus|arm1_extend|arm2_extend|arm3_extend|plate_y_minus|theta_plus,-1.0|-1.0|-1.0|-1.0|-1.0|100.0,95.0,plate_support_state:x1:y1:theta1:e2-2-2,shortest path task anchor only
