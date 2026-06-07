@@ -40,7 +40,7 @@ uv run ruff check .
 
 `big_boy_benchmarking` has eight repo-side counterpoint evaluation readouts, a
 first-class PlateSupport environment-readiness surface, a completed
-PlateSupport standard-gauntlet smoke readout, and several supporting
+PlateSupport standard-gauntlet correction readout, and several supporting
 smoke/diagnostic surfaces.
 
 Implemented infrastructure:
@@ -49,7 +49,7 @@ Implemented infrastructure:
   machinery;
 - `counterpoint_symbolic_v001`, a benchmark-owned symbolic hidden-graph
   environment family with `tiny` smoke, `small` serious, and `medium`
-  diagnostic fixtures;
+  diagnostic fixtures, plus widened `span18` probe fixtures;
 - graph, path-volume, schema, reward-fiber, lift-fiber, and tower diagnostics;
 - direct masked-random and direct tabular-Q runners;
 - tower smoke and serious-learning runners for contraction-schema arms;
@@ -67,6 +67,8 @@ Implemented infrastructure:
 - a staged PlateSupport standard gauntlet covering structural diagnostics,
   schema sweep, candidate discovery, tower-training health, target calibration,
   paired comparison, and generated suite readout;
+- an iterated PlateSupport source-local-ratio schema path that can produce
+  nontrivial executable towers for the standard gauntlet;
 - repo-side human-readable readout protocol and local status badges.
 
 The serious-learning default linearization condition is
@@ -86,13 +88,13 @@ until explicitly designed, implemented, and validated.
 | --- | --- | --- | --- |
 | Counterpoint first serious learning v001, artifact run `pi0_h_evaluation_001` | Complete structural-limit diagnostic | [README](docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/result_readout.md), [diagnostics](docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/results/diagnostic_findings.md) | The harness, artifact pipeline, direct baselines, empty tower shell, and human readout path work on `counterpoint_symbolic_n3_small_v001`; non-empty tower arms are dominated by full or near-full first-projection collapse and lift/action-realization effects. |
 | Counterpoint one-third schema tower diagnostics v001, artifact run `small_medium_validation_001` | Complete structural-limit diagnostic | [README](docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/result_readout.md), [summary](docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/results/summary.md) | The source-local one-third schema runs through upstream ABC control on `small` and `medium`; all 24 locked runs fully collapse at the first projection, but runtime execution itself does not stall: 3,840 concrete steps and 3,840 / 3,840 successful lift attempts. |
-| Counterpoint noisy-rate contraction diagnostics v001, artifact run `smoke_001` | Complete smoke diagnostic; full validation pending | [README](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/README.md), [summary](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/results/summary.md), [source coverage](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/results/source_coverage.md) | The new edge-global noisy-rate selector, metadata/runtime selected-edge consistency checks, source-coverage tables, threshold summaries, badges, and readout path work on the `small` smoke budget. In the smoke run, `1/144`, `1/36`, and `1/18` do not fully collapse the first projection; this is implementation and diagnostic evidence, not full small+medium validation. |
+| Counterpoint noisy-rate contraction diagnostics v001, artifact run `wide_span18_p001_over018_s0_001` | Complete custom structural diagnostic | [README](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/README.md), [summary](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/results/summary.md), [source coverage](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/results/source_coverage.md) | The edge-global noisy-rate selector, metadata/runtime selected-edge consistency checks, source-coverage tables, threshold summaries, badges, and readout path work on the widened `counterpoint_symbolic_n3_wide_20_108_span18_v001` fixture. The checked-in custom run tests `1/18` at schema seed `0`, selects 2800 edges, covers about 54.0% of sources, and produces a non-collapsed quotient tier with 1035 state cells and 24258 active action cells. This is structural diagnostic evidence, not learning-performance evidence. |
 | Counterpoint contraction fraction sweep diagnostics v001, artifact run `smoke_001` | Complete smoke diagnostic | [README](docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/README.md), [summary](docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/results/summary.md), [sweep verdict](docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/results/sweep_verdict.md) | The n-over-18 source-local fraction sweep completed and showed immediate first-projection collapse at `1/18` on the checked-in small smoke budget; `6/18` matches the legacy one-third endpoint. This is structural diagnostic evidence, not learning-performance evidence. |
-| Counterpoint noisy-rate full-tower training diagnostic v001, artifact run `smoke_001` | Complete smoke training-health diagnostic; main full budget pending | [README](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/result_readout.md), [findings](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/results/diagnostic_findings.md) | The repo can select non-collapsed noisy-rate candidates from the parent readout, rebuild their full available towers, preserve learner state across episodes, and emit tower-only training-health evidence. The checked-in smoke run selected two `1/144` candidates, emitted 64 concrete steps and 80 successful learner updates, and classified both as `trainable_clean`; this is not a direct-vs-tower comparison and not the main full diagnostic budget. |
-| Counterpoint second serious schema comparison v001, artifact run `smoke_001` | Complete implementation smoke; calibration and serious medium run pending | [README](docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/result_readout.md), [paired comparison](docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/results/paired_comparison_readout.md) | The repo can run the matched active-tier comparison harness for Schema 0 no-contraction versus a selected Schema 1 one-drop noisy-rate candidate, emit explicit threshold/persistence windows, and produce paired schema-comparison tables. The checked-in run uses a smoke threshold and one small candidate only; it is not a calibrated or serious medium result. |
-| Counterpoint threshold frontier probe v001, artifact run `smoke_001` | Complete implementation smoke; meaningful frontier run pending | [README](docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/result_readout.md), [frontier readout](docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/results/frontier_readout.md) | The repo can sweep reward thresholds over the corrected Schema 0 versus Schema 1 comparison surface and promote per-threshold arm, pair, tower, lift, timing, and frontier tables. The checked-in smoke used thresholds `12.0,13.0` and four episodes, so sustained-hit is impossible under the 4-of-5 rule; it validates machinery but is behaviorally claim-blocked. Meaningful reruns should keep `window_length = 5`, `required_count = 4`, and use at least 16 episodes per replicate. |
-| Counterpoint small paired replicate probe v001, artifact run `smoke_001` | Complete implementation smoke; meaningful threshold-frontier-selected run pending | [README](docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/result_readout.md), [paired replicate readout](docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/results/paired_replicate_readout.md) | The repo can run the new seed-paired replicate probe surface for one corrected wide candidate, preserve shared seed-bundle identity, and emit pair-distribution, margin, hit-rate, lift, tower, timing, and readout tables. The checked-in smoke used `R=13.0`, one pair, and four episodes per arm; both arms were transient only, so the behavioral claim is blocked while the machinery is verified. Meaningful reruns should keep the 4-of-5 sustained-hit rule and use at least 16 episodes per replicate. |
-| PlateSupport standard gauntlet v001, artifact run `smoke_001` | Complete smoke gauntlet with bounded negative target claim | [README](docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/README.md), [full readout](docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/result_readout.md), [paired comparison](docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/paired_comparison_readout.md) | The repo can run PlateSupport through the standard gauntlet: structural diagnostics, source-local ratio schema sweep, candidate discovery, tower-only training health, binary-success target calibration, paired direct-vs-tower comparison, and generated readout. The checked-in smoke completed Stages 1-7. On the Stage 5 binary-success target, the selected tower candidate was below the direct baseline; the same run also records a counter-signal where the tower has better mean reward and zero invalid moves. This is bounded smoke evidence, not a general tower claim. |
+| Counterpoint noisy-rate full-tower training diagnostic v001, artifact run `v072_pointwise_001` | Complete tower-only training-health diagnostic | [README](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/result_readout.md), [findings](docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/results/diagnostic_findings.md) | The repo can select the non-collapsed noisy-rate candidate from the parent readout, rebuild its full available tower under `state_collapser` v0.7.2 pointwise liftability semantics, preserve learner state across episodes, and emit tower-only training-health evidence. The checked-in run has one `1/18` candidate, 32 concrete steps, 40 learner updates, and `trainable_clean` status. The current full available tower is base plus one quotient tier, so this is training-health evidence, not a deep-tower or direct-vs-tower comparison. |
+| Counterpoint second serious schema comparison v001, artifact run `v072_pointwise_r013_001` | Complete bounded schema-comparison surface | [README](docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/result_readout.md), [paired comparison](docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/results/paired_comparison_readout.md) | The repo can run the matched active-tier comparison harness for Schema 0 no-contraction versus the selected Schema 1 one-drop noisy-rate candidate under pointwise liftability, a locked threshold `R = 13.0`, and a 4-of-5 persistence rule. In the checked-in one-pair run, both schemas reach sustained hit at the same episode count, so the bounded comparison is available but does not show a speed difference. |
+| Counterpoint threshold frontier probe v001, artifact run `episodes16_001` | Complete next-measure frontier probe with Schema 1 margin signal | [README](docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/result_readout.md), [frontier readout](docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/results/frontier_readout.md) | The repo can sweep reward thresholds over the corrected Schema 0 versus Schema 1 comparison surface and promote per-threshold arm, pair, tower, lift, timing, and frontier tables. The checked-in run tests thresholds `12.0` and `13.0` with enough episodes for the 4-of-5 rule; both schemas pass both thresholds, and Schema 1 has a higher post-hit margin at both thresholds. The claim status is `schema1_margin_advantage_only`, not broad schema dominance. |
+| Counterpoint small paired replicate probe v001, artifact run `episodes16_from_frontier_001` | Complete next-measure paired probe with weak Schema 1 margin pattern | [README](docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/result_readout.md), [paired replicate readout](docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/results/paired_replicate_readout.md) | The repo can run the seed-paired replicate probe surface for one corrected wide candidate, preserving shared seed-bundle identity and emitting pair-distribution, margin, hit-rate, lift, tower, timing, and readout tables. The checked-in run uses the threshold-frontier-selected `R = 13.0`; it has one unblocked pair, both schemas sustain the target, and Schema 1 has the higher post-hit reward margin. This is a weak positive next-measure pattern, not statistical significance. |
+| PlateSupport standard gauntlet v001, artifact run `iterated_001` | Complete correction gauntlet with bounded positive target signal | [README](docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/README.md), [full readout](docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/result_readout.md), [paired comparison](docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/paired_comparison_readout.md) | The repo can run PlateSupport through the full standard gauntlet: structural diagnostics, iterated source-local-ratio schema sweep, candidate discovery, tower-only training health, binary-success target calibration, paired direct-vs-tower comparison, and generated readout. The checked-in correction run completed Stages 1-7. On the Stage 5 binary-success target, the selected iterated tower candidate beat the direct concrete baseline: 25 / 128 target hits versus 15 / 128, for mean target-hit-rate delta `+0.078125`. The same run records a coherent behavioral signal: tower mean reward `-27.2109375` versus direct `-78.71875`, and tower invalid moves `0` versus direct `2142`. This is bounded smoke-scale evidence for a promising tower-control mechanism, not a general PlateSupport tower-performance claim. |
 
 Supporting smoke/diagnostic result notes:
 
@@ -104,7 +106,7 @@ Supporting smoke/diagnostic result notes:
 
 ## Current Conclusions
 
-The completed counterpoint readouts support these claims:
+The completed readouts support these claims:
 
 - the counterpoint small fixture can be run through the shared BBB artifact and
   readout machinery;
@@ -123,31 +125,33 @@ The completed counterpoint readouts support these claims:
 - the edge-global noisy-rate diagnostic can select small edge shares without a
   source-local minimum-one floor, can report zero-selected-source counts, and
   can verify that metadata-selected and runtime-contracted edges match;
-- the current noisy-rate smoke run on `small` does not show full first-projection
-  collapse for `1/144`, `1/36`, or `1/18`, but full small+medium validation has
-  not yet been authorized or run;
+- the current edge-global noisy-rate diagnostic on the widened `span18`
+  counterpoint fixture does not show full first-projection collapse at `1/18`
+  for schema seed `0`, and records partial source coverage plus metadata/runtime
+  selected-edge consistency;
 - the contraction-fraction sweep smoke shows that the current source-local
   `n/18` rule can collapse immediately at `1/18`, so it is a diagnostic lesson
   about local quota semantics rather than a negative learning result;
-- selected non-collapsed noisy-rate towers from the checked-in smoke parent
-  readout can be run through a tower-only training-health smoke budget with
-  persistent learner state, concrete steps, lift evidence, tier/controller
-  traces, and learner-update rows;
+- the selected non-collapsed noisy-rate tower from the current parent readout
+  can be run through a tower-only training-health budget with persistent
+  learner state, concrete steps, lift evidence, tier/controller traces, and
+  learner-update rows under pointwise liftability semantics;
 - the second serious schema-comparison harness can pair Schema 0 no-contraction
   against a selected Schema 1 noisy-rate one-drop candidate under the same
   active-tier tower-control runtime, seed bundle, threshold policy, and
-  artifact/readout workflow;
+  artifact/readout workflow; in the current `R = 13.0` run both schemas reach
+  sustained hit at the same episode count;
 - the threshold-frontier probe can rerun that matched comparison over a
   threshold grid, preserve per-threshold subrun artifacts, and promote
   frontier-level arm, pair, margin, first-failure, lift, tower, timing, and
-  recommendation tables; the checked-in two-threshold smoke validates the
-  machinery but is behaviorally claim-blocked because four episodes cannot
-  satisfy a 4-of-5 sustained-hit rule;
+  recommendation tables; the current two-threshold `episodes16_001` run shows
+  both schemas passing `12.0` and `13.0`, with Schema 1 recording the higher
+  post-hit margin at both thresholds;
 - the small paired replicate probe can repeat that matched comparison surface
   across seed bundles and write pair-level margin, hit-rate, lift, tower, and
-  timing tables; the checked-in smoke verifies the machinery but is
-  behaviorally claim-blocked because both arms were transient only under the
-  four-episode smoke budget;
+  timing tables; the current `episodes16_from_frontier_001` run has one
+  unblocked pair at `R = 13.0`, both schemas sustain the target, and Schema 1
+  records the higher post-hit margin;
 - random tower schemas expose schema-seed-dependent
   `no_lift_candidate_from_current_state` lift/action-realization failures.
 - PlateSupport is now environment-ready inside BBB: the checked-in readiness
@@ -155,12 +159,15 @@ The completed counterpoint readouts support these claims:
   nontriviality, invalid/self-transition diagnostics, tower-shape availability,
   training-surface availability, and artifact/doc generation under
   `docs/environments/`.
-- PlateSupport now has a completed standard-gauntlet smoke readout: the selected
-  source-local ratio tower candidate is trainable and the suite can calibrate a
-  binary-success comparison target, but the Stage 6 paired comparison is
-  negative on that target. The tower's better mean reward and zero invalid moves
-  are recorded as interpretation/counter-signal, not as a reversal of the target
-  claim.
+- PlateSupport now has a completed standard-gauntlet correction readout: the
+  selected iterated source-local-ratio tower candidate is trainable, the suite
+  can calibrate a binary-success comparison target, and Stage 6 records a
+  bounded positive target-hit signal against the direct concrete baseline.
+- The PlateSupport `iterated_001` run gives a small but coherent signal that
+  tower control may be acting as a useful action-filtering/search technology:
+  the selected tower candidate hit the target 25 / 128 times versus 15 / 128
+  for direct, had better mean reward, and made zero invalid moves while the
+  direct baseline made 2142 invalid moves.
 
 The current readouts do **not yet** support:
 
@@ -168,25 +175,23 @@ The current readouts do **not yet** support:
 - tensor-enabled, CUDA, or GPU performance claims;
 - musical-quality claims;
 - production performance claims;
-- claims beyond the recorded `small` and `medium` counterpoint budgets and the
-  `tensor_available_disabled` condition;
-- noisy-rate conclusions beyond the checked-in `smoke_001` run until a full
-  validation budget is explicitly run and read out;
+- claims beyond the recorded `small`, `medium`, and widened `span18`
+  counterpoint budgets and the `tensor_available_disabled` condition;
+- noisy-rate conclusions beyond the checked-in widened `1/18`, schema-seed-0
+  diagnostic until a broader validation budget is explicitly run and read out;
 - direct-vs-tower learning comparison claims from the noisy-rate full-tower
   training diagnostic; that readout is tower-only training health.
-- calibrated second-serious schema comparison claims; the checked-in second
-  serious comparison artifact is implementation smoke only and uses a smoke
-  threshold.
-- meaningful threshold-frontier claims; the checked-in threshold-frontier
-  artifact is implementation smoke only, and the intended meaningful run is the
-  six-threshold, eight-episode `v072_pointwise_frontier_001` budget.
-- meaningful small paired replicate claims; the checked-in paired-replicate
-  artifact is implementation smoke only, and the intended meaningful run should
-  use a threshold selected by a meaningful threshold-frontier run or explicit
-  Project Owner override.
+- broad second-serious schema comparison claims; the checked-in `R = 13.0`
+  artifact is one candidate and one matched pair only.
+- broad threshold-frontier claims; the checked-in frontier probe has only two
+  thresholds and one selected candidate, even though it is no longer
+  behaviorally claim-blocked.
+- statistical small paired replicate claims; the checked-in paired-replicate
+  artifact has one matched pair only, despite its weak positive Schema 1 margin
+  pattern.
 - general PlateSupport tower superiority/inferiority; the current gauntlet is a
-  smoke-scale bounded comparison on one selected candidate and one calibrated
-  binary-success target.
+  smoke-scale bounded positive signal on one selected iterated candidate and
+  one calibrated binary-success target.
 
 Known documentation/artifact notes:
 
@@ -215,6 +220,11 @@ Known documentation/artifact notes:
 - the small paired replicate probe readout includes pair-distribution,
   pair-level margin, schema-arm distribution, sustained-hit-rate, seed-bundle,
   lift, tower-shape, timing, and artifact provenance tables;
+- the PlateSupport standard-gauntlet readout includes suite/stage status,
+  iterated-candidate badges, structural summaries, schema-sweep summaries,
+  candidate discovery, tower-training health, threshold calibration,
+  paired-comparison target claims, reward/invalid-move counter-signals, timing,
+  and artifact provenance tables;
 - design learning from these evaluations is preserved under
   [system learning from evaluations](docs/design/system_learning_from_evaluations/README.md).
 
@@ -288,6 +298,69 @@ repo-side environment docs path with:
 ```bash
 uv run python -m big_boy_benchmarking.cli plate-support readiness \
   --artifact-root docs/environments/plate_support_5x5_default_v001/readiness/dev_001
+```
+
+Run the PlateSupport standard gauntlet correction path with a repo-resident
+artifact root. The checked-in correction run uses `iterated_001`; for a new run,
+choose a fresh run label rather than overwriting historical artifacts.
+
+```bash
+export BBB_ROOT="$PWD"
+export BBB_PLATE_GAUNTLET_LABEL="iterated_001"
+export BBB_PLATE_GAUNTLET_ROOT="$BBB_ROOT/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/$BBB_PLATE_GAUNTLET_LABEL"
+```
+
+```bash
+uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet structural-diagnostics run \
+  --repo-root "$BBB_ROOT" \
+  --artifact-root "$BBB_PLATE_GAUNTLET_ROOT" \
+  --readiness-source "$BBB_ROOT/docs/environments/plate_support_5x5_default_v001/readiness/dev_001/readout_source.json" \
+  --run-label "$BBB_PLATE_GAUNTLET_LABEL" \
+  --locked-by <operator-or-run-id>
+
+uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet schema-sweep run \
+  --repo-root "$BBB_ROOT" \
+  --artifact-root "$BBB_PLATE_GAUNTLET_ROOT" \
+  --stage1-source "$BBB_ROOT/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/readout_source.json" \
+  --run-label "$BBB_PLATE_GAUNTLET_LABEL" \
+  --locked-by <operator-or-run-id> \
+  --include-iterated-source-local-ratio \
+  --iterated-source-local-max-iterations 32
+
+uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet candidate-discovery run \
+  --repo-root "$BBB_ROOT" \
+  --artifact-root "$BBB_PLATE_GAUNTLET_ROOT" \
+  --schema-sweep-source "$BBB_ROOT/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/contraction_schema_sweep/readout_source.json" \
+  --run-label "$BBB_PLATE_GAUNTLET_LABEL" \
+  --locked-by <operator-or-run-id>
+
+uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet tower-training-health run \
+  --repo-root "$BBB_ROOT" \
+  --artifact-root "$BBB_PLATE_GAUNTLET_ROOT" \
+  --candidate-source "$BBB_ROOT/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/candidate_discovery/readout_source.json" \
+  --run-label "$BBB_PLATE_GAUNTLET_LABEL" \
+  --locked-by <operator-or-run-id>
+
+uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet threshold-calibration run \
+  --repo-root "$BBB_ROOT" \
+  --artifact-root "$BBB_PLATE_GAUNTLET_ROOT" \
+  --training-health-source "$BBB_ROOT/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/tower_training_health/readout_source.json" \
+  --run-label "$BBB_PLATE_GAUNTLET_LABEL" \
+  --locked-by <operator-or-run-id>
+
+uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet paired-comparison run \
+  --repo-root "$BBB_ROOT" \
+  --artifact-root "$BBB_PLATE_GAUNTLET_ROOT" \
+  --candidate-source "$BBB_ROOT/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/candidate_discovery/readout_source.json" \
+  --training-health-source "$BBB_ROOT/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/tower_training_health/readout_source.json" \
+  --threshold-source "$BBB_ROOT/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/threshold_frontier_calibration/readout_source.json" \
+  --structural-source "$BBB_ROOT/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/readout_source.json" \
+  --run-label "$BBB_PLATE_GAUNTLET_LABEL" \
+  --locked-by <operator-or-run-id>
+
+uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet readout build \
+  --readout-source "$BBB_ROOT/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json" \
+  --create-system-learning-archive
 ```
 
 The future installed command name `bbb` is reserved, but this slice exposes the
@@ -413,8 +486,10 @@ Durable repo-side readout target:
 execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json
 ```
 
-The checked-in `smoke_001` noisy-rate run is implementation/diagnostic
-evidence. Full validation remains a separate Project Owner decision.
+The current checked-in noisy-rate readout is
+`wide_span18_p001_over018_s0_001`, a widened single-rate structural diagnostic
+for `1/18` at schema seed `0`. It is diagnostic evidence only, not a
+learning-performance comparison.
 
 Noisy-rate full-tower training-health diagnostic:
 
@@ -440,9 +515,10 @@ Durable repo-side readout target:
 execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/readout_source.json
 ```
 
-The checked-in `smoke_001` full-tower training run is training-health smoke
-evidence. The main full diagnostic budget remains a separate Project Owner
-decision.
+The current checked-in full-tower training-health readout is
+`v072_pointwise_001`. It shows one selected `1/18` candidate training cleanly
+under a tower-only budget with pointwise liftability semantics. It is not a
+direct-vs-tower comparison.
 
 Second serious schema-comparison evaluation:
 
@@ -473,10 +549,10 @@ Durable repo-side readout target:
 execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/readout_source.json
 ```
 
-The checked-in `smoke_001` second-serious run proves the matched comparison
-machinery and readout path. Calibration must run before choosing the serious
-threshold, and the serious `medium` run remains decision-locked until four
-eligible medium Schema 1 candidates are available and explicitly authorized.
+The current checked-in second-serious readout is `v072_pointwise_r013_001`.
+It uses threshold `R = 13.0`; both schemas reach sustained hit at the same
+episode count in one unblocked pair. This is a bounded one-candidate,
+one-pair comparison surface, not a broad schema claim.
 
 Small paired replicate probe:
 
@@ -503,8 +579,7 @@ Durable repo-side readout target:
 execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/readout_source.json
 ```
 
-The checked-in `smoke_001` paired-replicate run verifies the seed-paired
-machinery and readout path. The intended meaningful run should use a threshold
-selected by the threshold-frontier probe, or an explicit Project Owner
-threshold override, before scaling to the agreed `8` matched pairs and `16`
-episodes per arm.
+The current checked-in paired-replicate readout is
+`episodes16_from_frontier_001`. It uses the threshold-frontier-selected
+`R = 13.0`, has one unblocked pair, and records a weak positive Schema 1 margin
+pattern. Scaling beyond one matched pair remains future work.

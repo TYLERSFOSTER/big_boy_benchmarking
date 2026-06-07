@@ -5,12 +5,13 @@
 This repository is active. It is no longer paused on the first serious
 counterpoint evaluation.
 
-As of 2026-06-05, the implemented repo state is:
+As of 2026-06-07, the implemented repo state is:
 
 - shared benchmark machinery exists;
 - `state_collapser` is pinned through the `v0.7.2` pointwise-liftability
   integration;
-- `counterpoint_symbolic_v001` has tiny, small, and medium fixtures;
+- `counterpoint_symbolic_v001` has tiny, small, medium, and widened `span18`
+  fixtures;
 - graph, schema, direct, tower-smoke, and serious-learning commands are
   runnable;
 - first serious learning evaluation machinery exists for calibration,
@@ -19,19 +20,20 @@ As of 2026-06-05, the implemented repo state is:
 - one-third schema tower diagnostics machinery exists for small/medium
   diagnostic runs, aggregation, source-bound repo readouts, and
   human-readable interpretation;
-- noisy-rate contraction diagnostics machinery exists for smoke-scale runs,
+- noisy-rate contraction diagnostics machinery exists for custom structural
+  diagnostic runs,
   aggregation, source-bound repo readouts, and human-readable interpretation;
 - noisy-rate full-tower training-health diagnostic machinery exists for
-  smoke-scale tower-only training runs, aggregation, source-bound repo
+  tower-only training-health runs, aggregation, source-bound repo
   readouts, and human-readable interpretation;
 - second serious schema-comparison machinery exists for matched Schema 0
-  versus Schema 1 first-sustained-hit smoke comparisons, aggregation,
+  versus Schema 1 first-sustained-hit bounded comparisons, aggregation,
   source-bound repo readouts, and human-readable interpretation;
 - threshold-frontier probe machinery exists for reward-threshold sweeps over
   the corrected Schema 0 versus Schema 1 comparison surface, aggregation,
   source-bound repo readouts, and human-readable interpretation;
 - small paired replicate probe machinery exists for seed-paired Schema 0
-  versus Schema 1 next-measure smoke comparisons, aggregation, source-bound
+  versus Schema 1 next-measure comparisons, aggregation, source-bound
   repo readouts, and human-readable interpretation;
 - eight repo-side counterpoint evaluation readouts exist:
   `first_serious_learning`, `one_third_schema_tower_diagnostics`,
@@ -40,12 +42,15 @@ As of 2026-06-05, the implemented repo state is:
   `noisy_rate_full_tower_training_diagnostic`,
   `second_serious_schema_comparison`, `threshold_frontier_probe`, and
   `small_paired_replicate_probe`.
-- `plate_support_5x5_default_v001` has a completed standard-gauntlet smoke
+- `plate_support_5x5_default_v001` has a completed standard-gauntlet correction
   readout under
   `docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/`,
-  covering structural diagnostics, source-local ratio schema sweep, candidate
-  discovery, tower-training health, target calibration, paired comparison, and
-  generated readout/system-learning synthesis.
+  covering structural diagnostics, iterated source-local-ratio schema sweep,
+  candidate discovery, tower-training health, target calibration, paired
+  comparison, and generated readout/system-learning synthesis. The current
+  checked-in correction artifact root is `iterated_001`, and the Stage 6
+  paired comparison records a bounded positive target-hit signal for the
+  selected iterated tower candidate.
 
 The current serious-learning default linearization condition is:
 
@@ -60,48 +65,66 @@ general performance claim.
 ## Current Next Work
 
 The immediate next fork is a Project Owner decision, not automatic execution.
+Do not assume the next step from old counterpoint notes.
 
-The current next-measure learning-comparison path is:
+The latest completed result is the PlateSupport standard-gauntlet correction
+run:
 
 ```text
-threshold_frontier_probe meaningful run -> small_paired_replicate_probe meaningful run -> larger comparison design
+docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/
+docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/
 ```
 
-The threshold-frontier probe has been implemented and smoke-tested:
+That run completed Stages 1-7 and produced:
+
+```text
+claim_status: paired_comparison_positive_signal
+target hits: selected tower 25 / 128, direct baseline 15 / 128
+mean target-hit-rate delta: +0.078125
+mean total reward: selected tower -27.2109375, direct baseline -78.71875
+invalid moves: selected tower 0, direct baseline 2142
+```
+
+Treat this as bounded smoke-scale positive evidence for a promising
+PlateSupport tower-control mechanism. It is not a general PlateSupport tower
+superiority claim. The next PlateSupport design block, if the Project Owner
+chooses it, should strengthen or challenge this signal with larger budgets,
+more seeds, more candidates, and possibly harder or varied PlateSupport
+instances. Do not jump directly from this one correction run to a general
+success claim.
+
+A separate counterpoint next-measure path has also progressed beyond the old
+smoke-blocked state:
+
+```text
+threshold_frontier_probe episodes16_001 -> small_paired_replicate_probe episodes16_from_frontier_001 -> larger comparison design
+```
+
+The counterpoint threshold-frontier probe has been implemented and rerun with
+enough episodes for the 4-of-5 persistence rule:
 
 ```text
 docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/
+docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001/
 ```
 
-The checked-in `smoke_001` artifact proves the threshold-sweep machinery and
-readout path, but it is behaviorally claim-blocked: the smoke used four
-episodes, while the sustained-hit rule is 4-of-5, so no arm can satisfy the
-windowed criterion. Do not treat that smoke as frontier evidence.
+The checked-in `episodes16_001` artifact tests thresholds `12.0` and `13.0`.
+Both schemas pass both thresholds, and Schema 1 has the higher post-hit margin
+at both thresholds. Treat this as a bounded next-measure margin signal, not as
+broad schema dominance or statistical evidence.
 
-The meaningful threshold-frontier run should use the six-threshold,
-eight-episode budget from the workplan:
-
-```text
-docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/v072_pointwise_frontier_001
-```
-
-The small paired replicate probe has been implemented and smoke-tested:
+The small paired replicate probe has also been rerun from the threshold-frontier
+selected threshold:
 
 ```text
 docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/
+docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/episodes16_from_frontier_001/
 ```
 
-The checked-in `smoke_001` artifact proves the paired-replicate machinery and
-readout path, but it is behaviorally claim-blocked: both arms were transient
-only under the four-episode smoke budget at `R=13.0`.
-
-Do not treat that smoke as evidence against Schema 1 or against tower learning.
-It is an implementation smoke result.
-
-The meaningful paired-replicate run should wait for either:
-
-- meaningful threshold-frontier output that selects a sharper threshold; or
-- an explicit Project Owner threshold override.
+The checked-in `episodes16_from_frontier_001` artifact uses `R = 13.0`, has one
+unblocked matched pair, both schemas sustain the target, and Schema 1 records
+the higher post-hit reward margin. Treat this as a weak positive one-pair
+pattern, not as a settled comparison.
 
 The relevant design/workplan surfaces are:
 
@@ -131,8 +154,8 @@ current small/medium fixtures, while base-tier concrete execution and lift
 remain healthy.
 ```
 
-If the paired-replicate signal survives a meaningful run, the likely next major
-design block is:
+Because the paired-replicate margin signal survived one threshold-frontier
+selected pair, a likely future counterpoint design block is:
 
 ```text
 counterpoint learning comparisons
@@ -145,17 +168,12 @@ contracts, and human-readable readout requirements. Do not jump straight from
 diagnostics into a learning-comparison implementation without a
 blueprint/workplan and explicit Project Owner approval.
 
-The current PlateSupport standard gauntlet is complete as a smoke suite:
-
-```text
-docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/
-```
-
-It supports a bounded statement only: the selected tower candidate is trainable,
-the suite can calibrate a binary-success target, and the Stage 6 paired
-comparison is negative on that target while also recording a counter-signal of
-better tower mean reward and zero invalid moves. Do not summarize this as
-general PlateSupport tower failure or success.
+The current PlateSupport standard gauntlet is complete as a correction suite.
+It supports a bounded statement only: the selected iterated tower candidate is
+trainable, the suite can calibrate a binary-success target, and the Stage 6
+paired comparison is positive on that target while also recording better tower
+mean reward and zero invalid moves. Do not summarize this as general
+PlateSupport tower success.
 
 ## Root Contribution Rule
 
@@ -314,6 +332,30 @@ This command writes environment-readiness artifacts under `docs/environments/`,
 not `docs/evaluations/`. It is an environment construction check, not a
 learning evaluation.
 
+PlateSupport standard-gauntlet correction commands:
+
+```text
+Use the full command sequence in README.md under "Run the PlateSupport standard
+gauntlet correction path". The checked-in correction run is `iterated_001`.
+For a new run, choose a fresh run label and keep the artifact root under:
+
+docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/<run-label>
+```
+
+The schema-sweep stage must include:
+
+```text
+--include-iterated-source-local-ratio
+```
+
+The durable suite readout is rebuilt with:
+
+```bash
+uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet readout build \
+  --readout-source docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json \
+  --create-system-learning-archive
+```
+
 Counterpoint serious-learning commands:
 
 ```bash
@@ -341,7 +383,7 @@ The `tiny` serious-learning path is smoke/non-evidence. The `small` path is the
 first serious fixture, subject to the budget and claim boundaries documented in
 the evaluation method docs.
 
-Counterpoint noisy-rate diagnostic smoke:
+Counterpoint noisy-rate structural diagnostic:
 
 ```bash
 uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate run \
@@ -363,7 +405,7 @@ Durable readout command:
 execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json
 ```
 
-Counterpoint noisy-rate full-tower training-health diagnostic smoke:
+Counterpoint noisy-rate full-tower training-health diagnostic:
 
 ```bash
 uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate-full-train run \
