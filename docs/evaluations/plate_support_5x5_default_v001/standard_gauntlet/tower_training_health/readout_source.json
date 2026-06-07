@@ -1,0 +1,72 @@
+{
+  "artifact_run_label": "smoke_001",
+  "artifact_schema_version": "bbb.v001",
+  "claim_boundary": [
+    "Stage 4 may claim tower-only training health status",
+    "Stage 4 may not claim calibrated thresholds or tower-vs-flat benefit"
+  ],
+  "environment_family_id": "plate_support",
+  "environment_instance_id": "plate_support_5x5_default_v001",
+  "evaluation_id": "plate_support_gauntlet_tower_training_health_v001",
+  "expected_files": {
+    "conditional": {},
+    "expectation_sources": [
+      "docs/design/first_plate_support_environment/standard_gauntlet_suite/04_tower_training_health/01_001_plate_support_tower_training_health_blueprint.md"
+    ],
+    "expected_absent_is_gap": [],
+    "not_applicable": [],
+    "required": [
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/training_episode_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/training_curve_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/concrete_step_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/lift_success_by_tier.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/lift_failure_by_tier.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/tier_occupancy_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/tier_executability_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/controller_action_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/learner_update_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/candidate_training_health_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/downstream_comparison_input_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/timing_summary.csv"
+    ]
+  },
+  "goal_criteria": [
+    {
+      "claim_if_met": "Stage 5 threshold frontier calibration may run",
+      "claim_if_not_met": "Stage 5 is blocked by training_health_blocked",
+      "failure_signal": "no concrete steps, lift success, or learner updates",
+      "goal_id": "plate_support_stage4_training_health",
+      "partial_signal": "events exist but classifier records trainable_warning",
+      "question": "Can selected PlateSupport tower candidates emit training-health traces?",
+      "success_signal": "candidate_training_health_summary.csv has trainable_clean or trainable_warning rows"
+    }
+  ],
+  "goal_summary_sources": [
+    "docs/design/first_plate_support_environment/standard_gauntlet_suite/04_tower_training_health/01_001_plate_support_tower_training_health_blueprint.md",
+    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/tower_training_health/method.md"
+  ],
+  "methodology_summary_sources": [
+    "docs/design/first_plate_support_environment/standard_gauntlet_suite/04_tower_training_health/01_001_plate_support_tower_training_health_blueprint.md",
+    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/tower_training_health/method.md",
+    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/tower_training_health/runbook.md"
+  ],
+  "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/tower_training_health",
+  "run_mode": "stage4_tower_training_health",
+  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health",
+  "source_binding_type": "evaluation_readout_source",
+  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health",
+  "source_files": {
+    "candidate_training_health_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/candidate_training_health_summary.csv",
+    "concrete_step_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/concrete_step_summary.csv",
+    "controller_action_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/controller_action_summary.csv",
+    "downstream_comparison_input_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/downstream_comparison_input_summary.csv",
+    "learner_update_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/learner_update_summary.csv",
+    "lift_failure_by_tier": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/lift_failure_by_tier.csv",
+    "lift_success_by_tier": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/lift_success_by_tier.csv",
+    "tier_executability_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/tier_executability_summary.csv",
+    "tier_occupancy_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/tier_occupancy_summary.csv",
+    "timing_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/timing_summary.csv",
+    "training_curve_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/training_curve_summary.csv",
+    "training_episode_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/training_episode_summary.csv"
+  }
+}

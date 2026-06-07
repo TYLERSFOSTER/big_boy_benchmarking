@@ -19,6 +19,15 @@
       "schema_seed": 0
     },
     {
+      "blocking_reason": "",
+      "builder_surface": "bbb.plate_support.SourceLocalOutgoingRatioSchema.full_graph_partition_tower",
+      "construction_status": "constructed",
+      "schema_family_id": "source_local_ratio",
+      "schema_id": "plate_support_schema_source_local_ratio_001_over_018_v001",
+      "schema_mode": "source_local_ratio",
+      "schema_seed": 0
+    },
+    {
       "blocking_reason": "current upstream PlateSupport probe accepts only schema_mode default or none; action-category schema construction is unavailable",
       "builder_surface": "not_available",
       "construction_status": "not_supported",

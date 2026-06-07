@@ -1,0 +1,2 @@
+suite_status,completed_stage_count,implemented_stage_count,first_not_complete_stage,suite_reason
+complete_limited_signal,7,7,,"Stages 1-7 completed. Stage 6 produced bounded paired comparison status `paired_comparison_negative_signal`, and Stage 7 produced the human readout/system-learning surface."

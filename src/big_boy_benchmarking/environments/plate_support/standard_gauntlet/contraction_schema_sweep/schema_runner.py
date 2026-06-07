@@ -5,10 +5,12 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 
+from state_collapser.core.edges import BaseEdge
 from state_collapser.examples.tower_depth_probe import continuous_probe
 from state_collapser.examples.tower_depth_probe import (
     build_contraction_schema as build_probe_schema,
 )
+from state_collapser.tower.partition.tower import build_partition_tower_full
 
 from big_boy_benchmarking.environments.plate_support.ids import UPSTREAM_SMOKE_ID
 from big_boy_benchmarking.environments.plate_support.standard_gauntlet.contraction_schema_sweep.config import (
@@ -19,6 +21,9 @@ from big_boy_benchmarking.environments.plate_support.standard_gauntlet.contracti
 )
 from big_boy_benchmarking.environments.plate_support.standard_gauntlet.contraction_schema_sweep.schema_families import (
     SchemaArm,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.contraction_schema_sweep.source_local_ratio_schema import (
+    SourceLocalOutgoingRatioSchema,
 )
 from big_boy_benchmarking.environments.plate_support.upstream import import_plate_support_surface
 
@@ -51,6 +56,9 @@ def run_schema_tower_diagnostics(
             endpoint_coalescence_rows=(empty["endpoint_coalescence"],),
             timing_rows=(empty["timing"],),
         )
+
+    if arm.schema_mode == "source_local_ratio":
+        return _run_source_local_ratio_tower_diagnostics(arm=arm)
 
     depth_probe = continuous_probe(
         env_name=UPSTREAM_SMOKE_ID,
@@ -180,6 +188,174 @@ def run_schema_tower_diagnostics(
             },
         ),
     )
+
+
+def _run_source_local_ratio_tower_diagnostics(*, arm: SchemaArm) -> SchemaTowerDiagnostics:
+    numerator, denominator = _source_local_ratio_parts(arm)
+    surface = import_plate_support_surface()
+    to_core_state = surface.module.plate_support_state_to_core_state
+    to_core_action = surface.module.action_index_to_primitive_action
+    valid_states = tuple(surface.all_valid_states())
+    core_states = tuple(to_core_state(state) for state in valid_states)
+    core_by_state = dict(zip(valid_states, core_states, strict=True))
+    edges: list[BaseEdge] = []
+    for source_state in valid_states:
+        source = core_by_state[source_state]
+        for action_index in range(surface.ACTION_COUNT):
+            transition = surface.primitive_transition(source_state, action_index)
+            if not transition.valid_transition:
+                continue
+            edges.append(
+                BaseEdge(
+                    source=source,
+                    action=to_core_action(action_index),
+                    target=core_by_state[transition.next_state],
+                    labels=("plate-support-transition",),
+                )
+            )
+    current_base_state = core_by_state[surface.START_STATE]
+    partition_tower = build_partition_tower_full(
+        states=core_states,
+        edges=edges,
+        current_state=current_base_state,
+        schema=SourceLocalOutgoingRatioSchema(
+            numerator=numerator,
+            denominator=denominator,
+            seed=arm.schema_seed,
+        ),
+    )
+    current_positions = partition_tower.current_position_at_every_tier(current_base_state)
+    update_result = partition_tower.last_update_result
+    scheduled_assignment_count = len(partition_tower.schema_assignment_store.scheduled_edge_ids())
+    unscheduled_assignment_count = (
+        0
+        if update_result is None
+        else max(0, update_result.diagnostics.discovered_edge_count - scheduled_assignment_count)
+    )
+    max_depth = len(partition_tower.state_layers)
+
+    tower_shape_rows: list[dict[str, object]] = []
+    tier_occupancy_rows: list[dict[str, object]] = []
+    tier_executability_rows: list[dict[str, object]] = []
+    endpoint_rows: list[dict[str, object]] = []
+    for tier_index, state_layer in enumerate(partition_tower.state_layers):
+        action_layer = partition_tower.action_layers[tier_index]
+        state_member_counts = [
+            len(members) for members in state_layer.members_by_cell_id.values()
+        ]
+        total_state_members = sum(state_member_counts)
+        largest_share = (
+            0.0 if total_state_members == 0 else max(state_member_counts) / total_state_members
+        )
+        singleton_share = (
+            0.0
+            if total_state_members == 0
+            else sum(1 for count in state_member_counts if count == 1) / len(state_member_counts)
+        )
+        current_cell = current_positions[tier_index]
+        outgoing = (
+            ()
+            if current_cell is None
+            else partition_tower.outgoing_action_cells(tier_index, current_cell)
+        )
+        executable = (
+            ()
+            if current_cell is None
+            else partition_tower.executable_action_cells(
+                tier_index,
+                current_cell,
+                current_base_state,
+            )
+        )
+        action_cell_count = len(action_layer.edge_ids_by_action_cell)
+        endpoint_pairs = {
+            (
+                str(action_layer.source_cell_by_action_cell.get(action_cell)),
+                str(action_layer.target_cell_by_action_cell.get(action_cell)),
+            )
+            for action_cell in action_layer.edge_ids_by_action_cell
+        }
+        tower_shape_rows.append(
+            {
+                "schema_id": arm.schema_id,
+                "schema_family_id": arm.schema_family_id,
+                "schema_seed": arm.schema_seed,
+                "tier_index": tier_index,
+                "max_depth": max_depth,
+                "state_cell_count": len(state_layer.members_by_cell_id),
+                "action_cell_count": action_cell_count,
+                "largest_cell_share": largest_share,
+                "singleton_cell_share": singleton_share,
+                "scheduled_assignment_count": scheduled_assignment_count,
+                "unscheduled_assignment_count": unscheduled_assignment_count,
+                "depth_curve": json.dumps((max_depth,), separators=(",", ":")),
+                "reset_event_count": 0,
+                "diagnostic_status": "ok",
+            }
+        )
+        tier_occupancy_rows.append(
+            {
+                "schema_id": arm.schema_id,
+                "schema_family_id": arm.schema_family_id,
+                "schema_seed": arm.schema_seed,
+                "tier_index": tier_index,
+                "current_state_cell": str(current_cell),
+                "state_cell_count": len(state_layer.members_by_cell_id),
+                "outgoing_action_cell_count": len(outgoing),
+                "active_action_cell_count": len(executable),
+                "diagnostic_status": "ok",
+            }
+        )
+        tier_executability_rows.append(
+            {
+                "schema_id": arm.schema_id,
+                "schema_family_id": arm.schema_family_id,
+                "schema_seed": arm.schema_seed,
+                "tier_index": tier_index,
+                "tier_executable_from_current_state": partition_tower.tier_is_executable_from_state(
+                    tier_index,
+                    current_base_state,
+                ),
+                "lift_success_probe_count": len(executable),
+                "lift_failure_probe_count": 0 if executable else 1,
+                "active_action_cell_count": len(executable),
+                "diagnostic_status": "ok",
+            }
+        )
+        endpoint_rows.append(
+            {
+                "schema_id": arm.schema_id,
+                "schema_family_id": arm.schema_family_id,
+                "schema_seed": arm.schema_seed,
+                "tier_index": tier_index,
+                "action_cell_count": action_cell_count,
+                "endpoint_pair_count": len(endpoint_pairs),
+                "endpoint_coalescence_count": max(0, action_cell_count - len(endpoint_pairs)),
+                "diagnostic_status": "ok",
+            }
+        )
+
+    return SchemaTowerDiagnostics(
+        tower_shape_rows=tuple(tower_shape_rows),
+        tier_occupancy_rows=tuple(tier_occupancy_rows),
+        tier_executability_rows=tuple(tier_executability_rows),
+        endpoint_coalescence_rows=tuple(endpoint_rows),
+        timing_rows=(
+            {
+                "schema_id": arm.schema_id,
+                "schema_family_id": arm.schema_family_id,
+                "schema_seed": arm.schema_seed,
+                "timing_category": "full_graph_source_local_ratio_probe",
+                "duration_seconds": "not_measured",
+                "diagnostic_status": "not_measured",
+            },
+        ),
+    )
+
+
+def _source_local_ratio_parts(arm: SchemaArm) -> tuple[int, int]:
+    numerator, denominator = arm.selection_rate.split("/", maxsplit=1)
+    return int(numerator), int(denominator)
 
 
 def _blocked_rows(

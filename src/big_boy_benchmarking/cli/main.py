@@ -205,6 +205,9 @@ from big_boy_benchmarking.environments.counterpoint.threshold_frontier_probe imp
 from big_boy_benchmarking.environments.plate_support.ids import (
     DEFAULT_INSTANCE_ID as PLATE_SUPPORT_DEFAULT_INSTANCE_ID,
 )
+from big_boy_benchmarking.environments.plate_support.graph_stats import (
+    summarize_plate_support_graph,
+)
 from big_boy_benchmarking.environments.plate_support.runner import (
     run_plate_support_environment_readiness,
 )
@@ -246,6 +249,30 @@ from big_boy_benchmarking.environments.plate_support.standard_gauntlet.candidate
 )
 from big_boy_benchmarking.environments.plate_support.standard_gauntlet.candidate_discovery.runner import (
     run_candidate_discovery as run_plate_support_candidate_discovery,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.tower_training_health.config import (
+    TowerTrainingHealthConfig as PlateSupportTowerTrainingHealthConfig,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.tower_training_health.runner import (
+    run_tower_training_health as run_plate_support_tower_training_health,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.threshold_frontier_calibration.config import (
+    ThresholdFrontierCalibrationConfig as PlateSupportThresholdFrontierCalibrationConfig,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.threshold_frontier_calibration.runner import (
+    run_threshold_frontier_calibration as run_plate_support_threshold_frontier_calibration,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.paired_replicate_comparison.config import (
+    PairedReplicateComparisonConfig as PlateSupportPairedReplicateComparisonConfig,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.paired_replicate_comparison.runner import (
+    run_paired_replicate_comparison as run_plate_support_paired_replicate_comparison,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.readout_system_learning.config import (
+    ReadoutSystemLearningConfig as PlateSupportReadoutSystemLearningConfig,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.readout_system_learning.runner import (
+    build_readout_system_learning as build_plate_support_readout_system_learning,
 )
 from big_boy_benchmarking.modes.contracts import validate_mode_contract
 from big_boy_benchmarking.modes.linearization import (
@@ -343,6 +370,14 @@ def build_parser() -> argparse.ArgumentParser:
         choices=_linearization_mode_ids(),
         default="tensor_available_disabled",
     )
+    plate_support_graph_stats_parser = plate_support_subparsers.add_parser("graph-stats")
+    plate_support_graph_stats_parser.add_argument(
+        "--instance-id",
+        default=PLATE_SUPPORT_DEFAULT_INSTANCE_ID,
+        choices=(PLATE_SUPPORT_DEFAULT_INSTANCE_ID,),
+    )
+    plate_support_graph_stats_parser.add_argument("--output", type=Path)
+    plate_support_graph_stats_parser.add_argument("--pretty", action="store_true")
 
     plate_support_gauntlet_parser = plate_support_subparsers.add_parser("standard-gauntlet")
     plate_support_gauntlet_subparsers = plate_support_gauntlet_parser.add_subparsers(
@@ -403,6 +438,16 @@ def build_parser() -> argparse.ArgumentParser:
     plate_support_schema_sweep_run_parser.add_argument("--locked-by", required=True)
     plate_support_schema_sweep_run_parser.add_argument("--schema-seed", action="append", type=int)
     plate_support_schema_sweep_run_parser.add_argument(
+        "--source-local-ratio-numerator",
+        action="append",
+        type=int,
+    )
+    plate_support_schema_sweep_run_parser.add_argument(
+        "--source-local-ratio-denominator",
+        type=int,
+        default=18,
+    )
+    plate_support_schema_sweep_run_parser.add_argument(
         "--edge-global-numerator",
         action="append",
         type=int,
@@ -443,6 +488,169 @@ def build_parser() -> argparse.ArgumentParser:
         "--linearization-mode",
         choices=_linearization_mode_ids(),
         default="tensor_available_disabled",
+    )
+    plate_support_training_parser = plate_support_gauntlet_subparsers.add_parser(
+        "tower-training-health"
+    )
+    plate_support_training_subparsers = plate_support_training_parser.add_subparsers(
+        dest="tower_training_health_command",
+        required=True,
+    )
+    plate_support_training_run_parser = plate_support_training_subparsers.add_parser("run")
+    plate_support_training_run_parser.add_argument("--repo-root", required=True, type=Path)
+    plate_support_training_run_parser.add_argument("--artifact-root", required=True, type=Path)
+    plate_support_training_run_parser.add_argument(
+        "--candidate-source",
+        required=True,
+        type=Path,
+    )
+    plate_support_training_run_parser.add_argument("--run-label", default="smoke_001")
+    plate_support_training_run_parser.add_argument("--locked-by", required=True)
+    plate_support_training_run_parser.add_argument("--candidate-cap", type=int, default=2)
+    plate_support_training_run_parser.add_argument(
+        "--training-replicates-per-candidate",
+        type=int,
+        default=2,
+    )
+    plate_support_training_run_parser.add_argument(
+        "--episodes-per-replicate",
+        type=int,
+        default=16,
+    )
+    plate_support_training_run_parser.add_argument(
+        "--max-steps-per-episode",
+        type=int,
+        default=50,
+    )
+    plate_support_training_run_parser.add_argument("--base-seed", type=int, default=0)
+    plate_support_training_run_parser.add_argument("--allow-warning-candidates", action="store_true")
+    plate_support_training_run_parser.add_argument("--learning-rate", type=float, default=0.25)
+    plate_support_training_run_parser.add_argument("--discount", type=float, default=0.95)
+    plate_support_training_run_parser.add_argument("--epsilon", type=float, default=0.20)
+    plate_support_training_run_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
+    plate_support_threshold_parser = plate_support_gauntlet_subparsers.add_parser(
+        "threshold-calibration"
+    )
+    plate_support_threshold_subparsers = plate_support_threshold_parser.add_subparsers(
+        dest="threshold_calibration_command",
+        required=True,
+    )
+    plate_support_threshold_run_parser = plate_support_threshold_subparsers.add_parser("run")
+    plate_support_threshold_run_parser.add_argument("--repo-root", required=True, type=Path)
+    plate_support_threshold_run_parser.add_argument("--artifact-root", required=True, type=Path)
+    plate_support_threshold_run_parser.add_argument(
+        "--training-health-source",
+        required=True,
+        type=Path,
+    )
+    plate_support_threshold_run_parser.add_argument("--stage1-source", type=Path)
+    plate_support_threshold_run_parser.add_argument("--run-label", default="smoke_001")
+    plate_support_threshold_run_parser.add_argument("--locked-by", required=True)
+    plate_support_threshold_run_parser.add_argument("--candidate-cap", type=int, default=1)
+    plate_support_threshold_run_parser.add_argument(
+        "--allow-warning-candidates",
+        action="store_true",
+    )
+    plate_support_threshold_run_parser.add_argument(
+        "--recommended-episodes-per-replicate",
+        type=int,
+        default=32,
+    )
+    plate_support_threshold_run_parser.add_argument(
+        "--recommended-replicates-per-arm",
+        type=int,
+        default=4,
+    )
+    plate_support_threshold_run_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
+    plate_support_paired_parser = plate_support_gauntlet_subparsers.add_parser(
+        "paired-comparison"
+    )
+    plate_support_paired_subparsers = plate_support_paired_parser.add_subparsers(
+        dest="paired_comparison_command",
+        required=True,
+    )
+    plate_support_paired_run_parser = plate_support_paired_subparsers.add_parser("run")
+    plate_support_paired_run_parser.add_argument("--repo-root", required=True, type=Path)
+    plate_support_paired_run_parser.add_argument("--artifact-root", required=True, type=Path)
+    plate_support_paired_run_parser.add_argument(
+        "--candidate-source",
+        required=True,
+        type=Path,
+    )
+    plate_support_paired_run_parser.add_argument(
+        "--training-health-source",
+        required=True,
+        type=Path,
+    )
+    plate_support_paired_run_parser.add_argument(
+        "--threshold-source",
+        required=True,
+        type=Path,
+    )
+    plate_support_paired_run_parser.add_argument("--structural-source", type=Path)
+    plate_support_paired_run_parser.add_argument("--run-label", default="smoke_001")
+    plate_support_paired_run_parser.add_argument("--locked-by", required=True)
+    plate_support_paired_run_parser.add_argument("--candidate-cap", type=int, default=1)
+    plate_support_paired_run_parser.add_argument(
+        "--allow-warning-candidates",
+        action="store_true",
+    )
+    plate_support_paired_run_parser.add_argument(
+        "--allow-legacy-dependency",
+        action="store_true",
+    )
+    plate_support_paired_run_parser.add_argument("--episodes-per-replicate", type=int)
+    plate_support_paired_run_parser.add_argument("--replicates-per-arm", type=int)
+    plate_support_paired_run_parser.add_argument(
+        "--max-steps-per-episode",
+        type=int,
+        default=50,
+    )
+    plate_support_paired_run_parser.add_argument("--base-seed", type=int, default=0)
+    plate_support_paired_run_parser.add_argument("--learning-rate", type=float, default=0.25)
+    plate_support_paired_run_parser.add_argument("--discount", type=float, default=0.95)
+    plate_support_paired_run_parser.add_argument("--epsilon", type=float, default=0.20)
+    plate_support_paired_run_parser.add_argument(
+        "--skip-direct-baseline",
+        action="store_true",
+    )
+    plate_support_paired_run_parser.add_argument(
+        "--skip-no-contraction-control",
+        action="store_true",
+    )
+    plate_support_paired_run_parser.add_argument(
+        "--linearization-mode",
+        choices=_linearization_mode_ids(),
+        default="tensor_available_disabled",
+    )
+    plate_support_readout_parser = plate_support_gauntlet_subparsers.add_parser("readout")
+    plate_support_readout_subparsers = plate_support_readout_parser.add_subparsers(
+        dest="readout_command",
+        required=True,
+    )
+    plate_support_readout_build_parser = plate_support_readout_subparsers.add_parser("build")
+    plate_support_readout_build_parser.add_argument(
+        "--readout-source",
+        required=True,
+        type=Path,
+    )
+    plate_support_readout_build_parser.add_argument(
+        "--create-system-learning-archive",
+        action="store_true",
+    )
+    plate_support_readout_inspect_parser = plate_support_readout_subparsers.add_parser("inspect")
+    plate_support_readout_inspect_parser.add_argument(
+        "--readout-source",
+        required=True,
+        type=Path,
     )
 
     counterpoint_parser = subparsers.add_parser("counterpoint")
@@ -1018,6 +1226,13 @@ def _run_plate_support_command(args: argparse.Namespace) -> int:
         )
         return 0 if result.status == "success" else 2
 
+    if args.plate_support_command == "graph-stats":
+        payload = summarize_plate_support_graph()
+        if args.output is not None:
+            write_json(args.output, payload)
+        print(json.dumps(payload, indent=2 if args.pretty else None, sort_keys=True))
+        return 0
+
     if args.plate_support_command == "standard-gauntlet":
         if args.standard_gauntlet_command == "inspect-architecture":
             gates = {
@@ -1135,6 +1350,10 @@ def _run_plate_support_command(args: argparse.Namespace) -> int:
                         stage1_readout_source_path=args.stage1_source,
                         locked_by=args.locked_by,
                         schema_seeds=tuple(args.schema_seed or (0,)),
+                        source_local_ratio_numerators=tuple(
+                            args.source_local_ratio_numerator or (1,)
+                        ),
+                        source_local_ratio_denominator=args.source_local_ratio_denominator,
                         edge_global_numerators=tuple(
                             args.edge_global_numerator or (1, 2, 4, 8)
                         ),
@@ -1198,6 +1417,207 @@ def _run_plate_support_command(args: argparse.Namespace) -> int:
             raise ValueError(
                 "unknown PlateSupport candidate discovery command: "
                 f"{args.candidate_discovery_command}"
+            )
+
+        if args.standard_gauntlet_command == "tower-training-health":
+            if args.tower_training_health_command == "run":
+                if args.linearization_mode != "tensor_available_disabled":
+                    raise ValueError(
+                        "PlateSupport Stage 4 uses tensor_available_disabled; "
+                        f"reserved linearization mode rejected: {args.linearization_mode}"
+                    )
+                result = run_plate_support_tower_training_health(
+                    PlateSupportTowerTrainingHealthConfig(
+                        artifact_root=args.artifact_root,
+                        run_label=args.run_label,
+                        candidate_source_path=args.candidate_source,
+                        locked_by=args.locked_by,
+                        candidate_cap=args.candidate_cap,
+                        training_replicates_per_candidate=(
+                            args.training_replicates_per_candidate
+                        ),
+                        episodes_per_replicate=args.episodes_per_replicate,
+                        max_steps_per_episode=args.max_steps_per_episode,
+                        base_seed=args.base_seed,
+                        allow_warning_candidates=args.allow_warning_candidates,
+                        learning_rate=args.learning_rate,
+                        discount=args.discount,
+                        epsilon=args.epsilon,
+                        linearization_mode_id=args.linearization_mode,
+                    ),
+                    repo_root=args.repo_root,
+                )
+                print(
+                    json.dumps(
+                        {
+                            "status": result.status,
+                            "stage_root": str(result.stage_root),
+                            "readout_source": str(result.readout_source_path),
+                            "artifact_count": len(result.artifact_paths),
+                            "failure_reason": result.failure_reason,
+                        },
+                        sort_keys=True,
+                    )
+                )
+                return 0 if result.status == "complete" else 2
+            raise ValueError(
+                "unknown PlateSupport tower training health command: "
+                f"{args.tower_training_health_command}"
+            )
+
+        if args.standard_gauntlet_command == "threshold-calibration":
+            if args.threshold_calibration_command == "run":
+                if args.linearization_mode != "tensor_available_disabled":
+                    raise ValueError(
+                        "PlateSupport Stage 5 uses tensor_available_disabled; "
+                        f"reserved linearization mode rejected: {args.linearization_mode}"
+                    )
+                result = run_plate_support_threshold_frontier_calibration(
+                    PlateSupportThresholdFrontierCalibrationConfig(
+                        artifact_root=args.artifact_root,
+                        run_label=args.run_label,
+                        training_health_source_path=args.training_health_source,
+                        locked_by=args.locked_by,
+                        stage1_source_path=args.stage1_source,
+                        candidate_cap=args.candidate_cap,
+                        allow_warning_candidates=args.allow_warning_candidates,
+                        recommended_episodes_per_replicate=(
+                            args.recommended_episodes_per_replicate
+                        ),
+                        recommended_replicates_per_arm=(
+                            args.recommended_replicates_per_arm
+                        ),
+                        linearization_mode_id=args.linearization_mode,
+                    ),
+                    repo_root=args.repo_root,
+                )
+                print(
+                    json.dumps(
+                        {
+                            "status": result.status,
+                            "stage_root": str(result.stage_root),
+                            "readout_source": str(result.readout_source_path),
+                            "recommended_target_policy_id": (
+                                result.recommended_target_policy_id
+                            ),
+                            "artifact_count": len(result.artifact_paths),
+                            "failure_reason": result.failure_reason,
+                        },
+                        sort_keys=True,
+                    )
+                )
+                return 0 if result.status == "complete" else 2
+            raise ValueError(
+                "unknown PlateSupport threshold calibration command: "
+                f"{args.threshold_calibration_command}"
+            )
+
+        if args.standard_gauntlet_command == "paired-comparison":
+            if args.paired_comparison_command == "run":
+                if args.linearization_mode != "tensor_available_disabled":
+                    raise ValueError(
+                        "PlateSupport Stage 6 uses tensor_available_disabled; "
+                        f"reserved linearization mode rejected: {args.linearization_mode}"
+                    )
+                result = run_plate_support_paired_replicate_comparison(
+                    PlateSupportPairedReplicateComparisonConfig(
+                        artifact_root=args.artifact_root,
+                        run_label=args.run_label,
+                        candidate_source_path=args.candidate_source,
+                        training_health_source_path=args.training_health_source,
+                        threshold_source_path=args.threshold_source,
+                        locked_by=args.locked_by,
+                        structural_source_path=args.structural_source,
+                        candidate_cap=args.candidate_cap,
+                        allow_warning_candidates=args.allow_warning_candidates,
+                        allow_legacy_dependency=args.allow_legacy_dependency,
+                        episodes_per_replicate=args.episodes_per_replicate,
+                        replicates_per_arm=args.replicates_per_arm,
+                        max_steps_per_episode=args.max_steps_per_episode,
+                        base_seed=args.base_seed,
+                        learning_rate=args.learning_rate,
+                        discount=args.discount,
+                        epsilon=args.epsilon,
+                        include_direct_baseline=not args.skip_direct_baseline,
+                        include_no_contraction_control=(
+                            not args.skip_no_contraction_control
+                        ),
+                        linearization_mode_id=args.linearization_mode,
+                    ),
+                    repo_root=args.repo_root,
+                )
+                print(
+                    json.dumps(
+                        {
+                            "status": result.status,
+                            "stage_root": str(result.stage_root),
+                            "readout_source": str(result.readout_source_path),
+                            "claim_status": result.claim_status,
+                            "artifact_count": len(result.artifact_paths),
+                            "failure_reason": result.failure_reason,
+                        },
+                        sort_keys=True,
+                    )
+                )
+                return 0 if result.status == "complete" else 2
+            raise ValueError(
+                "unknown PlateSupport paired comparison command: "
+                f"{args.paired_comparison_command}"
+            )
+
+        if args.standard_gauntlet_command == "readout":
+            if args.readout_command == "build":
+                result = build_plate_support_readout_system_learning(
+                    PlateSupportReadoutSystemLearningConfig(
+                        readout_source_path=args.readout_source,
+                        create_system_learning_archive=(
+                            args.create_system_learning_archive
+                        ),
+                    )
+                )
+                print(
+                    json.dumps(
+                        {
+                            "status": result.status,
+                            "readout_source": str(result.readout_source_path),
+                            "readout_surface": str(result.readout_surface),
+                            "suite_status": result.suite_status,
+                            "claim_status": result.claim_status,
+                            "artifact_count": len(result.generated_paths),
+                            "failure_reason": result.failure_reason,
+                        },
+                        sort_keys=True,
+                    )
+                )
+                return 0 if result.status == "complete" else 2
+            if args.readout_command == "inspect":
+                from big_boy_benchmarking.environments.plate_support.standard_gauntlet.readout_system_learning.stage_sources import (
+                    load_suite_readout_source,
+                )
+
+                source = load_suite_readout_source(args.readout_source)
+                print(
+                    json.dumps(
+                        {
+                            "status": "ok",
+                            "readout_source": str(source.path),
+                            "stage_count": len(source.stage_records),
+                            "stages": [
+                                {
+                                    "stage_number": record.stage_number,
+                                    "short_name": record.short_name,
+                                    "status": record.status,
+                                    "claim_status": record.claim_status,
+                                }
+                                for record in source.stage_records
+                            ],
+                        },
+                        sort_keys=True,
+                    )
+                )
+                return 0
+            raise ValueError(
+                f"unknown PlateSupport readout command: {args.readout_command}"
             )
 
     raise ValueError(f"unknown PlateSupport command: {args.plate_support_command}")

@@ -1,0 +1,17 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "candidates": [
+    {
+      "allowed_downstream_stage": "stage4_training_health",
+      "candidate_id": "plate_support_candidate:source_local_ratio:0:342448ef2e",
+      "ratio_denominator": 18,
+      "ratio_numerator": 1,
+      "schema_family_id": "source_local_ratio",
+      "schema_id": "plate_support_schema_source_local_ratio_001_over_018_v001",
+      "schema_seed": 0,
+      "selection_status": "selected_training_candidate",
+      "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep"
+    }
+  ],
+  "stage_id": "plate_support_gauntlet_tower_training_health_v001"
+}

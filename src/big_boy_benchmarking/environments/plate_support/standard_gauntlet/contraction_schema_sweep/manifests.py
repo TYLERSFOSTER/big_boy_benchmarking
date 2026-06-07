@@ -43,6 +43,8 @@ def stage_budget_lock(config: SchemaSweepConfig) -> dict[str, object]:
         "locked_by": config.locked_by,
         "schema_families": list(config.schema_families),
         "schema_seeds": list(config.schema_seeds),
+        "source_local_ratio_numerators": list(config.source_local_ratio_numerators),
+        "source_local_ratio_denominator": config.source_local_ratio_denominator,
         "edge_global_numerators": list(config.edge_global_numerators),
         "near_full_collapse_threshold": config.near_full_collapse_threshold,
         "tower_probe_steps": config.tower_probe_steps,

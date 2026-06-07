@@ -13,6 +13,7 @@
   "schema_families": [
     "no_contraction",
     "upstream_default",
+    "source_local_ratio",
     "action_category",
     "edge_global_noisy_rate",
     "geometry_coordinate",
@@ -20,6 +21,10 @@
   ],
   "schema_seeds": [
     0
+  ],
+  "source_local_ratio_denominator": 18,
+  "source_local_ratio_numerators": [
+    1
   ],
   "stage_id": "plate_support_gauntlet_contraction_schema_sweep_v001",
   "suite_id": "plate_support_standard_gauntlet_v001",

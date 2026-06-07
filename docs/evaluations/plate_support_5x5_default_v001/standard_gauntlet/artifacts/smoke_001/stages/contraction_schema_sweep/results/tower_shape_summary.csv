@@ -2,6 +2,8 @@ schema_id,schema_family_id,schema_seed,tier_index,max_depth,state_cell_count,act
 plate_support_schema_no_contraction_v001,no_contraction,0,0,1,9,8,0.1111111111111111,1.0,0,84,"[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]",0,ok
 plate_support_schema_upstream_default_v001,upstream_default,0,0,2,9,8,0.1111111111111111,1.0,84,0,"[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]",0,ok
 plate_support_schema_upstream_default_v001,upstream_default,0,1,2,1,0,1.0,0.0,84,0,"[2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]",0,ok
+plate_support_schema_source_local_ratio_001_over_018_v001,source_local_ratio,0,0,2,89,388,0.011235955056179775,1.0,89,483,[2],0,ok
+plate_support_schema_source_local_ratio_001_over_018_v001,source_local_ratio,0,1,2,10,116,0.2247191011235955,0.0,89,483,[2],0,ok
 plate_support_schema_plate_motion_actions_v001,action_category,0,not_applicable,0,0,0,0.0,0.0,0,0,[],0,not_supported
 plate_support_schema_arm_extension_actions_v001,action_category,0,not_applicable,0,0,0,0.0,0.0,0,0,[],0,not_supported
 plate_support_schema_motion_vs_support_actions_v001,action_category,0,not_applicable,0,0,0,0.0,0.0,0,0,[],0,not_supported

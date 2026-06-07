@@ -80,8 +80,18 @@ def test_schema_sweep_writes_required_tables_and_honest_unsupported_rows(
     schema_ids = {row["schema_id"] for row in arm_rows}
     assert "plate_support_schema_no_contraction_v001" in schema_ids
     assert "plate_support_schema_upstream_default_v001" in schema_ids
+    assert "plate_support_schema_source_local_ratio_001_over_018_v001" in schema_ids
 
     construction_rows = _read_csv(stage_root / "results" / "schema_construction_summary.csv")
+    source_local_construction = [
+        row
+        for row in construction_rows
+        if row["schema_id"] == "plate_support_schema_source_local_ratio_001_over_018_v001"
+    ]
+    assert source_local_construction
+    assert source_local_construction[0]["construction_status"] == "constructed"
+    assert source_local_construction[0]["schema_mode"] == "source_local_ratio"
+
     unsupported = [
         row
         for row in construction_rows
@@ -93,6 +103,16 @@ def test_schema_sweep_writes_required_tables_and_honest_unsupported_rows(
 
     signal_rows = _read_csv(stage_root / "results" / "schema_candidate_signal_summary.csv")
     assert len(signal_rows) == len(arm_rows)
+    source_local_signal = [
+        row
+        for row in signal_rows
+        if row["schema_id"] == "plate_support_schema_source_local_ratio_001_over_018_v001"
+    ]
+    assert source_local_signal
+    assert source_local_signal[0]["candidate_signal"] == "eligible_signal"
+    assert source_local_signal[0]["structural_class"] == "nonflat_structured"
+    assert source_local_signal[0]["selected_edge_count"] == "89"
+    assert source_local_signal[0]["zero_selected_source_count"] == "0"
 
     downstream_rows = _read_csv(stage_root / "results" / "downstream_candidate_input_summary.csv")
     assert len(downstream_rows) == len(arm_rows)

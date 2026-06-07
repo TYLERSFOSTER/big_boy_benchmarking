@@ -39,7 +39,8 @@ uv run ruff check .
 ## Current Status
 
 `big_boy_benchmarking` has eight repo-side counterpoint evaluation readouts, a
-first-class PlateSupport environment-readiness surface, and several supporting
+first-class PlateSupport environment-readiness surface, a completed
+PlateSupport standard-gauntlet smoke readout, and several supporting
 smoke/diagnostic surfaces.
 
 Implemented infrastructure:
@@ -63,6 +64,9 @@ Implemented infrastructure:
 - `plate_support`, a first-class BBB environment family wrapping the upstream
   constrained robotics-style PlateSupport example with structural readiness
   artifacts and human environment docs;
+- a staged PlateSupport standard gauntlet covering structural diagnostics,
+  schema sweep, candidate discovery, tower-training health, target calibration,
+  paired comparison, and generated suite readout;
 - repo-side human-readable readout protocol and local status badges.
 
 The serious-learning default linearization condition is
@@ -88,6 +92,7 @@ until explicitly designed, implemented, and validated.
 | Counterpoint second serious schema comparison v001, artifact run `smoke_001` | Complete implementation smoke; calibration and serious medium run pending | [README](docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/result_readout.md), [paired comparison](docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/results/paired_comparison_readout.md) | The repo can run the matched active-tier comparison harness for Schema 0 no-contraction versus a selected Schema 1 one-drop noisy-rate candidate, emit explicit threshold/persistence windows, and produce paired schema-comparison tables. The checked-in run uses a smoke threshold and one small candidate only; it is not a calibrated or serious medium result. |
 | Counterpoint threshold frontier probe v001, artifact run `smoke_001` | Complete implementation smoke; meaningful frontier run pending | [README](docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/result_readout.md), [frontier readout](docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/results/frontier_readout.md) | The repo can sweep reward thresholds over the corrected Schema 0 versus Schema 1 comparison surface and promote per-threshold arm, pair, tower, lift, timing, and frontier tables. The checked-in smoke used thresholds `12.0,13.0` and four episodes, so sustained-hit is impossible under the 4-of-5 rule; it validates machinery but is behaviorally claim-blocked. Meaningful reruns should keep `window_length = 5`, `required_count = 4`, and use at least 16 episodes per replicate. |
 | Counterpoint small paired replicate probe v001, artifact run `smoke_001` | Complete implementation smoke; meaningful threshold-frontier-selected run pending | [README](docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/README.md), [full readout](docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/result_readout.md), [paired replicate readout](docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/results/paired_replicate_readout.md) | The repo can run the new seed-paired replicate probe surface for one corrected wide candidate, preserve shared seed-bundle identity, and emit pair-distribution, margin, hit-rate, lift, tower, timing, and readout tables. The checked-in smoke used `R=13.0`, one pair, and four episodes per arm; both arms were transient only, so the behavioral claim is blocked while the machinery is verified. Meaningful reruns should keep the 4-of-5 sustained-hit rule and use at least 16 episodes per replicate. |
+| PlateSupport standard gauntlet v001, artifact run `smoke_001` | Complete smoke gauntlet with bounded negative target claim | [README](docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/README.md), [full readout](docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/result_readout.md), [paired comparison](docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/paired_comparison_readout.md) | The repo can run PlateSupport through the standard gauntlet: structural diagnostics, source-local ratio schema sweep, candidate discovery, tower-only training health, binary-success target calibration, paired direct-vs-tower comparison, and generated readout. The checked-in smoke completed Stages 1-7. On the Stage 5 binary-success target, the selected tower candidate was below the direct baseline; the same run also records a counter-signal where the tower has better mean reward and zero invalid moves. This is bounded smoke evidence, not a general tower claim. |
 
 Supporting smoke/diagnostic result notes:
 
@@ -150,6 +155,12 @@ The completed counterpoint readouts support these claims:
   nontriviality, invalid/self-transition diagnostics, tower-shape availability,
   training-surface availability, and artifact/doc generation under
   `docs/environments/`.
+- PlateSupport now has a completed standard-gauntlet smoke readout: the selected
+  source-local ratio tower candidate is trainable and the suite can calibrate a
+  binary-success comparison target, but the Stage 6 paired comparison is
+  negative on that target. The tower's better mean reward and zero invalid moves
+  are recorded as interpretation/counter-signal, not as a reversal of the target
+  claim.
 
 The current readouts do **not yet** support:
 
@@ -173,8 +184,9 @@ The current readouts do **not yet** support:
   artifact is implementation smoke only, and the intended meaningful run should
   use a threshold selected by a meaningful threshold-frontier run or explicit
   Project Owner override.
-- PlateSupport learning claims; no PlateSupport evaluation folder, learning
-  budget, or flat-vs-tower comparison has been designed or run yet.
+- general PlateSupport tower superiority/inferiority; the current gauntlet is a
+  smoke-scale bounded comparison on one selected candidate and one calibrated
+  binary-success target.
 
 Known documentation/artifact notes:
 

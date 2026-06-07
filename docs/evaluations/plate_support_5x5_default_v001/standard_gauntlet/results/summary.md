@@ -1,11 +1,6 @@
-# PlateSupport Standard Gauntlet Results Summary
+# Suite Summary
 
-## Status
-
-Status: scaffolded, not yet run.
-
-No standard gauntlet result tables exist yet.
-
-When the suite runs, this file should summarize stage status, blocked gates,
-calibrated targets, candidate health, comparison evidence, and the strongest
-claim supported by the artifacts.
+- Suite status: `complete_limited_signal`
+- Claim status: `paired_comparison_negative_signal`
+- Claim: Under this smoke Stage 6 budget, the selected tower candidate is below the direct baseline on target-hit rate.
+- Counter-signal: Tower mean reward was -44.515625 versus direct -78.71875; tower invalid moves were 0 versus direct 2142.

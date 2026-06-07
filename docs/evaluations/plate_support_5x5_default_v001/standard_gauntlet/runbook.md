@@ -1,23 +1,15 @@
 # PlateSupport Standard Gauntlet Runbook
 
-## Status
-
-Status: scaffolded, not yet run.
-
-## Architecture Inspection
-
-The architecture helper can be inspected without running an evaluation stage:
+The canonical human-readout invocation is:
 
 ```text
-uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet inspect-architecture --repo-root /Users/foster/big_boy_benchmarking --run-label smoke_001
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
 ```
 
-## Readout Generation
+Do not point the protocol at the artifact root or infer the latest run.
 
-After run artifacts exist and `readout_source.json` points to them, use:
+The optional CLI equivalent is:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
+uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet readout build --readout-source /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
 ```
-
-This command points at the repo-side source binding, not the artifact folder.

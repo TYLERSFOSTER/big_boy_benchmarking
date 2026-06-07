@@ -1,0 +1,16 @@
+{
+  "allow_legacy_dependency": false,
+  "allow_warning_candidates": false,
+  "artifact_schema_version": "bbb.v001",
+  "base_seed": 0,
+  "candidate_cap": 1,
+  "discount": 0.95,
+  "episodes_per_replicate": 32,
+  "epsilon": 0.2,
+  "learning_rate": 0.25,
+  "linearization_mode_id": "tensor_available_disabled",
+  "max_steps_per_episode": 50,
+  "replicates_per_arm": 4,
+  "run_label": "smoke_001",
+  "stage_id": "plate_support_gauntlet_paired_replicate_comparison_v001"
+}

@@ -1,0 +1,20 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "claim_boundary": "target policy only; no paired comparison claim",
+  "recommended_target": {
+    "baseline_feasibility": "not_required_for_binary_success_definition",
+    "calibration_status": "threshold_calibrated",
+    "candidate_feasibility": "feasible_sparse_success_2_of_32",
+    "claim_boundary": "threshold calibration evidence only; no tower-vs-flat comparison claim",
+    "episodes_required_minimum": "1",
+    "reason": "Stage 4 traces contain both goal hits and misses for a trainable candidate, so goal_reached is a table-backed target. Success is sparse, so Stage 6 should use a larger paired budget.",
+    "recommended_episodes_per_replicate": 32,
+    "recommended_replicates_per_arm": 4,
+    "required_count": "1",
+    "target_policy_id": "plate_support_binary_goal_success_v001",
+    "target_type": "binary_success",
+    "threshold_value": "",
+    "window_length": ""
+  },
+  "stage_id": "plate_support_gauntlet_threshold_frontier_calibration_v001"
+}

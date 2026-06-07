@@ -37,13 +37,18 @@ def construct_schema_arm(arm: SchemaArm) -> SchemaConstructionResult:
     """Construct or explicitly block a schema arm."""
 
     if arm.construction_supported:
+        builder_surface = (
+            "bbb.plate_support.SourceLocalOutgoingRatioSchema.full_graph_partition_tower"
+            if arm.schema_mode == "source_local_ratio"
+            else "state_collapser.examples.tower_depth_probe.schema_mode"
+        )
         return SchemaConstructionResult(
             schema_id=arm.schema_id,
             schema_family_id=arm.schema_family_id,
             schema_seed=arm.schema_seed,
             construction_status="constructed",
             schema_mode=arm.schema_mode,
-            builder_surface="state_collapser.examples.tower_depth_probe.schema_mode",
+            builder_surface=builder_surface,
             blocking_reason="",
         )
     return SchemaConstructionResult(

@@ -482,20 +482,28 @@ Stop condition:
 Action:
 
 - create `badges.py`;
-- derive badge values from status/claim/artifact tables.
+- derive badge values from status/claim/artifact tables;
+- keep badge `label` and `value` as separate fields;
+- translate raw status enums into reader-facing badge values.
 
 Completion criteria:
 
 - badges are data-derived, not hand-authored optimism.
+- badge text uses readable values such as `Limited Signal`, `Complete`, and
+  `Negative Signal`, not raw `snake_case` table values.
 
 Stop condition:
 
 - stop if badge status cannot be traced to a table/source column.
+- stop if a badge would require rendering a raw internal enum as its visible
+  value.
 
 ##### Phase 3.Stage 2.Action 2: Write badge SVGs
 
 Action:
 
+- clear stale generated SVG files from `badges/` before writing the current
+  badge set;
 - write badges for:
   - suite status;
   - artifacts complete;
@@ -511,10 +519,14 @@ Action:
 Completion criteria:
 
 - badge SVGs exist under `badges/`.
+- badge SVGs use the repository-standard two-segment local shield style:
+  dark left label segment, status-colored right value segment, 20px height,
+  and Markdown alt text of the form `![Label: Value](badges/id.svg)`.
 
 Stop condition:
 
 - stop if badge count or meaning becomes noisy/ambiguous.
+- stop if badge output drifts into one-piece long badges or raw enum labels.
 
 ### Phase 4: Generated Human Documents
 
@@ -884,10 +896,14 @@ Action:
 
 - test badges derive from source tables and include label, value, status class,
   color, source table, source column, and reason.
+- test the generated README badge strip uses reader-facing `Label: Value`
+  alt text and does not expose raw `snake_case` status strings.
+- test representative SVGs use the two-segment shield structure.
 
 Completion criteria:
 
 - badge without evidence fails tests.
+- badge format drift fails tests.
 
 Stop condition:
 

@@ -242,6 +242,13 @@ After readout generation, `readout_source.json` may also contain
 regeneration, but it is not a substitute for `goal_criteria` or artifact
 evidence.
 
+If an evaluation writes or caches badge inputs, keep badge `label` and `value`
+as separate fields. The `value` should be reader-facing text such as
+`Complete`, `Limited Signal`, `Negative Signal`, or `Repo Artifacts`, not a raw
+`snake_case` enum copied directly from an aggregate table. Raw machine statuses
+remain available in result tables; badge text is a visual summary layer for
+humans.
+
 ## Structural Limit Checks
 
 Every quotient-schema, tower-control, hidden-graph contraction, or

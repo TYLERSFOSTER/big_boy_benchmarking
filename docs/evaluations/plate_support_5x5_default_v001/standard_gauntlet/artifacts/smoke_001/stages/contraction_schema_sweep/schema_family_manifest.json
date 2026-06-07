@@ -6,6 +6,7 @@
     "edge_global_noisy_rate",
     "geometry_coordinate",
     "no_contraction",
+    "source_local_ratio",
     "upstream_default"
   ],
   "stage_id": "plate_support_gauntlet_contraction_schema_sweep_v001",

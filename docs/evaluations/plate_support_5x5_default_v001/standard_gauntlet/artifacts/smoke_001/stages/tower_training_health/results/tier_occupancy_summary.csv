@@ -1,0 +1,3 @@
+candidate_id,schema_id,tier,controller_step_count,controller_step_share
+plate_support_candidate:source_local_ratio:0:342448ef2e,plate_support_schema_source_local_ratio_001_over_018_v001,0,25,0.016170763260025874
+plate_support_candidate:source_local_ratio:0:342448ef2e,plate_support_schema_source_local_ratio_001_over_018_v001,1,1521,0.9838292367399741

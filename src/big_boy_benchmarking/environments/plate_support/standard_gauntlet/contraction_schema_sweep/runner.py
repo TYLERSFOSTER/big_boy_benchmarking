@@ -228,6 +228,8 @@ def run_contraction_schema_sweep(
     arms = enumerate_schema_arms(
         schema_families=config.schema_families,
         schema_seeds=config.schema_seeds,
+        source_local_ratio_numerators=config.source_local_ratio_numerators,
+        source_local_ratio_denominator=config.source_local_ratio_denominator,
         edge_global_numerators=config.edge_global_numerators,
         valid_nonself_edge_count=valid_nonself_edge_count,
     )
@@ -254,15 +256,17 @@ def run_contraction_schema_sweep(
             config=config,
         )
         arm_tower_rows = list(diagnostics.tower_shape_rows)
+        arm_executability_rows = list(diagnostics.tier_executability_rows)
         tower_rows.extend(arm_tower_rows)
         occupancy_rows.extend(diagnostics.tier_occupancy_rows)
-        executability_rows.extend(diagnostics.tier_executability_rows)
+        executability_rows.extend(arm_executability_rows)
         endpoint_rows.extend(diagnostics.endpoint_coalescence_rows)
         timing_rows.extend(diagnostics.timing_rows)
         candidate_row = classify_schema_arm(
             arm=arm,
             construction=construction,
             tower_rows=arm_tower_rows,
+            executability_rows=arm_executability_rows,
             near_full_collapse_threshold=config.near_full_collapse_threshold,
         )
         candidate_rows.append(candidate_row)

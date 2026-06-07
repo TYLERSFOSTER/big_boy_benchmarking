@@ -1,0 +1,3 @@
+candidate_id,schema_id,run_id,total_duration_seconds
+plate_support_candidate:source_local_ratio:0:342448ef2e,plate_support_schema_source_local_ratio_001_over_018_v001,smoke_001-plate-support-candidate-source-local-ratio-0-342448ef2e-trainrep0,0.6754375000018626
+plate_support_candidate:source_local_ratio:0:342448ef2e,plate_support_schema_source_local_ratio_001_over_018_v001,smoke_001-plate-support-candidate-source-local-ratio-0-342448ef2e-trainrep1,0.6364162499085069

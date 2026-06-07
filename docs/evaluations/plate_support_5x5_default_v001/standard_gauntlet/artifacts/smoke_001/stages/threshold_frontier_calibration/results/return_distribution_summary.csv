@@ -1,0 +1,2 @@
+calibration_arm_id,candidate_id,schema_id,episode_count,min_total_reward,p25_total_reward,median_total_reward,p75_total_reward,p90_total_reward,max_total_reward,mean_total_reward,random_policy_mean_reward,total_shortest_path_reward,claim_boundary
+tower_candidate_0,plate_support_candidate:source_local_ratio:0:342448ef2e,plate_support_schema_source_local_ratio_001_over_018_v001,32,-50.0,-50.0,-50.0,-50.0,-50.0,89.0,-42.0,-105.748,95.0,threshold calibration evidence only; no tower-vs-flat comparison claim

@@ -15,6 +15,7 @@ def classify_schema_arm(
     arm: SchemaArm,
     construction: SchemaConstructionResult,
     tower_rows: list[dict[str, object]],
+    executability_rows: list[dict[str, object]],
     near_full_collapse_threshold: float,
 ) -> dict[str, object]:
     """Classify one schema arm from table-backed evidence."""
@@ -34,6 +35,7 @@ def classify_schema_arm(
             candidate_signal_reason=reason,
             recommended=False,
             tower_rows=tower_rows,
+            executability_rows=executability_rows,
             near_full_collapse_threshold=near_full_collapse_threshold,
             blocking_reason=reason,
         )
@@ -45,7 +47,7 @@ def classify_schema_arm(
         default=0.0,
     )
     active_min = min(
-        (int(row.get("active_action_cell_count", 0)) for row in tower_rows),
+        (int(row.get("active_action_cell_count", 0)) for row in executability_rows),
         default=0,
     )
     if arm.expected_role == "flat_control":
@@ -91,6 +93,7 @@ def classify_schema_arm(
         candidate_signal_reason=reason,
         recommended=recommended,
         tower_rows=tower_rows,
+        executability_rows=executability_rows,
         near_full_collapse_threshold=near_full_collapse_threshold,
         blocking_reason=blocking_reason,
     )
@@ -104,6 +107,7 @@ def _classification_row(
     candidate_signal_reason: str,
     recommended: bool,
     tower_rows: list[dict[str, object]],
+    executability_rows: list[dict[str, object]],
     near_full_collapse_threshold: float,
     blocking_reason: str,
 ) -> dict[str, object]:
@@ -113,9 +117,31 @@ def _classification_row(
     first_nonbase = nonbase_rows[0] if nonbase_rows else {}
     active_counts = [
         int(row.get("active_action_cell_count", 0))
-        for row in tower_rows
+        for row in executability_rows
         if str(row.get("active_action_cell_count", "")).isdigit()
     ]
+    lift_success_counts = [
+        int(row.get("lift_success_probe_count", 0))
+        for row in executability_rows
+        if str(row.get("lift_success_probe_count", "")).isdigit()
+    ]
+    lift_failure_counts = [
+        int(row.get("lift_failure_probe_count", 0))
+        for row in executability_rows
+        if str(row.get("lift_failure_probe_count", "")).isdigit()
+    ]
+    selected_edge_count = arm.selection_count
+    zero_selected_source_count: object = "not_available"
+    if arm.schema_family_id == "source_local_ratio":
+        selected_edge_count = max(
+            (
+                int(row.get("scheduled_assignment_count", 0))
+                for row in tower_rows
+                if str(row.get("scheduled_assignment_count", "")).isdigit()
+            ),
+            default=0,
+        )
+        zero_selected_source_count = 0
     return {
         "schema_id": arm.schema_id,
         "schema_family_id": arm.schema_family_id,
@@ -133,10 +159,10 @@ def _classification_row(
         "active_action_cell_mean": (
             0.0 if not active_counts else sum(active_counts) / len(active_counts)
         ),
-        "lift_success_probe_count": sum(active_counts),
-        "lift_failure_probe_count": sum(1 for count in active_counts if count == 0),
-        "selected_edge_count": arm.selection_count,
-        "zero_selected_source_count": "not_available",
+        "lift_success_probe_count": sum(lift_success_counts),
+        "lift_failure_probe_count": sum(lift_failure_counts),
+        "selected_edge_count": selected_edge_count,
+        "zero_selected_source_count": zero_selected_source_count,
         "recommended_for_candidate_discovery": recommended,
         "blocking_reason": blocking_reason,
         "near_full_collapse_threshold": near_full_collapse_threshold,

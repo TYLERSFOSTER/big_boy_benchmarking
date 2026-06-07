@@ -4,6 +4,10 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.contraction_schema_sweep.source_local_ratio_schema import (
+    source_local_ratio_schema_id,
+)
+
 
 @dataclass(frozen=True)
 class SchemaArm:
@@ -31,6 +35,8 @@ def enumerate_schema_arms(
     *,
     schema_families: tuple[str, ...],
     schema_seeds: tuple[int, ...],
+    source_local_ratio_numerators: tuple[int, ...],
+    source_local_ratio_denominator: int,
     edge_global_numerators: tuple[int, ...],
     valid_nonself_edge_count: int,
 ) -> tuple[SchemaArm, ...]:
@@ -74,6 +80,28 @@ def enumerate_schema_arms(
                     unsupported_reason="",
                 )
             )
+        if "source_local_ratio" in schema_families:
+            for numerator in source_local_ratio_numerators:
+                arms.append(
+                    SchemaArm(
+                        schema_id=source_local_ratio_schema_id(
+                            numerator,
+                            source_local_ratio_denominator,
+                        ),
+                        schema_family_id="source_local_ratio",
+                        schema_seed=seed,
+                        selection_policy_id="source_local_outgoing_ratio_catch",
+                        selection_rate=f"{numerator}/{source_local_ratio_denominator}",
+                        selection_count="computed_per_source_with_min_1",
+                        state_feature_basis="not_applicable",
+                        action_category_basis="not_applicable",
+                        edge_basis="valid_nonself_outgoing_edges_by_source",
+                        schema_mode="source_local_ratio",
+                        expected_role="candidate_probe",
+                        construction_supported=True,
+                        unsupported_reason="",
+                    )
+                )
         if "action_category" in schema_families:
             for schema_id, category in (
                 ("plate_support_schema_plate_motion_actions_v001", "plate_motion"),

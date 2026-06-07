@@ -29,6 +29,31 @@ def test_plate_support_readiness_cli_writes_artifacts(tmp_path: Path) -> None:
     assert (tmp_path / "plate_support.md").exists()
 
 
+def test_plate_support_graph_stats_cli_prints_and_writes_json(
+    tmp_path: Path,
+    capsys,
+) -> None:
+    output_path = tmp_path / "graph_stats.json"
+
+    assert (
+        main(
+            [
+                "plate-support",
+                "graph-stats",
+                "--output",
+                str(output_path),
+            ]
+        )
+        == 0
+    )
+
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["status"] == "ok"
+    assert payload["state_space"]["valid_state_count"] == 89
+    assert payload["transition_space"]["valid_nonself_edge_count"] == 388
+    assert output_path.exists()
+
+
 def test_plate_support_standard_gauntlet_inspect_architecture_cli(capsys) -> None:
     repo_root = Path(__file__).resolve().parents[3]
 

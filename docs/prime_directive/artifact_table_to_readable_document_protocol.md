@@ -460,6 +460,52 @@ Badges must be local generated SVG files under:
 Do not use remote badge services. A readout must remain inspectable offline and
 must not depend on network access.
 
+### Badge SVG Shape And Text Contract
+
+Generated badge SVGs must follow the established local shield format used by
+the existing evaluation readouts:
+
+```text
+left segment:  reader-facing label, dark gray background
+right segment: reader-facing value, status-color background
+height:        20px
+markdown:      ![<Label>: <Value>](badges/<badge_id>.svg)
+```
+
+The left label and right value are separate fields. Do not create a one-piece
+badge whose single text string is `Label: value`.
+
+Use this SVG structure unless a repository-wide badge helper supersedes it:
+
+```text
+<rect width="<label-width>" height="20" fill="#555"/>
+<rect x="<label-width>" width="<value-width>" height="20" fill="<status-color>"/>
+<text ... text-anchor="middle">Label</text>
+<text ... text-anchor="middle">Value</text>
+```
+
+Use the same visual family as the existing counterpoint reports:
+
+```text
+green:  #2e7d32
+yellow: #b58900
+orange: #ef6c00
+red:    #d32f2f
+blue:   #1565c0
+label:  #555
+```
+
+Badge text is reader-facing text, not raw machine status. Translate
+`complete_limited_signal` to a value such as `Limited Signal`,
+`paired_comparison_negative_signal` to `Negative Signal`, and
+`threshold_calibrated` to `Calibrated`. Raw `snake_case` ids may appear in
+tables and provenance fields, but they must not appear as badge text unless the
+raw id itself is the object being reported.
+
+Before writing a new badge set, remove stale generated SVGs from
+`<repo-readout-surface>/badges/`. A badge folder must not keep obsolete badge
+files from a prior run mode.
+
 Use this color policy:
 
 | Color | Meaning |
@@ -485,6 +531,9 @@ Each badge label must be derivable from artifacts and source binding context:
 If `readout_source.json` contains `readout_badges`, treat those entries as
 cached derived readout state, not as evidence. Verify them against the current
 artifact tables and update stale labels, colors, file paths, and reasons.
+`readout_badges` entries must preserve separate `label` and `value` fields so
+the README can render `![Label: Value](...)` without recombining internal enum
+strings.
 
 If a badge cannot be derived, use an `Unknown` gray badge and mirror the missing
 context into `Clarifying Questions And Turns`.
@@ -700,6 +749,11 @@ Example:
 ![Scope: Fixture Only](badges/scope_fixture_only.svg)
 ![Provenance: Repo Artifacts](badges/provenance_repo_artifacts.svg)
 ```
+
+These Markdown links are examples of the required `Label: Value` alt-text
+contract. The SVGs behind them must be the two-segment local shield style
+defined above. Do not emit raw internal values such as
+`![Suite: complete_limited_signal](...)` or one-piece long badges.
 
 Then include:
 

@@ -31,6 +31,21 @@
       "unsupported_reason": ""
     },
     {
+      "action_category_basis": "not_applicable",
+      "construction_supported": true,
+      "edge_basis": "valid_nonself_outgoing_edges_by_source",
+      "expected_role": "candidate_probe",
+      "schema_family_id": "source_local_ratio",
+      "schema_id": "plate_support_schema_source_local_ratio_001_over_018_v001",
+      "schema_mode": "source_local_ratio",
+      "schema_seed": 0,
+      "selection_count": "computed_per_source_with_min_1",
+      "selection_policy_id": "source_local_outgoing_ratio_catch",
+      "selection_rate": "1/18",
+      "state_feature_basis": "not_applicable",
+      "unsupported_reason": ""
+    },
+    {
       "action_category_basis": "plate_motion",
       "construction_supported": false,
       "edge_basis": "not_applicable",

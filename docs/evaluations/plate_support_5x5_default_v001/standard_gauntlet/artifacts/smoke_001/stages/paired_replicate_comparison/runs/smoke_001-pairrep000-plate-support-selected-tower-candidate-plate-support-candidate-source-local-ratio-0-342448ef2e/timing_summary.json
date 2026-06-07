@@ -1,0 +1,14 @@
+{
+  "timing_segments": [
+    {
+      "arm_id": "plate_support_selected_tower_candidate:plate_support_candidate:source_local_ratio:0:342448ef2e",
+      "arm_type": "selected_tower_candidate",
+      "candidate_id": "plate_support_candidate:source_local_ratio:0:342448ef2e",
+      "duration_seconds": 1.2968152919784188,
+      "pair_id": "pairrep000",
+      "run_id": "smoke_001-pairrep000-plate-support-selected-tower-candidate-plate-support-candidate-source-local-ratio-0-342448ef2e",
+      "schema_id": "plate_support_schema_source_local_ratio_001_over_018_v001",
+      "segment_name": "run_total"
+    }
+  ]
+}

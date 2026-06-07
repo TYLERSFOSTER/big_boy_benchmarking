@@ -1,0 +1,9 @@
+arm_id,replicate_index,episode_count,hit_observed,first_hit_episode_index,first_hit_episode_seed,censored,reason
+plate_support_direct_concrete_baseline,0,32,1,20,20,0,target hit observed
+plate_support_direct_concrete_baseline,1,32,1,14,10014,0,target hit observed
+plate_support_direct_concrete_baseline,2,32,1,17,20017,0,target hit observed
+plate_support_direct_concrete_baseline,3,32,1,28,30028,0,target hit observed
+plate_support_selected_tower_candidate:plate_support_candidate:source_local_ratio:0:342448ef2e,0,32,1,17,17,0,target hit observed
+plate_support_selected_tower_candidate:plate_support_candidate:source_local_ratio:0:342448ef2e,1,32,1,23,10023,0,target hit observed
+plate_support_selected_tower_candidate:plate_support_candidate:source_local_ratio:0:342448ef2e,2,32,1,0,20000,0,target hit observed
+plate_support_selected_tower_candidate:plate_support_candidate:source_local_ratio:0:342448ef2e,3,32,1,0,30000,0,target hit observed

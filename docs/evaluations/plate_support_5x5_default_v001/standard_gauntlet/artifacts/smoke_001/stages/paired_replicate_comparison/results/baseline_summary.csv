@@ -1,0 +1,3 @@
+arm_id,arm_type,baseline_role,status,episode_count,target_hit_rate,mean_total_reward,unavailable_reason
+plate_support_direct_concrete_baseline,direct_concrete_baseline,primary_baseline,active,128,0.1171875,-78.71875,
+plate_support_no_contraction_tower_control,no_contraction_tower_control,engineering_control,unavailable,0,0.0,0.0,No approved Stage 6 no-contraction tower-control runtime adapter exists yet; recorded rather than simulated.

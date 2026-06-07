@@ -1,0 +1,2 @@
+pair_id,arm_id,arm_type,candidate_id,schema_id,run_id,segment_name,duration_seconds
+pairrep000,plate_support_selected_tower_candidate:plate_support_candidate:source_local_ratio:0:342448ef2e,selected_tower_candidate,plate_support_candidate:source_local_ratio:0:342448ef2e,plate_support_schema_source_local_ratio_001_over_018_v001,smoke_001-pairrep000-plate-support-selected-tower-candidate-plate-support-candidate-source-local-ratio-0-342448ef2e,run_total,1.2968152919784188

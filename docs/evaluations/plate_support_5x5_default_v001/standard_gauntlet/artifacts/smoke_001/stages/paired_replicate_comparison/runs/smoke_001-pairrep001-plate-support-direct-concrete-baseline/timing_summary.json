@@ -1,0 +1,14 @@
+{
+  "timing_segments": [
+    {
+      "arm_id": "plate_support_direct_concrete_baseline",
+      "arm_type": "direct_concrete_baseline",
+      "candidate_id": "direct_baseline",
+      "duration_seconds": 0.7778363330289721,
+      "pair_id": "pairrep001",
+      "run_id": "smoke_001-pairrep001-plate-support-direct-concrete-baseline",
+      "schema_id": "no_contraction",
+      "segment_name": "run_total"
+    }
+  ]
+}

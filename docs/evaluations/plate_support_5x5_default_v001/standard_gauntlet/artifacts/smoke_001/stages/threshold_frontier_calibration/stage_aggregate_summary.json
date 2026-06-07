@@ -1,0 +1,10 @@
+{
+  "blocking_reason": "",
+  "calibration_arm_count": 1,
+  "claim_status": "threshold_calibrated",
+  "recommended_stage6_episodes_per_replicate": 32,
+  "recommended_stage6_replicates_per_arm": 4,
+  "recommended_target_policy_id": "plate_support_binary_goal_success_v001",
+  "stage_id": "plate_support_gauntlet_threshold_frontier_calibration_v001",
+  "status": "complete"
+}

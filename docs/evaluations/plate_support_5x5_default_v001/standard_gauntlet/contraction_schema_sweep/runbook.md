@@ -7,6 +7,8 @@ uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet schema
   --repo-root /Users/foster/big_boy_benchmarking \
   --artifact-root docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001 \
   --stage1-source docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/readout_source.json \
+  --source-local-ratio-numerator 1 \
+  --source-local-ratio-denominator 18 \
   --run-label smoke_001 \
   --locked-by foster
 ```

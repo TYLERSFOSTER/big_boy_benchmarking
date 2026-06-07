@@ -1,0 +1,12 @@
+{
+  "arm_id": "plate_support_direct_concrete_baseline",
+  "artifact_schema_version": "bbb.v001",
+  "environment_seed": 0,
+  "exploration_seed": 2002,
+  "initial_state_seed": 3003,
+  "learner_seed": 1001,
+  "pair_id": "pairrep000",
+  "replicate_index": 0,
+  "run_id": "smoke_001-pairrep000-plate-support-direct-concrete-baseline",
+  "tie_break_seed": 4004
+}

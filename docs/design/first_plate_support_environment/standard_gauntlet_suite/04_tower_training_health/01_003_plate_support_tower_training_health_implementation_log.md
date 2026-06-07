@@ -2,7 +2,34 @@
 
 ## Status
 
-Status: blocked by candidate gate.
+Status: superseded by later candidate-producing rerun.
+
+## Supersession Note
+
+After this blocked log was written, BBB added and ran a PlateSupport
+source-local outgoing-edge ratio contraction schema with catch semantics:
+
+```text
+plate_support_schema_source_local_ratio_001_over_018_v001
+```
+
+The refreshed `smoke_001` Stage 2 and Stage 3 artifacts now select one Stage 4
+training-health candidate:
+
+```text
+plate_support_candidate:source_local_ratio:0:342448ef2e
+```
+
+Current Stage 3 downstream input:
+
+```text
+docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/candidate_discovery/results/downstream_training_health_input_summary.csv
+```
+
+This means the candidate-gate block recorded below is historically accurate for
+the earlier Stage 3 data, but no longer describes the current refreshed
+`smoke_001` gauntlet artifacts. Stage 4 can now resume from Phase 0 with the
+selected source-local ratio candidate.
 
 ## Branch And Repo State
 
@@ -141,3 +168,171 @@ under the current workplan and current Stage 3 data. Continuing into tower
 training health, threshold calibration, or paired comparison from this input
 would imply a trainable PlateSupport tower candidate that the gauntlet has not
 actually found.
+
+## Resume After Source-Local Ratio Candidate
+
+Status: resumed after refreshed Stage 2/Stage 3 artifacts.
+
+### Reality Correction
+
+The blocked result above is historical. It applied before the source-local
+outgoing-edge ratio schema was added to the PlateSupport schema sweep.
+
+Current refreshed `smoke_001` Stage 3 output now contains one selected Stage 4
+candidate:
+
+```text
+candidate_id: plate_support_candidate:source_local_ratio:0:342448ef2e
+schema_id: plate_support_schema_source_local_ratio_001_over_018_v001
+schema_family_id: source_local_ratio
+schema_seed: 0
+selection_status: selected_training_candidate
+allowed_downstream_stage: stage4_training_health
+```
+
+Current candidate source:
+
+```text
+docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/candidate_discovery/readout_source.json
+```
+
+Current downstream input table:
+
+```text
+docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/candidate_discovery/results/downstream_training_health_input_summary.csv
+```
+
+Therefore Stage 4 is no longer blocked at the candidate gate. The next work is
+to implement and run Stage 4 against this explicit candidate source.
+
+### Resume Phase.Stage.Action Progress
+
+| Phase.Stage.Action | Status | Evidence | Notes |
+| --- | --- | --- | --- |
+| Phase 0.Stage 1.Action 1 | completed | `git status --short --branch` | Resumed on `main`, ahead of origin, with dirty Stage 2/3 artifacts and source-local schema work. |
+| Phase 0.Stage 1.Action 2 | completed | Stage 3 readout source and downstream input inspected | Stage 3 can feed Stage 4. |
+| Phase 0.Stage 1.Action 3 | completed | downstream input row above | One `selected_training_candidate`; warning authorization not needed. |
+| Phase 0.Stage 2.Action 1 | completed | this file | Historical log preserved; resumed section appended before Stage 4 source edits. |
+| Phase 0.Stage 2.Action 2 | completed | this section | Candidate source, selected candidate ID, and no-warning-training state recorded. |
+
+### Resume Completion Update
+
+Status: implemented and smoke-run complete.
+
+Stage 4 now has a real `tower_training_health` implementation:
+
+```text
+src/big_boy_benchmarking/environments/plate_support/standard_gauntlet/tower_training_health/
+```
+
+The runner consumes the explicit Stage 3 source:
+
+```text
+docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/candidate_discovery/readout_source.json
+```
+
+It rebuilds the selected source-local outgoing-edge ratio schema candidate,
+selects executable action cells from the deepest currently executable tower
+tier, resolves them through pointwise executable lift candidates, steps the
+PlateSupport runtime, and writes episode, concrete step, lift, controller,
+tier, learner-update, timing, manifest, aggregate, and readout-source artifacts.
+
+The default `smoke_001` Stage 4 run completed with:
+
+```text
+candidate_id: plate_support_candidate:source_local_ratio:0:342448ef2e
+schema_id: plate_support_schema_source_local_ratio_001_over_018_v001
+episode_count: 32
+success_count: 2
+concrete_step_count: 1546
+lift_success_count: 1546
+learner_update_count: 1546
+runtime_failure_count: 0
+health_status: trainable_clean
+```
+
+Current Stage 4 readout source:
+
+```text
+docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/tower_training_health/readout_source.json
+```
+
+Current Stage 5/6 handoff table:
+
+```text
+docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/tower_training_health/results/downstream_comparison_input_summary.csv
+```
+
+### Resume Completion Phase.Stage.Action Progress
+
+| Phase.Stage.Action | Status | Evidence | Notes |
+| --- | --- | --- | --- |
+| Phase 1.Stage 1.Action 1 | completed | Stage 4 package directory exists | Package nested under the standard gauntlet suite. |
+| Phase 1.Stage 1.Action 2 | completed | `__init__.py` exports config and runner symbols | Import does not run training. |
+| Phase 1.Stage 2.Action 1 | completed | `config.py` | Budget, candidate, warning authorization, learner, and linearization fields explicit. |
+| Phase 1.Stage 2.Action 2 | completed | `stage_budget_lock.json` | Budget lock records Stage 4 training and authorization fields. |
+| Phase 2.Stage 1.Action 1 | completed | `candidate_source.py` | Loads Stage 3 readout source and candidate rows. |
+| Phase 2.Stage 1.Action 2 | completed | tests and Stage 4 run | Enforces selected training candidates and repo-local source paths. |
+| Phase 2.Stage 2.Action 1 | completed | source-local ratio schema reconstruction | Runtime inputs recovered from schema id and schema seed. |
+| Phase 2.Stage 2.Action 2 | completed | runtime step/event rows | Concrete action, reward, terminal, invalid, and self-transition labels recorded from runtime info and states. |
+| Phase 3.Stage 1.Action 1 | completed | runtime probe and `training_surface_manifest.json` | Required event domains are observable through BBB runtime loop. |
+| Phase 3.Stage 1.Action 2 | completed | `training_surface_manifest.json` | Strategy: `bbb_runtime_tower_action_cell_q_learning_v001`. |
+| Phase 3.Stage 2.Action 1 | completed | `training_surfaces.py` | Adapter resets, steps, selects tower action cells, resolves executable lifts, and exposes Q updates. |
+| Phase 3.Stage 2.Action 2 | completed | `training_surface_manifest.json` | No required event domain is marked unavailable for the implemented source-local candidate. |
+| Phase 4.Stage 1.Action 1 | completed | per-run `seed_bundle.json` | Seeds deterministic by candidate, replicate, and episode. |
+| Phase 4.Stage 1.Action 2 | completed | per-run directories under Stage 4 root | Run IDs are deterministic and path-safe. |
+| Phase 4.Stage 2.Action 1 | completed | default `smoke_001` Stage 4 run | One candidate, two training replicates, sixteen episodes per replicate. |
+| Phase 4.Stage 2.Action 2 | completed | per-run `episodes.csv`; aggregate `training_episode_summary.csv` | Episode rows emitted. |
+| Phase 4.Stage 2.Action 3 | completed | per-run `concrete_step_events.csv`; aggregate `concrete_step_summary.csv` | Concrete action, state, reward, termination, invalid, self-transition, and lift status emitted. |
+| Phase 4.Stage 2.Action 4 | completed | per-run `lift_fiber_events.csv`; aggregate `lift_success_by_tier.csv` | Executable lift counts and selected concrete lift recorded. |
+| Phase 4.Stage 2.Action 5 | completed | per-run `tier_transition_events.csv` and `controller_action_events.csv` | Tier and controller rows emitted. |
+| Phase 4.Stage 2.Action 6 | completed | per-run `learner_update_events.csv`; aggregate `learner_update_summary.csv` | Tabular Q learner updates emitted. |
+| Phase 5.Stage 1.Action 1 | completed | `training_episode_summary.csv`, `training_curve_summary.csv` | Episode and curve summaries written. |
+| Phase 5.Stage 1.Action 2 | completed | `concrete_step_summary.csv`, `lift_success_by_tier.csv`, `lift_failure_by_tier.csv` | Concrete/lift summaries written. |
+| Phase 5.Stage 1.Action 3 | completed | `tier_occupancy_summary.csv`, `tier_executability_summary.csv`, `controller_action_summary.csv`, `learner_update_summary.csv` | Tier/controller/learner summaries written. |
+| Phase 5.Stage 2.Action 1 | completed | `candidate_training_health_summary.csv` | Candidate classified `trainable_clean`. |
+| Phase 5.Stage 2.Action 2 | completed | `downstream_comparison_input_summary.csv` | Stage 5/6 handoff row written. |
+| Phase 6.Stage 1.Action 1 | completed | Stage 4 manifest JSON files | Candidate provenance and runner strategy auditable. |
+| Phase 6.Stage 1.Action 2 | completed | `stage_aggregate_summary.json`, `stage_aggregate_table.csv`, `stage_run_index.csv` | Stage aggregate and run index written. |
+| Phase 6.Stage 2.Action 1 | completed | Stage 4 `readout_source.json` | Readout source includes required files, goals, method sources, expected files, and claim boundary. |
+| Phase 6.Stage 2.Action 2 | completed | Stage 4 README/method/artifact index/runbook/results summary | Seed human docs written; no comparison claim made. |
+| Phase 7.Stage 1.Action 1 | completed | CLI help and Stage 4 run command | `plate-support standard-gauntlet tower-training-health run` exists. |
+| Phase 7.Stage 1.Action 2 | completed | not implemented by design | No separate summarize command added; run command writes all Stage 4 summaries and docs. |
+| Phase 8.Stage 1.Action 1 | completed | `test_tower_training_health_blocks_without_selected_candidate` and selected-candidate test | Candidate gate covered for no selected candidate and selected training candidate. |
+| Phase 8.Stage 1.Action 2 | completed | `test_tower_training_health_writes_required_tables_and_trainable_candidate` | Required event/aggregate columns covered. |
+| Phase 8.Stage 1.Action 3 | completed | `test_training_health_classifier_distinguishes_failure_modes` | Health classifier modes covered. |
+| Phase 8.Stage 1.Action 4 | completed | event-domain assertions via required tables and `training_surface_manifest.json` | Implemented source-local candidate exposes all required event fields; no fake unavailable fields used. |
+| Phase 8.Stage 2.Action 1 | completed | default Stage 4 CLI run | Artifacts written and health classification exists. |
+| Phase 8.Stage 2.Action 2 | completed | aggregate rows checked after run | Aggregate counts trace to event counts. |
+| Phase 8.Stage 3.Action 1 | completed | this section | Stage 5 handoff path recorded above. |
+
+### Resume Completion Commands Run
+
+- `uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet tower-training-health run --repo-root /Users/foster/big_boy_benchmarking --artifact-root /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001 --candidate-source /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/candidate_discovery/readout_source.json --run-label smoke_001 --locked-by foster --candidate-cap 1 --training-replicates-per-candidate 1 --episodes-per-replicate 2 --max-steps-per-episode 8`
+- `uv run ruff check src/big_boy_benchmarking/environments/plate_support/standard_gauntlet/tower_training_health tests/environments/plate_support/test_standard_gauntlet_tower_training_health.py`
+- `uv run pytest tests/environments/plate_support/test_standard_gauntlet_tower_training_health.py`
+- `uv run pytest tests/environments/plate_support`
+- `uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet tower-training-health run --repo-root /Users/foster/big_boy_benchmarking --artifact-root /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001 --candidate-source /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/candidate_discovery/readout_source.json --run-label smoke_001 --locked-by foster`
+
+### Resume Completion Validation
+
+- Stage 4 package/test ruff check: passed.
+- Focused Stage 4 tests: `3 passed`.
+- Full PlateSupport tests: `37 passed`.
+- Default repo-local Stage 4 run: `status=complete`.
+
+### Remaining Suite Boundary
+
+The standard gauntlet source tree currently has implemented packages through
+Stage 4:
+
+```text
+structural_and_tower_diagnostics
+contraction_schema_sweep
+candidate_discovery
+tower_training_health
+```
+
+Stage 5 threshold frontier calibration, Stage 6 paired replicate comparison,
+and Stage 7 readout/system-learning packages are not yet present in source.
+The Stage 4 handoff table now exists for Stage 5 implementation.

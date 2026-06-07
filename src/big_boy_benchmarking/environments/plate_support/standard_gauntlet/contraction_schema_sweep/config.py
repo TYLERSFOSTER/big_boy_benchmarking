@@ -25,18 +25,27 @@ class SchemaSweepConfig:
     schema_families: tuple[str, ...] = (
         "no_contraction",
         "upstream_default",
+        "source_local_ratio",
         "action_category",
         "edge_global_noisy_rate",
         "geometry_coordinate",
         "controlled_degeneracy",
     )
     schema_seeds: tuple[int, ...] = (0,)
+    source_local_ratio_numerators: tuple[int, ...] = (1,)
+    source_local_ratio_denominator: int = 18
     edge_global_numerators: tuple[int, ...] = (1, 2, 4, 8)
     near_full_collapse_threshold: float = 0.90
     tower_probe_steps: int = 20
     tower_probe_sample_size: int = 20
     smoke_seed: int = 0
     linearization_mode_id: str = LINEARIZATION_MODE_ID
+
+    def __post_init__(self) -> None:
+        if self.source_local_ratio_denominator <= 0:
+            raise ValueError("source_local_ratio_denominator must be positive")
+        if any(numerator <= 0 for numerator in self.source_local_ratio_numerators):
+            raise ValueError("source_local_ratio_numerators must all be positive")
 
 
 def default_schema_sweep_config(

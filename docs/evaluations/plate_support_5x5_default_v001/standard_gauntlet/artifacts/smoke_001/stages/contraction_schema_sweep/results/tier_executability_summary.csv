@@ -2,6 +2,8 @@ schema_id,schema_family_id,schema_seed,tier_index,tier_executable_from_current_s
 plate_support_schema_no_contraction_v001,no_contraction,0,0,True,8,0,8,ok
 plate_support_schema_upstream_default_v001,upstream_default,0,0,True,8,0,8,ok
 plate_support_schema_upstream_default_v001,upstream_default,0,1,False,0,1,0,ok
+plate_support_schema_source_local_ratio_001_over_018_v001,source_local_ratio,0,0,True,8,0,8,ok
+plate_support_schema_source_local_ratio_001_over_018_v001,source_local_ratio,0,1,True,6,0,6,ok
 plate_support_schema_plate_motion_actions_v001,action_category,0,not_applicable,False,0,0,0,not_supported
 plate_support_schema_arm_extension_actions_v001,action_category,0,not_applicable,False,0,0,0,not_supported
 plate_support_schema_motion_vs_support_actions_v001,action_category,0,not_applicable,False,0,0,0,not_supported

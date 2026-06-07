@@ -527,6 +527,19 @@ Each badge should have:
 - source column
 - reason
 
+Badge `label` and `value` must be separate fields. The visible value must be
+reader-facing text, not a raw `snake_case` enum copied from artifact tables.
+Examples:
+
+- `Suite: Limited Signal`
+- `Artifacts: Complete`
+- `Paired: Negative Signal`
+- `Provenance: Repo Artifacts`
+
+The generated SVGs should match the established two-segment local shield style:
+dark left label segment, status-colored right value segment, and 20px height.
+Do not generate one-piece long badges.
+
 ### Recommended Badge Status Classes
 
 - `pass`

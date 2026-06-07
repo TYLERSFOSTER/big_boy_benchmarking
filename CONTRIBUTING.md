@@ -40,6 +40,12 @@ As of 2026-06-05, the implemented repo state is:
   `noisy_rate_full_tower_training_diagnostic`,
   `second_serious_schema_comparison`, `threshold_frontier_probe`, and
   `small_paired_replicate_probe`.
+- `plate_support_5x5_default_v001` has a completed standard-gauntlet smoke
+  readout under
+  `docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/`,
+  covering structural diagnostics, source-local ratio schema sweep, candidate
+  discovery, tower-training health, target calibration, paired comparison, and
+  generated readout/system-learning synthesis.
 
 The current serious-learning default linearization condition is:
 
@@ -139,6 +145,18 @@ contracts, and human-readable readout requirements. Do not jump straight from
 diagnostics into a learning-comparison implementation without a
 blueprint/workplan and explicit Project Owner approval.
 
+The current PlateSupport standard gauntlet is complete as a smoke suite:
+
+```text
+docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/
+```
+
+It supports a bounded statement only: the selected tower candidate is trainable,
+the suite can calibrate a binary-success target, and the Stage 6 paired
+comparison is negative on that target while also recording a counter-signal of
+better tower mean reward and zero invalid moves. Do not summarize this as
+general PlateSupport tower failure or success.
+
 ## Root Contribution Rule
 
 This file is a live repo orientation and contribution guard. It must not be
@@ -163,7 +181,8 @@ Before executing an approved blueprint or implementation workplan, reread:
 docs/prime_directive/prime_directive.md
 docs/prime_directive/git_practices.md
 docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md
-docs/prime_directive/common_failure_mode_003_workplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md
+docs/prime_directive/common_failure_mode_005_umbrella_workplan_fragmentation.md
 ```
 
 When a workplan uses `Phase.Stage.Action`, execute those items as written.

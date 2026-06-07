@@ -1,0 +1,36 @@
+{
+  "arms": [
+    {
+      "arm_id": "plate_support_direct_concrete_baseline",
+      "arm_type": "direct_concrete_baseline",
+      "baseline_role": "primary_baseline",
+      "candidate_id": "direct_baseline",
+      "schema_id": "no_contraction",
+      "source_stage_id": "environment_runtime",
+      "status": "active",
+      "unavailable_reason": ""
+    },
+    {
+      "arm_id": "plate_support_no_contraction_tower_control",
+      "arm_type": "no_contraction_tower_control",
+      "baseline_role": "engineering_control",
+      "candidate_id": "no_contraction_tower_control",
+      "schema_id": "no_contraction",
+      "source_stage_id": "not_run",
+      "status": "unavailable",
+      "unavailable_reason": "No approved Stage 6 no-contraction tower-control runtime adapter exists yet; recorded rather than simulated."
+    },
+    {
+      "arm_id": "plate_support_selected_tower_candidate:plate_support_candidate:source_local_ratio:0:342448ef2e",
+      "arm_type": "selected_tower_candidate",
+      "baseline_role": "candidate",
+      "candidate_id": "plate_support_candidate:source_local_ratio:0:342448ef2e",
+      "schema_id": "plate_support_schema_source_local_ratio_001_over_018_v001",
+      "source_stage_id": "plate_support_gauntlet_tower_training_health_v001",
+      "status": "active",
+      "unavailable_reason": ""
+    }
+  ],
+  "artifact_schema_version": "bbb.v001",
+  "stage_id": "plate_support_gauntlet_paired_replicate_comparison_v001"
+}

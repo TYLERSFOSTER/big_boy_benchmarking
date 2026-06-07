@@ -25,6 +25,7 @@ This workplan follows:
 - `docs/prime_directive/common_failure_mode_002_implementation_without_owner_approval.md`;
 - `docs/prime_directive/common_failure_mode_003_gameplan_rewrite_during_implementation.md`;
 - `docs/prime_directive/common_failure_mode_004_false_attribution_and_invented_project_owner_turns.md`;
+- `docs/prime_directive/common_failure_mode_005_umbrella_workplan_fragmentation.md`;
 - `docs/prime_directive/git_practices.md`.
 
 Operational consequences:
@@ -39,6 +40,152 @@ Operational consequences:
 - Record execution in an implementation log before source edits begin.
 - Do not attribute consultant-authored defaults to the Project Owner.
 
+## Umbrella Execution Spine
+
+This parent workplan has two possible execution modes. The Embedded Engineering
+Consultant must identify which mode the Project Owner has requested before
+deciding where to stop.
+
+### Mode A: Architecture Component Only
+
+If the Project Owner asks to execute only:
+
+```text
+00_suite_architecture/01_002_plate_support_standard_gauntlet_suite_architecture_implementation_workplan.md
+```
+
+then this workplan implements only the shared suite architecture. In that mode,
+the implementation stops when the architecture component is complete.
+
+### Mode B: Whole Umbrella Gauntlet
+
+If the Project Owner asks to build, execute, resume, or finish the whole
+PlateSupport standard gauntlet, then this parent folder is the active execution
+spine:
+
+```text
+docs/design/first_plate_support_environment/standard_gauntlet_suite/
+```
+
+In that mode, the child workplans are not independent endpoints. They are
+ordered components of one umbrella job. Completion of a child workplan is a
+checkpoint, not a handoff back to the Project Owner.
+
+The whole-gauntlet order is:
+
+```text
+00_suite_architecture/
+01_structural_and_tower_diagnostics/
+02_contraction_schema_sweep/
+03_candidate_discovery/
+04_tower_training_health/
+05_threshold_frontier_calibration/
+06_paired_replicate_comparison/
+07_readout_and_system_learning/
+```
+
+When executing Mode B, after each child workplan completes, the Embedded
+Engineering Consultant must:
+
+1. update that child implementation log;
+2. verify the next child stage gate from repo artifacts and readout sources;
+3. continue to the next child workplan without asking the Project Owner to
+   re-approve the already-approved umbrella sequence;
+4. stop only on a true stop condition.
+
+True stop conditions are:
+
+- the Project Owner explicitly says to stop, pause, or switch topics;
+- a child workplan has an unresolved Project Owner decision;
+- a gate fails and cannot be repaired under the current workplan;
+- an artifact/source binding is missing or contradictory;
+- continuing would overwrite unrelated dirty work;
+- implementation would require scope reduction, workplan rewrite, or a
+  consultant-authored design decision not authorized by the Project Owner.
+
+The Embedded Engineering Consultant must not report "next is Stage N" as though
+the Project Owner needs to manually restart the sequence. In Mode B, "next is
+Stage N" means: verify the gate and continue to the Stage N child workplan.
+
+### Stage Terminology Guard
+
+This repository uses the word `Stage` in two different ways:
+
+- `Phase.Stage.Action` names a step inside a workplan.
+- `gauntlet Stage N` names a child component of the umbrella suite.
+
+To avoid confusion, when discussing the umbrella sequence, write `gauntlet
+Stage 5` or `child Stage 5`. Do not use bare `Stage 5` if it could be confused
+with `Phase X.Stage Y.Action Z`.
+
+### Current Whole-Gauntlet Resume Correction
+
+At the time this amendment was added, the PlateSupport whole-gauntlet execution
+had completed through child Stage 5:
+
+```text
+05_threshold_frontier_calibration/
+```
+
+The next child workplan in Mode B is:
+
+```text
+docs/design/first_plate_support_environment/standard_gauntlet_suite/06_paired_replicate_comparison/01_002_plate_support_paired_replicate_comparison_implementation_workplan.md
+```
+
+After child Stage 6 completes, continue to:
+
+```text
+docs/design/first_plate_support_environment/standard_gauntlet_suite/07_readout_and_system_learning/01_002_plate_support_readout_and_system_learning_implementation_workplan.md
+```
+
+Then regenerate the parent human-readable readout from the suite source binding:
+
+```text
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
+```
+
+### Current Whole-Gauntlet Completion Update
+
+The Mode B resume has now continued through child Stage 7 for run label
+`smoke_001`.
+
+Completed child stages:
+
+```text
+01_structural_and_tower_diagnostics/
+02_contraction_schema_sweep/
+03_candidate_discovery/
+04_tower_training_health/
+05_threshold_frontier_calibration/
+06_paired_replicate_comparison/
+07_readout_and_system_learning/
+```
+
+The canonical suite readout source is:
+
+```text
+docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
+```
+
+The current generated human-readable surface is:
+
+```text
+docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/README.md
+```
+
+Current suite status:
+
+```text
+suite_status = complete_limited_signal
+claim_status = paired_comparison_negative_signal
+```
+
+This means the umbrella gauntlet execution is complete for the current smoke
+budget. The result is not a positive tower-performance claim; it is a completed
+suite with a bounded negative Stage 6 target-hit signal and an explanatory
+counter-signal in mean reward and invalid moves.
+
 ## Authority And Attribution
 
 Project Owner direction from the current request:
@@ -50,6 +197,16 @@ Project Owner direction from the current request:
 - use `Phase.Stage.Action` format;
 - follow `prime_directive`;
 - reference work already done as the workplans proceed.
+
+Project Owner correction recorded after execution drift:
+
+- the Project Owner intended `standard_gauntlet_suite/` to organize execution
+  of the entire gauntlet, not to make the consultant stop after every child
+  stage;
+- the Project Owner does not want to manually direct the consultant
+  stage-by-stage once the umbrella sequence is approved;
+- child workplans should be executed as ordered parts of the whole gauntlet
+  unless a real stop condition occurs.
 
 Consultant-authored assumptions pending Project Owner override:
 

@@ -37,7 +37,7 @@ def test_candidate_id_is_stable() -> None:
     assert candidate_id_for_row(row) == candidate_id_for_row(dict(reversed(row.items())))
 
 
-def test_candidate_discovery_classifies_every_stage2_row_and_blocks_training(
+def test_candidate_discovery_classifies_every_stage2_row_and_selects_ratio_candidate(
     tmp_path: Path,
 ) -> None:
     schema_sweep_source = _create_stage2_source(tmp_path)
@@ -80,11 +80,17 @@ def test_candidate_discovery_classifies_every_stage2_row_and_blocks_training(
     downstream_rows = _read_csv(
         stage_root / "results" / "downstream_training_health_input_summary.csv"
     )
-    assert downstream_rows == []
+    assert len(downstream_rows) == 1
+    assert downstream_rows[0]["schema_id"] == (
+        "plate_support_schema_source_local_ratio_001_over_018_v001"
+    )
+    assert downstream_rows[0]["selection_status"] == "selected_training_candidate"
+    assert downstream_rows[0]["allowed_downstream_stage"] == "stage4_training_health"
 
     with (stage_root / "candidate_manifest.json").open(encoding="utf-8") as handle:
         manifest = json.load(handle)
-    assert manifest["aggregate_summary"]["claim_status"] == "candidate_not_found"
+    assert manifest["aggregate_summary"]["claim_status"] == "candidate_found"
+    assert manifest["aggregate_summary"]["selected_training_candidate_count"] == 1
 
 
 def _create_stage2_source(repo_root: Path) -> Path:
