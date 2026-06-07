@@ -1,10 +1,10 @@
 {
-  "artifact_run_label": "smoke_001",
+  "artifact_run_label": "iterated_001",
   "artifact_schema_version": "bbb.v001",
   "calibrated_target": {
     "baseline_feasibility": "not_required_for_binary_success_definition",
     "calibration_status": "threshold_calibrated",
-    "candidate_feasibility": "feasible_sparse_success_2_of_32",
+    "candidate_feasibility": "feasible_sparse_success_3_of_32",
     "claim_boundary": "threshold calibration evidence only; no tower-vs-flat comparison claim",
     "episodes_required_minimum": "1",
     "reason": "Stage 4 traces contain both goal hits and misses for a trainable candidate, so goal_reached is a table-backed target. Success is sparse, so Stage 6 should use a larger paired budget.",
@@ -31,16 +31,16 @@
     "expected_absent_is_gap": [],
     "not_applicable": [],
     "required": [
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/calibration_episode_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/calibration_arm_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/success_rate_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/first_hit_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/sustained_hit_feasibility_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/return_distribution_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/threshold_grid_construction.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/threshold_frontier_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/recommended_comparison_target.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/downstream_paired_comparison_input_summary.csv"
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/calibration_episode_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/calibration_arm_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/success_rate_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/first_hit_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/sustained_hit_feasibility_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/return_distribution_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/threshold_grid_construction.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/threshold_frontier_summary.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/recommended_comparison_target.csv",
+      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/downstream_paired_comparison_input_summary.csv"
     ]
   },
   "goal_criteria": [
@@ -65,20 +65,20 @@
   ],
   "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/threshold_frontier_calibration",
   "run_mode": "stage5_threshold_frontier_calibration",
-  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration",
+  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration",
   "source_binding_type": "evaluation_readout_source",
-  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration",
+  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration",
   "source_files": {
-    "calibration_arm_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/calibration_arm_summary.csv",
-    "calibration_episode_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/calibration_episode_summary.csv",
-    "downstream_paired_comparison_input_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/downstream_paired_comparison_input_summary.csv",
-    "first_hit_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/first_hit_summary.csv",
-    "recommended_comparison_target": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/recommended_comparison_target.csv",
-    "return_distribution_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/return_distribution_summary.csv",
-    "success_rate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/success_rate_summary.csv",
-    "sustained_hit_feasibility_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/sustained_hit_feasibility_summary.csv",
-    "threshold_frontier_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/threshold_frontier_summary.csv",
-    "threshold_grid_construction": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/threshold_frontier_calibration/results/threshold_grid_construction.csv"
+    "calibration_arm_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/calibration_arm_summary.csv",
+    "calibration_episode_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/calibration_episode_summary.csv",
+    "downstream_paired_comparison_input_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/downstream_paired_comparison_input_summary.csv",
+    "first_hit_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/first_hit_summary.csv",
+    "recommended_comparison_target": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/recommended_comparison_target.csv",
+    "return_distribution_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/return_distribution_summary.csv",
+    "success_rate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/success_rate_summary.csv",
+    "sustained_hit_feasibility_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/sustained_hit_feasibility_summary.csv",
+    "threshold_frontier_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/threshold_frontier_summary.csv",
+    "threshold_grid_construction": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/threshold_frontier_calibration/results/threshold_grid_construction.csv"
   },
   "source_stage_ids": [
     "plate_support_gauntlet_structural_tower_diagnostics_v001",

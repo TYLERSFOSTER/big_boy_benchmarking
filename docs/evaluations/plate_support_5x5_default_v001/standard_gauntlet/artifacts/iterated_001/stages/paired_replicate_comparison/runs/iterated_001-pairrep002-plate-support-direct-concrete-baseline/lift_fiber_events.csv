@@ -1,0 +1,1 @@
+pair_id,arm_id,arm_type,candidate_id,schema_id,run_id,replicate_index,episode_index,step_index,tier,state_cell_id,action_cell_id,candidate_lift_count,executable_lift_count,selected_lift_source,selected_lift_target,selected_action_index,lift_status,failure_reason

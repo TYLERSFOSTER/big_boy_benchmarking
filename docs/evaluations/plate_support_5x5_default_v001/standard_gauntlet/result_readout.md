@@ -1,6 +1,6 @@
 # PlateSupport Standard Gauntlet Result Readout
 
-Stages 1-7 completed. Stage 6 produced bounded paired comparison status `paired_comparison_negative_signal`, and Stage 7 produced the human readout/system-learning surface.
+Stages 1-7 completed. Stage 6 produced bounded paired comparison status `paired_comparison_positive_signal`, and Stage 7 produced the human readout/system-learning surface.
 
 The target claim is bounded by the Stage 5 binary-success target and the
 Stage 6 smoke budget. The result should not be read as a general claim about
@@ -41,7 +41,7 @@ all tower policies or all PlateSupport thresholds.
 ### Stage 6: paired_replicate_comparison
 
 - Status: `complete`
-- Claim status: `paired_comparison_negative_signal`
+- Claim status: `paired_comparison_positive_signal`
 - Boundary: bounded paired smoke comparison under the Stage 5 target and budget; not a general tower-performance claim
 
 ### Stage 7: readout_and_system_learning
@@ -52,6 +52,6 @@ all tower policies or all PlateSupport thresholds.
 
 ## Comparison Interpretation
 
-Under this smoke Stage 6 budget, the selected tower candidate is below the direct baseline on target-hit rate.
+Under this smoke Stage 6 budget, the selected tower candidate shows a limited positive target-hit signal relative to the direct baseline.
 
-Tower mean reward was -44.515625 versus direct -78.71875; tower invalid moves were 0 versus direct 2142.
+Tower mean reward was -27.2109375 versus direct -78.71875; tower invalid moves were 0 versus direct 2142.

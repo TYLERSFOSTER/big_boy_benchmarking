@@ -1,0 +1,17 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "blocked_rule": "blocked_signal and construction_failed rows are retained, not dropped",
+  "clean_candidate_rule": "eligible_signal, nonflat_structured, max_depth > 1, nonzero executable surface",
+  "control_anchor_rule": "control_anchor rows are retained for control/diagnostic use",
+  "degeneracy_anchor_rule": "at most one degeneracy anchor retained as diagnostic-only",
+  "performance_claim": "selection score is metadata only and not performance evidence",
+  "policy_id": "plate_support_candidate_selection_policy_v001",
+  "priority_order": [
+    "selected_control_anchor",
+    "selected_training_candidate",
+    "selected_warning_candidate",
+    "selected_degeneracy_anchor",
+    "blocked_candidate"
+  ],
+  "warning_candidate_rule": "warning_signal only when explicitly allowed by config"
+}

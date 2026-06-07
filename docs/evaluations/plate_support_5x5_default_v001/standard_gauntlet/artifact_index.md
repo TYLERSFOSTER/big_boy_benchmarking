@@ -1,8 +1,8 @@
 # PlateSupport Standard Gauntlet Artifact Index
 
 - Suite readout source: `/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json`
-- Raw artifact root: `/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001`
-- Suite evaluation root: `/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/evaluations/plate_support_standard_gauntlet_v001`
+- Raw artifact root: `/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001`
+- Suite evaluation root: `/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/evaluations/plate_support_standard_gauntlet_v001`
 
 ## Stage Sources
 

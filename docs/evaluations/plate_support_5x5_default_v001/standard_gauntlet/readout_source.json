@@ -1,5 +1,5 @@
 {
-  "artifact_run_label": "smoke_001",
+  "artifact_run_label": "iterated_001",
   "artifact_schema_version": "bbb.v001",
   "badge_policy": {
     "dimensions": [
@@ -47,6 +47,8 @@
     "artifact_index.md": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifact_index.md",
     "artifacts_complete": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/artifacts_complete.svg",
     "glossary.md": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/glossary.md",
+    "iterated_candidate": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/iterated_candidate.svg",
+    "iterated_tiers": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/iterated_tiers.svg",
     "method.md": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/method.md",
     "paired_comparison": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/paired_comparison.svg",
     "provenance_repo_artifacts": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/provenance_repo_artifacts.svg",
@@ -68,6 +70,7 @@
     "schema_candidates": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/schema_candidates.svg",
     "structural_readiness": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/structural_readiness.svg",
     "suite_status": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/suite_status.svg",
+    "system_learning/README.md": "/Users/foster/big_boy_benchmarking/docs/design/system_learning_from_evaluations/plate_support_standard_gauntlet_v001/README.md",
     "target_calibrated": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/target_calibrated.svg",
     "training_health": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/training_health.svg"
   },
@@ -99,12 +102,26 @@
       "source": "readout_source.json:source_artifact_root",
       "value": "Complete"
     },
+    "iterated_candidate": {
+      "color": "green",
+      "label": "Iterated",
+      "reason": "Stage 4 includes a trainable iterated source-local ratio candidate.",
+      "source": "tower_training_health/candidate_training_health_summary.csv:schema_mode",
+      "value": "Candidate"
+    },
+    "iterated_tiers": {
+      "color": "green",
+      "label": "Tiers",
+      "reason": "Badge shows nontrivial tier count over max tower depth for the iterated candidate.",
+      "source": "tower_training_health/candidate_training_health_summary.csv:nontrivial_tier_count,max_depth",
+      "value": "17/18"
+    },
     "paired_comparison": {
-      "color": "orange",
+      "color": "green",
       "label": "Paired",
       "reason": "Paired-comparison status is copied from Stage 6.",
       "source": "stage_status_summary.csv:claim_status",
-      "value": "Negative Signal"
+      "value": "Positive Signal"
     },
     "provenance_repo_artifacts": {
       "color": "blue",
@@ -130,7 +147,7 @@
     "suite_status": {
       "color": "yellow",
       "label": "Suite",
-      "reason": "Stages 1-7 completed. Stage 6 produced bounded paired comparison status `paired_comparison_negative_signal`, and Stage 7 produced the human readout/system-learning surface.",
+      "reason": "Stages 1-7 completed. Stage 6 produced bounded paired comparison status `paired_comparison_positive_signal`, and Stage 7 produced the human readout/system-learning surface.",
       "source": "results/suite_status_summary.csv:suite_status",
       "value": "Limited Signal"
     },
@@ -151,12 +168,12 @@
   },
   "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet",
   "run_mode": "smoke_stage_1_to_7_readout_complete",
-  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001",
+  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001",
   "source_binding_type": "evaluation_readout_source",
-  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/evaluations/plate_support_standard_gauntlet_v001",
+  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/evaluations/plate_support_standard_gauntlet_v001",
   "source_files": {
-    "aggregate_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/evaluations/plate_support_standard_gauntlet_v001/stage_status_summary.csv",
-    "run_index": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/evaluations/plate_support_standard_gauntlet_v001/stage_run_index.csv"
+    "aggregate_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/evaluations/plate_support_standard_gauntlet_v001/stage_status_summary.csv",
+    "run_index": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/evaluations/plate_support_standard_gauntlet_v001/stage_run_index.csv"
   },
   "stage_definitions": [
     {
@@ -234,16 +251,16 @@
   "suite_claim": {
     "bounded_interpretation": "The target metric is Stage 5 binary goal success. Other metrics can explain the run, but they do not reverse the Stage 6 target claim.",
     "claim_boundary": "bounded paired smoke comparison under the Stage 5 target and budget; not a general tower-performance claim",
-    "claim_status": "paired_comparison_negative_signal",
-    "counter_signal": "Tower mean reward was -44.515625 versus direct -78.71875; tower invalid moves were 0 versus direct 2142.",
-    "source_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/paired_replicate_comparison/results/comparison_claim_summary.csv",
-    "target_claim": "Under this smoke Stage 6 budget, the selected tower candidate is below the direct baseline on target-hit rate."
+    "claim_status": "paired_comparison_positive_signal",
+    "counter_signal": "Tower mean reward was -27.2109375 versus direct -78.71875; tower invalid moves were 0 versus direct 2142.",
+    "source_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/paired_replicate_comparison/results/comparison_claim_summary.csv",
+    "target_claim": "Under this smoke Stage 6 budget, the selected tower candidate shows a limited positive target-hit signal relative to the direct baseline."
   },
   "suite_status": {
     "completed_stage_count": 7,
     "first_not_complete_stage": "",
     "implemented_stage_count": 7,
-    "suite_reason": "Stages 1-7 completed. Stage 6 produced bounded paired comparison status `paired_comparison_negative_signal`, and Stage 7 produced the human readout/system-learning surface.",
+    "suite_reason": "Stages 1-7 completed. Stage 6 produced bounded paired comparison status `paired_comparison_positive_signal`, and Stage 7 produced the human readout/system-learning surface.",
     "suite_status": "complete_limited_signal"
   }
 }

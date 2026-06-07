@@ -1,0 +1,12 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "claim_boundary": "bounded paired comparison evidence only",
+  "created_at": "2026-06-07T22:40:46.823681+00:00",
+  "locked_by": "foster",
+  "run_label": "iterated_001",
+  "short_name": "paired_replicate_comparison",
+  "stage_id": "plate_support_gauntlet_paired_replicate_comparison_v001",
+  "stage_number": 6,
+  "status": "run_requested",
+  "suite_id": "plate_support_standard_gauntlet_v001"
+}

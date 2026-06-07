@@ -1,0 +1,2 @@
+claim_status,direction,complete_pair_count,mean_target_hit_rate_delta,bounded_claim,claim_boundary
+paired_comparison_positive_signal,candidate_above_direct,4,0.078125,"Under this smoke Stage 6 budget, the selected tower candidate shows a limited positive target-hit signal relative to the direct baseline.",bounded paired smoke comparison under the Stage 5 target and budget; not a general tower-performance claim

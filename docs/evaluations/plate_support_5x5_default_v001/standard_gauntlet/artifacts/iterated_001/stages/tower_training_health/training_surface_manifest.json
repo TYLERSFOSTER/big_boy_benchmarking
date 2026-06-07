@@ -1,0 +1,13 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "event_observability": {
+    "concrete_step_events": "observable_from_runtime_step",
+    "episode_events": "observable_from_bbb_runtime_loop",
+    "learner_update_events": "observable_from_bbb_tabular_q_update",
+    "lift_fiber_events": "observable_from_partition_tower_executable_lifts",
+    "tier_controller_events": "observable_from_partition_tower_snapshot",
+    "timing_events": "observable_from_bbb_perf_counter"
+  },
+  "runner_strategy": "bbb_runtime_tower_action_cell_q_learning_v001",
+  "stage_id": "plate_support_gauntlet_tower_training_health_v001"
+}

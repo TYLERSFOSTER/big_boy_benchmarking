@@ -1,0 +1,12 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "linearization_mode_id": "tensor_available_disabled",
+  "locked_by": "foster",
+  "random_policy_episode_count": 1000,
+  "random_policy_seed": 0,
+  "run_label": "iterated_001",
+  "stage_id": "plate_support_gauntlet_structural_tower_diagnostics_v001",
+  "suite_id": "plate_support_standard_gauntlet_v001",
+  "tower_probe_sample_size": 20,
+  "tower_probe_steps": 20
+}

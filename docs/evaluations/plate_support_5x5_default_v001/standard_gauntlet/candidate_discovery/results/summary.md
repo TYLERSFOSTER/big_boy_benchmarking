@@ -2,5 +2,5 @@
 
 - status: `complete`
 - claim status: `candidate_found`
-- selected training candidates: `1`
+- selected training candidates: `2`
 - blocking reason: ``

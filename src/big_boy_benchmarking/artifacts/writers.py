@@ -53,7 +53,7 @@ def write_csv(
     target = Path(path)
     _prepare_parent(target, create_parents=create_parents)
     with target.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(fieldnames))
+        writer = csv.DictWriter(handle, fieldnames=list(fieldnames), lineterminator="\n")
         writer.writeheader()
         for row in rows:
             writer.writerow({key: row.get(key) for key in fieldnames})
@@ -70,7 +70,7 @@ def append_csv_row(
     _prepare_parent(target, create_parents=create_parents)
     should_write_header = not target.exists() or target.stat().st_size == 0
     with target.open("a", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(fieldnames))
+        writer = csv.DictWriter(handle, fieldnames=list(fieldnames), lineterminator="\n")
         if should_write_header:
             writer.writeheader()
         writer.writerow({key: row.get(key) for key in fieldnames})

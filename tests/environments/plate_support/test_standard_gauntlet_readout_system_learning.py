@@ -80,6 +80,41 @@ def test_readout_build_generates_suite_docs_and_preserves_turns(tmp_path: Path) 
     )
 
 
+def test_readout_build_resets_turns_when_artifact_root_changes(tmp_path: Path) -> None:
+    source = _write_suite_fixture(tmp_path)
+    readme = source.parent / "README.md"
+    readme.write_text(
+        "\n".join(
+            [
+                "# Existing",
+                "",
+                "## Artifact Provenance",
+                "",
+                f"- Raw artifact root: `{source.parent / 'artifacts' / 'old_001'}`",
+                "",
+                "## Clarifying Turns",
+                "",
+                "### Evaluator Turn 1",
+                "",
+                "This note belongs to a prior artifact root.",
+                "",
+                "### Codex Turn 1",
+                "",
+                "This reply belongs to a prior artifact root.",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+
+    result = build_readout_system_learning(ReadoutSystemLearningConfig(source))
+
+    assert result.status == "complete"
+    generated = readme.read_text(encoding="utf-8")
+    assert "This note belongs to a prior artifact root." not in generated
+    assert "_Add evaluator question or concern here._" in generated
+
+
 def _write_suite_fixture(repo_root: Path) -> Path:
     (repo_root / "pyproject.toml").write_text("[project]\nname='fake-bbb'\n", encoding="utf-8")
     (repo_root / "src").mkdir()

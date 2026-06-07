@@ -1,0 +1,3 @@
+arm_id,episode_count,min_total_reward,mean_total_reward,max_total_reward
+plate_support_direct_concrete_baseline,128,-128.0,-78.71875,90.0
+plate_support_selected_tower_candidate:plate_support_candidate:source_local_ratio_iterated:0:c8b8935b4c,128,-50.0,-27.2109375,91.0

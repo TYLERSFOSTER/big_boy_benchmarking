@@ -218,7 +218,10 @@ def _write_markdown_docs(
 ) -> dict[str, str]:
     surface = source.repo_readout_surface
     results_dir = surface / "results"
-    clarification = _preserve_clarification(surface / "README.md")
+    clarification = _preserve_clarification(
+        surface / "README.md",
+        current_artifact_root=str(source.source_artifact_root),
+    )
     paths = {
         "README.md": surface / "README.md",
         "result_readout.md": surface / "result_readout.md",
@@ -673,7 +676,7 @@ def _repair_parent_stage_run_index(source: SuiteReadoutSource) -> None:
     )
 
 
-def _preserve_clarification(readme: Path) -> str:
+def _preserve_clarification(readme: Path, *, current_artifact_root: str) -> str:
     empty_turns = (
         "### Evaluator Turn 1\n\n"
         "_Add evaluator question or concern here._\n\n"
@@ -686,7 +689,24 @@ def _preserve_clarification(readme: Path) -> str:
     marker = "## Clarifying Turns"
     if marker not in text:
         return empty_turns
-    return text.split(marker, 1)[1].strip()
+    prior_artifact_root = _prior_readme_artifact_root(text)
+    if prior_artifact_root is not None and prior_artifact_root != current_artifact_root:
+        return empty_turns
+    clarification = text.split(marker, 1)[1].strip()
+    if "/artifacts/" in clarification and current_artifact_root not in clarification:
+        return empty_turns
+    return clarification
+
+
+def _prior_readme_artifact_root(text: str) -> str | None:
+    for line in text.splitlines():
+        if "Raw artifact root:" not in line:
+            continue
+        value = line.split("Raw artifact root:", 1)[1].strip()
+        if value.startswith("`") and value.endswith("`"):
+            value = value[1:-1]
+        return value
+    return None
 
 
 def _structural_facts(source: SuiteReadoutSource) -> dict[str, str]:

@@ -1,0 +1,72 @@
+schema_id,schema_family_id,schema_seed,tier_index,current_state_cell,state_cell_count,outgoing_action_cell_count,active_action_cell_count,diagnostic_status
+plate_support_schema_no_contraction_v001,no_contraction,0,0,"StateCellId(tier=0, ordinal=0)",9,8,8,ok
+plate_support_schema_upstream_default_v001,upstream_default,0,0,"StateCellId(tier=0, ordinal=0)",9,8,8,ok
+plate_support_schema_upstream_default_v001,upstream_default,0,1,"StateCellId(tier=1, ordinal=16)",1,0,0,ok
+plate_support_schema_source_local_ratio_001_over_018_v001,source_local_ratio,0,0,"StateCellId(tier=0, ordinal=36)",89,8,8,ok
+plate_support_schema_source_local_ratio_001_over_018_v001,source_local_ratio,0,1,"StateCellId(tier=1, ordinal=162)",10,15,6,ok
+plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001,source_local_ratio_iterated,0,0,"StateCellId(tier=0, ordinal=36)",89,8,8,ok
+plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001,source_local_ratio_iterated,0,1,"StateCellId(tier=1, ordinal=36)",83,8,8,ok
+plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001,source_local_ratio_iterated,0,2,"StateCellId(tier=2, ordinal=31)",82,8,8,ok
+plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001,source_local_ratio_iterated,0,3,"StateCellId(tier=3, ordinal=83)",78,12,7,ok
+plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001,source_local_ratio_iterated,0,4,"StateCellId(tier=4, ordinal=75)",77,12,7,ok
+plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001,source_local_ratio_iterated,0,5,"StateCellId(tier=5, ordinal=73)",76,12,7,ok
+plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001,source_local_ratio_iterated,0,6,"StateCellId(tier=6, ordinal=71)",72,12,7,ok
+plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001,source_local_ratio_iterated,0,7,"StateCellId(tier=7, ordinal=65)",70,12,7,ok
+plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001,source_local_ratio_iterated,0,8,"StateCellId(tier=8, ordinal=71)",67,12,7,ok
+plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001,source_local_ratio_iterated,0,9,"StateCellId(tier=9, ordinal=65)",66,12,7,ok
+plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001,source_local_ratio_iterated,0,10,"StateCellId(tier=10, ordinal=64)",64,12,7,ok
+plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001,source_local_ratio_iterated,0,11,"StateCellId(tier=11, ordinal=61)",59,12,7,ok
+plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001,source_local_ratio_iterated,0,12,"StateCellId(tier=12, ordinal=60)",56,23,7,ok
+plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001,source_local_ratio_iterated,0,13,"StateCellId(tier=13, ordinal=54)",55,22,7,ok
+plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001,source_local_ratio_iterated,0,14,"StateCellId(tier=14, ordinal=56)",53,28,7,ok
+plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001,source_local_ratio_iterated,0,15,"StateCellId(tier=15, ordinal=53)",52,34,6,ok
+plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001,source_local_ratio_iterated,0,16,"StateCellId(tier=16, ordinal=51)",49,34,6,ok
+plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001,source_local_ratio_iterated,0,17,"StateCellId(tier=17, ordinal=45)",46,30,6,ok
+plate_support_schema_source_local_ratio_iterated_001_over_072_i032_v001,source_local_ratio_iterated,0,0,"StateCellId(tier=0, ordinal=36)",89,8,8,ok
+plate_support_schema_source_local_ratio_iterated_001_over_072_i032_v001,source_local_ratio_iterated,0,1,"StateCellId(tier=1, ordinal=36)",79,8,8,ok
+plate_support_schema_source_local_ratio_iterated_001_over_072_i032_v001,source_local_ratio_iterated,0,2,"StateCellId(tier=2, ordinal=27)",75,8,8,ok
+plate_support_schema_source_local_ratio_iterated_001_over_072_i032_v001,source_local_ratio_iterated,0,3,"StateCellId(tier=3, ordinal=76)",67,12,7,ok
+plate_support_schema_source_local_ratio_iterated_001_over_072_i032_v001,source_local_ratio_iterated,0,4,"StateCellId(tier=4, ordinal=63)",62,12,7,ok
+plate_support_schema_source_local_ratio_iterated_001_over_072_i032_v001,source_local_ratio_iterated,0,5,"StateCellId(tier=5, ordinal=64)",58,23,5,ok
+plate_support_schema_source_local_ratio_iterated_001_over_072_i032_v001,source_local_ratio_iterated,0,6,"StateCellId(tier=6, ordinal=60)",55,39,5,ok
+plate_support_schema_source_local_ratio_iterated_001_over_072_i032_v001,source_local_ratio_iterated,0,7,"StateCellId(tier=7, ordinal=54)",52,39,5,ok
+plate_support_schema_source_local_ratio_iterated_001_over_072_i032_v001,source_local_ratio_iterated,0,8,"StateCellId(tier=8, ordinal=53)",50,40,5,ok
+plate_support_schema_source_local_ratio_iterated_001_over_072_i032_v001,source_local_ratio_iterated,0,9,"StateCellId(tier=9, ordinal=52)",45,40,5,ok
+plate_support_schema_source_local_ratio_iterated_001_over_072_i032_v001,source_local_ratio_iterated,0,10,"StateCellId(tier=10, ordinal=42)",43,40,5,ok
+plate_support_schema_source_local_ratio_iterated_001_over_036_i032_v001,source_local_ratio_iterated,0,0,"StateCellId(tier=0, ordinal=36)",89,8,8,ok
+plate_support_schema_source_local_ratio_iterated_001_over_036_i032_v001,source_local_ratio_iterated,0,1,"StateCellId(tier=1, ordinal=36)",73,8,8,ok
+plate_support_schema_source_local_ratio_iterated_001_over_036_i032_v001,source_local_ratio_iterated,0,2,"StateCellId(tier=2, ordinal=76)",64,14,7,ok
+plate_support_schema_source_local_ratio_iterated_001_over_036_i032_v001,source_local_ratio_iterated,0,3,"StateCellId(tier=3, ordinal=66)",55,20,6,ok
+plate_support_schema_source_local_ratio_iterated_001_over_036_i032_v001,source_local_ratio_iterated,0,4,"StateCellId(tier=4, ordinal=58)",48,25,5,ok
+plate_support_schema_source_local_ratio_iterated_001_over_036_i032_v001,source_local_ratio_iterated,0,5,"StateCellId(tier=5, ordinal=51)",43,48,3,ok
+plate_support_schema_source_local_ratio_iterated_001_over_036_i032_v001,source_local_ratio_iterated,0,6,"StateCellId(tier=6, ordinal=47)",35,58,3,ok
+plate_support_schema_source_local_ratio_iterated_001_over_036_i032_v001,source_local_ratio_iterated,0,7,"StateCellId(tier=7, ordinal=37)",32,55,3,ok
+plate_support_schema_source_local_ratio_iterated_001_over_036_i032_v001,source_local_ratio_iterated,0,8,"StateCellId(tier=8, ordinal=35)",28,58,3,ok
+plate_support_schema_source_local_ratio_iterated_001_over_036_i032_v001,source_local_ratio_iterated,0,9,"StateCellId(tier=9, ordinal=33)",22,46,1,ok
+plate_support_schema_source_local_ratio_iterated_001_over_036_i032_v001,source_local_ratio_iterated,0,10,"StateCellId(tier=10, ordinal=25)",18,37,0,ok
+plate_support_schema_source_local_ratio_iterated_001_over_018_i032_v001,source_local_ratio_iterated,0,0,"StateCellId(tier=0, ordinal=36)",89,8,8,ok
+plate_support_schema_source_local_ratio_iterated_001_over_018_i032_v001,source_local_ratio_iterated,0,1,"StateCellId(tier=1, ordinal=36)",64,8,8,ok
+plate_support_schema_source_local_ratio_iterated_001_over_018_i032_v001,source_local_ratio_iterated,0,2,"StateCellId(tier=2, ordinal=69)",50,17,7,ok
+plate_support_schema_source_local_ratio_iterated_001_over_018_i032_v001,source_local_ratio_iterated,0,3,"StateCellId(tier=3, ordinal=65)",33,41,0,ok
+plate_support_schema_source_local_ratio_iterated_001_over_018_i032_v001,source_local_ratio_iterated,0,4,"StateCellId(tier=4, ordinal=40)",23,38,0,ok
+plate_support_schema_source_local_ratio_iterated_001_over_018_i032_v001,source_local_ratio_iterated,0,5,"StateCellId(tier=5, ordinal=26)",19,31,0,ok
+plate_support_schema_source_local_ratio_iterated_001_over_018_i032_v001,source_local_ratio_iterated,0,6,"StateCellId(tier=6, ordinal=24)",13,17,0,ok
+plate_support_schema_source_local_ratio_iterated_001_over_018_i032_v001,source_local_ratio_iterated,0,7,"StateCellId(tier=7, ordinal=12)",12,17,0,ok
+plate_support_schema_source_local_ratio_iterated_001_over_018_i032_v001,source_local_ratio_iterated,0,8,"StateCellId(tier=8, ordinal=12)",11,16,0,ok
+plate_support_schema_source_local_ratio_iterated_001_over_018_i032_v001,source_local_ratio_iterated,0,9,"StateCellId(tier=9, ordinal=12)",9,14,0,ok
+plate_support_schema_source_local_ratio_iterated_001_over_018_i032_v001,source_local_ratio_iterated,0,10,"StateCellId(tier=10, ordinal=9)",8,13,0,ok
+plate_support_schema_source_local_ratio_iterated_001_over_018_i032_v001,source_local_ratio_iterated,0,11,"StateCellId(tier=11, ordinal=10)",5,8,0,ok
+plate_support_schema_plate_motion_actions_v001,action_category,0,not_applicable,not_applicable,0,0,0,not_supported
+plate_support_schema_arm_extension_actions_v001,action_category,0,not_applicable,not_applicable,0,0,0,not_supported
+plate_support_schema_motion_vs_support_actions_v001,action_category,0,not_applicable,not_applicable,0,0,0,not_supported
+plate_support_schema_edge_global_noisy_rate_001_over_388_v001,edge_global_noisy_rate,0,not_applicable,not_applicable,0,0,0,not_supported
+plate_support_schema_edge_global_noisy_rate_002_over_388_v001,edge_global_noisy_rate,0,not_applicable,not_applicable,0,0,0,not_supported
+plate_support_schema_edge_global_noisy_rate_004_over_388_v001,edge_global_noisy_rate,0,not_applicable,not_applicable,0,0,0,not_supported
+plate_support_schema_edge_global_noisy_rate_008_over_388_v001,edge_global_noisy_rate,0,not_applicable,not_applicable,0,0,0,not_supported
+plate_support_schema_position_only_v001,geometry_coordinate,0,not_applicable,not_applicable,0,0,0,not_supported
+plate_support_schema_orientation_only_v001,geometry_coordinate,0,not_applicable,not_applicable,0,0,0,not_supported
+plate_support_schema_support_pattern_only_v001,geometry_coordinate,0,not_applicable,not_applicable,0,0,0,not_supported
+plate_support_schema_reachability_pattern_only_v001,geometry_coordinate,0,not_applicable,not_applicable,0,0,0,not_supported
+plate_support_schema_position_support_v001,geometry_coordinate,0,not_applicable,not_applicable,0,0,0,not_supported
+plate_support_schema_full_single_block_v001,controlled_degeneracy,0,not_applicable,not_applicable,0,0,0,not_supported
+plate_support_schema_source_local_one_drop_v001,controlled_degeneracy,0,not_applicable,not_applicable,0,0,0,not_supported

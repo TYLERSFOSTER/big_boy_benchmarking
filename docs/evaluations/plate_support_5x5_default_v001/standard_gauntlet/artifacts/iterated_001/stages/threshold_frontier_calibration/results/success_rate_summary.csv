@@ -1,0 +1,4 @@
+calibration_arm_id,replicate_index,episode_count,success_count,success_rate,claim_boundary
+tower_candidate_0,0,16,3,0.1875,threshold calibration evidence only; no tower-vs-flat comparison claim
+tower_candidate_0,1,16,0,0.0,threshold calibration evidence only; no tower-vs-flat comparison claim
+tower_candidate_0,all,32,3,0.09375,threshold calibration evidence only; no tower-vs-flat comparison claim

@@ -1,0 +1,2 @@
+candidate_id,schema_id,schema_family_id,schema_seed,schema_mode,selection_rate,ratio_numerator,ratio_denominator,max_iterations,selector_rule_id,selection_mode,max_depth,nontrivial_tier_count,selection_status,allowed_downstream_stage
+plate_support_candidate:no_contraction:0:e8f4c3f526,plate_support_schema_no_contraction_v001,no_contraction,0,none,not_applicable,,,,not_applicable,not_applicable,1,0,selected_control_anchor,diagnostic_control

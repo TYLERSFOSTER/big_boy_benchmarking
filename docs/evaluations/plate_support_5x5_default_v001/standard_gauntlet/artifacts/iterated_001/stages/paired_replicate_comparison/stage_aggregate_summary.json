@@ -1,0 +1,8 @@
+{
+  "blocking_reason": "",
+  "claim_status": "paired_comparison_positive_signal",
+  "complete_pair_count": 4,
+  "mean_target_hit_rate_delta": 0.078125,
+  "stage_id": "plate_support_gauntlet_paired_replicate_comparison_v001",
+  "status": "complete"
+}

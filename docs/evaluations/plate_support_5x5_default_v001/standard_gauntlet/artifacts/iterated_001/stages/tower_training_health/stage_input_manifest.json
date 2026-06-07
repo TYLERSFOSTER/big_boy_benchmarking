@@ -1,0 +1,13 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "candidate_manifest": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/candidate_discovery/candidate_manifest.json",
+  "candidate_source": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/candidate_discovery/readout_source.json",
+  "selected_candidate_count": 2,
+  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/candidate_discovery",
+  "source_files": {
+    "candidate_source_trace": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/candidate_discovery/results/candidate_source_trace.csv",
+    "downstream_training_health_input_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/candidate_discovery/results/downstream_training_health_input_summary.csv",
+    "selected_candidate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/candidate_discovery/results/selected_candidate_summary.csv"
+  },
+  "stage_id": "plate_support_gauntlet_tower_training_health_v001"
+}

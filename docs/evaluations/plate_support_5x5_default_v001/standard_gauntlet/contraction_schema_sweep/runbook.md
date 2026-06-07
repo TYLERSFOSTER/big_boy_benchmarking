@@ -12,3 +12,14 @@ uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet schema
   --run-label smoke_001 \
   --locked-by foster
 ```
+
+For an iterated correction run, add:
+
+```text
+  --include-iterated-source-local-ratio \
+  --iterated-source-local-ratio-denominator 144 \
+  --iterated-source-local-ratio-denominator 72 \
+  --iterated-source-local-ratio-denominator 36 \
+  --iterated-source-local-ratio-denominator 18 \
+  --iterated-source-local-max-iterations 32
+```

@@ -1,0 +1,2 @@
+pair_id,arm_id,arm_type,candidate_id,schema_id,run_id,segment_name,duration_seconds
+pairrep003,plate_support_direct_concrete_baseline,direct_concrete_baseline,direct_baseline,no_contraction,iterated_001-pairrep003-plate-support-direct-concrete-baseline,run_total,0.8207475419621915

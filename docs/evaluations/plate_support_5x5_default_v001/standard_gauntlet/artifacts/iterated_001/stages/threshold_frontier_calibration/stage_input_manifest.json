@@ -1,0 +1,24 @@
+{
+  "artifact_schema_version": "bbb.v001",
+  "selected_candidate_count": 1,
+  "source_stage_ids": [
+    "plate_support_gauntlet_structural_tower_diagnostics_v001",
+    "plate_support_gauntlet_tower_training_health_v001"
+  ],
+  "stage1_source": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/readout_source.json",
+  "stage1_source_files": {
+    "random_policy_recon_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/random_policy_recon_summary.csv",
+    "shortest_path_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/shortest_path_summary.csv",
+    "state_space_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/state_space_summary.csv",
+    "transition_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/transition_summary.csv"
+  },
+  "stage4_source_files": {
+    "candidate_training_health_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/tower_training_health/results/candidate_training_health_summary.csv",
+    "concrete_step_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/tower_training_health/results/concrete_step_summary.csv",
+    "downstream_comparison_input_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/tower_training_health/results/downstream_comparison_input_summary.csv",
+    "training_curve_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/tower_training_health/results/training_curve_summary.csv",
+    "training_episode_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/tower_training_health/results/training_episode_summary.csv"
+  },
+  "stage4_training_health_source": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/tower_training_health/readout_source.json",
+  "stage_id": "plate_support_gauntlet_threshold_frontier_calibration_v001"
+}

@@ -1,0 +1,5 @@
+target_policy_id,calibration_arm_id,window_length,required_count,episodes_available_per_replicate_min,budget_feasible,hit_replicate_count,total_replicate_count,feasibility_status,reason
+plate_support_sustained_hit_1_of_4_v001,tower_candidate_0,4,1,16,1,1,2,feasible_observed,1-of-4 observed in at least one replicate
+plate_support_sustained_hit_2_of_8_v001,tower_candidate_0,8,2,16,1,1,2,feasible_observed,2-of-8 observed in at least one replicate
+plate_support_sustained_hit_4_of_16_v001,tower_candidate_0,16,4,16,1,0,2,feasible_not_observed,4-of-16 is budget-feasible but not observed
+plate_support_sustained_hit_4_of_5_v001,tower_candidate_0,5,4,16,1,0,2,feasible_not_observed,4-of-5 is budget-feasible but not observed

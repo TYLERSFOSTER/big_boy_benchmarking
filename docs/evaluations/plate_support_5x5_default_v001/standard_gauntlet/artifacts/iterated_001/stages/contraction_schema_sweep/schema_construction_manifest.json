@@ -1,0 +1,193 @@
+{
+  "schema_construction": [
+    {
+      "blocking_reason": "",
+      "builder_surface": "state_collapser.examples.tower_depth_probe.schema_mode",
+      "construction_status": "constructed",
+      "schema_family_id": "no_contraction",
+      "schema_id": "plate_support_schema_no_contraction_v001",
+      "schema_mode": "none",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "",
+      "builder_surface": "state_collapser.examples.tower_depth_probe.schema_mode",
+      "construction_status": "constructed",
+      "schema_family_id": "upstream_default",
+      "schema_id": "plate_support_schema_upstream_default_v001",
+      "schema_mode": "default",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "",
+      "builder_surface": "bbb.plate_support.SourceLocalOutgoingRatioSchema.full_graph_partition_tower",
+      "construction_status": "constructed",
+      "schema_family_id": "source_local_ratio",
+      "schema_id": "plate_support_schema_source_local_ratio_001_over_018_v001",
+      "schema_mode": "source_local_ratio",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "",
+      "builder_surface": "bbb.plate_support.IteratedSourceLocalOutgoingRatioSchema.full_graph_partition_tower",
+      "construction_status": "constructed",
+      "schema_family_id": "source_local_ratio_iterated",
+      "schema_id": "plate_support_schema_source_local_ratio_iterated_001_over_144_i032_v001",
+      "schema_mode": "source_local_ratio_iterated",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "",
+      "builder_surface": "bbb.plate_support.IteratedSourceLocalOutgoingRatioSchema.full_graph_partition_tower",
+      "construction_status": "constructed",
+      "schema_family_id": "source_local_ratio_iterated",
+      "schema_id": "plate_support_schema_source_local_ratio_iterated_001_over_072_i032_v001",
+      "schema_mode": "source_local_ratio_iterated",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "",
+      "builder_surface": "bbb.plate_support.IteratedSourceLocalOutgoingRatioSchema.full_graph_partition_tower",
+      "construction_status": "constructed",
+      "schema_family_id": "source_local_ratio_iterated",
+      "schema_id": "plate_support_schema_source_local_ratio_iterated_001_over_036_i032_v001",
+      "schema_mode": "source_local_ratio_iterated",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "",
+      "builder_surface": "bbb.plate_support.IteratedSourceLocalOutgoingRatioSchema.full_graph_partition_tower",
+      "construction_status": "constructed",
+      "schema_family_id": "source_local_ratio_iterated",
+      "schema_id": "plate_support_schema_source_local_ratio_iterated_001_over_018_i032_v001",
+      "schema_mode": "source_local_ratio_iterated",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "current upstream PlateSupport probe accepts only schema_mode default or none; action-category schema construction is unavailable",
+      "builder_surface": "not_available",
+      "construction_status": "not_supported",
+      "schema_family_id": "action_category",
+      "schema_id": "plate_support_schema_plate_motion_actions_v001",
+      "schema_mode": "not_supported",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "current upstream PlateSupport probe accepts only schema_mode default or none; action-category schema construction is unavailable",
+      "builder_surface": "not_available",
+      "construction_status": "not_supported",
+      "schema_family_id": "action_category",
+      "schema_id": "plate_support_schema_arm_extension_actions_v001",
+      "schema_mode": "not_supported",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "current upstream PlateSupport probe accepts only schema_mode default or none; action-category schema construction is unavailable",
+      "builder_surface": "not_available",
+      "construction_status": "not_supported",
+      "schema_family_id": "action_category",
+      "schema_id": "plate_support_schema_motion_vs_support_actions_v001",
+      "schema_mode": "not_supported",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "current upstream PlateSupport schema surface does not expose edge-global selected-edge schema construction",
+      "builder_surface": "not_available",
+      "construction_status": "not_supported",
+      "schema_family_id": "edge_global_noisy_rate",
+      "schema_id": "plate_support_schema_edge_global_noisy_rate_001_over_388_v001",
+      "schema_mode": "not_supported",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "current upstream PlateSupport schema surface does not expose edge-global selected-edge schema construction",
+      "builder_surface": "not_available",
+      "construction_status": "not_supported",
+      "schema_family_id": "edge_global_noisy_rate",
+      "schema_id": "plate_support_schema_edge_global_noisy_rate_002_over_388_v001",
+      "schema_mode": "not_supported",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "current upstream PlateSupport schema surface does not expose edge-global selected-edge schema construction",
+      "builder_surface": "not_available",
+      "construction_status": "not_supported",
+      "schema_family_id": "edge_global_noisy_rate",
+      "schema_id": "plate_support_schema_edge_global_noisy_rate_004_over_388_v001",
+      "schema_mode": "not_supported",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "current upstream PlateSupport schema surface does not expose edge-global selected-edge schema construction",
+      "builder_surface": "not_available",
+      "construction_status": "not_supported",
+      "schema_family_id": "edge_global_noisy_rate",
+      "schema_id": "plate_support_schema_edge_global_noisy_rate_008_over_388_v001",
+      "schema_mode": "not_supported",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "state-feature PlateSupport schema construction is not exposed by the current upstream probe/runtime API",
+      "builder_surface": "not_available",
+      "construction_status": "not_supported",
+      "schema_family_id": "geometry_coordinate",
+      "schema_id": "plate_support_schema_position_only_v001",
+      "schema_mode": "not_supported",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "state-feature PlateSupport schema construction is not exposed by the current upstream probe/runtime API",
+      "builder_surface": "not_available",
+      "construction_status": "not_supported",
+      "schema_family_id": "geometry_coordinate",
+      "schema_id": "plate_support_schema_orientation_only_v001",
+      "schema_mode": "not_supported",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "state-feature PlateSupport schema construction is not exposed by the current upstream probe/runtime API",
+      "builder_surface": "not_available",
+      "construction_status": "not_supported",
+      "schema_family_id": "geometry_coordinate",
+      "schema_id": "plate_support_schema_support_pattern_only_v001",
+      "schema_mode": "not_supported",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "state-feature PlateSupport schema construction is not exposed by the current upstream probe/runtime API",
+      "builder_surface": "not_available",
+      "construction_status": "not_supported",
+      "schema_family_id": "geometry_coordinate",
+      "schema_id": "plate_support_schema_reachability_pattern_only_v001",
+      "schema_mode": "not_supported",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "state-feature PlateSupport schema construction is not exposed by the current upstream probe/runtime API",
+      "builder_surface": "not_available",
+      "construction_status": "not_supported",
+      "schema_family_id": "geometry_coordinate",
+      "schema_id": "plate_support_schema_position_support_v001",
+      "schema_mode": "not_supported",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "controlled degeneracy anchors require schema construction surfaces not currently exposed for PlateSupport",
+      "builder_surface": "not_available",
+      "construction_status": "not_supported",
+      "schema_family_id": "controlled_degeneracy",
+      "schema_id": "plate_support_schema_full_single_block_v001",
+      "schema_mode": "not_supported",
+      "schema_seed": 0
+    },
+    {
+      "blocking_reason": "controlled degeneracy anchors require schema construction surfaces not currently exposed for PlateSupport",
+      "builder_surface": "not_available",
+      "construction_status": "not_supported",
+      "schema_family_id": "controlled_degeneracy",
+      "schema_id": "plate_support_schema_source_local_one_drop_v001",
+      "schema_mode": "not_supported",
+      "schema_seed": 0
+    }
+  ]
+}

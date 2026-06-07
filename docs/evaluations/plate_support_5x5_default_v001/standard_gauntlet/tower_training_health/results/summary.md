@@ -2,6 +2,6 @@
 
 - status: `complete`
 - claim status: `trainable_clean`
-- trained candidates: `1`
-- trainable candidates: `1`
+- trained candidates: `2`
+- trainable candidates: `2`
 - blocking reason: ``

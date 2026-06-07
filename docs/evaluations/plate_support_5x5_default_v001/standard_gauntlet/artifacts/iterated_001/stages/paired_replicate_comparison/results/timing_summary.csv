@@ -1,0 +1,9 @@
+arm_id,run_id,total_duration_seconds
+plate_support_direct_concrete_baseline,iterated_001-pairrep000-plate-support-direct-concrete-baseline,0.8808615000452846
+plate_support_direct_concrete_baseline,iterated_001-pairrep001-plate-support-direct-concrete-baseline,0.8195209999103099
+plate_support_direct_concrete_baseline,iterated_001-pairrep002-plate-support-direct-concrete-baseline,0.8398063339991495
+plate_support_direct_concrete_baseline,iterated_001-pairrep003-plate-support-direct-concrete-baseline,0.8207475419621915
+plate_support_selected_tower_candidate:plate_support_candidate:source_local_ratio_iterated:0:c8b8935b4c,iterated_001-pairrep000-plate-support-selected-tower-candidate-plate-support-candidate-source-local-ratio-iterated-0-c8b8935b4c,2.475490167038515
+plate_support_selected_tower_candidate:plate_support_candidate:source_local_ratio_iterated:0:c8b8935b4c,iterated_001-pairrep001-plate-support-selected-tower-candidate-plate-support-candidate-source-local-ratio-iterated-0-c8b8935b4c,2.3288628340233117
+plate_support_selected_tower_candidate:plate_support_candidate:source_local_ratio_iterated:0:c8b8935b4c,iterated_001-pairrep002-plate-support-selected-tower-candidate-plate-support-candidate-source-local-ratio-iterated-0-c8b8935b4c,2.4356829589232802
+plate_support_selected_tower_candidate:plate_support_candidate:source_local_ratio_iterated:0:c8b8935b4c,iterated_001-pairrep003-plate-support-selected-tower-candidate-plate-support-candidate-source-local-ratio-iterated-0-c8b8935b4c,2.3570858750026673
