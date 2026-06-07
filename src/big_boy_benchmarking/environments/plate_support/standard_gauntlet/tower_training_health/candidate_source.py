@@ -22,6 +22,10 @@ SOURCE_LOCAL_RATIO_RE = re.compile(
     r"^plate_support_schema_source_local_ratio_(?P<numerator>\d+)_over_"
     r"(?P<denominator>\d+)_v001$"
 )
+SOURCE_LOCAL_RATIO_ITERATED_RE = re.compile(
+    r"^plate_support_schema_source_local_ratio_iterated_(?P<numerator>\d+)_over_"
+    r"(?P<denominator>\d+)_i(?P<max_iterations>\d+)_v001$"
+)
 
 
 @dataclass(frozen=True)
@@ -35,8 +39,15 @@ class TrainingCandidate:
     selection_status: str
     allowed_downstream_stage: str
     source_artifact_root: Path
+    schema_mode: str
+    selection_rate: str
     ratio_numerator: int
     ratio_denominator: int
+    max_iterations: int
+    selector_rule_id: str
+    selection_mode: str
+    max_depth: int
+    nontrivial_tier_count: int
 
 
 @dataclass(frozen=True)
@@ -138,7 +149,7 @@ def _load_selected_candidates(
                 f"candidate {row.get('candidate_id')} has invalid downstream stage {downstream!r}"
             )
         schema_id = str(row.get("schema_id", ""))
-        parsed = _parse_source_local_ratio_schema_id(schema_id)
+        parsed = _candidate_schema_metadata(row, schema_id=schema_id)
         source_artifact_root = Path(str(row.get("source_artifact_root", ""))).expanduser().resolve()
         _require_under_repo(
             source_artifact_root,
@@ -158,21 +169,94 @@ def _load_selected_candidates(
                 selection_status=status,
                 allowed_downstream_stage=downstream,
                 source_artifact_root=source_artifact_root,
-                ratio_numerator=parsed[0],
-                ratio_denominator=parsed[1],
+                schema_mode=parsed["schema_mode"],
+                selection_rate=parsed["selection_rate"],
+                ratio_numerator=int(parsed["ratio_numerator"]),
+                ratio_denominator=int(parsed["ratio_denominator"]),
+                max_iterations=int(parsed["max_iterations"]),
+                selector_rule_id=parsed["selector_rule_id"],
+                selection_mode=parsed["selection_mode"],
+                max_depth=_int_or_zero(row.get("max_depth")),
+                nontrivial_tier_count=_int_or_zero(row.get("nontrivial_tier_count")),
             )
         )
     return candidates[:candidate_cap]
 
 
-def _parse_source_local_ratio_schema_id(schema_id: str) -> tuple[int, int]:
+def _candidate_schema_metadata(
+    row: dict[str, str],
+    *,
+    schema_id: str,
+) -> dict[str, object]:
+    schema_mode = str(row.get("schema_mode", ""))
+    selection_rate = str(row.get("selection_rate", ""))
+    numerator = _optional_int(row.get("ratio_numerator"))
+    denominator = _optional_int(row.get("ratio_denominator"))
+    max_iterations = _optional_int(row.get("max_iterations"))
+    selector_rule_id = str(row.get("selector_rule_id", "") or "not_applicable")
+    selection_mode = str(row.get("selection_mode", "") or "not_applicable")
+    if schema_mode and numerator is not None and denominator is not None:
+        return {
+            "schema_mode": schema_mode,
+            "selection_rate": selection_rate or f"{numerator}/{denominator}",
+            "ratio_numerator": numerator,
+            "ratio_denominator": denominator,
+            "max_iterations": (
+                max_iterations if max_iterations is not None else _default_iteration_cap(schema_mode)
+            ),
+            "selector_rule_id": selector_rule_id,
+            "selection_mode": selection_mode,
+        }
+    return _parse_supported_schema_id(schema_id)
+
+
+def _parse_supported_schema_id(schema_id: str) -> dict[str, object]:
+    iterated_match = SOURCE_LOCAL_RATIO_ITERATED_RE.match(schema_id)
+    if iterated_match:
+        numerator = int(iterated_match.group("numerator"))
+        denominator = int(iterated_match.group("denominator"))
+        max_iterations = int(iterated_match.group("max_iterations"))
+        return {
+            "schema_mode": "source_local_ratio_iterated",
+            "selection_rate": f"{numerator}/{denominator}",
+            "ratio_numerator": numerator,
+            "ratio_denominator": denominator,
+            "max_iterations": max_iterations,
+            "selector_rule_id": "plate_support_source_local_iterated_stable_rate_v001",
+            "selection_mode": "quotient_source_representative_stable_rate",
+        }
     match = SOURCE_LOCAL_RATIO_RE.match(schema_id)
     if not match:
         raise Stage3CandidateSourceError(
-            "Stage 4 currently supports source-local ratio candidates only; "
+            "Stage 4 currently supports source-local ratio and iterated "
+            "source-local ratio candidates only; "
             f"got schema_id={schema_id!r}"
         )
-    return int(match.group("numerator")), int(match.group("denominator"))
+    numerator = int(match.group("numerator"))
+    denominator = int(match.group("denominator"))
+    return {
+        "schema_mode": "source_local_ratio",
+        "selection_rate": f"{numerator}/{denominator}",
+        "ratio_numerator": numerator,
+        "ratio_denominator": denominator,
+        "max_iterations": 1,
+        "selector_rule_id": "source_local_outgoing_ratio_catch",
+        "selection_mode": "legacy_source_local_ceil_prefix",
+    }
+
+
+def _optional_int(value: object) -> int | None:
+    text = str(value or "")
+    return int(text) if text.isdigit() else None
+
+
+def _int_or_zero(value: object) -> int:
+    text = str(value or "")
+    return int(text) if text.isdigit() else 0
+
+
+def _default_iteration_cap(schema_mode: str) -> int:
+    return 1 if schema_mode == "source_local_ratio" else 32
 
 
 def read_stage3_table(source: Stage3CandidateSource, table_name: str) -> list[dict[str, str]]:

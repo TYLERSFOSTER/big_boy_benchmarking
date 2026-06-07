@@ -13,6 +13,12 @@ def candidate_id_for_row(row: dict[str, object]) -> str:
         "schema_id": row["schema_id"],
         "schema_family_id": row["schema_family_id"],
         "schema_seed": row["schema_seed"],
+        "schema_mode": row.get("schema_mode", ""),
+        "ratio_numerator": row.get("ratio_numerator", ""),
+        "ratio_denominator": row.get("ratio_denominator", ""),
+        "max_iterations": row.get("max_iterations", ""),
+        "selector_rule_id": row.get("selector_rule_id", ""),
+        "selection_mode": row.get("selection_mode", ""),
         "structural_class": row.get("structural_class", ""),
     }
     digest = hashlib.sha1(

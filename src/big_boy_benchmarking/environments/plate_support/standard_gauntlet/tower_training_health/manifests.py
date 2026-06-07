@@ -74,8 +74,15 @@ def candidate_manifest(source: Stage3CandidateSource) -> dict[str, object]:
                 "selection_status": candidate.selection_status,
                 "allowed_downstream_stage": candidate.allowed_downstream_stage,
                 "source_artifact_root": str(candidate.source_artifact_root),
+                "schema_mode": candidate.schema_mode,
+                "selection_rate": candidate.selection_rate,
                 "ratio_numerator": candidate.ratio_numerator,
                 "ratio_denominator": candidate.ratio_denominator,
+                "max_iterations": candidate.max_iterations,
+                "selector_rule_id": candidate.selector_rule_id,
+                "selection_mode": candidate.selection_mode,
+                "max_depth": candidate.max_depth,
+                "nontrivial_tier_count": candidate.nontrivial_tier_count,
             }
             for candidate in source.selected_candidates
         ],

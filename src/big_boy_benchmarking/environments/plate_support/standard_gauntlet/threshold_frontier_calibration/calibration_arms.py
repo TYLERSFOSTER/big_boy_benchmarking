@@ -16,6 +16,14 @@ class CalibrationArm:
     calibration_arm_type: str
     candidate_id: str
     schema_id: str
+    schema_mode: str
+    ratio_numerator: int
+    ratio_denominator: int
+    max_iterations: int
+    selector_rule_id: str
+    selection_mode: str
+    max_depth: int
+    nontrivial_tier_count: int
     health_status: str
     trace_source: str
     source_stage_id: str
@@ -45,6 +53,14 @@ def build_calibration_arms(
                 calibration_arm_type="selected_trainable_candidate_reused_stage4_trace",
                 candidate_id=candidate.candidate_id,
                 schema_id=candidate.schema_id,
+                schema_mode=candidate.schema_mode,
+                ratio_numerator=candidate.ratio_numerator,
+                ratio_denominator=candidate.ratio_denominator,
+                max_iterations=candidate.max_iterations,
+                selector_rule_id=candidate.selector_rule_id,
+                selection_mode=candidate.selection_mode,
+                max_depth=candidate.max_depth,
+                nontrivial_tier_count=candidate.nontrivial_tier_count,
                 health_status=candidate.health_status,
                 trace_source="stage4_training_health",
                 source_stage_id="plate_support_gauntlet_tower_training_health_v001",

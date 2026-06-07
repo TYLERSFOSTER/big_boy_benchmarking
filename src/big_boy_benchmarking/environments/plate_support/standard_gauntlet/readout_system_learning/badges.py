@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from .stage_sources import SuiteReadoutSource
+from .stage_sources import SuiteReadoutSource, read_stage_table
 
 BADGE_FIELDS = (
     "badge_id",
@@ -25,6 +25,7 @@ def build_badges(
     """Build badge rows from source tables and status summaries."""
 
     statuses = {record.short_name: record.claim_status for record in source.stage_records}
+    iterated = _iterated_candidate_badges(source)
     return [
         _badge(
             "suite_status",
@@ -92,7 +93,67 @@ def build_badges(
             "readout_source.json",
             "Readout was generated from an explicit suite readout source binding.",
         ),
+        *iterated,
     ]
+
+
+def _iterated_candidate_badges(source: SuiteReadoutSource) -> list[dict[str, str]]:
+    stage4 = next(
+        (
+            record
+            for record in source.stage_records
+            if record.short_name == "tower_training_health"
+        ),
+        None,
+    )
+    rows = [] if stage4 is None else read_stage_table(stage4, "candidate_training_health_summary")
+    iterated_rows = [
+        row for row in rows if row.get("schema_mode") == "source_local_ratio_iterated"
+    ]
+    if not iterated_rows:
+        return [
+            _badge(
+                "iterated_candidate",
+                "Iterated",
+                "Absent",
+                "yellow",
+                "tower_training_health/candidate_training_health_summary.csv:schema_mode",
+                "No trainable iterated source-local ratio candidate is present in Stage 4.",
+            )
+        ]
+    best = max(
+        iterated_rows,
+        key=lambda row: (
+            _int(row.get("nontrivial_tier_count")),
+            _int(row.get("max_depth")),
+        ),
+    )
+    return [
+        _badge(
+            "iterated_candidate",
+            "Iterated",
+            "Candidate",
+            "green",
+            "tower_training_health/candidate_training_health_summary.csv:schema_mode",
+            "Stage 4 includes a trainable iterated source-local ratio candidate.",
+        ),
+        _badge(
+            "iterated_tiers",
+            "Tiers",
+            f"{_int(best.get('nontrivial_tier_count'))}/{_int(best.get('max_depth'))}",
+            "green",
+            (
+                "tower_training_health/candidate_training_health_summary.csv:"
+                "nontrivial_tier_count,max_depth"
+            ),
+            "Badge shows nontrivial tier count over max tower depth for the iterated candidate.",
+        ),
+    ]
+
+
+def _int(value: object) -> int:
+    text = str(value or "")
+    return int(text) if text.isdigit() else 0
 
 
 def write_badge_svgs(readout_surface: Path, badge_rows: list[dict[str, str]]) -> dict[str, str]:

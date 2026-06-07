@@ -12,6 +12,7 @@ from big_boy_benchmarking.environments.plate_support.upstream import (
 )
 
 from ..contraction_schema_sweep.source_local_ratio_schema import (
+    IteratedSourceLocalOutgoingRatioSchema,
     SourceLocalOutgoingRatioSchema,
 )
 from .candidate_source import (
@@ -24,7 +25,7 @@ class TrainingSurface:
     """Runtime, schema, and upstream import surface for one candidate."""
 
     surface: ImportedPlateSupportSurface
-    schema: SourceLocalOutgoingRatioSchema
+    schema: SourceLocalOutgoingRatioSchema | IteratedSourceLocalOutgoingRatioSchema
     runtime: Any
     strategy_id: str
     event_observability: dict[str, str]
@@ -49,11 +50,7 @@ def build_training_surface(candidate: TrainingCandidate) -> TrainingSurface:
     """Build the BBB-side runtime strategy for a selected source-local candidate."""
 
     surface = import_plate_support_surface()
-    schema = SourceLocalOutgoingRatioSchema(
-        numerator=candidate.ratio_numerator,
-        denominator=candidate.ratio_denominator,
-        seed=candidate.schema_seed,
-    )
+    schema = _schema_for_candidate(candidate)
     return TrainingSurface(
         surface=surface,
         schema=schema,
@@ -68,6 +65,27 @@ def build_training_surface(candidate: TrainingCandidate) -> TrainingSurface:
             "timing_events": "observable_from_bbb_perf_counter",
         },
     )
+
+
+def _schema_for_candidate(
+    candidate: TrainingCandidate,
+) -> SourceLocalOutgoingRatioSchema | IteratedSourceLocalOutgoingRatioSchema:
+    if candidate.schema_mode == "source_local_ratio_iterated":
+        return IteratedSourceLocalOutgoingRatioSchema(
+            numerator=candidate.ratio_numerator,
+            denominator=candidate.ratio_denominator,
+            seed=candidate.schema_seed,
+            selector_rule_id=candidate.selector_rule_id,
+            max_iterations=candidate.max_iterations,
+            selection_mode=candidate.selection_mode,
+        )
+    if candidate.schema_mode == "source_local_ratio":
+        return SourceLocalOutgoingRatioSchema(
+            numerator=candidate.ratio_numerator,
+            denominator=candidate.ratio_denominator,
+            seed=candidate.schema_seed,
+        )
+    raise ValueError(f"unsupported training schema_mode: {candidate.schema_mode!r}")
 
 
 def choose_executable_tower_action(

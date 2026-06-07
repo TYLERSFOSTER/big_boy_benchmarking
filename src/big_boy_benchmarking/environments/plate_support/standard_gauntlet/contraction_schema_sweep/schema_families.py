@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass
 
 from big_boy_benchmarking.environments.plate_support.standard_gauntlet.contraction_schema_sweep.source_local_ratio_schema import (
+    source_local_ratio_iterated_schema_id,
     source_local_ratio_schema_id,
 )
 
@@ -26,6 +27,11 @@ class SchemaArm:
     expected_role: str
     construction_supported: bool
     unsupported_reason: str
+    ratio_numerator: int | None = None
+    ratio_denominator: int | None = None
+    max_iterations: int | None = None
+    selector_rule_id: str = "not_applicable"
+    selection_mode: str = "not_applicable"
 
     def to_dict(self) -> dict[str, object]:
         return asdict(self)
@@ -39,6 +45,12 @@ def enumerate_schema_arms(
     source_local_ratio_denominator: int,
     edge_global_numerators: tuple[int, ...],
     valid_nonself_edge_count: int,
+    iterated_source_local_ratio_numerators: tuple[int, ...] = (),
+    iterated_source_local_ratio_denominators: tuple[int, ...] = (),
+    iterated_source_local_max_iterations: int = 32,
+    iterated_source_local_selector_rule_id: str = "not_applicable",
+    iterated_source_local_selection_mode: str = "not_applicable",
+    iterated_source_local_schema_seeds: tuple[int, ...] | None = None,
 ) -> tuple[SchemaArm, ...]:
     """Enumerate the configured smoke/dev schema sweep arms."""
 
@@ -100,8 +112,56 @@ def enumerate_schema_arms(
                         expected_role="candidate_probe",
                         construction_supported=True,
                         unsupported_reason="",
+                        ratio_numerator=numerator,
+                        ratio_denominator=source_local_ratio_denominator,
+                        max_iterations=1,
+                        selector_rule_id="source_local_outgoing_ratio_catch",
+                        selection_mode="legacy_source_local_ceil_prefix",
                     )
                 )
+        if "source_local_ratio_iterated" in schema_families:
+            if iterated_source_local_schema_seeds is None:
+                iterated_seeds = (seed,)
+            elif seed == schema_seeds[0]:
+                iterated_seeds = iterated_source_local_schema_seeds
+            else:
+                iterated_seeds = ()
+            for iterated_seed in iterated_seeds:
+                for denominator in iterated_source_local_ratio_denominators:
+                    for numerator in iterated_source_local_ratio_numerators:
+                        arms.append(
+                            SchemaArm(
+                                schema_id=source_local_ratio_iterated_schema_id(
+                                    numerator,
+                                    denominator,
+                                    iterated_source_local_max_iterations,
+                                ),
+                                schema_family_id="source_local_ratio_iterated",
+                                schema_seed=iterated_seed,
+                                selection_policy_id=(
+                                    "source_local_quotient_representative_stable_rate"
+                                ),
+                                selection_rate=f"{numerator}/{denominator}",
+                                selection_count=(
+                                    "threshold_selected_per_quotient_source_component"
+                                ),
+                                state_feature_basis="current_quotient_component",
+                                action_category_basis="primitive_action_identity_preserved",
+                                edge_basis=(
+                                    "quotient_representative_valid_nonself_edges_by_"
+                                    "source_component"
+                                ),
+                                schema_mode="source_local_ratio_iterated",
+                                expected_role="many_tier_candidate_probe",
+                                construction_supported=True,
+                                unsupported_reason="",
+                                ratio_numerator=numerator,
+                                ratio_denominator=denominator,
+                                max_iterations=iterated_source_local_max_iterations,
+                                selector_rule_id=iterated_source_local_selector_rule_id,
+                                selection_mode=iterated_source_local_selection_mode,
+                            )
+                        )
         if "action_category" in schema_families:
             for schema_id, category in (
                 ("plate_support_schema_plate_motion_actions_v001", "plate_motion"),

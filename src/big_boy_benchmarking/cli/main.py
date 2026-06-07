@@ -294,6 +294,21 @@ def _linearization_mode_ids() -> tuple[str, ...]:
     return tuple(contract.linearization_mode_id for contract in iter_linearization_mode_contracts())
 
 
+def _plate_support_schema_families_for_args(args: argparse.Namespace) -> tuple[str, ...]:
+    families = [
+        "no_contraction",
+        "upstream_default",
+        "source_local_ratio",
+        "action_category",
+        "edge_global_noisy_rate",
+        "geometry_coordinate",
+        "controlled_degeneracy",
+    ]
+    if args.include_iterated_source_local_ratio:
+        families.append("source_local_ratio_iterated")
+    return tuple(families)
+
+
 def _validate_contracts() -> int:
     validate_artifact_schema_version(ARTIFACT_SCHEMA_VERSION).require_valid()
     for contract in iter_mode_contracts():
@@ -446,6 +461,48 @@ def build_parser() -> argparse.ArgumentParser:
         "--source-local-ratio-denominator",
         type=int,
         default=18,
+    )
+    plate_support_schema_sweep_run_parser.add_argument(
+        "--include-iterated-source-local-ratio",
+        action="store_true",
+    )
+    plate_support_schema_sweep_run_parser.add_argument(
+        "--iterated-source-local-ratio-numerator",
+        action="append",
+        type=int,
+    )
+    plate_support_schema_sweep_run_parser.add_argument(
+        "--iterated-source-local-ratio-denominator",
+        action="append",
+        type=int,
+    )
+    plate_support_schema_sweep_run_parser.add_argument(
+        "--iterated-source-local-schema-seed",
+        action="append",
+        type=int,
+    )
+    plate_support_schema_sweep_run_parser.add_argument(
+        "--iterated-source-local-max-iterations",
+        type=int,
+        default=32,
+    )
+    plate_support_schema_sweep_run_parser.add_argument(
+        "--iterated-source-local-selector-rule-id",
+        default="plate_support_source_local_iterated_stable_rate_v001",
+    )
+    plate_support_schema_sweep_run_parser.add_argument(
+        "--iterated-source-local-selection-mode",
+        default="quotient_source_representative_stable_rate",
+    )
+    plate_support_schema_sweep_run_parser.add_argument(
+        "--iterated-near-full-collapse-threshold",
+        type=float,
+        default=0.9,
+    )
+    plate_support_schema_sweep_run_parser.add_argument(
+        "--iterated-min-nontrivial-tiers",
+        type=int,
+        default=3,
     )
     plate_support_schema_sweep_run_parser.add_argument(
         "--edge-global-numerator",
@@ -1349,11 +1406,37 @@ def _run_plate_support_command(args: argparse.Namespace) -> int:
                         run_label=args.run_label,
                         stage1_readout_source_path=args.stage1_source,
                         locked_by=args.locked_by,
+                        schema_families=_plate_support_schema_families_for_args(args),
                         schema_seeds=tuple(args.schema_seed or (0,)),
                         source_local_ratio_numerators=tuple(
                             args.source_local_ratio_numerator or (1,)
                         ),
                         source_local_ratio_denominator=args.source_local_ratio_denominator,
+                        iterated_source_local_ratio_numerators=tuple(
+                            args.iterated_source_local_ratio_numerator or (1,)
+                        ),
+                        iterated_source_local_ratio_denominators=tuple(
+                            args.iterated_source_local_ratio_denominator
+                            or (144, 72, 36, 18)
+                        ),
+                        iterated_source_local_max_iterations=(
+                            args.iterated_source_local_max_iterations
+                        ),
+                        iterated_source_local_selector_rule_id=(
+                            args.iterated_source_local_selector_rule_id
+                        ),
+                        iterated_source_local_selection_mode=(
+                            args.iterated_source_local_selection_mode
+                        ),
+                        iterated_source_local_schema_seeds=(
+                            None
+                            if args.iterated_source_local_schema_seed is None
+                            else tuple(args.iterated_source_local_schema_seed)
+                        ),
+                        iterated_near_full_collapse_threshold=(
+                            args.iterated_near_full_collapse_threshold
+                        ),
+                        iterated_min_nontrivial_tiers=args.iterated_min_nontrivial_tiers,
                         edge_global_numerators=tuple(
                             args.edge_global_numerator or (1, 2, 4, 8)
                         ),

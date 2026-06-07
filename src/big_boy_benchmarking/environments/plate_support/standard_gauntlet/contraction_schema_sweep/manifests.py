@@ -45,6 +45,30 @@ def stage_budget_lock(config: SchemaSweepConfig) -> dict[str, object]:
         "schema_seeds": list(config.schema_seeds),
         "source_local_ratio_numerators": list(config.source_local_ratio_numerators),
         "source_local_ratio_denominator": config.source_local_ratio_denominator,
+        "iterated_source_local_ratio_numerators": list(
+            config.iterated_source_local_ratio_numerators
+        ),
+        "iterated_source_local_ratio_denominators": list(
+            config.iterated_source_local_ratio_denominators
+        ),
+        "iterated_source_local_max_iterations": (
+            config.iterated_source_local_max_iterations
+        ),
+        "iterated_source_local_selector_rule_id": (
+            config.iterated_source_local_selector_rule_id
+        ),
+        "iterated_source_local_selection_mode": (
+            config.iterated_source_local_selection_mode
+        ),
+        "iterated_source_local_schema_seeds": (
+            None
+            if config.iterated_source_local_schema_seeds is None
+            else list(config.iterated_source_local_schema_seeds)
+        ),
+        "iterated_near_full_collapse_threshold": (
+            config.iterated_near_full_collapse_threshold
+        ),
+        "iterated_min_nontrivial_tiers": config.iterated_min_nontrivial_tiers,
         "edge_global_numerators": list(config.edge_global_numerators),
         "near_full_collapse_threshold": config.near_full_collapse_threshold,
         "tower_probe_steps": config.tower_probe_steps,

@@ -117,6 +117,45 @@ def test_tower_training_health_blocks_without_selected_candidate(tmp_path: Path)
     assert "no selected training candidate" in str(result.failure_reason)
 
 
+def test_tower_training_health_can_train_iterated_source_local_candidate(
+    tmp_path: Path,
+) -> None:
+    candidate_source = _create_iterated_stage3_source(tmp_path)
+    result = run_tower_training_health(
+        TowerTrainingHealthConfig(
+            artifact_root=_artifact_root(tmp_path),
+            run_label="iterated_001",
+            candidate_source_path=candidate_source,
+            locked_by="pytest",
+            candidate_cap=1,
+            training_replicates_per_candidate=1,
+            episodes_per_replicate=1,
+            max_steps_per_episode=4,
+        ),
+        repo_root=tmp_path,
+    )
+
+    assert result.status == "complete"
+    with (result.stage_root / "candidate_manifest.json").open(encoding="utf-8") as handle:
+        manifest = json.load(handle)
+    candidate = manifest["candidates"][0]
+    assert candidate["schema_mode"] == "source_local_ratio_iterated"
+    assert candidate["ratio_denominator"] == 144
+    assert candidate["max_iterations"] == 32
+    assert candidate["nontrivial_tier_count"] >= 3
+
+    health_rows = _read_csv(
+        result.stage_root / "results" / "candidate_training_health_summary.csv"
+    )
+    assert health_rows[0]["schema_mode"] == "source_local_ratio_iterated"
+    assert health_rows[0]["health_status"] in {
+        "trainable_clean",
+        "trainable_warning",
+    }
+    assert int(health_rows[0]["concrete_step_count"]) > 0
+    assert int(health_rows[0]["lift_success_count"]) > 0
+
+
 def test_training_health_classifier_distinguishes_failure_modes() -> None:
     clean = {
         "runtime_failure_count": 0,
@@ -169,6 +208,25 @@ def _create_stage3_source(repo_root: Path) -> Path:
     return result.readout_source_path
 
 
+def _create_iterated_stage3_source(repo_root: Path) -> Path:
+    schema_sweep_source = _create_iterated_stage2_source(repo_root)
+    result = run_candidate_discovery(
+        CandidateDiscoveryConfig(
+            artifact_root=_artifact_root(repo_root),
+            run_label="iterated_001",
+            schema_sweep_source_path=schema_sweep_source,
+            locked_by="pytest",
+        ),
+        repo_root=repo_root,
+    )
+    assert result.status == "complete"
+    downstream_rows = _read_csv(
+        result.stage_root / "results" / "downstream_training_health_input_summary.csv"
+    )
+    assert downstream_rows[0]["schema_mode"] == "source_local_ratio_iterated"
+    return result.readout_source_path
+
+
 def _create_stage2_source(repo_root: Path) -> Path:
     stage1_source = _create_stage1_source(repo_root)
     result = run_contraction_schema_sweep(
@@ -177,6 +235,27 @@ def _create_stage2_source(repo_root: Path) -> Path:
             run_label="smoke_001",
             stage1_readout_source_path=stage1_source,
             locked_by="pytest",
+            tower_probe_steps=3,
+            tower_probe_sample_size=4,
+        ),
+        repo_root=repo_root,
+    )
+    assert result.status == "complete"
+    return result.readout_source_path
+
+
+def _create_iterated_stage2_source(repo_root: Path) -> Path:
+    stage1_source = _create_stage1_source(repo_root)
+    result = run_contraction_schema_sweep(
+        SchemaSweepConfig(
+            artifact_root=_artifact_root(repo_root),
+            run_label="iterated_001",
+            stage1_readout_source_path=stage1_source,
+            locked_by="pytest",
+            schema_families=("source_local_ratio_iterated",),
+            schema_seeds=(0,),
+            iterated_source_local_ratio_denominators=(144,),
+            iterated_source_local_max_iterations=32,
             tower_probe_steps=3,
             tower_probe_sample_size=4,
         ),

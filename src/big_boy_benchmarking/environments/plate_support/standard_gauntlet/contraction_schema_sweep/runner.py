@@ -75,6 +75,11 @@ RESULT_TABLE_FIELDNAMES = {
         "expected_role",
         "construction_supported",
         "unsupported_reason",
+        "ratio_numerator",
+        "ratio_denominator",
+        "max_iterations",
+        "selector_rule_id",
+        "selection_mode",
     ),
     "schema_construction_summary": (
         "schema_id",
@@ -95,6 +100,12 @@ RESULT_TABLE_FIELDNAMES = {
         "state_feature_basis",
         "action_category_basis",
         "edge_basis",
+        "schema_mode",
+        "ratio_numerator",
+        "ratio_denominator",
+        "max_iterations",
+        "selector_rule_id",
+        "selection_mode",
     ),
     "tower_shape_summary": (
         "schema_id",
@@ -160,7 +171,15 @@ RESULT_TABLE_FIELDNAMES = {
         "structural_class",
         "candidate_signal",
         "candidate_signal_reason",
+        "schema_mode",
+        "selection_rate",
+        "ratio_numerator",
+        "ratio_denominator",
+        "max_iterations",
+        "selector_rule_id",
+        "selection_mode",
         "max_depth",
+        "nontrivial_tier_count",
         "first_nonbase_tier_state_cell_count",
         "largest_cell_share",
         "active_action_cell_min",
@@ -190,7 +209,80 @@ RESULT_TABLE_FIELDNAMES = {
         "structural_class",
         "source_stage_id",
         "source_artifact_root",
+        "schema_mode",
+        "selection_rate",
+        "ratio_numerator",
+        "ratio_denominator",
+        "max_iterations",
+        "selector_rule_id",
+        "selection_mode",
+        "max_depth",
+        "nontrivial_tier_count",
         "blocking_reason",
+    ),
+    "iterated_plan_summary": (
+        "schema_id",
+        "schema_family_id",
+        "schema_seed",
+        "selector_rule_id",
+        "selection_mode",
+        "ratio_numerator",
+        "ratio_denominator",
+        "max_iterations",
+        "iteration_index",
+        "component_count_before",
+        "candidate_edge_count",
+        "selected_edge_count",
+        "changed_union_count",
+        "component_count_after",
+        "block_id",
+        "iteration_status",
+        "stop_reason",
+        "diagnostic_status",
+    ),
+    "iterated_schema_stop_summary": (
+        "schema_id",
+        "schema_family_id",
+        "schema_seed",
+        "selector_rule_id",
+        "selection_mode",
+        "ratio_numerator",
+        "ratio_denominator",
+        "max_iterations",
+        "completed_iteration_count",
+        "ordered_block_count",
+        "final_component_count",
+        "stop_reason",
+        "selected_edge_count_total",
+        "changed_union_count_total",
+        "max_depth",
+        "nontrivial_tier_count",
+        "largest_cell_share_final",
+        "near_full_collapse_threshold",
+        "diagnostic_status",
+    ),
+    "many_tier_candidate_signal_summary": (
+        "schema_id",
+        "schema_family_id",
+        "schema_seed",
+        "selector_rule_id",
+        "selection_mode",
+        "ratio_numerator",
+        "ratio_denominator",
+        "max_iterations",
+        "max_depth",
+        "nontrivial_tier_count",
+        "min_required_nontrivial_tiers",
+        "has_immediate_collapse",
+        "has_empty_executable_tier",
+        "max_largest_cell_share",
+        "min_nonbase_state_cell_count",
+        "max_nonbase_state_cell_count",
+        "min_nonbase_active_action_cell_count",
+        "candidate_signal",
+        "candidate_signal_reason",
+        "near_full_collapse_threshold",
+        "diagnostic_status",
     ),
 }
 
@@ -232,6 +324,18 @@ def run_contraction_schema_sweep(
         source_local_ratio_denominator=config.source_local_ratio_denominator,
         edge_global_numerators=config.edge_global_numerators,
         valid_nonself_edge_count=valid_nonself_edge_count,
+        iterated_source_local_ratio_numerators=(
+            config.iterated_source_local_ratio_numerators
+        ),
+        iterated_source_local_ratio_denominators=(
+            config.iterated_source_local_ratio_denominators
+        ),
+        iterated_source_local_max_iterations=config.iterated_source_local_max_iterations,
+        iterated_source_local_selector_rule_id=(
+            config.iterated_source_local_selector_rule_id
+        ),
+        iterated_source_local_selection_mode=config.iterated_source_local_selection_mode,
+        iterated_source_local_schema_seeds=config.iterated_source_local_schema_seeds,
     )
     dependency_state = collect_state_collapser_dependency_state(
         dependency_spec=STATE_COLLAPSER_DEPENDENCY_SPEC,
@@ -245,6 +349,9 @@ def run_contraction_schema_sweep(
     endpoint_rows: list[dict[str, object]] = []
     timing_rows: list[dict[str, object]] = []
     candidate_rows: list[dict[str, object]] = []
+    iterated_plan_rows: list[dict[str, object]] = []
+    iterated_stop_rows: list[dict[str, object]] = []
+    many_tier_rows: list[dict[str, object]] = []
     mandatory_failures: list[str] = []
 
     for arm in arms:
@@ -262,12 +369,20 @@ def run_contraction_schema_sweep(
         executability_rows.extend(arm_executability_rows)
         endpoint_rows.extend(diagnostics.endpoint_coalescence_rows)
         timing_rows.extend(diagnostics.timing_rows)
+        iterated_plan_rows.extend(diagnostics.iterated_plan_rows)
+        iterated_stop_rows.extend(diagnostics.iterated_schema_stop_rows)
+        many_tier_rows.extend(diagnostics.many_tier_candidate_signal_rows)
         candidate_row = classify_schema_arm(
             arm=arm,
             construction=construction,
             tower_rows=arm_tower_rows,
             executability_rows=arm_executability_rows,
-            near_full_collapse_threshold=config.near_full_collapse_threshold,
+            near_full_collapse_threshold=(
+                config.iterated_near_full_collapse_threshold
+                if arm.schema_family_id == "source_local_ratio_iterated"
+                else config.near_full_collapse_threshold
+            ),
+            iterated_min_nontrivial_tiers=config.iterated_min_nontrivial_tiers,
         )
         candidate_rows.append(candidate_row)
         if arm.schema_family_id in ("no_contraction", "upstream_default") and (
@@ -299,6 +414,9 @@ def run_contraction_schema_sweep(
         endpoint_rows=endpoint_rows,
         timing_rows=timing_rows,
         candidate_rows=candidate_rows,
+        iterated_plan_rows=iterated_plan_rows,
+        iterated_stop_rows=iterated_stop_rows,
+        many_tier_rows=many_tier_rows,
     )
     write_json(stage_root / "stage_manifest.json", stage_manifest(config), create_parents=True)
     write_json(stage_root / "stage_budget_lock.json", stage_budget_lock(config), create_parents=True)
@@ -395,6 +513,9 @@ def _write_result_tables(
     endpoint_rows: list[dict[str, object]],
     timing_rows: list[dict[str, object]],
     candidate_rows: list[dict[str, object]],
+    iterated_plan_rows: list[dict[str, object]],
+    iterated_stop_rows: list[dict[str, object]],
+    many_tier_rows: list[dict[str, object]],
 ) -> dict[str, str]:
     results_dir = stage_root / "results"
     selection_rows = [
@@ -421,6 +542,15 @@ def _write_result_tables(
             "structural_class": row["structural_class"],
             "source_stage_id": CONTRACTION_SCHEMA_SWEEP_STAGE_ID,
             "source_artifact_root": str(stage_root),
+            "schema_mode": row["schema_mode"],
+            "selection_rate": row["selection_rate"],
+            "ratio_numerator": row["ratio_numerator"],
+            "ratio_denominator": row["ratio_denominator"],
+            "max_iterations": row["max_iterations"],
+            "selector_rule_id": row["selector_rule_id"],
+            "selection_mode": row["selection_mode"],
+            "max_depth": row["max_depth"],
+            "nontrivial_tier_count": row["nontrivial_tier_count"],
             "blocking_reason": row["blocking_reason"],
         }
         for row in candidate_rows
@@ -437,6 +567,9 @@ def _write_result_tables(
         "schema_candidate_signal_summary": candidate_rows,
         "timing_summary": timing_rows,
         "downstream_candidate_input_summary": downstream_rows,
+        "iterated_plan_summary": iterated_plan_rows,
+        "iterated_schema_stop_summary": iterated_stop_rows,
+        "many_tier_candidate_signal_summary": many_tier_rows,
     }
     output_paths: dict[str, str] = {}
     for key, rows in tables.items():

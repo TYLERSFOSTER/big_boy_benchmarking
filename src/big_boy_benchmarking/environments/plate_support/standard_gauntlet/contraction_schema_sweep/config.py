@@ -34,6 +34,18 @@ class SchemaSweepConfig:
     schema_seeds: tuple[int, ...] = (0,)
     source_local_ratio_numerators: tuple[int, ...] = (1,)
     source_local_ratio_denominator: int = 18
+    iterated_source_local_ratio_numerators: tuple[int, ...] = (1,)
+    iterated_source_local_ratio_denominators: tuple[int, ...] = (144, 72, 36, 18)
+    iterated_source_local_max_iterations: int = 32
+    iterated_source_local_selector_rule_id: str = (
+        "plate_support_source_local_iterated_stable_rate_v001"
+    )
+    iterated_source_local_selection_mode: str = (
+        "quotient_source_representative_stable_rate"
+    )
+    iterated_source_local_schema_seeds: tuple[int, ...] | None = None
+    iterated_near_full_collapse_threshold: float = 0.90
+    iterated_min_nontrivial_tiers: int = 3
     edge_global_numerators: tuple[int, ...] = (1, 2, 4, 8)
     near_full_collapse_threshold: float = 0.90
     tower_probe_steps: int = 20
@@ -46,6 +58,42 @@ class SchemaSweepConfig:
             raise ValueError("source_local_ratio_denominator must be positive")
         if any(numerator <= 0 for numerator in self.source_local_ratio_numerators):
             raise ValueError("source_local_ratio_numerators must all be positive")
+        if any(
+            numerator <= 0 for numerator in self.iterated_source_local_ratio_numerators
+        ):
+            raise ValueError(
+                "iterated_source_local_ratio_numerators must all be positive"
+            )
+        if any(
+            denominator <= 0
+            for denominator in self.iterated_source_local_ratio_denominators
+        ):
+            raise ValueError(
+                "iterated_source_local_ratio_denominators must all be positive"
+            )
+        for numerator in self.iterated_source_local_ratio_numerators:
+            for denominator in self.iterated_source_local_ratio_denominators:
+                if numerator > denominator:
+                    raise ValueError(
+                        "iterated_source_local_ratio_numerators must be less than "
+                        "or equal to each denominator"
+                    )
+        if self.iterated_source_local_max_iterations <= 0:
+            raise ValueError("iterated_source_local_max_iterations must be positive")
+        if not self.iterated_source_local_selector_rule_id:
+            raise ValueError("iterated_source_local_selector_rule_id must be nonempty")
+        if not self.iterated_source_local_selection_mode:
+            raise ValueError("iterated_source_local_selection_mode must be nonempty")
+        if self.iterated_source_local_schema_seeds is not None and any(
+            seed < 0 for seed in self.iterated_source_local_schema_seeds
+        ):
+            raise ValueError("iterated_source_local_schema_seeds must be nonnegative")
+        if not 0.0 < self.iterated_near_full_collapse_threshold <= 1.0:
+            raise ValueError(
+                "iterated_near_full_collapse_threshold must be in the interval (0, 1]"
+            )
+        if self.iterated_min_nontrivial_tiers <= 0:
+            raise ValueError("iterated_min_nontrivial_tiers must be positive")
 
 
 def default_schema_sweep_config(

@@ -56,6 +56,12 @@ def write_tower_training_health_docs(
                 "applies a tabular Q update. The stage records training health evidence,",
                 "not comparison evidence.",
                 "",
+                "The schema factory is metadata-first. One-shot",
+                "`source_local_ratio` candidates rebuild the one-block catch schema;",
+                "iterated `source_local_ratio_iterated` candidates rebuild the",
+                "multi-block iterated schema using the preserved ratio, selector,",
+                "selection mode, and max-iteration fields from Stage 3.",
+                "",
             ]
         ),
         encoding="utf-8",

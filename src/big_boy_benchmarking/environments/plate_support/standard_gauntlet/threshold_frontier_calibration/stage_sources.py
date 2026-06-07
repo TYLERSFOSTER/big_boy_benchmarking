@@ -97,6 +97,14 @@ class TrainableCandidate:
     schema_id: str
     health_status: str
     health_reason: str
+    schema_mode: str
+    ratio_numerator: int
+    ratio_denominator: int
+    max_iterations: int
+    selector_rule_id: str
+    selection_mode: str
+    max_depth: int
+    nontrivial_tier_count: int
     episode_count: int
     success_count: int
     source_artifact_root: Path
@@ -343,6 +351,14 @@ def _select_trainable_candidates(
                 schema_id=str(row["schema_id"]),
                 health_status=health_status,
                 health_reason=str(row["health_reason"]),
+                schema_mode=str(row.get("schema_mode", "source_local_ratio")),
+                ratio_numerator=_int_or_zero(row.get("ratio_numerator")),
+                ratio_denominator=_int_or_zero(row.get("ratio_denominator")),
+                max_iterations=_int_or_zero(row.get("max_iterations")),
+                selector_rule_id=str(row.get("selector_rule_id", "not_applicable")),
+                selection_mode=str(row.get("selection_mode", "not_applicable")),
+                max_depth=_int_or_zero(row.get("max_depth")),
+                nontrivial_tier_count=_int_or_zero(row.get("nontrivial_tier_count")),
                 episode_count=int(row["episode_count"]),
                 success_count=int(row["success_count"]),
                 source_artifact_root=source_artifact_root,
@@ -414,3 +430,8 @@ def _require_under_repo(path: Path, repo_root: Path, label: str) -> None:
 
 def _truthy(value: object) -> bool:
     return str(value).strip().lower() in {"1", "true", "yes"}
+
+
+def _int_or_zero(value: object) -> int:
+    text = str(value or "")
+    return int(text) if text.isdigit() else 0

@@ -37,11 +37,17 @@ def construct_schema_arm(arm: SchemaArm) -> SchemaConstructionResult:
     """Construct or explicitly block a schema arm."""
 
     if arm.construction_supported:
-        builder_surface = (
-            "bbb.plate_support.SourceLocalOutgoingRatioSchema.full_graph_partition_tower"
-            if arm.schema_mode == "source_local_ratio"
-            else "state_collapser.examples.tower_depth_probe.schema_mode"
-        )
+        if arm.schema_mode == "source_local_ratio":
+            builder_surface = (
+                "bbb.plate_support.SourceLocalOutgoingRatioSchema.full_graph_partition_tower"
+            )
+        elif arm.schema_mode == "source_local_ratio_iterated":
+            builder_surface = (
+                "bbb.plate_support.IteratedSourceLocalOutgoingRatioSchema."
+                "full_graph_partition_tower"
+            )
+        else:
+            builder_surface = "state_collapser.examples.tower_depth_probe.schema_mode"
         return SchemaConstructionResult(
             schema_id=arm.schema_id,
             schema_family_id=arm.schema_family_id,

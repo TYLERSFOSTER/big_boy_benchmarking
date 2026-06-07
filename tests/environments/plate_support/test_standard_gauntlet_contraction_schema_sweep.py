@@ -134,6 +134,50 @@ def test_schema_sweep_writes_required_tables_and_honest_unsupported_rows(
     assert source_payload["source_artifact_root"] == str(stage_root)
 
 
+def test_schema_sweep_writes_iterated_many_tier_candidate_tables(
+    tmp_path: Path,
+) -> None:
+    stage1_source = _create_stage1_source(tmp_path)
+    result = run_contraction_schema_sweep(
+        SchemaSweepConfig(
+            artifact_root=_artifact_root(tmp_path),
+            run_label="iterated_001",
+            stage1_readout_source_path=stage1_source,
+            locked_by="pytest",
+            schema_families=("source_local_ratio_iterated",),
+            schema_seeds=(0,),
+            iterated_source_local_ratio_denominators=(144,),
+            iterated_source_local_max_iterations=32,
+            tower_probe_steps=3,
+            tower_probe_sample_size=4,
+        ),
+        repo_root=tmp_path,
+    )
+
+    assert result.status == "complete"
+    stage_root = result.stage_root
+    plan_rows = _read_csv(stage_root / "results" / "iterated_plan_summary.csv")
+    stop_rows = _read_csv(stage_root / "results" / "iterated_schema_stop_summary.csv")
+    many_tier_rows = _read_csv(
+        stage_root / "results" / "many_tier_candidate_signal_summary.csv"
+    )
+    signal_rows = _read_csv(stage_root / "results" / "schema_candidate_signal_summary.csv")
+
+    assert len(plan_rows) > 3
+    assert len(stop_rows) == 1
+    assert len(many_tier_rows) == 1
+    assert many_tier_rows[0]["candidate_signal"] == "many_tier_executable_candidate"
+    assert int(many_tier_rows[0]["max_depth"]) >= 4
+    assert int(many_tier_rows[0]["nontrivial_tier_count"]) >= 3
+
+    assert len(signal_rows) == 1
+    assert signal_rows[0]["schema_family_id"] == "source_local_ratio_iterated"
+    assert signal_rows[0]["candidate_signal"] == "eligible_signal"
+    assert signal_rows[0]["schema_mode"] == "source_local_ratio_iterated"
+    assert signal_rows[0]["ratio_denominator"] == "144"
+    assert signal_rows[0]["max_iterations"] == "32"
+
+
 def _create_stage1_source(repo_root: Path) -> Path:
     readiness_source = _write_fake_readiness_source(repo_root)
     result = run_structural_and_tower_diagnostics(
