@@ -27,7 +27,7 @@ counterpoint first serious learning evaluation.
 Source evaluation root:
 
 ```text
-/private/tmp/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001
+<tmp-dir>/bbb-counterpoint-serious-learning-serious-001/evaluations/counterpoint_first_serious_learning_v001
 ```
 
 Source binding:
@@ -40,7 +40,7 @@ To regenerate this repo-side readout, point the protocol at this directory, not
 at the raw artifact root:
 
 ```text
-execute artifact-table readout pointed at folder /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/readout_source.json
 ```
 
 Protocol applied:
@@ -77,7 +77,7 @@ than direct learning.
 
 This readout summarizes a locked serious-run artifact set followed by
 aggregation and human readout generation. The source binding points at a local
-artifact root under `/private/tmp`, while this directory is the durable
+artifact root under `<tmp-dir>`, while this directory is the durable
 repo-side readout surface.
 
 The evaluation compares direct environment arms against active-tier
@@ -411,7 +411,7 @@ available and used for this readout.
 
 #### Project Owner / Evaluator Turn
 
-> Ok well let me first say this "problem" is dumb as fuck. The solution is literally "if you find your self in the degenerate case, hop up one tier." Riiiiieeeeeght??? *Jiiiiiiiiii......* Do you see that?
+> Ok well let me first say this "problem" is dumb as [XXX]. The solution is literally "if you find your self in the degenerate case, hop up one tier." Riiiiieeeeeght??? *Jiiiiiiiiii......* Do you see that?
 
 #### Embedded Engineering Consultant / Codex Turn
 

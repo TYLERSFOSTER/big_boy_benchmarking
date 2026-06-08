@@ -1,5 +1,0 @@
-pair_id,replicate_index,environment_seed,learner_seed,exploration_seed,initial_state_seed,tie_break_seed
-pairrep000,0,0,1001,2002,3003,4004
-pairrep001,1,10000,11001,12002,13003,14004
-pairrep002,2,20000,21001,22002,23003,24004
-pairrep003,3,30000,31001,32002,33003,34004

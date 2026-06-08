@@ -221,7 +221,7 @@ counterpoint runtime.
 
 This integration must not:
 
-1. edit `/Users/foster/state_collapser`;
+1. edit `<state-collapser-repo>`;
 2. redesign upstream `state_collapser`;
 3. pretend old BBB evaluation artifacts were generated under the new semantics;
 4. silently overwrite historical evaluation artifacts;

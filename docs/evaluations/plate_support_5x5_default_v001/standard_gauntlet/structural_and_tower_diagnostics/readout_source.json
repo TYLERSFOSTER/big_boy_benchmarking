@@ -26,17 +26,17 @@
     "expected_absent_is_gap": [],
     "not_applicable": [],
     "required": [
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/identity_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/state_space_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/action_table.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/transition_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/shortest_path_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/validity_predicate_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/geometry_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/random_policy_recon_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/tower_shape_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/training_surface_availability.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/downstream_readiness_summary.csv"
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/identity_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/state_space_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/action_table.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/transition_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/shortest_path_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/validity_predicate_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/geometry_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/random_policy_recon_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/tower_shape_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/training_surface_availability.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/downstream_readiness_summary.csv"
     ]
   },
   "goal_criteria": [
@@ -52,31 +52,31 @@
   ],
   "goal_summary_sources": [
     "docs/design/first_plate_support_environment/standard_gauntlet_suite/01_structural_and_tower_diagnostics/01_001_plate_support_structural_and_tower_diagnostics_blueprint.md",
-    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/method.md"
+    "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/method.md"
   ],
   "methodology_summary_sources": [
     "docs/design/first_plate_support_environment/standard_gauntlet_suite/01_structural_and_tower_diagnostics/01_001_plate_support_structural_and_tower_diagnostics_blueprint.md",
-    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/method.md",
-    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/runbook.md"
+    "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/method.md",
+    "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/runbook.md"
   ],
-  "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics",
-  "repo_root": "/Users/foster/big_boy_benchmarking",
+  "repo_readout_surface": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics",
+  "repo_root": "<repo-root>",
   "run_mode": "stage1_structural_diagnostics",
-  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics",
+  "source_artifact_root": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics",
   "source_binding_type": "evaluation_readout_source",
-  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics",
+  "source_evaluation_root": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics",
   "source_files": {
-    "action_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/action_table.csv",
-    "downstream_readiness_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/downstream_readiness_summary.csv",
-    "geometry_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/geometry_summary.csv",
-    "identity_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/identity_summary.csv",
-    "random_policy_recon_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/random_policy_recon_summary.csv",
-    "shortest_path_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/shortest_path_summary.csv",
-    "state_space_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/state_space_summary.csv",
-    "tower_shape_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/tower_shape_summary.csv",
-    "training_surface_availability": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/training_surface_availability.csv",
-    "transition_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/transition_summary.csv",
-    "validity_predicate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/validity_predicate_summary.csv"
+    "action_table": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/action_table.csv",
+    "downstream_readiness_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/downstream_readiness_summary.csv",
+    "geometry_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/geometry_summary.csv",
+    "identity_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/identity_summary.csv",
+    "random_policy_recon_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/random_policy_recon_summary.csv",
+    "shortest_path_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/shortest_path_summary.csv",
+    "state_space_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/state_space_summary.csv",
+    "tower_shape_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/tower_shape_summary.csv",
+    "training_surface_availability": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/training_surface_availability.csv",
+    "transition_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/transition_summary.csv",
+    "validity_predicate_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics/results/validity_predicate_summary.csv"
   },
   "structural_limit_checks": [
     {
@@ -85,5 +85,15 @@
       "interpretation_if_triggered": "The environment diagnostic stage completed enough to explain the block, but Stage 2 must not run until the blocking reason is resolved.",
       "trigger": "ready_for_schema_sweep is false"
     }
-  ]
+  ],
+  "artifact_storage": {
+    "mode": "github_release_asset",
+    "release_tag": "v0.1.0-beta.1",
+    "asset_name": "big_boy_calibration_smoke_v0.1.0-beta.1_artifacts.tar.zst",
+    "bundle_manifest_path": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_MANIFEST.json",
+    "bundle_file_index_path": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_FILE_INDEX.csv",
+    "bundle_checksums_path": "docs/design/beta_public_release/release_asset_manifests/SHA256SUMS.txt",
+    "bundle_readme_path": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_README.md",
+    "path_semantics": "paths under artifacts/ are bundle-relative raw artifact paths for public beta, not tracked git files"
+  }
 }

@@ -1,7 +1,7 @@
 {
-  "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning",
-  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001",
-  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001",
+  "repo_readout_surface": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning",
+  "source_artifact_root": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001",
+  "source_evaluation_root": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001",
   "evaluation_id": "counterpoint_first_serious_learning_v001",
   "environment_instance_id": "counterpoint_symbolic_n3_small_v001",
   "artifact_run_label": "pi0_h_evaluation_001",
@@ -19,14 +19,14 @@
     "docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/readout_source.json"
   ],
   "source_files": {
-    "budget_lock": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/evaluation_budget_lock.json",
-    "run_index": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/evaluation_run_index.csv",
-    "aggregate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/evaluation_aggregate_summary.json",
-    "aggregate_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/evaluation_aggregate_table.csv",
-    "learning_curves": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/results/learning_curves.csv",
-    "timing_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/results/timing_summary.csv",
-    "controller_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/results/controller_summary.csv",
-    "schema_diagnostic_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/results/schema_diagnostic_summary.csv"
+    "budget_lock": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/evaluation_budget_lock.json",
+    "run_index": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/evaluation_run_index.csv",
+    "aggregate_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/evaluation_aggregate_summary.json",
+    "aggregate_table": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/evaluation_aggregate_table.csv",
+    "learning_curves": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/results/learning_curves.csv",
+    "timing_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/results/timing_summary.csv",
+    "controller_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/results/controller_summary.csv",
+    "schema_diagnostic_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001/results/schema_diagnostic_summary.csv"
   },
   "expected_files": {
     "required": [
@@ -158,5 +158,15 @@
     "May claim broad/full-graph contraction schemas in this artifact set produce full or near-full first-projection collapse and structural-limit diagnostic evidence.",
     "May not describe non-empty tower arms as ordinary mixed learner performance without controlling for first-projection collapse.",
     "May not claim tensor-enabled, CUDA, GPU, musical-quality, production, or general tower-performance results."
-  ]
+  ],
+  "artifact_storage": {
+    "mode": "github_release_asset",
+    "release_tag": "v0.1.0-beta.1",
+    "asset_name": "big_boy_calibration_smoke_v0.1.0-beta.1_artifacts.tar.zst",
+    "bundle_manifest_path": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_MANIFEST.json",
+    "bundle_file_index_path": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_FILE_INDEX.csv",
+    "bundle_checksums_path": "docs/design/beta_public_release/release_asset_manifests/SHA256SUMS.txt",
+    "bundle_readme_path": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_README.md",
+    "path_semantics": "paths under artifacts/ are bundle-relative raw artifact paths for public beta, not tracked git files"
+  }
 }

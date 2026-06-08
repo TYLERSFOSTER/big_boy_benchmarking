@@ -7,7 +7,7 @@ Status: draft blueprint with Project Owner answer slots
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Design folder:
@@ -36,7 +36,7 @@ This is not approval to modify TeX documents at repo root.
 
 This is not approval to change the `counterpoint_symbolic_v001` environment.
 
-This is not approval to edit `/Users/foster/state_collapser`.
+This is not approval to edit `<state-collapser-repo>`.
 
 A later Phase.Stage.Action implementation workplan must translate this
 blueprint into executable work before source edits or benchmark runs begin.
@@ -422,7 +422,7 @@ The README should start with badge signals such as:
 The canonical readout regeneration command should be:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/readout_source.json
 ```
 
 Project Owner answer:

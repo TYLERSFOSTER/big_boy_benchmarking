@@ -148,9 +148,9 @@ CLI command:
 
 ```text
 uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet threshold-calibration run \
-  --repo-root /Users/foster/big_boy_benchmarking \
-  --artifact-root /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001 \
-  --training-health-source /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/tower_training_health/readout_source.json \
+  --repo-root <repo-root> \
+  --artifact-root <repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001 \
+  --training-health-source <repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/tower_training_health/readout_source.json \
   --run-label smoke_001 \
   --locked-by foster
 ```
@@ -249,7 +249,7 @@ The parent standard-gauntlet README was generated before Stage 5 and still
 describes the suite as Stage 1-4 partial. Regenerate the parent readout with:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
 ```
 
 Do this after deciding whether to proceed directly to Stage 6 or pause for a

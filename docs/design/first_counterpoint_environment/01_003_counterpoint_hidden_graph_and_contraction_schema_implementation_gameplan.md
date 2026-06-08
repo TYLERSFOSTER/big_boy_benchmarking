@@ -4,7 +4,7 @@ Status: initial Phase.Stage.Action implementation blueprint
 
 Created: 2026-05-28
 
-Repository: `/Users/foster/big_boy_benchmarking`
+Repository: `<repo-root>`
 
 Source blueprint:
 
@@ -77,7 +77,7 @@ Operational consequences for this workplan:
 6. Re-read each `Phase.Stage.Action` before executing it.
 7. Maintain a running implementation log.
 8. Stop on ambiguity, surprise, failed baseline, unresolved PO decision, missing prerequisite infrastructure, or need for simplification.
-9. Do not edit upstream `/Users/foster/state_collapser`.
+9. Do not edit upstream `<state-collapser-repo>`.
 10. Do not use git destructively.
 11. Do not silently absorb the first infrastructure-slice workplan into this workplan.
 
@@ -216,7 +216,7 @@ Do not implement:
 Do not edit:
 
 ```text
-/Users/foster/state_collapser
+<state-collapser-repo>
 ```
 
 except for read-only inspection or explicitly approved command execution.
@@ -2067,7 +2067,7 @@ Stop and ask the Project Owner if:
 - branch creation or switch fails;
 - first infrastructure slice is absent or incomplete;
 - any PO turn question remains unresolved;
-- a source action would require editing `/Users/foster/state_collapser`;
+- a source action would require editing `<state-collapser-repo>`;
 - installed `state_collapser` API does not match planned adapter;
 - a test baseline fails before implementation;
 - a new error appears that was not predicted by the active action;

@@ -7,7 +7,7 @@ Status: implementation workplan, not executed
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Source blueprint:
@@ -211,7 +211,7 @@ Do not alter:
 - action-mask policy;
 - noisy-rate parent diagnostics;
 - threshold-frontier diagnostics;
-- `/Users/foster/state_collapser`.
+- `<state-collapser-repo>`.
 
 ### Candidate Source Lock
 
@@ -325,7 +325,7 @@ Stop and ask the Project Owner if:
 - execution of this workplan has not been explicitly approved;
 - working tree state would mix unrelated TeX/root document changes into this
   implementation;
-- a source edit would touch `/Users/foster/state_collapser`;
+- a source edit would touch `<state-collapser-repo>`;
 - a source edit would change `counterpoint_symbolic_v001`;
 - threshold-frontier output is absent when the first meaningful replicate run
   needs a numeric threshold;
@@ -908,7 +908,7 @@ Stop and ask the Project Owner if:
   using:
 
   ```text
-  execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/readout_source.json
+  execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/readout_source.json
   ```
 
 - Phase 5. Stage 4. Action 2: Ensure the README explicitly reminds the reader
@@ -1091,7 +1091,7 @@ Stop and ask the Project Owner if:
 - Phase 8. Stage 3. Action 5: Regenerate/read the human-facing surface using:
 
   ```text
-  execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/readout_source.json
+  execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/readout_source.json
   ```
 
 - Phase 8. Stage 3. Action 6: Record run command, run result, summarize
@@ -1119,7 +1119,7 @@ Stop and ask the Project Owner if:
 - Phase 9. Stage 2. Action 4: Run `git status --short`.
 - Phase 9. Stage 2. Action 5: Verify no TeX/root generated sidecars were
   modified by this work.
-- Phase 9. Stage 2. Action 6: Verify no files under `/Users/foster/state_collapser`
+- Phase 9. Stage 2. Action 6: Verify no files under `<state-collapser-repo>`
   were modified.
 - Phase 9. Stage 2. Action 7: Verify all new artifact outputs are
   repo-resident under the paired replicate readout surface.
@@ -1177,7 +1177,7 @@ uv run python -m big_boy_benchmarking.cli counterpoint paired-replicate-probe su
 Human-readable readout protocol:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/readout_source.json
 ```
 
 ## Acceptance Criteria

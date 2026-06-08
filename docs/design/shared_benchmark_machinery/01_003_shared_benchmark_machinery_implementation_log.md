@@ -4,7 +4,7 @@ Status: in progress
 
 Created: 2026-05-28
 
-Repository: `/Users/foster/big_boy_benchmarking`
+Repository: `<repo-root>`
 
 Implementation branch:
 
@@ -80,7 +80,7 @@ Operational obligations recorded:
 - re-read each Phase.Stage.Action before executing it;
 - stop on ambiguity, surprise, failed baseline, missing upstream surface, or
   required simplification;
-- do not edit upstream `/Users/foster/state_collapser`;
+- do not edit upstream `<state-collapser-repo>`;
 - do not use git destructively.
 
 ## Design Authority Re-read
@@ -141,7 +141,7 @@ Phase 0.6.1 completed.
 Working directory:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Git status during reconstruction:
@@ -298,8 +298,8 @@ CLI validation:
 
 ```bash
 uv run python -m big_boy_benchmarking.cli validate-contracts
-uv run python -m big_boy_benchmarking.cli run-upstream-smoke --smoke-id plate_support_env --artifact-root /private/tmp/bbb-smoke-artifacts
-uv run python -m big_boy_benchmarking.cli run-upstream-smoke --smoke-id rl_counterpoint_v3 --artifact-root /private/tmp/bbb-smoke-artifacts
+uv run python -m big_boy_benchmarking.cli run-upstream-smoke --smoke-id plate_support_env --artifact-root <tmp-dir>/bbb-smoke-artifacts
+uv run python -m big_boy_benchmarking.cli run-upstream-smoke --smoke-id rl_counterpoint_v3 --artifact-root <tmp-dir>/bbb-smoke-artifacts
 ```
 
 Result:
@@ -369,7 +369,7 @@ simplification triggers a stop.
 | 11.1.1 | completed | Focused artifact/mode/seed/metric tests passed: 26 passed. |
 | 11.2.1 | completed | Focused upstream/runner/CLI tests passed: 10 passed. |
 | 11.3.1 | completed | Whole repo validation passed: `ruff check .` and `pytest` passed. |
-| 11.4.1 | completed | CLI validate and both required upstream smoke commands succeeded under `/private/tmp/bbb-smoke-artifacts`. |
+| 11.4.1 | completed | CLI validate and both required upstream smoke commands succeeded under `<tmp-dir>/bbb-smoke-artifacts`. |
 | 12.1.1 | completed | Phase.Stage.Action items classified in this log. |
 | 12.2.1 | completed | Git status reviewed; only intended shared-machinery files and project docs/config are visible. `.DS_Store` files are ignored, not deleted. |
 | 12.3.1 | completed | Counterpoint resume gate status recorded below. |
@@ -391,7 +391,7 @@ uv run python -c "import pkgutil, state_collapser; print(state_collapser.__file_
 Observed:
 
 ```text
-/Users/foster/big_boy_benchmarking/.venv/lib/python3.11/site-packages/state_collapser/__init__.py
+<repo-root>/.venv/lib/python3.11/site-packages/state_collapser/__init__.py
 []
 ```
 
@@ -429,8 +429,8 @@ Additional metadata correction:
 Read-only local upstream inspection had observed:
 
 ```bash
-rg -n "plate_support|rl_counterpoint_v3|counterpoint" /Users/foster/state_collapser
-git -C /Users/foster/state_collapser status --short --branch
+rg -n "plate_support|rl_counterpoint_v3|counterpoint" <state-collapser-repo>
+git -C <state-collapser-repo> status --short --branch
 ```
 
 Observed:

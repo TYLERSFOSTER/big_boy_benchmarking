@@ -7,7 +7,7 @@ Status: implementation workplan, not yet executed under this workplan
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Source blueprint:
@@ -77,7 +77,7 @@ Use the public upstream release tag:
 state_collapser v0.7.1
 ```
 
-Do not use a local editable `/Users/foster/state_collapser` dependency for this
+Do not use a local editable `<state-collapser-repo>` dependency for this
 work.
 
 ### Runtime Surface
@@ -129,7 +129,7 @@ This workplan does not:
 - add a new learner;
 - change reward shaping;
 - enable tensor CPU/CUDA modes;
-- edit `/Users/foster/state_collapser`;
+- edit `<state-collapser-repo>`;
 - claim tower advantage.
 
 If implementation reveals a new downstream failure after the handoff is wired,
@@ -147,7 +147,7 @@ Stop and ask the Project Owner if:
 - `state_collapser v0.7.1` cannot be installed from the public tag;
 - installed `state_collapser` does not report version `0.7.1`;
 - `ExploitExploreTowerRuntime` does not expose `tier_is_executable`;
-- implementing the handoff would require editing `/Users/foster/state_collapser`;
+- implementing the handoff would require editing `<state-collapser-repo>`;
 - the BBB counterpoint adapter cannot compute current tier state cells from its
   current core state and partition tower;
 - the runtime cannot accept the predicate without redesigning local controller
@@ -338,7 +338,7 @@ Refresh the lockfile and installed environment.
 Expected commands:
 
 ```bash
-UV_CACHE_DIR=/private/tmp/hgraphml-uv-cache uv lock
+UV_CACHE_DIR=<tmp-dir>/hgraphml-uv-cache uv lock
 uv sync --group dev
 ```
 
@@ -346,7 +346,7 @@ Acceptance criteria:
 
 - `uv.lock` resolves `state-collapser` from `v0.7.1`;
 - installed environment contains `state-collapser==0.7.1`;
-- no local editable `/Users/foster/state_collapser` dependency is introduced.
+- no local editable `<state-collapser-repo>` dependency is introduced.
 
 ### Stage 1.2: Verify Upstream Runtime Surface
 
@@ -389,7 +389,7 @@ tests/upstream/test_state_collapser_dependency_state.py
 Acceptance criteria:
 
 - test proves the installed pinned package exposes the handoff runtime surface;
-- test does not import from `/Users/foster/state_collapser`.
+- test does not import from `<state-collapser-repo>`.
 
 ## Phase 2: Counterpoint Runtime Wiring
 
@@ -556,7 +556,7 @@ Expected command:
 
 ```bash
 uv run python -m big_boy_benchmarking.cli counterpoint serious-learning run \
-  --artifact-root /private/tmp/bbb-counterpoint-degenerate-tier-handoff-smoke \
+  --artifact-root <tmp-dir>/bbb-counterpoint-degenerate-tier-handoff-smoke \
   --episodes 1 \
   --replicates 1 \
   --schema-seeds 2 \
@@ -576,7 +576,7 @@ Acceptance criteria:
 Search smoke artifacts for the old failure symptoms:
 
 ```bash
-rg -n "invalid_action_index|action_index_out_of_range" /private/tmp/bbb-counterpoint-degenerate-tier-handoff-smoke
+rg -n "invalid_action_index|action_index_out_of_range" <tmp-dir>/bbb-counterpoint-degenerate-tier-handoff-smoke
 ```
 
 Acceptance criteria:
@@ -627,7 +627,7 @@ artifact-table readout protocol against the repo-side evaluation surface.
 Canonical invocation:
 
 ```text
-execute artifact-table readout pointed at folder /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/readout_source.json
 ```
 
 Acceptance criteria:

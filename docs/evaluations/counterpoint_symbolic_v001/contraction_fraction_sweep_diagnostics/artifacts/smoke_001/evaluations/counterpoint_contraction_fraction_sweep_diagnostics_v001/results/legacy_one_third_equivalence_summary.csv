@@ -1,2 +1,0 @@
-evaluation_id,instance_id,arm_id,numerator,denominator,schema_seed,equivalent,fraction_edge_count,legacy_edge_count,missing_from_fraction_count,extra_in_fraction_count,missing_from_fraction_examples,extra_in_fraction_examples
-counterpoint_contraction_fraction_sweep_diagnostics_v001,counterpoint_symbolic_n3_small_v001,n06_over_18,6,18,0,True,408,408,0,0,,

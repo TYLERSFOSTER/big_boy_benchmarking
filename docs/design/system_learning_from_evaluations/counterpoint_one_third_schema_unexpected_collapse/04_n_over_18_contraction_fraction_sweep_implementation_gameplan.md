@@ -7,7 +7,7 @@ Status: implementation workplan, not yet executed
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Source blueprint:
@@ -44,7 +44,7 @@ This is not a direct-vs-tower performance comparison.
 
 This is not a new environment family.
 
-This is not approval to edit `/Users/foster/state_collapser`.
+This is not approval to edit `<state-collapser-repo>`.
 
 ## Execution Authority Status
 
@@ -271,7 +271,7 @@ Stop and ask the Project Owner if:
 
 - explicit approval to execute this workplan has not been received;
 - branch or dirty status would mix unrelated work into this implementation;
-- any action would require editing `/Users/foster/state_collapser`;
+- any action would require editing `<state-collapser-repo>`;
 - any action would alter the `counterpoint_symbolic_v001` environment;
 - `6/18` cannot be verified against the old first one-third block;
 - selected edge sets are not nested across `n`;
@@ -632,7 +632,7 @@ results/threshold_table.md
 The seed docs must include the correct human-readability command:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/readout_source.json
 ```
 
 ## Phase 3. Stage 1. Action 1: Implement Run Enumeration
@@ -1015,7 +1015,7 @@ Verify all required evaluation-level tables exist and parse.
 If full validation artifacts were summarized, execute:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/readout_source.json
 ```
 
 Review generated docs for the same claim-boundary and language checks used for

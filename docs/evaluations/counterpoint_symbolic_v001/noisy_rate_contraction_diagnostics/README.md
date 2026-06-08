@@ -34,7 +34,7 @@ On this custom diagnostic run, the observed sweep verdict is `no_collapse`.
 ## Source Evaluation Root
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001
+<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001
 ```
 
 ## Summary of Goals Behind this Evaluation
@@ -106,31 +106,9 @@ This readout may not claim tower learning advantage, direct-vs-tower comparison,
 To regenerate the human-readable readout, run:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json
 ```
 
 ## Clarifying Questions And Turns
 
-#### Project Owner / Evaluator Turn
-
-> ...
-
-#### Embedded Engineering Consultant / Codex Turn
-
-> ...
-
-#### Project Owner / Evaluator Turn
-
-> ...
-
-#### Embedded Engineering Consultant / Codex Turn
-
-> ...
-
-#### Project Owner / Evaluator Turn
-
-> ...
-
-#### Embedded Engineering Consultant / Codex Turn
-
-> ...
+_No active public clarification turns are recorded for this readout._

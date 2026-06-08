@@ -3,7 +3,7 @@
 ## Purpose
 
 This report records a Codex investigation requested from the
-`big_boy_benchmarking` repository into the local `/Users/foster/state_collapser`
+`big_boy_benchmarking` repository into the local `<state-collapser-repo>`
 repository.
 
 The immediate downstream symptom is a BBB counterpoint tower-control failure:
@@ -44,8 +44,8 @@ empty-Out degenerate tiers, but not pointwise lift failures.
 
 ## Repositories And Versions
 
-- Investigation repo: `/Users/foster/big_boy_benchmarking`
-- Upstream repo inspected: `/Users/foster/state_collapser`
+- Investigation repo: `<repo-root>`
+- Upstream repo inspected: `<state-collapser-repo>`
 - Upstream branch status at inspection time: `main...origin/main [ahead 2]`
 - Upstream package version at inspection time: `state_collapser==0.7.1`
 
@@ -74,7 +74,7 @@ the third.
 File:
 
 ```text
-/Users/foster/state_collapser/src/state_collapser/tower/partition/tower.py
+<state-collapser-repo>/src/state_collapser/tower/partition/tower.py
 ```
 
 Relevant method:
@@ -108,7 +108,7 @@ executability predicate.
 File:
 
 ```text
-/Users/foster/state_collapser/src/state_collapser/tower/partition/action_layer.py
+<state-collapser-repo>/src/state_collapser/tower/partition/action_layer.py
 ```
 
 Relevant construction:
@@ -153,7 +153,7 @@ a concrete outgoing edge.
 File:
 
 ```text
-/Users/foster/state_collapser/src/state_collapser/tower/partition/tower.py
+<state-collapser-repo>/src/state_collapser/tower/partition/tower.py
 ```
 
 Relevant method:
@@ -194,7 +194,7 @@ source is not the current concrete state.
 The package has an explicit test for this fallback:
 
 ```text
-/Users/foster/state_collapser/tests/tower/partition/test_queries_and_lift.py
+<state-collapser-repo>/tests/tower/partition/test_queries_and_lift.py
 ```
 
 ```python
@@ -217,7 +217,7 @@ for executable control.
 File:
 
 ```text
-/Users/foster/state_collapser/src/state_collapser/training/fibers.py
+<state-collapser-repo>/src/state_collapser/training/fibers.py
 ```
 
 Relevant method:
@@ -277,7 +277,7 @@ Because `tower.lift_candidates` falls back to generic representatives,
 File:
 
 ```text
-/Users/foster/state_collapser/src/state_collapser/training/stages.py
+<state-collapser-repo>/src/state_collapser/training/stages.py
 ```
 
 Relevant flow:
@@ -316,7 +316,7 @@ different concrete transition than the representative edge described.
 File:
 
 ```text
-/Users/foster/state_collapser/src/state_collapser/tower/runtime.py
+<state-collapser-repo>/src/state_collapser/tower/runtime.py
 ```
 
 Relevant flow:
@@ -351,7 +351,7 @@ concrete state.
 File:
 
 ```text
-/Users/foster/state_collapser/src/state_collapser/examples/plate_support_env/runtime.py
+<state-collapser-repo>/src/state_collapser/examples/plate_support_env/runtime.py
 ```
 
 Relevant method:
@@ -385,7 +385,7 @@ an upstream example runtime, the ambiguity is package-level.
 File:
 
 ```text
-/Users/foster/big_boy_benchmarking/src/big_boy_benchmarking/environments/counterpoint/serious_learning/tower_control.py
+<repo-root>/src/big_boy_benchmarking/environments/counterpoint/serious_learning/tower_control.py
 ```
 
 Weak executable-tier predicate:
@@ -446,11 +446,11 @@ So this one predicate affects several current reports.
 
 ## Minimal Reproduction Run
 
-Codex ran this local repro against `/Users/foster/state_collapser/src`:
+Codex ran this local repro against `<state-collapser-repo>/src`:
 
 ```text
-PYTHONPATH=/Users/foster/state_collapser/src \
-UV_CACHE_DIR=/private/tmp/bbb-uv-cache \
+PYTHONPATH=<state-collapser-repo>/src \
+UV_CACHE_DIR=<tmp-dir>/bbb-uv-cache \
 uv run python -c '...'
 ```
 

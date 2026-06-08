@@ -6,18 +6,18 @@
     "tower-readiness shape",
     "training surface availability"
   ],
-  "artifact_index": "/Users/foster/big_boy_benchmarking/docs/environments/plate_support_5x5_default_v001/readiness/dev_001/artifact_index.md",
-  "artifact_root": "/Users/foster/big_boy_benchmarking/docs/environments/plate_support_5x5_default_v001/readiness/dev_001",
+  "artifact_index": "<repo-root>/docs/environments/plate_support_5x5_default_v001/readiness/dev_001/artifact_index.md",
+  "artifact_root": "<repo-root>/docs/environments/plate_support_5x5_default_v001/readiness/dev_001",
   "blocked_claims": [
     "tower learning benefit",
     "flat-versus-tower performance comparison",
     "serious benchmark conclusion"
   ],
-  "environment_doc": "/Users/foster/big_boy_benchmarking/docs/environments/plate_support_5x5_default_v001.md",
+  "environment_doc": "<repo-root>/docs/environments/plate_support_5x5_default_v001.md",
   "environment_family_id": "plate_support",
   "environment_instance_id": "plate_support_5x5_default_v001",
   "run_family_id": "plate_support_environment_readiness_v001",
-  "run_family_summary": "/Users/foster/big_boy_benchmarking/docs/environments/plate_support_5x5_default_v001/readiness/dev_001/runs/plate_support_environment_readiness_v001/summaries/summary.json",
+  "run_family_summary": "<repo-root>/docs/environments/plate_support_5x5_default_v001/readiness/dev_001/runs/plate_support_environment_readiness_v001/summaries/summary.json",
   "run_id": "plate_support_5x5_default_v001-readiness-seed0",
   "source_type": "environment_readiness"
 }

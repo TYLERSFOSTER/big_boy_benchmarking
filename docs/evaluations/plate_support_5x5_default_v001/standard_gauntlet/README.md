@@ -40,9 +40,9 @@ The target metric is Stage 5 binary goal success. Other metrics can explain the 
 
 ## Artifact Provenance
 
-- Readout source: `/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json`
-- Raw artifact root: `/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001`
-- Suite evaluation root: `/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/evaluations/plate_support_standard_gauntlet_v001`
+- Readout source: `<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json`
+- Raw artifact root: `<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001`
+- Suite evaluation root: `<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/evaluations/plate_support_standard_gauntlet_v001`
 
 ## Claim Boundary
 

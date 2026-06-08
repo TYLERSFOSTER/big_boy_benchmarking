@@ -1,2 +1,0 @@
-suite_id,stage_id,run_label,status,started_at,ended_at,artifact_schema_version
-plate_support_standard_gauntlet_v001,plate_support_gauntlet_structural_tower_diagnostics_v001,iterated_001,complete,2026-06-07T22:39:48.800420+00:00,2026-06-07T22:39:48.800557+00:00,bbb.v001

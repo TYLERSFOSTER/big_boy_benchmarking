@@ -1,2 +1,0 @@
-target_policy_id,target_type,threshold_value,window_length,required_count,recommended_episodes_per_replicate,recommended_replicates_per_arm,stage6_paired_replicate_comparison,blocking_reason,source_recommended_target_table
-plate_support_binary_goal_success_v001,binary_success,,,1,32,4,allowed,,results/recommended_comparison_target.csv

@@ -86,7 +86,7 @@ Re-read for this component:
 - `mkdir -p src/big_boy_benchmarking/environments/plate_support/standard_gauntlet/structural_and_tower_diagnostics`
 - `sed -n '1,220p' src/big_boy_benchmarking/upstream/state_collapser.py`
 - `uv run pytest tests/environments/plate_support/test_standard_gauntlet_structural_diagnostics.py`
-- `uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet structural-diagnostics run --repo-root /Users/foster/big_boy_benchmarking --artifact-root /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001 --readiness-source /Users/foster/big_boy_benchmarking/docs/environments/plate_support_5x5_default_v001/readiness/dev_001/readout_source.json --run-label smoke_001 --locked-by foster`
+- `uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet structural-diagnostics run --repo-root <repo-root> --artifact-root <repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001 --readiness-source <repo-root>/docs/environments/plate_support_5x5_default_v001/readiness/dev_001/readout_source.json --run-label smoke_001 --locked-by foster`
 - `find docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet -maxdepth 4 -type f`
 - `find docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001 -maxdepth 5 -type f`
 - `uv run pytest tests/environments/plate_support`

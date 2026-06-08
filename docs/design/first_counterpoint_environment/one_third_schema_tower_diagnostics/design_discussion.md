@@ -234,10 +234,10 @@ docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/
 > ABC docs correct. The relevant correction is in:
 >
 > ```text
-> /Users/foster/state_collapser/docs/design/HRL_exploit-explore/01_015_abc_find_unclosed_correction.md
-> /Users/foster/state_collapser/docs/design/HRL_exploit-explore/01_016_find_lowest_unclosed_system_change_blueprint.md
-> /Users/foster/state_collapser/src/state_collapser/tower/control/signals.py
-> /Users/foster/state_collapser/src/state_collapser/tower/control/controller.py
+> <state-collapser-repo>/docs/design/HRL_exploit-explore/01_015_abc_find_unclosed_correction.md
+> <state-collapser-repo>/docs/design/HRL_exploit-explore/01_016_find_lowest_unclosed_system_change_blueprint.md
+> <state-collapser-repo>/src/state_collapser/tower/control/signals.py
+> <state-collapser-repo>/src/state_collapser/tower/control/controller.py
 > ```
 >
 > The governing idea is not "descend once the current tier is mature enough."

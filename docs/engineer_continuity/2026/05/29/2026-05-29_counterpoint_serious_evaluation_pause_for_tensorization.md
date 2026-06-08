@@ -2,7 +2,7 @@
 
 Date: 2026-05-29
 
-Repo: `/Users/foster/big_boy_benchmarking`
+Repo: `<repo-root>`
 
 Primary design folder:
 
@@ -13,7 +13,7 @@ docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation
 Related upstream note:
 
 ```text
-/Users/foster/state_collapser/docs/design/model_train_surfaces/01_005_big_boy_benchmarking_tensorization_alignment_note.md
+<state-collapser-repo>/docs/design/model_train_surfaces/01_005_big_boy_benchmarking_tensorization_alignment_note.md
 ```
 
 ## Executive Summary
@@ -218,7 +218,7 @@ explicitly requests it.
 Upstream alignment note:
 
 ```text
-/Users/foster/state_collapser/docs/design/model_train_surfaces/01_005_big_boy_benchmarking_tensorization_alignment_note.md
+<state-collapser-repo>/docs/design/model_train_surfaces/01_005_big_boy_benchmarking_tensorization_alignment_note.md
 ```
 
 This note was created because the PO requested that the conclusions from this
@@ -235,7 +235,7 @@ The note explains:
 
 Important upstream status note:
 
-`/Users/foster/state_collapser` already had unrelated dirty files when this note
+`<state-collapser-repo>` already had unrelated dirty files when this note
 was created. Those unrelated files were not modified for this work.
 
 ## Resume Gate
@@ -256,7 +256,7 @@ CONTRIBUTING.md
 docs/design/first_counterpoint_environment/01_002_counterpoint_hidden_graph_and_contraction_schema_benchmark_blueprint.md
 docs/design/first_counterpoint_environment/01_004_counterpoint_hidden_graph_and_contraction_schema_implementation_log.md
 docs/engineer_continuity/2026/2026-05-28_big_boy_benchmarking_counterpoint_continuity.md
-/Users/foster/state_collapser/docs/design/model_train_surfaces/01_005_big_boy_benchmarking_tensorization_alignment_note.md
+<state-collapser-repo>/docs/design/model_train_surfaces/01_005_big_boy_benchmarking_tensorization_alignment_note.md
 ```
 
 Then decide:

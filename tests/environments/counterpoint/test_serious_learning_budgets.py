@@ -51,7 +51,7 @@ def test_valid_budget_lock_serializes_to_json_safe_dict() -> None:
         seed_bundle_ids=tuple(bundle.seed_bundle_id for bundle in bundles),
         controller_config_id="controller",
         learner_config_id="learner",
-        calibration_artifact_root="/private/tmp/calibration",
+        calibration_artifact_root="local-test-calibration-artifacts",
         locked_by="test",
         locked_at="2026-05-29T00:00:00+00:00",
     )

@@ -7,7 +7,7 @@ Status: implementation workplan, not executed
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Source blueprint:
@@ -133,7 +133,7 @@ Use `state_collapser` `v0.7.2`.
 Do not edit:
 
 ```text
-/Users/foster/state_collapser
+<state-collapser-repo>
 ```
 
 If a needed fix appears to belong upstream, stop and document the exact BBB
@@ -197,7 +197,7 @@ During execution, stop and ask the Project Owner if any of the following occur:
    contrary to the pointwise semantics required by the blueprint.
 3. `PartitionTower.tier_is_executable_from_state(...)` is missing or behaves
    contrary to the pointwise semantics required by the blueprint.
-4. A `Phase.Stage.Action` item would require editing `/Users/foster/state_collapser`.
+4. A `Phase.Stage.Action` item would require editing `<state-collapser-repo>`.
 5. A `Phase.Stage.Action` item would require deleting or rewriting historical
    evaluation artifacts.
 6. A `Phase.Stage.Action` item would require silently weakening the plan.
@@ -1213,7 +1213,7 @@ Minimum smoke:
 
 ```text
 uv run python -m big_boy_benchmarking.cli counterpoint graph-diagnostics \
-  --artifact-root /private/tmp/bbb-v072-pointwise-smoke \
+  --artifact-root <tmp-dir>/bbb-v072-pointwise-smoke \
   --instance-id tiny
 ```
 

@@ -7,7 +7,7 @@ Status: implementation workplan, not executed
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Source blueprint:
@@ -174,7 +174,7 @@ Do not alter:
 - initial-state policy;
 - action-mask policy;
 - noisy-rate parent diagnostics;
-- `/Users/foster/state_collapser`.
+- `<state-collapser-repo>`.
 
 ### Comparison Lock
 
@@ -261,7 +261,7 @@ Stop and ask the Project Owner if:
 - execution of this workplan has not been explicitly approved;
 - working tree state would mix unrelated TeX/root document changes into this
   implementation;
-- a source edit would touch `/Users/foster/state_collapser`;
+- a source edit would touch `<state-collapser-repo>`;
 - a source edit would change `counterpoint_symbolic_v001`;
 - Schema 0 cannot be represented in the matched comparison harness;
 - Schema 0 would require silently reusing the old direct runner as the primary
@@ -1127,7 +1127,7 @@ execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at 
 Implementation is complete only when:
 
 - all non-decision-locked Phase.Stage.Action items are completed as written;
-- no `/Users/foster/state_collapser` edits occurred;
+- no `<state-collapser-repo>` edits occurred;
 - no `counterpoint_symbolic_v001` semantics changed;
 - no root TeX files or TeX sidecars were modified by implementation;
 - Schema 0 and Schema 1 run under the matched comparison harness;

@@ -1,3 +1,0 @@
-calibration_arm_id,replicate_index,episode_count,hit_observed,first_hit_episode_index,first_hit_episode_seed,censored,reason
-tower_candidate_0,0,16,1,0,0,0,goal hit observed
-tower_candidate_0,1,16,0,,,1,no hit observed within available episodes

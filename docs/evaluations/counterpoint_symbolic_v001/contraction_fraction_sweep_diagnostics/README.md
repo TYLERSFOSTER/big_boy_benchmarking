@@ -31,7 +31,7 @@ On this smoke run, `1/18` is the first observed full-collapse numerator. When th
 ## Source Evaluation Root
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/evaluations/counterpoint_contraction_fraction_sweep_diagnostics_v001
+<repo-root>/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts/smoke_001/evaluations/counterpoint_contraction_fraction_sweep_diagnostics_v001
 ```
 
 ## Summary of Goals Behind this Evaluation
@@ -100,7 +100,7 @@ This readout may not claim tower learning advantage, direct-vs-tower comparison,
 To regenerate the human-readable readout, run:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/readout_source.json
 ```
 
 ## Clarifying Questions And Turns

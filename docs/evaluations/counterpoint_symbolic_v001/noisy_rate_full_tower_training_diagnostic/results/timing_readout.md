@@ -5,5 +5,5 @@ This generated readout does not aggregate timing into a separate evaluation-leve
 Run index:
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/evaluation_run_index.csv
+<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/evaluation_run_index.csv
 ```

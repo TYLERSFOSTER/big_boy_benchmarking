@@ -84,7 +84,7 @@ Future docs should explain:
 State-collapser commented research draft:
 
 ```text
-/Users/foster/state_collapser/docs/design/logHRL_w_comments.tex
+<state-collapser-repo>/docs/design/logHRL_w_comments.tex
 ```
 
 BBB generated evaluation archive that prompted the issue:

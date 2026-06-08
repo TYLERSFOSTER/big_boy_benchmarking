@@ -69,13 +69,13 @@ This readout may support a bounded speed-to-sustained-hit comparison only when p
 To regenerate the human-readable readout, run:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/readout_source.json
 ```
 
 Source artifact root:
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001
+<repo-root>/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001
 ```
 
 ## Clarifying Questions And Turns
@@ -340,7 +340,7 @@ Source artifact root:
 > then that is a real redesign of the Schema 1 tower source. It is close in the sense that the training harness and artifact tables already understand multiple tiers, but the candidate/provenance contract and tower-building semantics need to change. This `[108,54]` run answers the simpler prior question: "What happens if we keep the one-drop comparison, but choose a more aggressive one-drop candidate?"
 
 #### PO Turn
-> But that's literally what I asked you to fucking make.
+> But that's literally what I asked you to [XXX] make.
 
 #### Embedded Engineering Consultant / Codex Turn
 > Yes. You are right. I misread the task boundary, and the current artifact does not satisfy the thing you are pointing at.
@@ -882,7 +882,7 @@ Source artifact root:
 
 #### PO Turn
 > 1. Modify the collapse ratio so that this `[3580, 1035, 729, 555, 435, 354, 297, 240, 217, 185, 160, 141, 123, 110, 98, 82, 76, 69, 62, 59, 54, 50, 47, 45, 42, 39, 37, 32, 31, 30, 25, 22, 19]` starts more like `[3580, 535...]`
-> 2. This getting stuck at bottom is really fuckign disturbing. I want an extremely through diagnostic investigation of why.
+> 2. This getting stuck at bottom is really [XXX] disturbing. I want an extremely through diagnostic investigation of why.
 
 #### PO Turn
 > A'ight we have a new run. Bring me fully up-to-speed.
@@ -1053,7 +1053,7 @@ Source artifact root:
 > Then regenerate/read the human-facing surface from the updated source:
 >
 > ```text
-> execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/readout_source.json
+> execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/readout_source.json
 > ```
 >
 > The expected interpretation boundary stays the same: this would still be a
@@ -1078,7 +1078,7 @@ Source artifact root:
 > The regenerated `readout_source.json` now points at:
 >
 > ```text
-> /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001
+> <repo-root>/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001/evaluations/counterpoint_second_serious_schema_comparison_v001
 > ```
 >
 > The budget was the intended small corrected threshold probe:

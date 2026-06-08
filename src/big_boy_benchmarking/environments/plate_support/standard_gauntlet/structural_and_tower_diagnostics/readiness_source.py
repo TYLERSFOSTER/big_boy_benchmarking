@@ -47,9 +47,9 @@ def load_readiness_source(path: Path | str, *, repo_root: Path | str) -> Readine
     source_type = str(payload.get("source_type", ""))
     family_id = str(payload.get("environment_family_id", ""))
     instance_id = str(payload.get("environment_instance_id", ""))
-    artifact_root = Path(str(payload.get("artifact_root", ""))).expanduser().resolve()
-    environment_doc = Path(str(payload.get("environment_doc", ""))).expanduser().resolve()
-    run_family_summary = Path(str(payload.get("run_family_summary", ""))).expanduser().resolve()
+    artifact_root = _resolve_repo_path(payload.get("artifact_root", ""), root)
+    environment_doc = _resolve_repo_path(payload.get("environment_doc", ""), root)
+    run_family_summary = _resolve_repo_path(payload.get("run_family_summary", ""), root)
 
     if source_type != "environment_readiness":
         raise ReadinessSourceError(f"expected environment_readiness source, got {source_type!r}")
@@ -96,3 +96,15 @@ def _require_under_repo(path: Path, repo_root: Path, label: str) -> None:
         path.relative_to(repo_root)
     except ValueError as exc:
         raise ReadinessSourceError(f"{label} is outside repository: {path}") from exc
+
+
+def _resolve_repo_path(value: object, repo_root: Path) -> Path:
+    text = str(value)
+    if text == "<repo-root>":
+        return repo_root
+    if text.startswith("<repo-root>/"):
+        return (repo_root / text.removeprefix("<repo-root>/")).resolve()
+    path = Path(text).expanduser()
+    if not path.is_absolute():
+        path = repo_root / path
+    return path.resolve()

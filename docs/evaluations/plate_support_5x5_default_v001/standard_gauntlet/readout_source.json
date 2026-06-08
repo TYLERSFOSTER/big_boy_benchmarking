@@ -38,41 +38,41 @@
     "not_applicable": [],
     "pending_not_yet_run": [],
     "required": [
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/evaluations/plate_support_standard_gauntlet_v001/stage_status_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/evaluations/plate_support_standard_gauntlet_v001/stage_run_index.csv"
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/evaluations/plate_support_standard_gauntlet_v001/stage_status_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/evaluations/plate_support_standard_gauntlet_v001/stage_run_index.csv"
     ]
   },
   "generated_readout_files": {
-    "README.md": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/README.md",
-    "artifact_index.md": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifact_index.md",
-    "artifacts_complete": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/artifacts_complete.svg",
-    "glossary.md": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/glossary.md",
-    "iterated_candidate": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/iterated_candidate.svg",
-    "iterated_tiers": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/iterated_tiers.svg",
-    "method.md": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/method.md",
-    "paired_comparison": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/paired_comparison.svg",
-    "provenance_repo_artifacts": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/provenance_repo_artifacts.svg",
-    "result_readout.md": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/result_readout.md",
-    "results/badge_summary.csv": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/badge_summary.csv",
-    "results/candidate_readout.md": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/candidate_readout.md",
-    "results/paired_comparison_readout.md": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/paired_comparison_readout.md",
-    "results/schema_sweep_readout.md": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/schema_sweep_readout.md",
-    "results/stage_status.md": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/stage_status.md",
-    "results/stage_status_summary.csv": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/stage_status_summary.csv",
-    "results/structural_readout.md": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/structural_readout.md",
-    "results/suite_claim_summary.csv": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/suite_claim_summary.csv",
-    "results/suite_status_summary.csv": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/suite_status_summary.csv",
-    "results/summary.md": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/summary.md",
-    "results/system_learning_prompt.md": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/system_learning_prompt.md",
-    "results/threshold_frontier_readout.md": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/threshold_frontier_readout.md",
-    "results/training_health_readout.md": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/training_health_readout.md",
-    "runbook.md": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/runbook.md",
-    "schema_candidates": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/schema_candidates.svg",
-    "structural_readiness": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/structural_readiness.svg",
-    "suite_status": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/suite_status.svg",
-    "system_learning/README.md": "/Users/foster/big_boy_benchmarking/docs/design/system_learning_from_evaluations/plate_support_standard_gauntlet_v001/README.md",
-    "target_calibrated": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/target_calibrated.svg",
-    "training_health": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/training_health.svg"
+    "README.md": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/README.md",
+    "artifact_index.md": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifact_index.md",
+    "artifacts_complete": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/artifacts_complete.svg",
+    "glossary.md": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/glossary.md",
+    "iterated_candidate": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/iterated_candidate.svg",
+    "iterated_tiers": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/iterated_tiers.svg",
+    "method.md": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/method.md",
+    "paired_comparison": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/paired_comparison.svg",
+    "provenance_repo_artifacts": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/provenance_repo_artifacts.svg",
+    "result_readout.md": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/result_readout.md",
+    "results/badge_summary.csv": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/badge_summary.csv",
+    "results/candidate_readout.md": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/candidate_readout.md",
+    "results/paired_comparison_readout.md": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/paired_comparison_readout.md",
+    "results/schema_sweep_readout.md": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/schema_sweep_readout.md",
+    "results/stage_status.md": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/stage_status.md",
+    "results/stage_status_summary.csv": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/stage_status_summary.csv",
+    "results/structural_readout.md": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/structural_readout.md",
+    "results/suite_claim_summary.csv": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/suite_claim_summary.csv",
+    "results/suite_status_summary.csv": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/suite_status_summary.csv",
+    "results/summary.md": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/summary.md",
+    "results/system_learning_prompt.md": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/system_learning_prompt.md",
+    "results/threshold_frontier_readout.md": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/threshold_frontier_readout.md",
+    "results/training_health_readout.md": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results/training_health_readout.md",
+    "runbook.md": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/runbook.md",
+    "schema_candidates": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/schema_candidates.svg",
+    "structural_readiness": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/structural_readiness.svg",
+    "suite_status": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/suite_status.svg",
+    "system_learning/README.md": "<repo-root>/docs/design/system_learning_from_evaluations/plate_support_standard_gauntlet_v001/README.md",
+    "target_calibrated": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/target_calibrated.svg",
+    "training_health": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/badges/training_health.svg"
   },
   "goal_criteria": [
     {
@@ -166,14 +166,14 @@
       "value": "Clean"
     }
   },
-  "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet",
+  "repo_readout_surface": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet",
   "run_mode": "smoke_stage_1_to_7_readout_complete",
-  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001",
+  "source_artifact_root": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001",
   "source_binding_type": "evaluation_readout_source",
-  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/evaluations/plate_support_standard_gauntlet_v001",
+  "source_evaluation_root": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/evaluations/plate_support_standard_gauntlet_v001",
   "source_files": {
-    "aggregate_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/evaluations/plate_support_standard_gauntlet_v001/stage_status_summary.csv",
-    "run_index": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/evaluations/plate_support_standard_gauntlet_v001/stage_run_index.csv"
+    "aggregate_table": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/evaluations/plate_support_standard_gauntlet_v001/stage_status_summary.csv",
+    "run_index": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/evaluations/plate_support_standard_gauntlet_v001/stage_run_index.csv"
   },
   "stage_definitions": [
     {
@@ -233,12 +233,12 @@
     }
   ],
   "stage_readout_source_paths": [
-    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/readout_source.json",
-    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/contraction_schema_sweep/readout_source.json",
-    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/candidate_discovery/readout_source.json",
-    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/tower_training_health/readout_source.json",
-    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/threshold_frontier_calibration/readout_source.json",
-    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/paired_replicate_comparison/readout_source.json"
+    "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/readout_source.json",
+    "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/contraction_schema_sweep/readout_source.json",
+    "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/candidate_discovery/readout_source.json",
+    "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/tower_training_health/readout_source.json",
+    "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/threshold_frontier_calibration/readout_source.json",
+    "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/paired_replicate_comparison/readout_source.json"
   ],
   "structural_limit_checks": [
     {
@@ -253,7 +253,7 @@
     "claim_boundary": "bounded paired smoke comparison under the Stage 5 target and budget; not a general tower-performance claim",
     "claim_status": "paired_comparison_positive_signal",
     "counter_signal": "Tower mean reward was -27.2109375 versus direct -78.71875; tower invalid moves were 0 versus direct 2142.",
-    "source_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/paired_replicate_comparison/results/comparison_claim_summary.csv",
+    "source_table": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/paired_replicate_comparison/results/comparison_claim_summary.csv",
     "target_claim": "Under this smoke Stage 6 budget, the selected tower candidate shows a limited positive target-hit signal relative to the direct baseline."
   },
   "suite_status": {
@@ -262,5 +262,15 @@
     "implemented_stage_count": 7,
     "suite_reason": "Stages 1-7 completed. Stage 6 produced bounded paired comparison status `paired_comparison_positive_signal`, and Stage 7 produced the human readout/system-learning surface.",
     "suite_status": "complete_limited_signal"
+  },
+  "artifact_storage": {
+    "mode": "github_release_asset",
+    "release_tag": "v0.1.0-beta.1",
+    "asset_name": "big_boy_calibration_smoke_v0.1.0-beta.1_artifacts.tar.zst",
+    "bundle_manifest_path": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_MANIFEST.json",
+    "bundle_file_index_path": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_FILE_INDEX.csv",
+    "bundle_checksums_path": "docs/design/beta_public_release/release_asset_manifests/SHA256SUMS.txt",
+    "bundle_readme_path": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_README.md",
+    "path_semantics": "paths under artifacts/ are bundle-relative raw artifact paths for public beta, not tracked git files"
   }
 }

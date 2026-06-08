@@ -24,7 +24,7 @@ Initial `git status --short`:
 
 Stop and ask the Project Owner if:
 
-- any action would require editing `/Users/foster/state_collapser`;
+- any action would require editing `<state-collapser-repo>`;
 - any action would alter the `counterpoint_symbolic_v001` environment;
 - `6/18` cannot be verified against the old first one-third block;
 - selected edge sets are not nested across `n`;

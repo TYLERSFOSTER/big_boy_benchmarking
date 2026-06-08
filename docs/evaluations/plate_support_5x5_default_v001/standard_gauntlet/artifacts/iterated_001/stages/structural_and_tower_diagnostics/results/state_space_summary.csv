@@ -1,2 +1,0 @@
-candidate_state_count,valid_state_count,reachable_state_count,reachable_from_start,start_state_id,goal_state_id,start_valid,goal_valid
-2700,89,89,True,plate_support_state:x2:y2:theta0:e1-1-1,plate_support_state:x1:y1:theta1:e2-2-2,True,True

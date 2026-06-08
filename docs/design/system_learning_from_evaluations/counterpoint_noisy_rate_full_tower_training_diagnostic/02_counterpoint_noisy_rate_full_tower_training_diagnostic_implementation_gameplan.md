@@ -7,7 +7,7 @@ Status: implementation workplan, not yet executed
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Source blueprint:
@@ -44,7 +44,7 @@ This is not a new environment.
 
 This is not a direct-vs-tower comparison.
 
-This is not approval to edit `/Users/foster/state_collapser`.
+This is not approval to edit `<state-collapser-repo>`.
 
 This is not approval to run the main full training budget unless the Project
 Owner explicitly authorizes that budget.
@@ -305,7 +305,7 @@ Stop and ask the Project Owner if:
 - execution has not been explicitly approved;
 - working tree or branch state would mix unrelated changes into this
   implementation;
-- any action would require editing `/Users/foster/state_collapser`;
+- any action would require editing `<state-collapser-repo>`;
 - any action would change `counterpoint_symbolic_v001` environment semantics;
 - the parent `readout_source.json` is missing, stale, outside the repo, or
   points outside the repo;
@@ -747,7 +747,7 @@ Stop and ask the Project Owner if:
   readout command:
 
   ```text
-  execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/readout_source.json
+  execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/readout_source.json
   ```
 
 ### Phase 7: CLI
@@ -980,8 +980,8 @@ Implementation smoke command shape:
 
 ```text
 uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate-full-train run \
-  --artifact-root /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/smoke_001 \
-  --candidate-readout-source /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json \
+  --artifact-root <repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/smoke_001 \
+  --candidate-readout-source <repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json \
   --candidate-cap 2 \
   --training-replicates 1 \
   --episodes 4 \
@@ -993,21 +993,21 @@ Summarize command shape:
 
 ```text
 uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate-full-train summarize \
-  --artifact-root /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/smoke_001
+  --artifact-root <repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/smoke_001
 ```
 
 Human-readable protocol command:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/readout_source.json
 ```
 
 Main budget command shape, only after explicit Project Owner authorization:
 
 ```text
 uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate-full-train run \
-  --artifact-root /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/full_001 \
-  --candidate-readout-source /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json \
+  --artifact-root <repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/full_001 \
+  --candidate-readout-source <repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json \
   --training-replicates 4 \
   --episodes 64 \
   --locked-by foster \
@@ -1020,7 +1020,7 @@ Implementation is complete only when:
 
 - all non-decision-locked Phase.Stage.Action items have been completed as
   written;
-- no source edits were made to `/Users/foster/state_collapser`;
+- no source edits were made to `<state-collapser-repo>`;
 - no counterpoint environment semantics were changed;
 - candidate selection is derived from the parent readout source;
 - learner state persists across episodes inside a training replicate;

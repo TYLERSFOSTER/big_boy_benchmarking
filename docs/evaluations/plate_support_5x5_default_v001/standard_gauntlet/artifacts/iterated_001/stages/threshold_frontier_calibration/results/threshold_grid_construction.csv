@@ -1,7 +1,0 @@
-threshold_id,threshold_value,source_metric,source_arm,source_quantile,construction_reason
-return_threshold_000,-50.0,total_reward,tower_candidate_0,0,observed arm reward quantile
-return_threshold_001,79.0,total_reward,tower_candidate_0,1,observed arm reward quantile
-return_threshold_002,53.0,total_reward,tower_candidate_0,min_goal_reached,minimum observed successful episode return
-return_threshold_003,1.5,total_reward,tower_candidate_0,failure_success_midpoint,midpoint between best observed miss and weakest observed success
-return_threshold_004,-105.748,random_policy_mean_total_reward,stage1_random_policy_recon,mean,Stage 1 random policy reward context
-return_threshold_005,95.0,shortest_path_total_reward,stage1_shortest_path_anchor,anchor,Stage 1 shortest valid path reward context

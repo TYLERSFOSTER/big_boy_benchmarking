@@ -1,2 +1,0 @@
-calibration_arm_id,calibration_arm_type,candidate_id,schema_id,episode_count,replicate_count,success_count,success_rate,mean_total_reward,median_total_reward,min_total_reward,max_total_reward,mean_step_count,first_hit_episode_global,trace_source
-tower_candidate_0,selected_trainable_candidate_reused_stage4_trace,plate_support_candidate:source_local_ratio:0:342448ef2e,plate_support_schema_source_local_ratio_001_over_018_v001,32,2,2,0.0625,-42.0,-50.0,-50.0,89.0,48.3125,0,stage4_training_health

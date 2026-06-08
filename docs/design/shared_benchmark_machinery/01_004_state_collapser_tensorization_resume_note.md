@@ -12,7 +12,7 @@ identified in the earlier alignment discussion has now been implemented.
 The relevant upstream alignment note was:
 
 ```text
-/Users/foster/state_collapser/docs/design/model_train_surfaces/01_005_big_boy_benchmarking_tensorization_alignment_note.md
+<state-collapser-repo>/docs/design/model_train_surfaces/01_005_big_boy_benchmarking_tensorization_alignment_note.md
 ```
 
 That note said `big_boy_benchmarking` should not yet claim serious

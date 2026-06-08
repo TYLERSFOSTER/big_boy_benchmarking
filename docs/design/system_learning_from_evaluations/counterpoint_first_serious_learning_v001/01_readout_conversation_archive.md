@@ -49,7 +49,7 @@ counterpoint first serious learning evaluation.
 Source evaluation root:
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_002_clean/evaluations/counterpoint_first_serious_learning_v001
+<repo-root>/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/v071_002_clean/evaluations/counterpoint_first_serious_learning_v001
 ```
 
 Source binding:
@@ -62,7 +62,7 @@ To regenerate this repo-side readout, point the protocol at this directory, not
 at the raw artifact root:
 
 ```text
-execute artifact-table readout pointed at folder /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/readout_source.json
 ```
 
 Protocol applied:

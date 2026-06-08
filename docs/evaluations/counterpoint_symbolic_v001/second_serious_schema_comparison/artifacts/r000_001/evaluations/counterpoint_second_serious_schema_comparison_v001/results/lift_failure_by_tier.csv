@@ -1,2 +1,0 @@
-evaluation_id,schema_class_id,active_tier,failure_reason,event_count
-counterpoint_second_serious_schema_comparison_v001,schema1_noisy_rate_one_drop,1,no_lift_candidate_from_current_state,3

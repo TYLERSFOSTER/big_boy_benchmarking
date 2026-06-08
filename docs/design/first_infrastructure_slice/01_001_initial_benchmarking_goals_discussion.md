@@ -21,7 +21,7 @@ The immediate Project Owner instruction was:
 
 > The present project is going to be the more serious benchmarking needed for `state_collapser`. Please read `state_collapser/docs` from that project, and all the `md` docs at root in `state_collapser`. This should give you an idea of what our main goals in the present repo [`big_boy_benchmarking`] are.
 
-> Ok let's jump out of `state_collapser` because I don't want to fuck with anything in there during this work. Go back to `big_boy_benchmarking`, and in `big_boy_benchmarking/docs/design`, put a MASSIVE initial discussion doc regarding your precevied goals for this repo. Put lots of questions to PO with spots for turn-by-turn conversation afterward.
+> Ok let's jump out of `state_collapser` because I don't want to [XXX] with anything in there during this work. Go back to `big_boy_benchmarking`, and in `big_boy_benchmarking/docs/design`, put a MASSIVE initial discussion doc regarding your precevied goals for this repo. Put lots of questions to PO with spots for turn-by-turn conversation afterward.
 
 
 This document therefore lives in:
@@ -971,7 +971,7 @@ ___
 After checking the end of upstream:
 
 ```text
-/Users/foster/state_collapser/docs/design/logHRL.tex
+<state-collapser-repo>/docs/design/logHRL.tex
 ```
 
 the paper explicitly says the package should report not only return curves, but
@@ -1889,7 +1889,7 @@ This matters before the first artifact-writing harness lands.
 ### PO Answer 16.1
 
 ```text
-I think the right policy is that benchmark objects that are small enough should be tracked, but then shit like model checkpoints or large input/output tensors should be stored somwhere else and linked to.
+I think the right policy is that benchmark objects that are small enough should be tracked, but then [XXX] like model checkpoints or large input/output tensors should be stored somwhere else and linked to.
 ```
 
 ### Follow-Up 16.1
@@ -2338,7 +2338,7 @@ settle larger claims.
 ### PO Answer 23.2
 
 ```text
-This seems fucking made-up. We're in the 3rd turn of this sub-discussion, and I still don't know what actual issue we're addressing.
+This seems [XXX] made-up. We're in the 3rd turn of this sub-discussion, and I still don't know what actual issue we're addressing.
 ```
 
 ### Follow-Up 23.2

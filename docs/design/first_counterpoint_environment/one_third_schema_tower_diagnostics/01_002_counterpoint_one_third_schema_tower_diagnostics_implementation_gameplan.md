@@ -7,7 +7,7 @@ Status: implementation workplan, not yet executed
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Source blueprint:
@@ -40,7 +40,7 @@ This is not a direct-vs-tower performance comparison.
 
 This is not a new environment family.
 
-This is not approval to edit `/Users/foster/state_collapser`.
+This is not approval to edit `<state-collapser-repo>`.
 
 ## Execution Authority Status
 
@@ -201,7 +201,7 @@ Stop and ask the Project Owner if:
 
 - explicit approval to execute this workplan has not been received;
 - branch or dirty status would mix unrelated work into this implementation;
-- any action would require editing `/Users/foster/state_collapser`;
+- any action would require editing `<state-collapser-repo>`;
 - installed `state_collapser` lacks the upstream ABC helper surfaces used by
   this plan;
 - current BBB tower-control runtime cannot expose the inputs needed to call
@@ -604,7 +604,7 @@ The default repo readout surface is:
 docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/
 ```
 
-The implementation must not default to `/private/tmp` for this evaluation.
+The implementation must not default to `<tmp-dir>` for this evaluation.
 
 ## Phase 3. Stage 1. Action 4: Define Evaluation Manifests
 
@@ -1297,7 +1297,7 @@ docs/design/first_counterpoint_environment/one_third_schema_tower_diagnostics/01
 Do not edit:
 
 ```text
-/Users/foster/state_collapser
+<state-collapser-repo>
 ```
 
 unless the Project Owner gives a separate explicit instruction.

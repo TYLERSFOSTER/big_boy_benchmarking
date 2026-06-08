@@ -7,7 +7,7 @@ Report date folder: 2026-05-31
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 This report covers the work since the previous located continuity report:
@@ -326,7 +326,7 @@ docs/design/system_learning_from_evaluations/direct_image_threshold_binding/
 and an upstream note in:
 
 ```text
-/Users/foster/state_collapser/docs/design/logHRL_w_comments.tex
+<state-collapser-repo>/docs/design/logHRL_w_comments.tex
 ```
 
 This concern originated with the Project Owner. Codex documented it and
@@ -542,7 +542,7 @@ The human-readable readout surface is:
 docs/evaluations/<environment>/<evaluation>/
 ```
 
-Do not drift back to `/private/tmp` for durable evaluation results unless the
+Do not drift back to `<tmp-dir>` for durable evaluation results unless the
 Project Owner explicitly asks for a scratch run.
 
 ### Readout Command Correction
@@ -560,7 +560,7 @@ execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at 
 Do not use:
 
 ```text
-execute artifact-table readout pointed at folder <folder>
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-readout-surface>/readout_source.json
 ```
 
 as the durable command. That old form is ambiguous.
@@ -1016,7 +1016,7 @@ Important protocol features added:
 Current bad command:
 
 ```text
-execute artifact-table readout pointed at folder <folder>
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-readout-surface>/readout_source.json
 ```
 
 Current good command:
@@ -1117,7 +1117,7 @@ This issue was also documented upstream in `state_collapser` at the Project
 Owner's request, in the correct file:
 
 ```text
-/Users/foster/state_collapser/docs/design/logHRL_w_comments.tex
+<state-collapser-repo>/docs/design/logHRL_w_comments.tex
 ```
 
 Important explanation device:
@@ -1158,7 +1158,7 @@ docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0
 Current canonical first serious readout regeneration:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/readout_source.json
 ```
 
 ## One-Third Schema Tower Diagnostics Design
@@ -1416,7 +1416,7 @@ This is a structural-limit diagnostic, not a learning-performance result.
 Correct readout regeneration command:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/readout_source.json
 ```
 
 ## Current Completed Evaluation Readouts
@@ -1771,13 +1771,13 @@ uv run ruff check .
 Regenerate first serious readout:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/readout_source.json
 ```
 
 Regenerate one-third readout:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/readout_source.json
 ```
 
 Rerun one-third diagnostics into the current repo artifact surface:

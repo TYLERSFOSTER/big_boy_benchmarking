@@ -84,7 +84,7 @@ Re-read for this component:
 - `uv run python -c "... inspect PlateSupport runtime/tower object surface ..."`
 - `uv run python -c "... inspect partition_tower method signatures ..."`
 - `uv run pytest tests/environments/plate_support/test_standard_gauntlet_contraction_schema_sweep.py`
-- `uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet schema-sweep run --repo-root /Users/foster/big_boy_benchmarking --artifact-root /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001 --stage1-source /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/readout_source.json --run-label smoke_001 --locked-by foster`
+- `uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet schema-sweep run --repo-root <repo-root> --artifact-root <repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001 --stage1-source <repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/readout_source.json --run-label smoke_001 --locked-by foster`
 - `sed -n '1,80p' docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/schema_candidate_signal_summary.csv`
 - `sed -n '1,60p' docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001/stages/contraction_schema_sweep/results/downstream_candidate_input_summary.csv`
 

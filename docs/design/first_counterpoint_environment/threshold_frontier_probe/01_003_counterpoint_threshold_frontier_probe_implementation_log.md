@@ -167,7 +167,7 @@ docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/
   protocol command:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/readout_source.json
 ```
 
   The docs writer preserves `## Clarifying Questions And Turns` on
@@ -287,7 +287,7 @@ uv run ruff check .
 
 ## Stop Conditions Tracked
 
-- No edits to `/Users/foster/state_collapser`.
+- No edits to `<state-collapser-repo>`.
 - No edits to `counterpoint_symbolic_v001` environment semantics.
 - No root TeX edits or generated TeX sidecar churn.
 - Do not tune thresholds after inspecting outcomes.

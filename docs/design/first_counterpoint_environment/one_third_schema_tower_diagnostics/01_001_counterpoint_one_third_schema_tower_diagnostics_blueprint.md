@@ -7,7 +7,7 @@ Status: draft blueprint
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Design folder:
@@ -69,19 +69,19 @@ src/big_boy_benchmarking/environments/counterpoint/serious_learning/events.py
 Important current `state_collapser` source surfaces:
 
 ```text
-/Users/foster/state_collapser/src/state_collapser/tower/control/controller.py
-/Users/foster/state_collapser/src/state_collapser/tower/control/signals.py
-/Users/foster/state_collapser/src/state_collapser/tower/runtime.py
-/Users/foster/state_collapser/src/state_collapser/tower/partition/schema.py
-/Users/foster/state_collapser/src/state_collapser/tower/partition/base_registry.py
+<state-collapser-repo>/src/state_collapser/tower/control/controller.py
+<state-collapser-repo>/src/state_collapser/tower/control/signals.py
+<state-collapser-repo>/src/state_collapser/tower/runtime.py
+<state-collapser-repo>/src/state_collapser/tower/partition/schema.py
+<state-collapser-repo>/src/state_collapser/tower/partition/base_registry.py
 ```
 
 Important current `state_collapser` design surfaces:
 
 ```text
-/Users/foster/state_collapser/docs/design/HRL_exploit-explore/01_015_abc_find_unclosed_correction.md
-/Users/foster/state_collapser/docs/design/HRL_exploit-explore/01_016_find_lowest_unclosed_system_change_blueprint.md
-/Users/foster/state_collapser/docs/engineer_continuity/2026/05/18/01_008_control_corrections_tower_ownership_and_release_readiness.md
+<state-collapser-repo>/docs/design/HRL_exploit-explore/01_015_abc_find_unclosed_correction.md
+<state-collapser-repo>/docs/design/HRL_exploit-explore/01_016_find_lowest_unclosed_system_change_blueprint.md
+<state-collapser-repo>/docs/engineer_continuity/2026/05/18/01_008_control_corrections_tower_ownership_and_release_readiness.md
 ```
 
 ## Prime Directive Alignment
@@ -286,7 +286,7 @@ docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md
 In particular, it must produce enough machine-readable evidence for:
 
 ```text
-execute artifact-table readout pointed at folder <repo-readout-surface>
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-readout-surface>/readout_source.json
 ```
 
 to generate a truthful human-readable readout without reverse-engineering the
@@ -296,7 +296,7 @@ evaluation from raw per-run files.
 
 This blueprint does not authorize:
 
-- editing `/Users/foster/state_collapser`;
+- editing `<state-collapser-repo>`;
 - rewriting upstream ABC control;
 - implementing a new controller in BBB;
 - making a direct-vs-tower performance comparison;
@@ -479,7 +479,7 @@ The evaluation must produce repo-side human docs and source bindings that let a
 future Embedded Engineering Consultant generate readable reports through:
 
 ```text
-execute artifact-table readout pointed at folder docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/readout_source.json
 ```
 
 The readout must explain:
@@ -1684,7 +1684,7 @@ Stop before implementation if:
 
 - the PO has not settled the operational meaning of "one third";
 - the PO has not settled whether schema seeds are part of the first pass;
-- the planned implementation would require editing `/Users/foster/state_collapser`;
+- the planned implementation would require editing `<state-collapser-repo>`;
 - BBB cannot call upstream ABC helper functions without copying policy;
 - artifacts would not be repo-resident under `docs/evaluations/...`;
 - the readout source binding cannot distinguish repo readout surface from raw
@@ -1775,7 +1775,7 @@ Current options:
 - `tiny` only for a first implementation pass, with no meaningful claim.
 
 #### PO Answer:
-> I think think small and medium. Fuck "tiny" for this one.
+> I think think small and medium. [XXX] "tiny" for this one.
 
 ### Question 4: Controller Runtime Budget
 

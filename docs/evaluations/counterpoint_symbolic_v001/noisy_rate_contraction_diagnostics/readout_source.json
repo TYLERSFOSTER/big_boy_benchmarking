@@ -127,33 +127,33 @@
       "requested_rate": 0.05555555555555555
     }
   ],
-  "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics",
+  "repo_readout_surface": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics",
   "run_mode": "diagnostic_noisy_rate_contraction_tower_abc",
   "schema_family_id": "counterpoint_noisy_rate_contraction_schema_v001",
   "schema_seeds": [
     0
   ],
   "selector_rule_id": "counterpoint_sha256_edge_threshold_v001",
-  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001",
-  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001",
+  "source_artifact_root": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001",
+  "source_evaluation_root": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001",
   "source_files": {
-    "abc_selection_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/abc_selection_summary.csv",
-    "abc_tier_signal_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/abc_tier_signal_summary.csv",
-    "aggregate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/evaluation_aggregate_summary.json",
-    "aggregate_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/evaluation_aggregate_table.csv",
-    "concrete_step_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/concrete_step_summary.csv",
-    "control_action_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/control_action_summary.csv",
-    "endpoint_coalescence_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/endpoint_coalescence_summary.csv",
-    "lift_failure_by_tier": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/lift_failure_by_tier.csv",
-    "noisy_rate_monotonicity_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/noisy_rate_monotonicity_summary.csv",
-    "noisy_rate_selection_consistency_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/noisy_rate_selection_consistency_summary.csv",
-    "noisy_rate_selection_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/noisy_rate_selection_summary.csv",
-    "noisy_rate_source_coverage_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/noisy_rate_source_coverage_summary.csv",
-    "noisy_rate_threshold_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/noisy_rate_threshold_summary.csv",
-    "run_index": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/evaluation_run_index.csv",
-    "tier_executability_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/tier_executability_summary.csv",
-    "tier_occupancy_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/tier_occupancy_summary.csv",
-    "tower_shape_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/tower_shape_summary.csv"
+    "abc_selection_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/abc_selection_summary.csv",
+    "abc_tier_signal_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/abc_tier_signal_summary.csv",
+    "aggregate_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/evaluation_aggregate_summary.json",
+    "aggregate_table": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/evaluation_aggregate_table.csv",
+    "concrete_step_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/concrete_step_summary.csv",
+    "control_action_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/control_action_summary.csv",
+    "endpoint_coalescence_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/endpoint_coalescence_summary.csv",
+    "lift_failure_by_tier": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/lift_failure_by_tier.csv",
+    "noisy_rate_monotonicity_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/noisy_rate_monotonicity_summary.csv",
+    "noisy_rate_selection_consistency_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/noisy_rate_selection_consistency_summary.csv",
+    "noisy_rate_selection_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/noisy_rate_selection_summary.csv",
+    "noisy_rate_source_coverage_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/noisy_rate_source_coverage_summary.csv",
+    "noisy_rate_threshold_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/noisy_rate_threshold_summary.csv",
+    "run_index": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/evaluation_run_index.csv",
+    "tier_executability_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/tier_executability_summary.csv",
+    "tier_occupancy_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/tier_occupancy_summary.csv",
+    "tower_shape_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001/results/tower_shape_summary.csv"
   },
   "structural_limit_checks": [
     {
@@ -192,5 +192,15 @@
       "interpretation_if_triggered": "A high share of source states contributed at least one selected outgoing edge.",
       "trigger": "selected_source_share >= 0.75"
     }
-  ]
+  ],
+  "artifact_storage": {
+    "mode": "github_release_asset",
+    "release_tag": "v0.1.0-beta.1",
+    "asset_name": "big_boy_calibration_smoke_v0.1.0-beta.1_artifacts.tar.zst",
+    "bundle_manifest_path": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_MANIFEST.json",
+    "bundle_file_index_path": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_FILE_INDEX.csv",
+    "bundle_checksums_path": "docs/design/beta_public_release/release_asset_manifests/SHA256SUMS.txt",
+    "bundle_readme_path": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_README.md",
+    "path_semantics": "paths under artifacts/ are bundle-relative raw artifact paths for public beta, not tracked git files"
+  }
 }

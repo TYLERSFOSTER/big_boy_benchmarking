@@ -1,6 +1,0 @@
-predicate_name,valid_state_true_count,valid_state_false_count,ambient_true_count,ambient_false_count,interpretation
-sockets_in_bounds,89,0,1620,1080,all support sockets must remain inside the finite workspace
-minimum_engaged_supports,89,0,2000,700,the support pattern must engage enough arms
-stable_support_pattern,89,0,105,2595,engaged supports must satisfy the upstream stability rule
-candidate_valid_state,89,0,89,2611,complete upstream validity predicate
-all_engaged_arms_reachable,89,0,531,2169,engaged arms must be able to reach their sockets

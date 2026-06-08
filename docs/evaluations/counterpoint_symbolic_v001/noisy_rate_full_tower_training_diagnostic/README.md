@@ -27,7 +27,7 @@ For the current noisy-rate schema, the full available tower is the base tier plu
 ## Source Evaluation Root
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001
+<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001
 ```
 
 ## Candidate Towers
@@ -49,7 +49,7 @@ This readout may claim that the selected non-collapsed noisy-rate towers did or 
 To regenerate the human-readable readout, run:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/readout_source.json
 ```
 
 ## Clarifying Questions And Turns
@@ -61,19 +61,3 @@ execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at 
 #### Embedded Engineering Consultant / Codex Turn
 
 > Yes, in this evaluation as implemented, the current "full available tower" is still only two tiers: tier 0 is the base counterpoint graph, and tier 1 is the single noisy-rate quotient produced by the selected contraction block. That is not because tower machinery is conceptually limited to two tiers; it is because this diagnostic deliberately consumes the parent noisy-rate contraction diagnostic, whose candidates are single-step noisy-rate contractions. The runner records the tier sequence it rebuilds, so if a future schema produces more tiers the readout should show them, but this checked-in `smoke_001` result should be read as "can these non-collapsed one-step noisy-rate quotient towers train cleanly?" rather than "have we validated deep repeated quotient towers?"
-
-#### Project Owner / Evaluator Turn
-
-> ...
-
-#### Embedded Engineering Consultant / Codex Turn
-
-> ...
-
-#### Project Owner / Evaluator Turn
-
-> ...
-
-#### Embedded Engineering Consultant / Codex Turn
-
-> ...

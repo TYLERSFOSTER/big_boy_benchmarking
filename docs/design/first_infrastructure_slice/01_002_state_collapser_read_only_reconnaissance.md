@@ -4,9 +4,9 @@ Status: initial reconnaissance document
 
 Created: 2026-05-27
 
-Repository under work: `/Users/foster/big_boy_benchmarking`
+Repository under work: `<repo-root>`
 
-Upstream repository inspected read-only: `/Users/foster/state_collapser`
+Upstream repository inspected read-only: `<state-collapser-repo>`
 
 Upstream branch state observed:
 
@@ -55,44 +55,44 @@ The short answer is:
 
 Primary synthetic-Blow review and revision docs:
 
-- `/Users/foster/state_collapser/docs/code_review/02_001_synthetic_blow_full_repo_review.md`
-- `/Users/foster/state_collapser/docs/code_review/synthetic_blow_review_kit/README.md`
-- `/Users/foster/state_collapser/docs/code_review/synthetic_blow_review_kit/source_notes.md`
-- `/Users/foster/state_collapser/docs/code_review/synthetic_blow_review_kit/synthetic_blow.md`
-- `/Users/foster/state_collapser/docs/design/synthetic_blow_revisions_01/01_001_synthetic_blow_review_revision_blueprint.md`
-- `/Users/foster/state_collapser/docs/design/synthetic_blow_revisions_01/01_002_synthetic_blow_review_revision_implementation_workplan.md`
-- `/Users/foster/state_collapser/docs/design/synthetic_blow_revisions_01/01_003_synthetic_blow_review_revision_implementation_log.md`
+- `<state-collapser-repo>/docs/code_review/02_001_synthetic_blow_full_repo_review.md`
+- `<state-collapser-repo>/docs/code_review/synthetic_blow_review_kit/README.md`
+- `<state-collapser-repo>/docs/code_review/synthetic_blow_review_kit/source_notes.md`
+- `<state-collapser-repo>/docs/code_review/synthetic_blow_review_kit/synthetic_blow.md`
+- `<state-collapser-repo>/docs/design/synthetic_blow_revisions_01/01_001_synthetic_blow_review_revision_blueprint.md`
+- `<state-collapser-repo>/docs/design/synthetic_blow_revisions_01/01_002_synthetic_blow_review_revision_implementation_workplan.md`
+- `<state-collapser-repo>/docs/design/synthetic_blow_revisions_01/01_003_synthetic_blow_review_revision_implementation_log.md`
 
 Evaluation and public-readiness docs:
 
-- `/Users/foster/state_collapser/EVALUATION.md`
-- `/Users/foster/state_collapser/README.md`
-- `/Users/foster/state_collapser/CONTRIBUTING.md`
-- `/Users/foster/state_collapser/docs/engineer_continuity/2026/05/25/01_012_state_collapser_rl_spine_public_release_hgraphml_and_history_rewrite.md`
+- `<state-collapser-repo>/EVALUATION.md`
+- `<state-collapser-repo>/README.md`
+- `<state-collapser-repo>/CONTRIBUTING.md`
+- `<state-collapser-repo>/docs/engineer_continuity/2026/05/25/01_012_state_collapser_rl_spine_public_release_hgraphml_and_history_rewrite.md`
 
 Training, runtime, and benchmark source:
 
-- `/Users/foster/state_collapser/src/state_collapser/benchmarks/tower_runtime_bench.py`
-- `/Users/foster/state_collapser/src/state_collapser/examples/tower_depth_probe.py`
-- `/Users/foster/state_collapser/src/state_collapser/tower/runtime.py`
-- `/Users/foster/state_collapser/src/state_collapser/tower/snapshot.py`
-- `/Users/foster/state_collapser/src/state_collapser/training/collectors.py`
-- `/Users/foster/state_collapser/src/state_collapser/training/learners.py`
-- `/Users/foster/state_collapser/src/state_collapser/training/metrics.py`
-- `/Users/foster/state_collapser/src/state_collapser/training/stages.py`
-- `/Users/foster/state_collapser/src/state_collapser/training/fibers.py`
-- `/Users/foster/state_collapser/src/state_collapser/training/frozen.py`
-- `/Users/foster/state_collapser/src/state_collapser/tower/control/*`
-- `/Users/foster/state_collapser/src/state_collapser/examples/plate_support_env/runtime.py`
-- `/Users/foster/state_collapser/src/state_collapser/examples/plate_support_env/training.py`
+- `<state-collapser-repo>/src/state_collapser/benchmarks/tower_runtime_bench.py`
+- `<state-collapser-repo>/src/state_collapser/examples/tower_depth_probe.py`
+- `<state-collapser-repo>/src/state_collapser/tower/runtime.py`
+- `<state-collapser-repo>/src/state_collapser/tower/snapshot.py`
+- `<state-collapser-repo>/src/state_collapser/training/collectors.py`
+- `<state-collapser-repo>/src/state_collapser/training/learners.py`
+- `<state-collapser-repo>/src/state_collapser/training/metrics.py`
+- `<state-collapser-repo>/src/state_collapser/training/stages.py`
+- `<state-collapser-repo>/src/state_collapser/training/fibers.py`
+- `<state-collapser-repo>/src/state_collapser/training/frozen.py`
+- `<state-collapser-repo>/src/state_collapser/tower/control/*`
+- `<state-collapser-repo>/src/state_collapser/examples/plate_support_env/runtime.py`
+- `<state-collapser-repo>/src/state_collapser/examples/plate_support_env/training.py`
 
 Relevant tests:
 
-- `/Users/foster/state_collapser/tests/benchmarks/test_tower_runtime_bench.py`
-- `/Users/foster/state_collapser/tests/tower/control/*`
-- `/Users/foster/state_collapser/tests/training/*`
-- `/Users/foster/state_collapser/tests/examples/test_plate_support_env_fiber_conditioned_stage.py`
-- `/Users/foster/state_collapser/tests/examples/test_plate_support_env_exploit_explore_training.py`
+- `<state-collapser-repo>/tests/benchmarks/test_tower_runtime_bench.py`
+- `<state-collapser-repo>/tests/tower/control/*`
+- `<state-collapser-repo>/tests/training/*`
+- `<state-collapser-repo>/tests/examples/test_plate_support_env_fiber_conditioned_stage.py`
+- `<state-collapser-repo>/tests/examples/test_plate_support_env_exploit_explore_training.py`
 
 ## Executive Findings
 

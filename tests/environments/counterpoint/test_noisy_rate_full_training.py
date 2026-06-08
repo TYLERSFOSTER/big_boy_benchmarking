@@ -109,8 +109,9 @@ def test_noisy_rate_full_training_runner_aggregation_and_docs(
     assert "training_health_summary" in source["source_files"]
 
     readme = (full_readout_surface / "README.md").read_text()
-    assert readme.count("#### Project Owner / Evaluator Turn") == 3
-    assert readme.count("#### Embedded Engineering Consultant / Codex Turn") == 3
+    assert "#### Project Owner / Evaluator Turn" not in readme
+    assert "#### Embedded Engineering Consultant / Codex Turn" not in readme
+    assert "_No active public clarification turns are recorded for this readout._" in readme
     assert "not a direct-vs-tower comparison" in readme
 
     health_csv = (

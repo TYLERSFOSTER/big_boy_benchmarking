@@ -71,13 +71,13 @@ This readout may support only a bounded single-candidate threshold-frontier inte
 To regenerate the human-readable readout, run:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/readout_source.json
 ```
 
 Source artifact root:
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001
+<repo-root>/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts/episodes16_001
 ```
 
 ## Clarifying Questions And Turns
@@ -103,35 +103,3 @@ That makes the red badge different from a negative scientific result. It is not 
 The recommended threshold `13.0` should be read carefully in that context. It is a blue operational recommendation for the next paired-replicate probe, not evidence that `13.0` passed here. In this smoke root, `13.0` is recommended despite the red frontier badge because the frontier probe's job includes selecting a practical next threshold even when the claim itself is blocked.
 
 My current read: the red badge is doing useful guardrail work. It tells us this artifact root is good for validating the threshold-frontier pipeline and its human-readable summaries, but not for making a threshold-frontier claim. To turn this into claim-bearing evidence, we need a non-smoke run with enough episode budget for the sustained-hit persistence rule and enough paired threshold rows for passing/failing behavior to actually separate.
-
-#### Evaluator Turn
-
-_Open._
-
-#### Codex Turn
-
-_Open._
-
-#### Evaluator Turn
-
-_Open._
-
-#### Codex Turn
-
-_Open._
-
-#### Evaluator Turn
-
-_Open._
-
-#### Codex Turn
-
-_Open._
-
-#### Evaluator Turn
-
-_Open._
-
-#### Codex Turn
-
-_Open._

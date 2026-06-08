@@ -288,7 +288,7 @@ uv run ruff check .
 
 ## Stop Conditions Tracked
 
-- No edits to `/Users/foster/state_collapser`.
+- No edits to `<state-collapser-repo>`.
 - No edits to `counterpoint_symbolic_v001` environment semantics.
 - No root TeX edits.
 - Meaningful paired-replicate run remains deferred until threshold-frontier

@@ -1,1 +1,0 @@
-evaluation_id,run_id,run_mode,candidate_group_id,schema_class_id,candidate_id,episode_index,controller_event_index,active_tier_before,active_tier_after,tier_jump_policy_id,tier_jump_reward_cutoff,transition_observed,applicability

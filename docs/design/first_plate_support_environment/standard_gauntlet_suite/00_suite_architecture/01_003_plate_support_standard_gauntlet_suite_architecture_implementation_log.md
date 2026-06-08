@@ -85,7 +85,7 @@ Re-read for this component:
 - `mkdir -p src/big_boy_benchmarking/environments/plate_support/standard_gauntlet tests/environments/plate_support docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/results`
 - `sed -n '800,910p' src/big_boy_benchmarking/cli/main.py`
 - `sed -n '1,140p' src/big_boy_benchmarking/cli/main.py`
-- `uv run python -c "from pathlib import Path; from big_boy_benchmarking.environments.plate_support.standard_gauntlet.readout_source import write_suite_readout_source; print(write_suite_readout_source(Path('/Users/foster/big_boy_benchmarking'), 'smoke_001'))"`
+- `uv run python -c "from pathlib import Path; from big_boy_benchmarking.environments.plate_support.standard_gauntlet.readout_source import write_suite_readout_source; print(write_suite_readout_source(Path('<repo-root>'), 'smoke_001'))"`
 - `rg -n "plate_support|plate-support" src/big_boy_benchmarking/cli/main.py`
 - `sed -n '190,315p' src/big_boy_benchmarking/cli/main.py`
 - `sed -n '1,180p' tests/environments/plate_support/test_cli_plate_support.py`

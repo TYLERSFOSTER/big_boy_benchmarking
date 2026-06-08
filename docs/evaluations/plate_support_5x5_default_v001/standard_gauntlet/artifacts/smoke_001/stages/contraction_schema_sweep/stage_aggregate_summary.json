@@ -1,9 +1,0 @@
-{
-  "blocking_reason": "",
-  "claim_boundary": "schema structural diagnostics and candidate signals only",
-  "claim_status": "diagnostic_complete",
-  "eligible_signal_count": 1,
-  "schema_arm_count": 17,
-  "stage_id": "plate_support_gauntlet_contraction_schema_sweep_v001",
-  "status": "complete"
-}

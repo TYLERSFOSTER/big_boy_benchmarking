@@ -88,7 +88,7 @@ methodology sources, expected-file policy, and claim boundary.
 Regenerate the repo-side human readout with:
 
 ```text
-execute artifact-table readout pointed at folder docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/readout_source.json
 ```
 
 Generated readouts summarize artifacts and claim boundaries. They must not

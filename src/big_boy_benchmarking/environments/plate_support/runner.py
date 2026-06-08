@@ -323,7 +323,10 @@ def _write_artifacts(
         family_paths.dependency_manifest,
         DependencyManifest(
             state_collapser=dependency_state.to_dict(),
-            repo_state={"bbb_repo": str(Path(__file__).resolve().parents[4])},
+            repo_state={
+                "bbb_repo": "runtime_repository_root",
+                "path_policy": "absolute local path omitted from portable artifact manifests",
+            },
         ).to_dict(),
         create_parents=True,
     )

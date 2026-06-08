@@ -94,7 +94,7 @@ Result:
 56 passed
 ```
 
-A temporary Stage 2 smoke under `/private/tmp` showed that `1/144` and `1/72`
+A temporary Stage 2 smoke under `<tmp-dir>` showed that `1/144` and `1/72`
 produce many-tier executable PlateSupport candidates, while `1/36` and `1/18`
 begin exposing nonexecution or near-collapse behavior.
 
@@ -103,6 +103,6 @@ begin exposing nonexecution or near-collapse behavior.
 Do not overwrite historical `smoke_001` PlateSupport gauntlet artifacts when
 testing this correction. The current stage commands write generated readout
 surfaces under the repository from `repo_root`, even if raw artifacts are pointed
-at `/private/tmp`. Use explicit new run labels and expect to regenerate readouts
+at `<tmp-dir>`. Use explicit new run labels and expect to regenerate readouts
 deliberately, or run through pytest/temp-repo fixtures when verifying without
 changing repo evaluation surfaces.

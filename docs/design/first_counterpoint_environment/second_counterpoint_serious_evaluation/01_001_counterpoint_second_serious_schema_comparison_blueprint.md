@@ -7,7 +7,7 @@ Status: draft blueprint
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Design folder:
@@ -36,7 +36,7 @@ This is not approval to modify TeX documents at repo root.
 
 This is not approval to change the `counterpoint_symbolic_v001` environment.
 
-This is not approval to edit `/Users/foster/state_collapser`.
+This is not approval to edit `<state-collapser-repo>`.
 
 A later Phase.Stage.Action implementation workplan must translate this
 blueprint into executable work before source changes begin.
@@ -308,7 +308,7 @@ This evaluation must not change:
 - terminal policy;
 - action mask policy;
 - noisy-rate parent diagnostic artifacts;
-- `/Users/foster/state_collapser`.
+- `<state-collapser-repo>`.
 
 ## Recommended Evaluation Identity
 
@@ -1430,7 +1430,7 @@ Stop and ask the Project Owner before implementation if:
 - Schema 0 cannot be represented in the matched comparison harness;
 - Schema 1 cannot reuse carried-over full-tower diagnostic candidates;
 - candidate selection yields no eligible candidates;
-- the implementation would need to edit `/Users/foster/state_collapser`;
+- the implementation would need to edit `<state-collapser-repo>`;
 - the implementation would change `counterpoint_symbolic_v001`;
 - the implementation would omit source binding, expected-file policy, goal
   criteria, methodology sources, or claim boundary;

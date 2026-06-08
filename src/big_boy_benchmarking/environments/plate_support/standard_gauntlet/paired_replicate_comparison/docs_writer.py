@@ -94,7 +94,7 @@ def write_paired_replicate_comparison_docs(
                 "```text",
                 "uv run python -m big_boy_benchmarking.cli plate-support "
                 "standard-gauntlet paired-comparison run \\",
-                "  --repo-root /Users/foster/big_boy_benchmarking \\",
+                "  --repo-root <repo-root> \\",
                 "  --artifact-root docs/evaluations/plate_support_5x5_default_v001/"
                 "standard_gauntlet/artifacts/smoke_001 \\",
                 "  --candidate-source docs/evaluations/plate_support_5x5_default_v001/"

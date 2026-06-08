@@ -7,7 +7,7 @@ Status: draft blueprint
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Design folder:
@@ -29,7 +29,7 @@ This is not approval to run benchmark artifacts.
 This is not approval to change the `counterpoint_symbolic_v001`
 environment.
 
-This is not approval to edit `/Users/foster/state_collapser`.
+This is not approval to edit `<state-collapser-repo>`.
 
 This blueprint turns the noisy-rate contraction discussion into a concrete
 diagnostic evaluation design. A later Phase.Stage.Action implementation
@@ -943,7 +943,7 @@ The README must explain:
 The README must include the exact human-readability protocol command:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json
 ```
 
 The README must include protected clarification turn slots.
@@ -1079,7 +1079,7 @@ Regression tests:
 
 The later implementation must stop and return to the Project Owner if:
 
-- it would require editing `/Users/foster/state_collapser`;
+- it would require editing `<state-collapser-repo>`;
 - it would change `counterpoint_symbolic_v001` environment semantics;
 - runtime and metadata selected-edge sets cannot be reconciled;
 - nested rate monotonicity fails under the coupled selector;

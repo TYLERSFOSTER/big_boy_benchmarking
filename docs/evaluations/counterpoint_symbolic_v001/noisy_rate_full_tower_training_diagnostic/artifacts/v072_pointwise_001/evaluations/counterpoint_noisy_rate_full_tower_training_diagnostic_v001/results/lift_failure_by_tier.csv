@@ -1,1 +1,0 @@
-evaluation_id,run_id,candidate_id,instance_id,arm_id,schema_seed,training_replicate_index,active_tier,failure_reason,fiber_departure_reason,lift_attempt_count,lift_success_count,lift_failure_count,mean_candidate_count

@@ -1,2 +1,0 @@
-suite_id,stage_id,run_label,status,started_at,ended_at,artifact_schema_version
-plate_support_standard_gauntlet_v001,plate_support_gauntlet_contraction_schema_sweep_v001,iterated_001,complete,2026-06-07T22:40:00.006463+00:00,2026-06-07T22:40:00.006651+00:00,bbb.v001

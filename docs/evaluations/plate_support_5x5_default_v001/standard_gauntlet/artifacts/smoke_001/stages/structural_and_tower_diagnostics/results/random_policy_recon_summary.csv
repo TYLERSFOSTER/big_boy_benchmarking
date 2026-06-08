@@ -1,2 +1,0 @@
-policy_id,seed,episode_count,max_steps_per_episode,success_count,success_rate,mean_total_reward,mean_step_count,invalid_move_count,invalid_move_rate,claim_boundary
-uniform_random_primitive_action_recon_v001,0,1000,50,24,0.024,-105.748,49.594,22404,0.45174819534621125,structural difficulty reconnaissance only; not an official learning baseline

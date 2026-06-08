@@ -7,7 +7,7 @@ Status: implementation workplan, not yet executed
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Source blueprint:
@@ -189,7 +189,7 @@ Stop and ask the Project Owner if:
 - explicit approval to execute this workplan has not been received;
 - the branch or dirty status at execution time differs in a way that could mix
   unrelated source/test changes into this work;
-- any action would require editing `/Users/foster/state_collapser`;
+- any action would require editing `<state-collapser-repo>`;
 - active-tier exploit/explore surfaces cannot be imported from the installed
   pinned `state_collapser`;
 - `state_collapser.training.TabularQLearner` cannot be used for the serious
@@ -358,15 +358,15 @@ Acceptance criteria:
 Read current upstream `state_collapser` surfaces read-only:
 
 ```text
-/Users/foster/state_collapser/src/state_collapser/training/inputs.py
-/Users/foster/state_collapser/src/state_collapser/training/learners.py
-/Users/foster/state_collapser/src/state_collapser/training/transitions.py
-/Users/foster/state_collapser/src/state_collapser/training/stages.py
-/Users/foster/state_collapser/src/state_collapser/tower/runtime.py
-/Users/foster/state_collapser/src/state_collapser/tower/control/controller.py
-/Users/foster/state_collapser/src/state_collapser/tower/control/learner.py
-/Users/foster/state_collapser/src/state_collapser/tower/control/executor.py
-/Users/foster/state_collapser/src/state_collapser/tower/control/active_tier.py
+<state-collapser-repo>/src/state_collapser/training/inputs.py
+<state-collapser-repo>/src/state_collapser/training/learners.py
+<state-collapser-repo>/src/state_collapser/training/transitions.py
+<state-collapser-repo>/src/state_collapser/training/stages.py
+<state-collapser-repo>/src/state_collapser/tower/runtime.py
+<state-collapser-repo>/src/state_collapser/tower/control/controller.py
+<state-collapser-repo>/src/state_collapser/tower/control/learner.py
+<state-collapser-repo>/src/state_collapser/tower/control/executor.py
+<state-collapser-repo>/src/state_collapser/tower/control/active_tier.py
 ```
 
 Acceptance criteria:
@@ -414,7 +414,7 @@ Acceptance criteria:
 - tests prove the pinned installed package exposes the active-tier/fiber
   surfaces;
 - tests do not require Torch;
-- tests do not import from `/Users/foster/state_collapser` as an editable path.
+- tests do not import from `<state-collapser-repo>` as an editable path.
 
 #### Action 1.1.2
 
@@ -1447,12 +1447,12 @@ Acceptance criteria:
 
 #### Action 11.2.2
 
-Run CLI smoke on `tiny` into `/private/tmp`.
+Run CLI smoke on `tiny` into `<tmp-dir>`.
 
 Expected shape:
 
 ```bash
-uv run python -m big_boy_benchmarking.cli counterpoint serious-learning calibrate --artifact-root /private/tmp/bbb-counterpoint-serious-learning-tiny-smoke --instance-id tiny --episodes 1 --replicates 1 --schema-seeds 1
+uv run python -m big_boy_benchmarking.cli counterpoint serious-learning calibrate --artifact-root <tmp-dir>/bbb-counterpoint-serious-learning-tiny-smoke --instance-id tiny --episodes 1 --replicates 1 --schema-seeds 1
 ```
 
 Acceptance criteria:
@@ -1465,12 +1465,12 @@ Acceptance criteria:
 
 #### Action 11.3.1
 
-Run minimal calibration on `small` into `/private/tmp`.
+Run minimal calibration on `small` into `<tmp-dir>`.
 
 Expected shape:
 
 ```bash
-uv run python -m big_boy_benchmarking.cli counterpoint serious-learning calibrate --artifact-root /private/tmp/bbb-counterpoint-serious-learning-small-calibration --instance-id small --episodes 1 --replicates 1 --schema-seeds 1
+uv run python -m big_boy_benchmarking.cli counterpoint serious-learning calibrate --artifact-root <tmp-dir>/bbb-counterpoint-serious-learning-small-calibration --instance-id small --episodes 1 --replicates 1 --schema-seeds 1
 ```
 
 Acceptance criteria:

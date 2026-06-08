@@ -15,7 +15,7 @@ Its job is to externalize the current working model for the first real
 environment family, grounded in:
 
 - the existing `big_boy_benchmarking` design docs;
-- read-only inspection of `/Users/foster/rl_counterpoint`;
+- read-only inspection of `<rl-counterpoint-repo>`;
 - read-only inspection of relevant `state_collapser` counterpoint example
   docs and source;
 - the Project Owner correction that the first environment should be the
@@ -63,7 +63,7 @@ I interpret this as:
 - `docs/design/first_infrastructure_slice/01_003_benchmark_system_and_artifact_contract_blueprint.md`
 - `docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md`
 
-### `/Users/foster/rl_counterpoint`
+### `<rl-counterpoint-repo>`
 
 - `README.md`
 - `docs/design/graph_spec_001.md`
@@ -86,7 +86,7 @@ I interpret this as:
 - `tower/train/config.py`
 - `tower/train/runner.py`
 
-### `/Users/foster/state_collapser`
+### `<state-collapser-repo>`
 
 - `EVALUATION.md`
 - `docs/design/test_design/rl_counterpoint_v3/01_001_rl_counterpoint_v3_transformation_report.md`
@@ -845,7 +845,7 @@ Possible later condition:
 This would not be a `state_collapser` mode.
 
 It would be a historical/reference comparison against the old hand-authored HRL
-tower from `/Users/foster/rl_counterpoint`.
+tower from `<rl-counterpoint-repo>`.
 
 Potential value:
 
@@ -1144,7 +1144,7 @@ package hacking.
 Mitigation:
 
 - read/run/import/pin upstream;
-- do not edit `/Users/foster/state_collapser` or `/Users/foster/rl_counterpoint`
+- do not edit `<state-collapser-repo>` or `<rl-counterpoint-repo>`
   during this design work;
 - if upstream defects are found, emit repros and issue-style notes.
 
@@ -1287,7 +1287,7 @@ it for free.
 
 ## Turn Question 5: Old Explicit Tower Reference
 
-Should the old `/Users/foster/rl_counterpoint/tower` hand-authored HRL training
+Should the old `<rl-counterpoint-repo>/tower` hand-authored HRL training
 stack be included as an optional historical/reference baseline?
 
 Recommendation:

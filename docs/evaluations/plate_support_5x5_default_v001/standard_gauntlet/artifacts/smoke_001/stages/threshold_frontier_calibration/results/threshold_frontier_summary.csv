@@ -1,7 +1,0 @@
-threshold_id,threshold_value,calibration_arm_id,episode_count,hit_count,hit_rate,triviality_status,feasibility_status,reason
-return_threshold_000,-50.0,tower_candidate_0,32,32,1.0,all_hit,blocked_all_hit,threshold is below or equal to all observed returns for this arm
-return_threshold_001,89.0,tower_candidate_0,32,1,0.03125,nontrivial,feasible_nontrivial,threshold separates observed episodes into hit and miss rows
-return_threshold_002,67.0,tower_candidate_0,32,2,0.0625,nontrivial,feasible_nontrivial,threshold separates observed episodes into hit and miss rows
-return_threshold_003,8.5,tower_candidate_0,32,2,0.0625,nontrivial,feasible_nontrivial,threshold separates observed episodes into hit and miss rows
-return_threshold_004,-105.748,tower_candidate_0,32,32,1.0,all_hit,blocked_all_hit,threshold is below or equal to all observed returns for this arm
-return_threshold_005,95.0,tower_candidate_0,32,0,0.0,none_hit,blocked_none_hit,threshold is above all observed returns for this arm

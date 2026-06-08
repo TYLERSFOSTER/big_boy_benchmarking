@@ -18,7 +18,7 @@ Threshold policy:
   "scope": "total_space",
   "threshold_policy_id": "counterpoint_total_space_sustained_reward_v001",
   "threshold_source_field": "recommended_replicate_probe_threshold",
-  "threshold_source_readout": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/readout_source.json",
+  "threshold_source_readout": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/readout_source.json",
   "threshold_source_type": "threshold_frontier_readout",
   "threshold_value": 13.0,
   "window_length": 5
@@ -58,5 +58,5 @@ Locked budget:
 Artifact root:
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/episodes16_from_frontier_001
+<repo-root>/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/episodes16_from_frontier_001
 ```

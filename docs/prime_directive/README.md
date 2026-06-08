@@ -16,6 +16,7 @@ Use these protocol documents for that workflow:
 - `environment_construction_for_benchmark_evaluations_protocol.md`
 - `evaluation_construction_for_readable_artifacts_protocol.md`
 - `artifact_table_to_readable_document_protocol.md`
+- `public_release_readiness_protocol.md`
 
 The core collaboration and execution discipline lives in:
 
@@ -52,3 +53,13 @@ For durable serious evaluations, raw artifact tables should also be generated
 inside the repo readout surface under `artifacts/<run-label>/`, so the
 checked-in readout is bound to repo-resident evidence rather than a temporary
 local path.
+
+For public beta/release preparation, also run:
+
+```bash
+uv run python scripts/release_hygiene.py --repo-root .
+```
+
+Public release hygiene uses repo-relative paths, `[XXX]` public redaction,
+verified artifact bundles for large raw artifacts, and explicit stop
+conditions before irreversible release actions.

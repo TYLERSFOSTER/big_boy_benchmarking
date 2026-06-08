@@ -7,7 +7,7 @@ Status: complete
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Implementation branch:
@@ -182,7 +182,7 @@ uv lock
 Initial result:
 
 ```text
-failed to open file `/Users/foster/.cache/uv/sdists-v9/.git`: Operation not permitted
+failed to open file `<local-cache>/uv/sdists-v9/.git`: Operation not permitted
 ```
 
 This matched the workplan's sandbox/cache stop condition, so Codex reran with
@@ -747,7 +747,7 @@ Status: complete.
 Command:
 
 ```bash
-uv run python -m big_boy_benchmarking.cli counterpoint run-direct --artifact-root /private/tmp/bbb-v07-direct-smoke --instance-id tiny --policy masked-random --seed 1 --episodes 1
+uv run python -m big_boy_benchmarking.cli counterpoint run-direct --artifact-root <tmp-dir>/bbb-v07-direct-smoke --instance-id tiny --policy masked-random --seed 1 --episodes 1
 ```
 
 Result:
@@ -759,7 +759,7 @@ Result:
 Verified artifact:
 
 ```text
-/private/tmp/bbb-v07-direct-smoke/runs/counterpoint_symbolic_v001_direct_v001/runs/counterpoint_symbolic_n3_tiny_v001-direct-masked-random-0/linearization_manifest.json
+<tmp-dir>/bbb-v07-direct-smoke/runs/counterpoint_symbolic_v001_direct_v001/runs/counterpoint_symbolic_n3_tiny_v001-direct-masked-random-0/linearization_manifest.json
 ```
 
 Manifest label:
@@ -781,7 +781,7 @@ Status: complete.
 Command:
 
 ```bash
-uv run python -m big_boy_benchmarking.cli counterpoint tower-smoke --artifact-root /private/tmp/bbb-v07-tower-smoke --instance-id tiny --schema-id counterpoint_empty_schema_v001 --seed 2
+uv run python -m big_boy_benchmarking.cli counterpoint tower-smoke --artifact-root <tmp-dir>/bbb-v07-tower-smoke --instance-id tiny --schema-id counterpoint_empty_schema_v001 --seed 2
 ```
 
 Result:
@@ -793,7 +793,7 @@ Result:
 Verified artifact:
 
 ```text
-/private/tmp/bbb-v07-tower-smoke/runs/counterpoint_symbolic_v001_tower_smoke_v001/runs/counterpoint_symbolic_n3_tiny_v001-counterpoint_empty_schema_v001-0/linearization_manifest.json
+<tmp-dir>/bbb-v07-tower-smoke/runs/counterpoint_symbolic_v001_tower_smoke_v001/runs/counterpoint_symbolic_n3_tiny_v001-counterpoint_empty_schema_v001-0/linearization_manifest.json
 ```
 
 Manifest label:

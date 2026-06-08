@@ -7,7 +7,7 @@ Status: stopped at Phase 0.2.3 pending Project Owner branch/history decision
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Workplan:

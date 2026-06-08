@@ -59,7 +59,7 @@ Stop and ask the Project Owner if:
 - execution of this workplan has not been explicitly approved;
 - working tree state would mix unrelated TeX/root document changes into this
   implementation;
-- a source edit would touch `/Users/foster/state_collapser`;
+- a source edit would touch `<state-collapser-repo>`;
 - a source edit would change `counterpoint_symbolic_v001`;
 - Schema 0 cannot be represented in the matched comparison harness;
 - Schema 0 would require silently reusing the old direct runner as the primary
@@ -317,7 +317,7 @@ Final `git diff --check`: passed.
 
 - Calibration was not run.
 - Serious `medium` run was not run.
-- No `/Users/foster/state_collapser` files were edited.
+- No `<state-collapser-repo>` files were edited.
 - No counterpoint environment semantics were changed.
 - No root TeX files or TeX sidecars were edited by this implementation.
 

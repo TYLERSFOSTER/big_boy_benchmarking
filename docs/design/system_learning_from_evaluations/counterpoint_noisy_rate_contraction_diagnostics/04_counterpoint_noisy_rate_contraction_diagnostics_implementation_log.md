@@ -36,7 +36,7 @@ Stop and ask the Project Owner if:
 
 - explicit approval to execute this exact workplan has not been received;
 - branch or dirty status would mix unrelated work into this implementation;
-- any action would require editing `/Users/foster/state_collapser`;
+- any action would require editing `<state-collapser-repo>`;
 - any action would alter `counterpoint_symbolic_v001` environment semantics;
 - the noisy selector cannot be implemented without a source-local minimum-one
   floor;
@@ -137,7 +137,7 @@ The implementation proceeded on branch:
 codex/noisy-rate-contraction-diagnostics
 ```
 
-No `/Users/foster/state_collapser` files were edited.
+No `<state-collapser-repo>` files were edited.
 
 No `counterpoint_symbolic_v001` environment semantics were changed. The new
 work is a sibling evaluation and selector/schema family.
@@ -222,8 +222,8 @@ uv run python -m compileall src/big_boy_benchmarking/environments/counterpoint s
 uv run pytest tests/environments/counterpoint/test_noisy_rate_diagnostics.py
 uv run pytest tests/environments/counterpoint/test_schemas.py tests/environments/counterpoint/test_tower_adapter.py tests/environments/counterpoint/test_one_third_diagnostics.py tests/environments/counterpoint/test_fraction_sweep_diagnostics.py tests/environments/counterpoint/test_noisy_rate_diagnostics.py
 uv run pytest tests/cli/test_cli.py
-uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate run --artifact-root /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/smoke_001 --instances small --rates 1/144,1/36,1/18 --schema-seeds 0,1,2 --replicates 1 --episodes 1 --controller-event-ceiling 8 --locked-by codex
-uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate summarize --artifact-root /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/smoke_001
+uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate run --artifact-root <repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/smoke_001 --instances small --rates 1/144,1/36,1/18 --schema-seeds 0,1,2 --replicates 1 --episodes 1 --controller-event-ceiling 8 --locked-by codex
+uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate summarize --artifact-root <repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/smoke_001
 ```
 
 ### Test Results

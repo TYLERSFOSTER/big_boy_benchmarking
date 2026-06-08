@@ -75,7 +75,7 @@ Owner.
 
 - This is an environment build, not an evaluation build.
 - Do not create `docs/evaluations/plate_support...`.
-- Do not edit `/Users/foster/state_collapser`.
+- Do not edit `<state-collapser-repo>`.
 - Do not copy counterpoint-specific evaluation logic.
 - Do not run serious learning budgets.
 - Do not claim tower benefit.

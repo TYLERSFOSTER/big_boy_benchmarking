@@ -1,9 +1,0 @@
-{
-  "artifact_schema_version": "bbb.v001",
-  "discount": 0.95,
-  "episodes_per_replicate": 16,
-  "epsilon": 0.2,
-  "learning_rate": 0.25,
-  "max_steps_per_episode": 50,
-  "training_strategy": "tower_action_cell_tabular_q_health_probe"
-}

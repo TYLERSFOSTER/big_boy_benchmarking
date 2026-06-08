@@ -1,9 +1,0 @@
-arm_id,run_id,required_file_count,present_file_count,artifact_complete
-plate_support_direct_concrete_baseline,iterated_001-pairrep000-plate-support-direct-concrete-baseline,10,10,1
-plate_support_direct_concrete_baseline,iterated_001-pairrep001-plate-support-direct-concrete-baseline,10,10,1
-plate_support_direct_concrete_baseline,iterated_001-pairrep002-plate-support-direct-concrete-baseline,10,10,1
-plate_support_direct_concrete_baseline,iterated_001-pairrep003-plate-support-direct-concrete-baseline,10,10,1
-plate_support_selected_tower_candidate:plate_support_candidate:source_local_ratio_iterated:0:c8b8935b4c,iterated_001-pairrep000-plate-support-selected-tower-candidate-plate-support-candidate-source-local-ratio-iterated-0-c8b8935b4c,11,11,1
-plate_support_selected_tower_candidate:plate_support_candidate:source_local_ratio_iterated:0:c8b8935b4c,iterated_001-pairrep001-plate-support-selected-tower-candidate-plate-support-candidate-source-local-ratio-iterated-0-c8b8935b4c,11,11,1
-plate_support_selected_tower_candidate:plate_support_candidate:source_local_ratio_iterated:0:c8b8935b4c,iterated_001-pairrep002-plate-support-selected-tower-candidate-plate-support-candidate-source-local-ratio-iterated-0-c8b8935b4c,11,11,1
-plate_support_selected_tower_candidate:plate_support_candidate:source_local_ratio_iterated:0:c8b8935b4c,iterated_001-pairrep003-plate-support-selected-tower-candidate-plate-support-candidate-source-local-ratio-iterated-0-c8b8935b4c,11,11,1

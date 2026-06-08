@@ -498,9 +498,9 @@ def _turn_section_for_regeneration(readme_path: Path) -> str:
     old_single_pair = (
         "## Clarifying Questions And Turns\n\n"
         "#### Project Owner / Evaluator Turn\n\n"
-        "> ...\n\n"
+        "_Open for a future evaluator turn._\n\n"
         "#### Embedded Engineering Consultant / Codex Turn\n\n"
-        "> ...\n"
+        "_Open for a future Codex turn._\n"
     )
     if section == old_single_pair:
         return _default_turn_section()
@@ -512,15 +512,18 @@ def _turn_section_for_regeneration(readme_path: Path) -> str:
 
 
 def _default_turn_section() -> str:
-    return "## Clarifying Questions And Turns\n\n" + _default_turn_pairs()
+    return (
+        "## Clarifying Questions And Turns\n\n"
+        "_No active public clarification turns are recorded for this readout._\n"
+    )
 
 
 def _default_turn_pairs() -> str:
     pair = (
         "#### Project Owner / Evaluator Turn\n\n"
-        "> ...\n\n"
+        "_Open for a future evaluator turn._\n\n"
         "#### Embedded Engineering Consultant / Codex Turn\n\n"
-        "> ...\n"
+        "_Open for a future Codex turn._\n"
     )
     return "\n".join(pair for _ in range(3))
 

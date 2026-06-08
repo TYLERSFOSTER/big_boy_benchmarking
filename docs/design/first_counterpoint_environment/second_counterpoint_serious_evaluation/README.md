@@ -48,5 +48,5 @@ execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at 
   - four eligible `counterpoint_symbolic_n3_medium_v001` Schema 1 candidates
     exist in the candidate readout source;
   - the Project Owner explicitly authorizes the serious run.
-- No `/Users/foster/state_collapser` edits are part of this implementation.
+- No `<state-collapser-repo>` edits are part of this implementation.
 - Root TeX files and TeX sidecars are unrelated to this implementation.

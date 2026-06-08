@@ -7,7 +7,7 @@ Status: draft blueprint
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Design folder:
@@ -29,7 +29,7 @@ This is not approval to run benchmark artifacts.
 This is not approval to change the `counterpoint_symbolic_v001`
 environment.
 
-This is not approval to edit `/Users/foster/state_collapser`.
+This is not approval to edit `<state-collapser-repo>`.
 
 This blueprint turns the Project Owner's stated next evaluation shape into a
 concrete design target. A later Phase.Stage.Action implementation workplan
@@ -900,7 +900,7 @@ The README should contain:
 - command to regenerate:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/readout_source.json
 ```
 
 The readout must explicitly say:
@@ -1029,7 +1029,7 @@ Stop and ask the Project Owner if:
 - required learner-update evidence cannot be exposed;
 - the no-contraction control starts being treated as a baseline comparator;
 - artifact roots would need to live outside the repo readout surface;
-- any edit to `/Users/foster/state_collapser` appears necessary;
+- any edit to `<state-collapser-repo>` appears necessary;
 - any edit to `counterpoint_symbolic_v001` environment semantics appears
   necessary.
 

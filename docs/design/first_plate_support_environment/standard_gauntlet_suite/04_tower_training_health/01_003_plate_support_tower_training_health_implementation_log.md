@@ -308,11 +308,11 @@ docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smok
 
 ### Resume Completion Commands Run
 
-- `uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet tower-training-health run --repo-root /Users/foster/big_boy_benchmarking --artifact-root /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001 --candidate-source /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/candidate_discovery/readout_source.json --run-label smoke_001 --locked-by foster --candidate-cap 1 --training-replicates-per-candidate 1 --episodes-per-replicate 2 --max-steps-per-episode 8`
+- `uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet tower-training-health run --repo-root <repo-root> --artifact-root <repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001 --candidate-source <repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/candidate_discovery/readout_source.json --run-label smoke_001 --locked-by foster --candidate-cap 1 --training-replicates-per-candidate 1 --episodes-per-replicate 2 --max-steps-per-episode 8`
 - `uv run ruff check src/big_boy_benchmarking/environments/plate_support/standard_gauntlet/tower_training_health tests/environments/plate_support/test_standard_gauntlet_tower_training_health.py`
 - `uv run pytest tests/environments/plate_support/test_standard_gauntlet_tower_training_health.py`
 - `uv run pytest tests/environments/plate_support`
-- `uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet tower-training-health run --repo-root /Users/foster/big_boy_benchmarking --artifact-root /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001 --candidate-source /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/candidate_discovery/readout_source.json --run-label smoke_001 --locked-by foster`
+- `uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet tower-training-health run --repo-root <repo-root> --artifact-root <repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/smoke_001 --candidate-source <repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/candidate_discovery/readout_source.json --run-label smoke_001 --locked-by foster`
 
 ### Resume Completion Validation
 

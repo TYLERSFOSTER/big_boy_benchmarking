@@ -158,7 +158,10 @@ def run_upstream_smoke(
         family_paths.dependency_manifest,
         DependencyManifest(
             state_collapser=dependency_state.to_dict(),
-            repo_state={"bbb_repo": "/Users/foster/big_boy_benchmarking"},
+            repo_state={
+                "bbb_repo": "runtime_repository_root",
+                "path_policy": "absolute local path omitted from portable artifact manifests",
+            },
         ).to_dict(),
         create_parents=True,
     )

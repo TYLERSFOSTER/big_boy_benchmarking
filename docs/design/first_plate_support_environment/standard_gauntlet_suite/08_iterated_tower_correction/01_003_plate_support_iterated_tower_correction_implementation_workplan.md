@@ -1875,7 +1875,7 @@ execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at 
 For example:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
 ```
 
 Only use that example if the top-level readout source is the intended correction

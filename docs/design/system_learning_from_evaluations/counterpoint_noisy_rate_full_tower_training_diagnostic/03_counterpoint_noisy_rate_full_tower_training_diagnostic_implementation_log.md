@@ -50,7 +50,7 @@ Stop and ask the Project Owner if:
 - execution has not been explicitly approved;
 - working tree or branch state would mix unrelated changes into this
   implementation;
-- any action would require editing `/Users/foster/state_collapser`;
+- any action would require editing `<state-collapser-repo>`;
 - any action would change `counterpoint_symbolic_v001` environment semantics;
 - the parent `readout_source.json` is missing, stale, outside the repo, or
   points outside the repo;
@@ -152,7 +152,7 @@ Stop and ask the Project Owner if:
 ## Running Notes
 
 - Added a sibling evaluation package for noisy-rate full-tower training
-  diagnostics. This did not edit `/Users/foster/state_collapser`.
+  diagnostics. This did not edit `<state-collapser-repo>`.
 - Added candidate selection from the parent repo-side `readout_source.json`;
   candidates are not hard-coded.
 - Added persistent tower-only training runtime. The learner object persists
@@ -202,7 +202,7 @@ Result: passed.
 Implementation smoke run:
 
 ```text
-uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate-full-train run --artifact-root /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/smoke_001 --candidate-readout-source /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json --candidate-cap 2 --training-replicates 1 --episodes 4 --locked-by codex --linearization-mode tensor_available_disabled
+uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate-full-train run --artifact-root <repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/smoke_001 --candidate-readout-source <repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json --candidate-cap 2 --training-replicates 1 --episodes 4 --locked-by codex --linearization-mode tensor_available_disabled
 ```
 
 Result:
@@ -214,7 +214,7 @@ Result:
 Smoke summarize:
 
 ```text
-uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate-full-train summarize --artifact-root /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/smoke_001
+uv run python -m big_boy_benchmarking.cli counterpoint noisy-rate-full-train summarize --artifact-root <repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/smoke_001
 ```
 
 Result: `status` was `complete`.
@@ -242,7 +242,7 @@ docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagn
 Human-readable protocol command:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/readout_source.json
 ```
 
 Observed smoke summary:

@@ -157,6 +157,12 @@ The source binding must include:
     "aggregate_table": "<path to aggregate table>",
     "run_index": "<path to run index>"
   },
+  "artifact_storage": {
+    "mode": "git_tracked",
+    "release_tag": null,
+    "asset_name": null,
+    "bundle_manifest_path": null
+  },
   "expected_files": {
     "required": ["<required source file>"],
     "expected_absent_is_gap": [],
@@ -201,6 +207,15 @@ The source binding must include:
 Do not omit `run_mode`. It is needed to distinguish calibration, smoke,
 manually locked serious runs, calibration-derived serious runs, diagnostic
 runs, and final result runs.
+
+Do not omit `artifact_storage`. It tells public readout generation whether raw
+artifacts are expected to remain in git or live in a GitHub release asset
+bundle. If the storage mode is a release asset, include the release tag, asset
+name, and bundle manifest path before regenerating public readouts.
+
+Public-facing paths in source bindings and generated docs should be
+repo-relative when possible. Machine-local absolute paths may appear only as
+explicit local provenance fields, not as paths a public reader needs to run.
 
 ## Status Badge Inputs
 

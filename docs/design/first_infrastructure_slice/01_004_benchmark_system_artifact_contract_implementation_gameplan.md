@@ -4,7 +4,7 @@ Status: initial implementation workplan
 
 Created: 2026-05-27
 
-Repository: `/Users/foster/big_boy_benchmarking`
+Repository: `<repo-root>`
 
 Source blueprint:
 
@@ -120,7 +120,7 @@ Do not implement:
 Do not edit:
 
 ```text
-/Users/foster/state_collapser
+<state-collapser-repo>
 ```
 
 except for read-only inspection or approved command execution.
@@ -1222,13 +1222,13 @@ Acceptance:
 Run:
 
 ```bash
-uv run python -m big_boy_benchmarking.cli run-upstream-smoke --artifact-root /private/tmp/bbb-smoke-artifacts
+uv run python -m big_boy_benchmarking.cli run-upstream-smoke --artifact-root <tmp-dir>/bbb-smoke-artifacts
 ```
 
 Acceptance:
 
 - command exits successfully.
-- artifacts are written under `/private/tmp/bbb-smoke-artifacts`.
+- artifacts are written under `<tmp-dir>/bbb-smoke-artifacts`.
 - no repo artifact pollution occurs from this validation command.
 - result recorded in implementation log.
 

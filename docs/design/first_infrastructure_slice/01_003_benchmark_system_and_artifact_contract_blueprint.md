@@ -4,7 +4,7 @@ Status: initial blueprint
 
 Created: 2026-05-27
 
-Repository: `/Users/foster/big_boy_benchmarking`
+Repository: `<repo-root>`
 
 Related design inputs:
 

@@ -102,7 +102,7 @@ artifact discipline: do not overwrite historical smoke_001 artifacts
 | Phase 9.Stage 1.Action 2 | Completed | Stage 3/4 tests | Focused and full PlateSupport suites passed. | Candidate discovery and tower-training-health paths cover iterated candidate handoff. |
 | Phase 9.Stage 1.Action 3 | Completed | Stage 5/6/7 tests | Full PlateSupport suite passed. | Downstream stages pass with preserved metadata. |
 | Phase 9.Stage 2.Action 1 | Completed | Test fixtures | Stage 1 fixture generated in temp test repos. | No repo historical artifacts overwritten. |
-| Phase 9.Stage 2.Action 2 | Completed | Temp smoke and Stage 2 tests | Temp smoke: 1/144 depth 18, 1/72 depth 11; tests pass. | Temp smoke artifacts remain under `/private/tmp`. |
+| Phase 9.Stage 2.Action 2 | Completed | Temp smoke and Stage 2 tests | Temp smoke: 1/144 depth 18, 1/72 depth 11; tests pass. | Temp smoke artifacts remain under `<tmp-dir>`. |
 | Phase 9.Stage 2.Action 3 | Completed | Stage 3 tests | Iterated Stage 3 source selects iterated training candidate. | Verified in Stage 4 integration test fixture. |
 | Phase 9.Stage 2.Action 4 | Completed | Stage 4 tests | Iterated Stage 4 smoke records concrete steps and lift successes. | Run occurs in pytest temp repo, not historical repo artifacts. |
 | Phase 9.Stage 3.Action 1 | Completed | Stage 5/6 tests | Existing downstream gates pass. | Stage 5/6 permitted only after trainable source and calibrated target. |
@@ -123,7 +123,7 @@ git checkout -b codex/plate-support-iterated-tower-correction
 uv run pytest tests/environments/plate_support/test_iterated_source_local_ratio_schema.py
 uv run python -m py_compile src/big_boy_benchmarking/environments/plate_support/standard_gauntlet/contraction_schema_sweep/schema_runner.py src/big_boy_benchmarking/environments/plate_support/standard_gauntlet/contraction_schema_sweep/runner.py src/big_boy_benchmarking/environments/plate_support/standard_gauntlet/contraction_schema_sweep/classification.py src/big_boy_benchmarking/environments/plate_support/standard_gauntlet/contraction_schema_sweep/schema_families.py
 uv run pytest tests/environments/plate_support
-uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet schema-sweep run --repo-root /Users/foster/big_boy_benchmarking --artifact-root /private/tmp/bbb-plate-iterated-stage2-smoke --stage1-source docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/readout_source.json --run-label iterated_smoke --locked-by codex --include-iterated-source-local-ratio --iterated-source-local-ratio-denominator 144 --iterated-source-local-ratio-denominator 72 --iterated-source-local-ratio-denominator 36 --iterated-source-local-ratio-denominator 18 --iterated-source-local-max-iterations 32 --tower-probe-steps 3 --tower-probe-sample-size 4
+uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet schema-sweep run --repo-root <repo-root> --artifact-root <tmp-dir>/bbb-plate-iterated-stage2-smoke --stage1-source docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/readout_source.json --run-label iterated_smoke --locked-by codex --include-iterated-source-local-ratio --iterated-source-local-ratio-denominator 144 --iterated-source-local-ratio-denominator 72 --iterated-source-local-ratio-denominator 36 --iterated-source-local-ratio-denominator 18 --iterated-source-local-max-iterations 32 --tower-probe-steps 3 --tower-probe-sample-size 4
 uv run pytest tests/environments/plate_support/test_standard_gauntlet_contraction_schema_sweep.py tests/environments/plate_support/test_standard_gauntlet_candidate_discovery.py tests/environments/plate_support/test_standard_gauntlet_tower_training_health.py
 uv run pytest tests/environments/plate_support
 uv run pytest
@@ -202,7 +202,7 @@ Result: 9 passed.
 Temporary verification artifacts generated outside the repo:
 
 ```text
-/private/tmp/bbb-plate-iterated-stage2-smoke
+<tmp-dir>/bbb-plate-iterated-stage2-smoke
 ```
 
 The temp Stage 2 smoke showed:
@@ -216,7 +216,7 @@ The temp Stage 2 smoke showed:
 
 No final repo benchmark artifact run was generated, because the current stage
 commands write stage readout surfaces under the repo even when raw artifacts are
-pointed at `/private/tmp`. The accidental generated repo readout rewrite from
+pointed at `<tmp-dir>`. The accidental generated repo readout rewrite from
 the temp smoke was restored, and the untracked repo scratch directory was
 removed.
 
@@ -228,7 +228,7 @@ The temp Stage 2 CLI smoke wrote generated Stage 2 readout files under:
 docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/contraction_schema_sweep/
 ```
 
-even though raw artifacts were under `/private/tmp`. This happened because Stage
+even though raw artifacts were under `<tmp-dir>`. This happened because Stage
 2 readout surfaces are derived from `repo_root`, not from the raw artifact root.
 Those generated readout-file changes were restored before continuing.
 

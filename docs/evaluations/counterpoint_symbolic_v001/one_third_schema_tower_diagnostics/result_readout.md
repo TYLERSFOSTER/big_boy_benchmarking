@@ -13,9 +13,9 @@
 | Mode | `tower_exploit_explore` |
 | Linearization | `tensor_available_disabled` |
 | Artifact schema | `bbb.v001` |
-| Repo readout surface | `/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics` |
-| Source artifact root | `/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/small_medium_validation_001` |
-| Source evaluation root | `/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/small_medium_validation_001/evaluations/counterpoint_one_third_schema_tower_diagnostics_v001` |
+| Repo readout surface | `<repo-root>/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics` |
+| Source artifact root | `<repo-root>/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/small_medium_validation_001` |
+| Source evaluation root | `<repo-root>/docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts/small_medium_validation_001/evaluations/counterpoint_one_third_schema_tower_diagnostics_v001` |
 
 ## Verdict
 

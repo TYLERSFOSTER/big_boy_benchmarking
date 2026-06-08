@@ -1,5 +1,0 @@
-{
-  "action_mask_policy_id": "counterpoint_legal_action_mask_v001",
-  "raw_action_order": "lexicographic_delta_tuple",
-  "uses_legality_contract_id": "counterpoint_legality_local_v001"
-}

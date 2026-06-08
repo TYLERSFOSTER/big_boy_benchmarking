@@ -1,5 +1,0 @@
-{
-  "artifact_schema_version": "bbb.v001",
-  "description": "Counterpoint noisy-rate full-tower training diagnostic family.",
-  "run_family_id": "counterpoint_symbolic_v001_noisy_rate_full_tower_training_diagnostic_v001"
-}

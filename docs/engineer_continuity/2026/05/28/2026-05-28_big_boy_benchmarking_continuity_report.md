@@ -5,7 +5,7 @@ Created: 2026-05-28
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Current observed state before this report was added:
@@ -80,7 +80,7 @@ The important process rules that shaped this work:
 - execute Phase.Stage.Action items in order;
 - stop on ambiguity, missing prerequisite infrastructure, surprise, or required
   simplification;
-- do not edit upstream `/Users/foster/state_collapser`;
+- do not edit upstream `<state-collapser-repo>`;
 - do not rewrite workplans while implementing them unless the PO explicitly
   approves an amendment;
 - avoid fake completion, especially around tower integration and artifact
@@ -378,7 +378,7 @@ Important corrected reality:
 
 Earlier there was a false blocker involving `pkgutil.walk_packages` not seeing
 some `state_collapser.examples.*` modules. Direct imports worked. The installed
-pinned package is `state_collapser==0.6.0`; the local `/Users/foster/state_collapser`
+pinned package is `state_collapser==0.6.0`; the local `<state-collapser-repo>`
 repo should remain read-only for this work unless explicitly approved.
 
 ## Counterpoint Environment Implementation
@@ -1081,7 +1081,7 @@ Fixture search:
 
 ```bash
 uv run python -m big_boy_benchmarking.cli counterpoint search-fixtures \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --scale tiny
 ```
 
@@ -1089,7 +1089,7 @@ Tiny graph diagnostics:
 
 ```bash
 uv run python -m big_boy_benchmarking.cli counterpoint graph-diagnostics \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --instance-id tiny
 ```
 
@@ -1097,7 +1097,7 @@ Small graph diagnostics:
 
 ```bash
 uv run python -m big_boy_benchmarking.cli counterpoint graph-diagnostics \
-  --artifact-root /private/tmp/bbb-counterpoint-run-small \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run-small \
   --instance-id small
 ```
 
@@ -1105,7 +1105,7 @@ Direct masked-random:
 
 ```bash
 uv run python -m big_boy_benchmarking.cli counterpoint run-direct \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --instance-id tiny \
   --policy masked-random \
   --seed 1 \
@@ -1116,7 +1116,7 @@ Direct tabular-Q:
 
 ```bash
 uv run python -m big_boy_benchmarking.cli counterpoint run-direct \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --instance-id tiny \
   --policy tabular-q \
   --seed 2 \
@@ -1127,7 +1127,7 @@ Schema diagnostics:
 
 ```bash
 uv run python -m big_boy_benchmarking.cli counterpoint schema-diagnostics \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --instance-id tiny \
   --schema-id counterpoint_motion_schema_v001
 ```
@@ -1136,7 +1136,7 @@ Tower smoke:
 
 ```bash
 uv run python -m big_boy_benchmarking.cli counterpoint tower-smoke \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --instance-id tiny \
   --schema-id counterpoint_motion_schema_v001 \
   --seed 2
@@ -1150,25 +1150,25 @@ can overwrite family summaries and append some row files.
 Recent user-run artifact root:
 
 ```text
-/private/tmp/bbb-counterpoint-run
+<tmp-dir>/bbb-counterpoint-run
 ```
 
 Commands run:
 
 ```bash
 uv run python -m big_boy_benchmarking.cli counterpoint graph-diagnostics \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --instance-id tiny
 
 uv run python -m big_boy_benchmarking.cli counterpoint run-direct \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --instance-id tiny \
   --policy masked-random \
   --seed 1 \
   --episodes 1
 
 uv run python -m big_boy_benchmarking.cli counterpoint tower-smoke \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --instance-id tiny \
   --schema-id counterpoint_motion_schema_v001 \
   --seed 2
@@ -1432,7 +1432,7 @@ Questions to resolve:
 - whether tower arms need a true tower policy or only partition-diagnostic
   comparison first;
 - what exact metric table should be generated;
-- whether results should be written under `/private/tmp`, repo `artifacts/`, or
+- whether results should be written under `<tmp-dir>`, repo `artifacts/`, or
   both;
 - whether artifact roots should include timestamp/run-family ids by default.
 
@@ -1590,7 +1590,7 @@ Dependency is pinned in `pyproject.toml` to:
 state-collapser[rl] @ git+https://github.com/TYLERSFOSTER/state_collapser.git@v0.6.0
 ```
 
-Do not silently switch to the dirty local `/Users/foster/state_collapser` repo.
+Do not silently switch to the dirty local `<state-collapser-repo>` repo.
 
 ### Readout Discipline Matters
 

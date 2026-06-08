@@ -142,7 +142,7 @@ docs/design/first_plate_support_environment/standard_gauntlet_suite/07_readout_a
 Then regenerate the parent human-readable readout from the suite source binding:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
 ```
 
 ### Current Whole-Gauntlet Completion Update
@@ -228,7 +228,7 @@ them, revise this workplan before execution.
 - This component implements shared suite architecture only.
 - Do not implement stage-specific diagnostics, schema sweeps, training loops,
   calibration runs, comparison runs, or readout generation in this component.
-- Do not edit `/Users/foster/state_collapser`.
+- Do not edit `<state-collapser-repo>`.
 - Do not write durable artifacts outside the repository evaluation tree.
 - Do not treat environment readiness as an evaluation result.
 - Do not claim tower benefit.

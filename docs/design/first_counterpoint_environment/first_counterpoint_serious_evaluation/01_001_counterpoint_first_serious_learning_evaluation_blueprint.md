@@ -7,7 +7,7 @@ Status: draft blueprint
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Design folder:
@@ -56,11 +56,11 @@ This blueprint follows:
 - `docs/methods/seed_bundles.md`
 - `docs/methods/timing_and_readout_discipline.md`
 - `docs/environments/counterpoint_symbolic_v001.md`
-- `/Users/foster/state_collapser/docs/usage/01_002_tower_runtime_mental_model.md`
-- `/Users/foster/state_collapser/docs/usage/01_003_training_surface_quickstart.md`
-- `/Users/foster/state_collapser/docs/usage/01_004_fiber_conditioned_training.md`
-- `/Users/foster/state_collapser/docs/usage/01_005_using_your_own_training_loop.md`
-- `/Users/foster/state_collapser/docs/usage/01_010_tensorization_boundary.md`
+- `<state-collapser-repo>/docs/usage/01_002_tower_runtime_mental_model.md`
+- `<state-collapser-repo>/docs/usage/01_003_training_surface_quickstart.md`
+- `<state-collapser-repo>/docs/usage/01_004_fiber_conditioned_training.md`
+- `<state-collapser-repo>/docs/usage/01_005_using_your_own_training_loop.md`
+- `<state-collapser-repo>/docs/usage/01_010_tensorization_boundary.md`
 - read-only inspection of current `state_collapser` tower control and training
   surfaces
 
@@ -235,7 +235,7 @@ EXPLOIT_EXECUTE
 ```
 
 The first implementation must bind this regime to counterpoint in BBB. It must
-not edit `/Users/foster/state_collapser` unless the Project Owner explicitly
+not edit `<state-collapser-repo>` unless the Project Owner explicitly
 authorizes upstream work.
 
 ### Decision 6: Direct, Empty-Schema Tower, And Nonempty-Schema Tower Stay Separate
@@ -278,7 +278,7 @@ docs/design/
 
 This blueprint does not authorize:
 
-- editing `/Users/foster/state_collapser`;
+- editing `<state-collapser-repo>`;
 - building a new environment family;
 - changing the counterpoint hidden graph contract;
 - treating `tiny` as serious evidence;
@@ -1071,8 +1071,8 @@ The implementation workplan must stop and report if:
 - active-tier exploit/explore surfaces cannot be bound to the counterpoint
   environment without upstream changes;
 - fiber/lift resolution cannot produce executable primitive actions for
-  counterpoint without changing `/Users/foster/state_collapser`;
-- the implementation would need to edit `/Users/foster/state_collapser`;
+  counterpoint without changing `<state-collapser-repo>`;
+- the implementation would need to edit `<state-collapser-repo>`;
 - compatibility readouts become required in the online hot path without an
   explicit mode declaration;
 - direct and tower arms cannot share the same legality/action-mask contract;

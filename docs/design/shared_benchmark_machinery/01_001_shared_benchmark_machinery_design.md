@@ -21,7 +21,7 @@ This document follows:
 - `docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md`
 - `docs/design/first_counterpoint_environment/01_003_counterpoint_hidden_graph_and_contraction_schema_implementation_workplan.md`
 - `docs/design/first_counterpoint_environment/01_004_counterpoint_hidden_graph_and_contraction_schema_implementation_log.md`
-- Read-only inspection of `/Users/foster/state_collapser` docs and source surfaces
+- Read-only inspection of `<state-collapser-repo>` docs and source surfaces
 
 ## Current Situation
 

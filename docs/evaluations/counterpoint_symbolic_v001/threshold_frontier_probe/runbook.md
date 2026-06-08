@@ -9,5 +9,5 @@ uv run python -m big_boy_benchmarking.cli counterpoint threshold-frontier summar
 Generate human-readable readout:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/readout_source.json
 ```

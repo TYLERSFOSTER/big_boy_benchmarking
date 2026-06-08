@@ -9,7 +9,7 @@ Invariant preflight status: `passed`. Lift failure rows reported in the aggregat
 Artifact root:
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001
+<repo-root>/docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts/v072_pointwise_r013_001
 ```
 
 Locked budget:

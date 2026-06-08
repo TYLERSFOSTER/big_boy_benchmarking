@@ -211,8 +211,18 @@ tempCodeRunnerFile.py
 *.aux
 *.bbl
 *.blg
+*.bcf
+*.fdb_latexmk
+*.fls
+*.lof
+*.lot
+*.nav
 *.out
+*.run.xml
+*.snm
 *.synctex.gz
+*.toc
+*.vrb
 
 # PyPI configuration file
 .pypirc
@@ -228,6 +238,9 @@ artifacts/runs/*/runs/*/*.sqlite
 artifacts/runs/*/runs/*/*.pt
 artifacts/runs/*/runs/*/*.npy
 artifacts/runs/*/runs/*/*.npz
+
+# Local editor / office backup files
+assets/images/.$*.bkp
 
 # Marimo
 marimo/_static/

@@ -319,7 +319,7 @@ mathematical operation; mine names the implementation substrate.
 
 ### Investigation Summary
 
-I inspected `/Users/foster/state_collapser` read-only for the relevant TODOs,
+I inspected `<state-collapser-repo>` read-only for the relevant TODOs,
 docs, and implementation surfaces.
 
 The docs explicitly confirm the gap:
@@ -825,13 +825,13 @@ Research checked:
 - `docs/design/first_infrastructure_slice/01_001_initial_benchmarking_goals_discussion.md`
 - `docs/design/first_infrastructure_slice/01_002_state_collapser_read_only_reconnaissance.md`
 - `src/big_boy_benchmarking/modes/registry.py`
-- `/Users/foster/state_collapser/docs/usage/01_002_tower_runtime_mental_model.md`
-- `/Users/foster/state_collapser/docs/usage/01_003_training_surface_quickstart.md`
-- `/Users/foster/state_collapser/docs/usage/01_004_fiber_conditioned_training.md`
-- `/Users/foster/state_collapser/docs/usage/01_005_using_your_own_training_loop.md`
-- `/Users/foster/state_collapser/src/state_collapser/tower/runtime.py`
-- `/Users/foster/state_collapser/src/state_collapser/tower/control/*`
-- `/Users/foster/state_collapser/src/state_collapser/training/stages.py`
+- `<state-collapser-repo>/docs/usage/01_002_tower_runtime_mental_model.md`
+- `<state-collapser-repo>/docs/usage/01_003_training_surface_quickstart.md`
+- `<state-collapser-repo>/docs/usage/01_004_fiber_conditioned_training.md`
+- `<state-collapser-repo>/docs/usage/01_005_using_your_own_training_loop.md`
+- `<state-collapser-repo>/src/state_collapser/tower/runtime.py`
+- `<state-collapser-repo>/src/state_collapser/tower/control/*`
+- `<state-collapser-repo>/src/state_collapser/training/stages.py`
 
 The prior BBB decision is that the learning matrix must keep three conditions
 separate:
@@ -1078,7 +1078,7 @@ Potential outputs:
 #### PO Turn
 
 ```text
-This is ok, but there's a lot of other shit in docs, which is going to create a confusing sorting issue for users. I like this being in docs, but probably makes sesne in some parent folder within docs.
+This is ok, but there's a lot of other [XXX] in docs, which is going to create a confusing sorting issue for users. I like this being in docs, but probably makes sesne in some parent folder within docs.
 ```
 
 #### Codex Reply
@@ -1171,7 +1171,7 @@ tensor-on comparison is blocked until a tensor-capable architecture exists.
 Tensorization is a blocker. The PO paused this serious counterpoint evaluation
 work and directed work to move to tensorization. The PO requested a root
 `CONTRIBUTING.md` continuity document and an alignment note inside
-`/Users/foster/state_collapser` summarizing the conclusions reached here.
+`<state-collapser-repo>` summarizing the conclusions reached here.
 ```
 
 ### Turn 007 - Codex Reply

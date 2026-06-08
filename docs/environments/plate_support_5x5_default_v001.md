@@ -64,9 +64,9 @@ This environment page may support environment-readiness claims only: import heal
 
 ## Artifacts
 
-- Artifact root: `/Users/foster/big_boy_benchmarking/docs/environments/plate_support_5x5_default_v001/readiness/dev_001`.
-- Artifact index: `/Users/foster/big_boy_benchmarking/docs/environments/plate_support_5x5_default_v001/readiness/dev_001/artifact_index.md`.
-- Readout source: `/Users/foster/big_boy_benchmarking/docs/environments/plate_support_5x5_default_v001/readiness/dev_001/readout_source.json`.
+- Artifact root: `<repo-root>/docs/environments/plate_support_5x5_default_v001/readiness/dev_001`.
+- Artifact index: `<repo-root>/docs/environments/plate_support_5x5_default_v001/readiness/dev_001/artifact_index.md`.
+- Readout source: `<repo-root>/docs/environments/plate_support_5x5_default_v001/readiness/dev_001/readout_source.json`.
 
 Run readiness again with:
 

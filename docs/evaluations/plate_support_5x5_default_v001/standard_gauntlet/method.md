@@ -16,5 +16,5 @@ Stage 4 candidate-training-health table.
 The readout was generated from this explicit source binding:
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
+<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
 ```

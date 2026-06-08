@@ -205,7 +205,7 @@ For this repository's first serious counterpoint evaluation, the normal command
 target is:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/readout_source.json
 ```
 
 Resolve the supplied source binding as follows:
@@ -230,6 +230,30 @@ Resolve the supplied source binding as follows:
    ambiguous. Ask them to run the explicit command against that folder's
    `readout_source.json`.
 
+### Public Release Hygiene Mode
+
+When generating or regenerating readouts for a public beta/release branch,
+apply these extra constraints:
+
+- use repo-relative paths or explicit placeholders such as `<repo-root>`;
+- do not write machine-local absolute paths into public Markdown;
+- if a manifest preserves local provenance, label the field as local
+  provenance and do not make it part of the public command path;
+- use `[XXX]` for public profanity redaction while preserving attribution and
+  meaning;
+- do not invent Project Owner turns or convert consultant-authored text into
+  Project Owner text;
+- do not use ambiguous "last run" or folder-only source inference;
+- write or preserve `artifact_storage` metadata when raw artifacts are stored
+  in release assets instead of git;
+- keep badge labels visually consistent with other public readouts;
+- do not leave unexplained empty placeholder turn pads in public readout
+  READMEs.
+
+If these constraints conflict with a historical open-lab archive, preserve the
+archive's attribution and add a neutral public-release note rather than
+silently rewriting history.
+
 ### Source Binding
 
 Every repo readout surface should have a source binding file:
@@ -251,6 +275,12 @@ It should record at least:
     "aggregate_table": "<path to evaluation_aggregate_table.csv>",
     "run_index": "<path to evaluation_run_index.csv>",
     "learning_curves": "<path to results/learning_curves.csv>"
+  },
+  "artifact_storage": {
+    "mode": "git_tracked_or_github_release_asset",
+    "release_tag": "<release tag when externalized>",
+    "asset_name": "<release asset name when externalized>",
+    "bundle_manifest_path": "<bundle manifest path when externalized>"
   }
 }
 ```
@@ -336,7 +366,7 @@ Write the readable documents into the supplied repo readout surface.
 For example:
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning
+<repo-root>/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning
 ```
 
 Do not write under `docs/results/` unless the Project Owner explicitly asks to
@@ -620,6 +650,20 @@ Consultant / Codex turn pair.
 
 If the section is missing, generate the initial three blank turn pairs shown
 above.
+
+For public release READMEs, do not leave the blank turn pairs visually
+ambiguous. If no actual clarification turns exist, either omit the turn pad or
+write a compact note such as:
+
+```markdown
+## Clarifying Questions And Turns
+
+_No active public clarification turns are recorded for this readout._
+```
+
+If actual turns exist, preserve them under their true attribution headings and
+append new empty slots only when the Project Owner explicitly asks to continue
+conversation in that readout.
 
 If the section exists but contains no complete Project Owner / Evaluator plus
 Embedded Engineering Consultant / Codex turn pair, append the initial three

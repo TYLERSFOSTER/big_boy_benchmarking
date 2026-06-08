@@ -7,7 +7,7 @@ Status: in progress
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Implementation branch:
@@ -149,15 +149,15 @@ Status: complete.
 Read current upstream `state_collapser` surfaces read-only:
 
 ```text
-/Users/foster/state_collapser/src/state_collapser/training/inputs.py
-/Users/foster/state_collapser/src/state_collapser/training/learners.py
-/Users/foster/state_collapser/src/state_collapser/training/transitions.py
-/Users/foster/state_collapser/src/state_collapser/training/stages.py
-/Users/foster/state_collapser/src/state_collapser/tower/runtime.py
-/Users/foster/state_collapser/src/state_collapser/tower/control/controller.py
-/Users/foster/state_collapser/src/state_collapser/tower/control/learner.py
-/Users/foster/state_collapser/src/state_collapser/tower/control/executor.py
-/Users/foster/state_collapser/src/state_collapser/tower/control/active_tier.py
+<state-collapser-repo>/src/state_collapser/training/inputs.py
+<state-collapser-repo>/src/state_collapser/training/learners.py
+<state-collapser-repo>/src/state_collapser/training/transitions.py
+<state-collapser-repo>/src/state_collapser/training/stages.py
+<state-collapser-repo>/src/state_collapser/tower/runtime.py
+<state-collapser-repo>/src/state_collapser/tower/control/controller.py
+<state-collapser-repo>/src/state_collapser/tower/control/learner.py
+<state-collapser-repo>/src/state_collapser/tower/control/executor.py
+<state-collapser-repo>/src/state_collapser/tower/control/active_tier.py
 ```
 
 Also read adjacent control config, signal, frozen-context, transition, and
@@ -1008,13 +1008,13 @@ Status: complete.
 Command run:
 
 ```bash
-uv run python -m big_boy_benchmarking.cli counterpoint serious-learning calibrate --artifact-root /private/tmp/bbb-counterpoint-serious-learning-tiny-smoke --instance-id tiny --episodes 1 --replicates 1 --schema-seeds 1
+uv run python -m big_boy_benchmarking.cli counterpoint serious-learning calibrate --artifact-root <tmp-dir>/bbb-counterpoint-serious-learning-tiny-smoke --instance-id tiny --episodes 1 --replicates 1 --schema-seeds 1
 ```
 
 Outcome:
 
 ```json
-{"arm_count": 7, "artifact_root": "/private/tmp/bbb-counterpoint-serious-learning-tiny-smoke", "calibration_recommendation": "/private/tmp/bbb-counterpoint-serious-learning-tiny-smoke/evaluations/counterpoint_first_serious_learning_v001/calibration_recommendation.md", "calibration_summary": "/private/tmp/bbb-counterpoint-serious-learning-tiny-smoke/evaluations/counterpoint_first_serious_learning_v001/calibration_summary.json", "run_count": 7, "status": "smoke_non_evidence"}
+{"arm_count": 7, "artifact_root": "<tmp-dir>/bbb-counterpoint-serious-learning-tiny-smoke", "calibration_recommendation": "<tmp-dir>/bbb-counterpoint-serious-learning-tiny-smoke/evaluations/counterpoint_first_serious_learning_v001/calibration_recommendation.md", "calibration_summary": "<tmp-dir>/bbb-counterpoint-serious-learning-tiny-smoke/evaluations/counterpoint_first_serious_learning_v001/calibration_summary.json", "run_count": 7, "status": "smoke_non_evidence"}
 ```
 
 Artifact checks:
@@ -1033,13 +1033,13 @@ Status: complete.
 Command run:
 
 ```bash
-uv run python -m big_boy_benchmarking.cli counterpoint serious-learning calibrate --artifact-root /private/tmp/bbb-counterpoint-serious-learning-small-calibration --instance-id small --episodes 1 --replicates 1 --schema-seeds 1
+uv run python -m big_boy_benchmarking.cli counterpoint serious-learning calibrate --artifact-root <tmp-dir>/bbb-counterpoint-serious-learning-small-calibration --instance-id small --episodes 1 --replicates 1 --schema-seeds 1
 ```
 
 Outcome:
 
 ```json
-{"arm_count": 7, "artifact_root": "/private/tmp/bbb-counterpoint-serious-learning-small-calibration", "calibration_recommendation": "/private/tmp/bbb-counterpoint-serious-learning-small-calibration/evaluations/counterpoint_first_serious_learning_v001/calibration_recommendation.md", "calibration_summary": "/private/tmp/bbb-counterpoint-serious-learning-small-calibration/evaluations/counterpoint_first_serious_learning_v001/calibration_summary.json", "run_count": 7, "status": "complete"}
+{"arm_count": 7, "artifact_root": "<tmp-dir>/bbb-counterpoint-serious-learning-small-calibration", "calibration_recommendation": "<tmp-dir>/bbb-counterpoint-serious-learning-small-calibration/evaluations/counterpoint_first_serious_learning_v001/calibration_recommendation.md", "calibration_summary": "<tmp-dir>/bbb-counterpoint-serious-learning-small-calibration/evaluations/counterpoint_first_serious_learning_v001/calibration_summary.json", "run_count": 7, "status": "complete"}
 ```
 
 All seven arms are represented. This one-episode calibration artifact is not

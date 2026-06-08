@@ -4,7 +4,7 @@ Status: initial implementation workplan
 
 Created: 2026-05-28
 
-Repository: `/Users/foster/big_boy_benchmarking`
+Repository: `<repo-root>`
 
 This is a workplan only.
 
@@ -444,7 +444,7 @@ Record actual repository topology before edits.
 Ground-truth files:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Machine action:
@@ -539,7 +539,7 @@ Ground-truth files:
 ```text
 pyproject.toml
 uv.lock
-/Users/foster/state_collapser
+<state-collapser-repo>
 ```
 
 Machine action:
@@ -551,7 +551,7 @@ uv run python -c "import importlib.metadata as m; import state_collapser; print(
 Optional read-only local upstream check if needed:
 
 ```bash
-git -C /Users/foster/state_collapser status --short --branch
+git -C <state-collapser-repo> status --short --branch
 ```
 
 Acceptance:
@@ -1833,7 +1833,7 @@ Ground-truth files:
 
 ```text
 src/big_boy_benchmarking/upstream/
-/Users/foster/state_collapser
+<state-collapser-repo>
 ```
 
 Machine action:
@@ -2558,14 +2558,14 @@ Machine action:
 
 ```bash
 uv run python -m big_boy_benchmarking.cli validate-contracts
-uv run python -m big_boy_benchmarking.cli run-upstream-smoke --smoke-id plate_support_env --artifact-root /private/tmp/bbb-smoke-artifacts
-uv run python -m big_boy_benchmarking.cli run-upstream-smoke --smoke-id rl_counterpoint_v3 --artifact-root /private/tmp/bbb-smoke-artifacts
+uv run python -m big_boy_benchmarking.cli run-upstream-smoke --smoke-id plate_support_env --artifact-root <tmp-dir>/bbb-smoke-artifacts
+uv run python -m big_boy_benchmarking.cli run-upstream-smoke --smoke-id rl_counterpoint_v3 --artifact-root <tmp-dir>/bbb-smoke-artifacts
 ```
 
 Acceptance:
 
 - `validate-contracts` exits successfully;
-- smoke commands write under `/private/tmp/bbb-smoke-artifacts`;
+- smoke commands write under `<tmp-dir>/bbb-smoke-artifacts`;
 - repo artifact pollution does not occur;
 - if a smoke id is unavailable, CLI reports blocked/missing surface clearly and
   exits according to the implemented blocked-status policy;
@@ -2577,7 +2577,7 @@ Tests:
 
 Failure hypotheses:
 
-1. `/private/tmp` may already contain stale smoke artifacts.
+1. `<tmp-dir>` may already contain stale smoke artifacts.
 2. `rl_counterpoint_v3` may not exist in installed upstream.
 3. CLI blocked-status semantics may need owner decision.
 
@@ -2642,7 +2642,7 @@ Ground-truth files:
 ```text
 .gitignore
 artifacts/
-/private/tmp/bbb-smoke-artifacts
+<tmp-dir>/bbb-smoke-artifacts
 ```
 
 Machine action:
@@ -2655,7 +2655,7 @@ Acceptance:
 
 - only intended source, test, docs, and contract files are modified/created;
 - large generated smoke artifacts are not tracked;
-- temporary smoke output lives under `/private/tmp/bbb-smoke-artifacts` unless
+- temporary smoke output lives under `<tmp-dir>/bbb-smoke-artifacts` unless
   owner explicitly approves a curated artifact.
 
 Tests:

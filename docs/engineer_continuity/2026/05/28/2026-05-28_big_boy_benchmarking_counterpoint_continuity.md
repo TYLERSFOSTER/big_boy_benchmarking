@@ -2,7 +2,7 @@
 
 Date: 2026-05-28
 
-Repo: `/Users/foster/big_boy_benchmarking`
+Repo: `<repo-root>`
 
 Current branch at time of writing: `main`
 
@@ -97,8 +97,8 @@ The important behavioral constraints that shaped the repo work:
 - Avoid silent simplification, silent reordering, and "helpful" rewriting of user intent.
 - Use dedicated branches for implementation work.
 - Keep implementation logs.
-- Do not edit `/Users/foster/state_collapser` while doing this work unless explicitly told to.
-- Treat `/Users/foster/state_collapser` as upstream/source context, not as the workspace to mutate.
+- Do not edit `<state-collapser-repo>` while doing this work unless explicitly told to.
+- Treat `<state-collapser-repo>` as upstream/source context, not as the workspace to mutate.
 
 There was a significant alignment correction during the shared machinery design stage. The user objected that a prior design layout was bad and put words in their mouth. The right lesson is now embedded in the repo process: when a doc is meant to hold owner answers, the assistant must not paraphrase those answers as if they were settled owner intent unless the owner actually wrote them or explicitly approved the phrasing. Questions should be visibly separated from assistant proposals and owner replies.
 
@@ -106,8 +106,8 @@ There was a significant alignment correction during the shared machinery design 
 
 This repo exists to benchmark `state_collapser`, especially in more serious settings than ad hoc toy examples. The user asked Codex to read:
 
-- `/Users/foster/state_collapser/docs`
-- root markdown files in `/Users/foster/state_collapser`
+- `<state-collapser-repo>/docs`
+- root markdown files in `<state-collapser-repo>`
 
 That read-only reconnaissance informed the goals here:
 
@@ -118,7 +118,7 @@ That read-only reconnaissance informed the goals here:
 
 Important boundary:
 
-- This repo should not modify `/Users/foster/state_collapser`.
+- This repo should not modify `<state-collapser-repo>`.
 - The installed dependency used during this work is `state_collapser==0.6.0`.
 - The local upstream repo may contain newer or dirty files, but benchmark implementation should not silently switch to that copy.
 
@@ -250,7 +250,7 @@ There was a confusing stop during shared machinery execution:
 ```text
 Blocked because the installed pinned state_collapser==0.6.0 package does not expose
 state_collapser.examples.plate_support_env or state_collapser.examples.rl_counterpoint_v3.
-The local /Users/foster/state_collapser repo does have them, but it is dirty on main,
+The local <state-collapser-repo> repo does have them, but it is dirty on main,
 so I stopped instead of silently changing dependency semantics.
 ```
 
@@ -272,7 +272,7 @@ This correction was recorded in the shared machinery implementation log.
 
 The lasting rule:
 
-- Do not silently switch dependency semantics to `/Users/foster/state_collapser`.
+- Do not silently switch dependency semantics to `<state-collapser-repo>`.
 - But do verify with direct imports before declaring a package surface unavailable.
 
 ## 7. Shared benchmark machinery implemented
@@ -868,7 +868,7 @@ Example command:
 
 ```text
 uv run python -m big_boy_benchmarking.cli counterpoint graph-diagnostics \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --instance-id tiny
 ```
 
@@ -980,7 +980,7 @@ Known CLI:
 
 ```text
 uv run python -m big_boy_benchmarking.cli counterpoint run-direct \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --instance-id tiny \
   --policy masked-random \
   --seed 1 \
@@ -1019,7 +1019,7 @@ Known CLI:
 
 ```text
 uv run python -m big_boy_benchmarking.cli counterpoint tower-smoke \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --instance-id tiny \
   --schema-id counterpoint_motion_schema_v001 \
   --seed 2
@@ -1085,7 +1085,7 @@ Purpose:
 
 ```text
 uv run python -m big_boy_benchmarking.cli counterpoint graph-diagnostics \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --instance-id tiny
 ```
 
@@ -1099,7 +1099,7 @@ Known output:
 
 ```text
 uv run python -m big_boy_benchmarking.cli counterpoint schema-diagnostics \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --instance-id tiny \
   --schema-id counterpoint_motion_schema_v001 \
   --seed 2
@@ -1114,7 +1114,7 @@ Purpose:
 
 ```text
 uv run python -m big_boy_benchmarking.cli counterpoint run-direct \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --instance-id tiny \
   --policy masked-random \
   --seed 1 \
@@ -1134,7 +1134,7 @@ Known output:
 
 ```text
 uv run python -m big_boy_benchmarking.cli counterpoint tower-smoke \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --instance-id tiny \
   --schema-id counterpoint_motion_schema_v001 \
   --seed 2
@@ -1154,16 +1154,16 @@ Known output:
 Known temporary artifact roots:
 
 ```text
-/private/tmp/bbb-counterpoint-phase13-20260528
-/private/tmp/bbb-counterpoint-run
-/private/tmp/bbb-counterpoint-current-check
+<tmp-dir>/bbb-counterpoint-phase13-20260528
+<tmp-dir>/bbb-counterpoint-run
+<tmp-dir>/bbb-counterpoint-current-check
 ```
 
 Purpose:
 
-- `/private/tmp/bbb-counterpoint-phase13-20260528`: full Phase 13 smoke during implementation.
-- `/private/tmp/bbb-counterpoint-run`: user-run examples from terminal.
-- `/private/tmp/bbb-counterpoint-current-check`: sanity check after merge/current-state verification.
+- `<tmp-dir>/bbb-counterpoint-phase13-20260528`: full Phase 13 smoke during implementation.
+- `<tmp-dir>/bbb-counterpoint-run`: user-run examples from terminal.
+- `<tmp-dir>/bbb-counterpoint-current-check`: sanity check after merge/current-state verification.
 
 These are not committed artifacts. They are temp outputs.
 
@@ -1344,7 +1344,7 @@ The benchmark-owned counterpoint environment exists to avoid making serious benc
 
 ### 28.9 Do not edit upstream casually
 
-`/Users/foster/state_collapser` may be dirty and is out of scope for mutation unless explicitly requested.
+`<state-collapser-repo>` may be dirty and is out of scope for mutation unless explicitly requested.
 
 ## 29. What we learned from the user-run commands
 
@@ -1352,7 +1352,7 @@ The user ran:
 
 ```text
 uv run python -m big_boy_benchmarking.cli counterpoint graph-diagnostics \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --instance-id tiny
 ```
 
@@ -1372,7 +1372,7 @@ The user ran:
 
 ```text
 uv run python -m big_boy_benchmarking.cli counterpoint run-direct \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --instance-id tiny \
   --policy masked-random \
   --seed 1 \
@@ -1396,7 +1396,7 @@ The user ran:
 
 ```text
 uv run python -m big_boy_benchmarking.cli counterpoint tower-smoke \
-  --artifact-root /private/tmp/bbb-counterpoint-run \
+  --artifact-root <tmp-dir>/bbb-counterpoint-run \
   --instance-id tiny \
   --schema-id counterpoint_motion_schema_v001 \
   --seed 2
@@ -1501,7 +1501,7 @@ small fixed seed bundle set, e.g. 5 to 10 seeds first
 Outputs:
 
 ```text
-artifact root under /private/tmp or user-specified path
+artifact root under <tmp-dir> or user-specified path
 machine-readable summaries
 docs/results markdown summary
 ```
@@ -1519,8 +1519,8 @@ Do not:
 
 - Claim serious benchmark results from tiny smoke.
 - Reuse an artifact root for clean comparisons without understanding overwrite/append behavior.
-- Silently point dependency imports at `/Users/foster/state_collapser`.
-- Edit `/Users/foster/state_collapser` unless explicitly asked.
+- Silently point dependency imports at `<state-collapser-repo>`.
+- Edit `<state-collapser-repo>` unless explicitly asked.
 - Treat projection audit as an online schema by default.
 - Remove the Phase.Stage.Action discipline from implementation plans.
 - Rewrite owner answers in design docs as if they were assistant-authored conclusions.
@@ -1542,18 +1542,18 @@ Then run a tiny smoke if needed:
 
 ```text
 uv run python -m big_boy_benchmarking.cli counterpoint graph-diagnostics \
-  --artifact-root /private/tmp/bbb-counterpoint-resume-check \
+  --artifact-root <tmp-dir>/bbb-counterpoint-resume-check \
   --instance-id tiny
 
 uv run python -m big_boy_benchmarking.cli counterpoint run-direct \
-  --artifact-root /private/tmp/bbb-counterpoint-resume-check \
+  --artifact-root <tmp-dir>/bbb-counterpoint-resume-check \
   --instance-id tiny \
   --policy masked-random \
   --seed 1 \
   --episodes 1
 
 uv run python -m big_boy_benchmarking.cli counterpoint tower-smoke \
-  --artifact-root /private/tmp/bbb-counterpoint-resume-check \
+  --artifact-root <tmp-dir>/bbb-counterpoint-resume-check \
   --instance-id tiny \
   --schema-id counterpoint_motion_schema_v001 \
   --seed 2

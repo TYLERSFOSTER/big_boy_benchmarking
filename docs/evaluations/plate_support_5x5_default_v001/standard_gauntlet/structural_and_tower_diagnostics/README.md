@@ -10,9 +10,9 @@ or flat-versus-tower comparison success.
 
 ## Machine Evidence
 
-- Stage artifact root: `/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics`
-- Suite artifact root: `/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001`
-- Readout source: `/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/readout_source.json`
+- Stage artifact root: `<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/structural_and_tower_diagnostics`
+- Suite artifact root: `<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001`
+- Readout source: `<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/structural_and_tower_diagnostics/readout_source.json`
 
 ## Claim Boundary
 

@@ -1,5 +1,19 @@
 # Artifact Index
 
+## Public Beta Artifact Storage
+
+Raw event-level traces and generated run trees referenced below are not tracked in git for the public beta. They are preserved in the release asset bundle:
+
+- Mode: `github_release_asset`
+- Release tag target: `v0.1.0-beta.1`
+- Asset: `big_boy_calibration_smoke_v0.1.0-beta.1_artifacts.tar.zst`
+- Manifest: `docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_MANIFEST.json`
+- File index: `docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_FILE_INDEX.csv`
+- Checksums: `docs/design/beta_public_release/release_asset_manifests/SHA256SUMS.txt`
+
+Paths containing `artifacts/` are bundle-relative raw artifact paths. Human-readable reports, compact summaries, badges, methods, runbooks, and these artifact indexes remain in git.
+
+
 ## Source Binding
 
 | File | Purpose |

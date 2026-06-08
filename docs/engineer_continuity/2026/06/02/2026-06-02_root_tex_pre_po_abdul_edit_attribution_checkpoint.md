@@ -5,7 +5,7 @@ Date: 2026-06-02
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Root TeX document:

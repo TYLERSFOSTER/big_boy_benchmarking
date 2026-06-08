@@ -459,10 +459,7 @@ def _turn_section_for_regeneration(readme_path: Path) -> str:
             return text[text.index(marker) :].rstrip() + "\n"
     return (
         "## Clarifying Questions And Turns\n\n"
-        "### Evaluator Turn 1\n\n"
-        "_Open._\n\n"
-        "### Codex Turn 1\n\n"
-        "_Open._\n"
+        "_No active public clarification turns are recorded for this readout._\n"
     )
 
 

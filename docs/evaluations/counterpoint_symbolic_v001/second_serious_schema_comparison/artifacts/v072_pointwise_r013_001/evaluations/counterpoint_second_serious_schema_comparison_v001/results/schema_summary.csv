@@ -1,3 +1,0 @@
-schema_class_id,run_count,sustained_hit_count,sustained_hit_rate,median_episodes_to_sustained_hit
-schema0_no_contraction,1,1,1.0,5
-schema1_noisy_rate_one_drop,1,1,1.0,5

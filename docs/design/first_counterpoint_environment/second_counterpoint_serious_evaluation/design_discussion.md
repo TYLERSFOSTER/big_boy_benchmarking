@@ -5,7 +5,7 @@ Date opened: 2026-06-03
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Environment:

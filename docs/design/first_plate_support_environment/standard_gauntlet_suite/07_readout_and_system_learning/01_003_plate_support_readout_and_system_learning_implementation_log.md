@@ -134,8 +134,8 @@ Validation:
 ```text
 uv run ruff check src/big_boy_benchmarking/environments/plate_support/standard_gauntlet/readout_system_learning --fix
 uv run ruff check src/big_boy_benchmarking/environments/plate_support/standard_gauntlet/readout_system_learning src/big_boy_benchmarking/cli/main.py --select F401,F821,F822,F823
-uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet readout inspect --readout-source /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
-uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet readout build --readout-source /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
+uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet readout inspect --readout-source <repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
+uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet readout build --readout-source <repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
 uv run pytest tests/environments/plate_support/test_standard_gauntlet_paired_replicate_comparison.py tests/environments/plate_support/test_standard_gauntlet_readout_system_learning.py
 uv run pytest tests/environments/plate_support/test_standard_gauntlet_*.py
 ```
@@ -158,7 +158,7 @@ Those issues were corrected so future Stage 7 regenerations:
 Validation after the correction:
 
 ```text
-uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet readout build --readout-source /Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
+uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet readout build --readout-source <repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json
 uv run pytest tests/environments/plate_support/test_standard_gauntlet_readout_system_learning.py
 uv run pytest tests/environments/plate_support/test_standard_gauntlet_*.py
 uv run ruff check src/big_boy_benchmarking/environments/plate_support/standard_gauntlet/paired_replicate_comparison src/big_boy_benchmarking/environments/plate_support/standard_gauntlet/readout_system_learning src/big_boy_benchmarking/environments/plate_support/standard_gauntlet/status.py src/big_boy_benchmarking/cli/main.py --select F401,F821,F822,F823

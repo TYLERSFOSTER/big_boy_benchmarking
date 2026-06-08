@@ -74,13 +74,13 @@ This readout may support only a bounded single-candidate paired-seed pattern und
 To regenerate the human-readable readout, run:
 
 ```text
-execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at /Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at <repo-root>/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/readout_source.json
 ```
 
 Source artifact root:
 
 ```text
-/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/episodes16_from_frontier_001
+<repo-root>/docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts/episodes16_from_frontier_001
 ```
 
 ## Clarifying Questions And Turns
@@ -100,19 +100,3 @@ Source artifact root:
 > `S1 Margin Wins: 0` is downstream from that blockage. A Schema 1 margin win requires an unblocked pair with a valid post-hit comparison window. Since there are zero unblocked pairs, the readout has no legal post-hit margin comparison to count. So `0` here should not be read as "Schema 1 failed to beat Schema 0." It means "the margin question was not adjudicated in this smoke run."
 >
 > My current interpretation: the orange badges are doing the right thing. They warn that this readout validates the plumbing and provenance of the small paired replicate probe, but does not yet evaluate the intended learning claim. For a meaningful version, we need a non-smoke artifact root with enough episodes to support the persistence window, and probably multiple matched seed bundles so `Unblocked` and `S1 Margin Wins` become real distributional summaries rather than single-pair smoke indicators.
-
-#### Project Owner / Evaluator Turn
-
-> ...
-
-#### Embedded Engineering Consultant / Codex Turn
-
-> ...
-
-#### Project Owner / Evaluator Turn
-
-> ...
-
-#### Embedded Engineering Consultant / Codex Turn
-
-> ...

@@ -1,0 +1,93 @@
+{
+  "release_tag": "v0.1.0-beta.1",
+  "repository_commit": "063db017da4dbe2e831c469f0455264ef79d0b1e",
+  "state_collapser_version": "0.7.2",
+  "asset_name": "big_boy_calibration_smoke_v0.1.0-beta.1_artifacts.tar.zst",
+  "asset_format": "tar.zst",
+  "bundle_path": "dist/release-assets/v0.1.0-beta.1/big_boy_calibration_smoke_v0.1.0-beta.1_artifacts.tar.zst",
+  "bundle_sha256": "b0fd6be1d30abaad25d5a02a308a44d6f52e3ac409c99f735150d408b94d4090",
+  "artifact_file_index": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_FILE_INDEX.csv",
+  "artifact_roots": [
+    {
+      "source_evaluation_family": "docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics",
+      "artifact_role": "raw_evaluation_artifact_tree",
+      "original_repo_relative_path": "docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts",
+      "bundle_relative_path": "docs/evaluations/counterpoint_symbolic_v001/contraction_fraction_sweep_diagnostics/artifacts",
+      "byte_count": 580451,
+      "file_count": 78,
+      "tree_sha256": "e8e27c1a122f411c676b7fddf181c64ec3d8859b35bf16aa5e05b6f6dbe2bb06"
+    },
+    {
+      "source_evaluation_family": "docs/evaluations/counterpoint_symbolic_v001/first_serious_learning",
+      "artifact_role": "raw_evaluation_artifact_tree",
+      "original_repo_relative_path": "docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts",
+      "bundle_relative_path": "docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts",
+      "byte_count": 17076571,
+      "file_count": 671,
+      "tree_sha256": "c95230e5df8e3d662bc829858b12419a2402f8483164bf4cf6254608881a6e31"
+    },
+    {
+      "source_evaluation_family": "docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics",
+      "artifact_role": "raw_evaluation_artifact_tree",
+      "original_repo_relative_path": "docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts",
+      "bundle_relative_path": "docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts",
+      "byte_count": 29713240,
+      "file_count": 349,
+      "tree_sha256": "19fb34eafd8c2867786cee8597693cdfc42a451eb5a9977e9b2aa85b75d0dcfa"
+    },
+    {
+      "source_evaluation_family": "docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic",
+      "artifact_role": "raw_evaluation_artifact_tree",
+      "original_repo_relative_path": "docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts",
+      "bundle_relative_path": "docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts",
+      "byte_count": 15817629,
+      "file_count": 314,
+      "tree_sha256": "1bf03107d63018f137f9461b01da6350d459e60d971cb1e1a697cc13c31ed49f"
+    },
+    {
+      "source_evaluation_family": "docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics",
+      "artifact_role": "raw_evaluation_artifact_tree",
+      "original_repo_relative_path": "docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts",
+      "bundle_relative_path": "docs/evaluations/counterpoint_symbolic_v001/one_third_schema_tower_diagnostics/artifacts",
+      "byte_count": 36477420,
+      "file_count": 962,
+      "tree_sha256": "03a5a0912b50e6f931dd861ac39533e9a788f0addc695a065f93d2748ba25992"
+    },
+    {
+      "source_evaluation_family": "docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison",
+      "artifact_role": "raw_evaluation_artifact_tree",
+      "original_repo_relative_path": "docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts",
+      "bundle_relative_path": "docs/evaluations/counterpoint_symbolic_v001/second_serious_schema_comparison/artifacts",
+      "byte_count": 74079263,
+      "file_count": 732,
+      "tree_sha256": "824a6817b8bd8c330b8a6217fb215b5c9c9b3b329932eb7e6bf0add8d23b7dc2"
+    },
+    {
+      "source_evaluation_family": "docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe",
+      "artifact_role": "raw_evaluation_artifact_tree",
+      "original_repo_relative_path": "docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts",
+      "bundle_relative_path": "docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/artifacts",
+      "byte_count": 43273731,
+      "file_count": 172,
+      "tree_sha256": "c8af256dde66b95703dd1d9e3eb6a9f7502c4bac5b3a94ae3071b5edb855e633"
+    },
+    {
+      "source_evaluation_family": "docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe",
+      "artifact_role": "raw_evaluation_artifact_tree",
+      "original_repo_relative_path": "docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts",
+      "bundle_relative_path": "docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/artifacts",
+      "byte_count": 86650045,
+      "file_count": 418,
+      "tree_sha256": "956078e49543466d33048798313381f267eeb95a6c4ac38142adbb36508ce7f3"
+    },
+    {
+      "source_evaluation_family": "docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet",
+      "artifact_role": "raw_evaluation_artifact_tree",
+      "original_repo_relative_path": "docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts",
+      "bundle_relative_path": "docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts",
+      "byte_count": 96635892,
+      "file_count": 511,
+      "tree_sha256": "c5f52520476a01a5a7d873924b3a754b5bef4f2f5632ef8444789bd3c7540078"
+    }
+  ]
+}

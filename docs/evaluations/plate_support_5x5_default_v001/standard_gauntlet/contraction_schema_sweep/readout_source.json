@@ -17,20 +17,20 @@
     "expected_absent_is_gap": [],
     "not_applicable": [],
     "required": [
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/schema_arm_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/schema_construction_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/schema_selection_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/tower_shape_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/tier_occupancy_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/tier_executability_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/endpoint_coalescence_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/collapse_diagnostic_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/schema_candidate_signal_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/timing_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/downstream_candidate_input_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/iterated_plan_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/iterated_schema_stop_summary.csv",
-      "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/many_tier_candidate_signal_summary.csv"
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/schema_arm_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/schema_construction_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/schema_selection_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/tower_shape_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/tier_occupancy_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/tier_executability_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/endpoint_coalescence_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/collapse_diagnostic_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/schema_candidate_signal_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/timing_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/downstream_candidate_input_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/iterated_plan_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/iterated_schema_stop_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/many_tier_candidate_signal_summary.csv"
     ]
   },
   "goal_criteria": [
@@ -46,33 +46,33 @@
   ],
   "goal_summary_sources": [
     "docs/design/first_plate_support_environment/standard_gauntlet_suite/02_contraction_schema_sweep/01_001_plate_support_contraction_schema_sweep_blueprint.md",
-    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/contraction_schema_sweep/method.md"
+    "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/contraction_schema_sweep/method.md"
   ],
   "methodology_summary_sources": [
     "docs/design/first_plate_support_environment/standard_gauntlet_suite/02_contraction_schema_sweep/01_001_plate_support_contraction_schema_sweep_blueprint.md",
-    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/contraction_schema_sweep/method.md",
-    "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/contraction_schema_sweep/runbook.md"
+    "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/contraction_schema_sweep/method.md",
+    "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/contraction_schema_sweep/runbook.md"
   ],
-  "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/contraction_schema_sweep",
+  "repo_readout_surface": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/contraction_schema_sweep",
   "run_mode": "stage2_schema_sweep",
-  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep",
+  "source_artifact_root": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep",
   "source_binding_type": "evaluation_readout_source",
-  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep",
+  "source_evaluation_root": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep",
   "source_files": {
-    "collapse_diagnostic_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/collapse_diagnostic_summary.csv",
-    "downstream_candidate_input_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/downstream_candidate_input_summary.csv",
-    "endpoint_coalescence_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/endpoint_coalescence_summary.csv",
-    "iterated_plan_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/iterated_plan_summary.csv",
-    "iterated_schema_stop_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/iterated_schema_stop_summary.csv",
-    "many_tier_candidate_signal_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/many_tier_candidate_signal_summary.csv",
-    "schema_arm_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/schema_arm_summary.csv",
-    "schema_candidate_signal_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/schema_candidate_signal_summary.csv",
-    "schema_construction_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/schema_construction_summary.csv",
-    "schema_selection_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/schema_selection_summary.csv",
-    "tier_executability_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/tier_executability_summary.csv",
-    "tier_occupancy_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/tier_occupancy_summary.csv",
-    "timing_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/timing_summary.csv",
-    "tower_shape_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/tower_shape_summary.csv"
+    "collapse_diagnostic_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/collapse_diagnostic_summary.csv",
+    "downstream_candidate_input_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/downstream_candidate_input_summary.csv",
+    "endpoint_coalescence_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/endpoint_coalescence_summary.csv",
+    "iterated_plan_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/iterated_plan_summary.csv",
+    "iterated_schema_stop_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/iterated_schema_stop_summary.csv",
+    "many_tier_candidate_signal_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/many_tier_candidate_signal_summary.csv",
+    "schema_arm_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/schema_arm_summary.csv",
+    "schema_candidate_signal_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/schema_candidate_signal_summary.csv",
+    "schema_construction_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/schema_construction_summary.csv",
+    "schema_selection_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/schema_selection_summary.csv",
+    "tier_executability_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/tier_executability_summary.csv",
+    "tier_occupancy_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/tier_occupancy_summary.csv",
+    "timing_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/timing_summary.csv",
+    "tower_shape_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/artifacts/iterated_001/stages/contraction_schema_sweep/results/tower_shape_summary.csv"
   },
   "structural_limit_checks": [
     {
@@ -81,5 +81,15 @@
       "interpretation_if_triggered": "The current upstream API cannot honestly represent that schema family.",
       "trigger": "schema_construction_summary.csv construction_status is not_supported"
     }
-  ]
+  ],
+  "artifact_storage": {
+    "mode": "github_release_asset",
+    "release_tag": "v0.1.0-beta.1",
+    "asset_name": "big_boy_calibration_smoke_v0.1.0-beta.1_artifacts.tar.zst",
+    "bundle_manifest_path": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_MANIFEST.json",
+    "bundle_file_index_path": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_FILE_INDEX.csv",
+    "bundle_checksums_path": "docs/design/beta_public_release/release_asset_manifests/SHA256SUMS.txt",
+    "bundle_readme_path": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_README.md",
+    "path_semantics": "paths under artifacts/ are bundle-relative raw artifact paths for public beta, not tracked git files"
+  }
 }

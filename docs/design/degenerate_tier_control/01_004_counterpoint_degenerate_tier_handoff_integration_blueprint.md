@@ -7,7 +7,7 @@ Status: corrective rewrite, draft blueprint
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Design folder:
@@ -117,7 +117,7 @@ This blueprint does not change reward design.
 
 This blueprint does not add a new learner family.
 
-This blueprint does not edit `/Users/foster/state_collapser`.
+This blueprint does not edit `<state-collapser-repo>`.
 
 This blueprint does not claim tower advantage.
 

@@ -26,7 +26,7 @@ This blueprint is derived from:
 - `docs/prime_directive/common_failure_mode_004_false_attribution_and_invented_project_owner_turns.md`;
 - local BBB shared benchmark machinery under `src/big_boy_benchmarking`;
 - upstream `state_collapser.examples.plate_support_env`;
-- upstream PlateSupport tests under `/Users/foster/state_collapser/tests/examples`;
+- upstream PlateSupport tests under `<state-collapser-repo>/tests/examples`;
 - upstream `state_collapser.examples.tower_depth_probe`;
 - BBB upstream smoke adapter and runner.
 
@@ -540,7 +540,7 @@ Stop condition:
 
 If current installed `state_collapser` lacks required PlateSupport surfaces,
 implementation should stop and report dependency mismatch. It should not silently
-fall back to local `/Users/foster/state_collapser` imports.
+fall back to local `<state-collapser-repo>` imports.
 
 ### `types.py`
 
@@ -1427,7 +1427,7 @@ All manual code/doc edits should use `apply_patch`.
 
 ### Do Not Modify Upstream
 
-This implementation should not edit `/Users/foster/state_collapser`.
+This implementation should not edit `<state-collapser-repo>`.
 
 If the installed upstream surface is missing required behavior, stop and report
 the dependency issue.

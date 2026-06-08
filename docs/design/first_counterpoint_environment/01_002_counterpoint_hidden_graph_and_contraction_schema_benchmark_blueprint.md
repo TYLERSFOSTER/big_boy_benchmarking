@@ -23,8 +23,8 @@ This blueprint follows:
 - `docs/design/first_infrastructure_slice/01_003_benchmark_system_and_artifact_contract_blueprint.md`
 - `docs/design/first_infrastructure_slice/01_004_benchmark_system_artifact_contract_implementation_workplan.md`
 - `docs/design/first_counterpoint_environment/01_001_counterpoint_environment_design_discussion.md`
-- Read-only inspection of `/Users/foster/state_collapser/docs`
-- Read-only inspection of root `*.md` docs in `/Users/foster/state_collapser`
+- Read-only inspection of `<state-collapser-repo>/docs`
+- Read-only inspection of root `*.md` docs in `<state-collapser-repo>`
 - Read-only inspection of the existing `state_collapser` counterpoint smoker shape
 - Read-only memory of the old `rl_counterpoint` tower/projection discussions, without treating that old code as the primary baseline
 
@@ -93,7 +93,7 @@ But the benchmark should be built around the present `state_collapser` idea:
 
 This first blueprint does not authorize:
 
-- editing `/Users/foster/state_collapser`,
+- editing `<state-collapser-repo>`,
 - importing the old `rl_counterpoint` implementation as the benchmark core,
 - implementing a full music-theory engine,
 - relying on human-listenable MIDI as primary evidence,

@@ -112,31 +112,31 @@
     "docs/design/system_learning_from_evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic/02_counterpoint_noisy_rate_full_tower_training_diagnostic_implementation_workplan.md",
     "docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md"
   ],
-  "parent_readout_source": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json",
-  "parent_source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001",
-  "repo_readout_surface": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic",
+  "parent_readout_source": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/readout_source.json",
+  "parent_source_evaluation_root": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_contraction_diagnostics/artifacts/wide_span18_p001_over018_s0_001/evaluations/counterpoint_noisy_rate_contraction_diagnostics_v001",
+  "repo_readout_surface": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic",
   "run_mode": "diagnostic_noisy_rate_full_tower_training",
-  "source_artifact_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001",
-  "source_evaluation_root": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001",
+  "source_artifact_root": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001",
+  "source_evaluation_root": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001",
   "source_files": {
-    "abc_selection_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/abc_selection_summary.csv",
-    "abc_tier_signal_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/abc_tier_signal_summary.csv",
-    "aggregate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/evaluation_aggregate_summary.json",
-    "aggregate_table": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/evaluation_aggregate_table.csv",
-    "candidate_manifest": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/candidate_manifest.json",
-    "candidate_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/candidate_summary.csv",
-    "concrete_step_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/concrete_step_summary.csv",
-    "controller_action_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/controller_action_summary.csv",
-    "learner_update_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/learner_update_summary.csv",
-    "lift_failure_by_tier": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/lift_failure_by_tier.csv",
-    "lift_success_by_tier": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/lift_success_by_tier.csv",
-    "run_index": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/evaluation_run_index.csv",
-    "tier_executability_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/tier_executability_summary.csv",
-    "tier_occupancy_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/tier_occupancy_summary.csv",
-    "tower_shape_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/tower_shape_summary.csv",
-    "training_curve_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/training_curve_summary.csv",
-    "training_episode_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/training_episode_summary.csv",
-    "training_health_summary": "/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/training_health_summary.csv"
+    "abc_selection_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/abc_selection_summary.csv",
+    "abc_tier_signal_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/abc_tier_signal_summary.csv",
+    "aggregate_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/evaluation_aggregate_summary.json",
+    "aggregate_table": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/evaluation_aggregate_table.csv",
+    "candidate_manifest": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/candidate_manifest.json",
+    "candidate_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/candidate_summary.csv",
+    "concrete_step_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/concrete_step_summary.csv",
+    "controller_action_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/controller_action_summary.csv",
+    "learner_update_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/learner_update_summary.csv",
+    "lift_failure_by_tier": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/lift_failure_by_tier.csv",
+    "lift_success_by_tier": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/lift_success_by_tier.csv",
+    "run_index": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/evaluation_run_index.csv",
+    "tier_executability_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/tier_executability_summary.csv",
+    "tier_occupancy_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/tier_occupancy_summary.csv",
+    "tower_shape_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/tower_shape_summary.csv",
+    "training_curve_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/training_curve_summary.csv",
+    "training_episode_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/training_episode_summary.csv",
+    "training_health_summary": "<repo-root>/docs/evaluations/counterpoint_symbolic_v001/noisy_rate_full_tower_training_diagnostic/artifacts/v072_pointwise_001/evaluations/counterpoint_noisy_rate_full_tower_training_diagnostic_v001/results/training_health_summary.csv"
   },
   "structural_limit_checks": [
     {
@@ -163,5 +163,15 @@
       "interpretation_if_triggered": "The controller selected a tier with no live actions.",
       "trigger": "selected_tier_non_executability_count > 0"
     }
-  ]
+  ],
+  "artifact_storage": {
+    "mode": "github_release_asset",
+    "release_tag": "v0.1.0-beta.1",
+    "asset_name": "big_boy_calibration_smoke_v0.1.0-beta.1_artifacts.tar.zst",
+    "bundle_manifest_path": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_MANIFEST.json",
+    "bundle_file_index_path": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_FILE_INDEX.csv",
+    "bundle_checksums_path": "docs/design/beta_public_release/release_asset_manifests/SHA256SUMS.txt",
+    "bundle_readme_path": "docs/design/beta_public_release/release_asset_manifests/ARTIFACT_BUNDLE_README.md",
+    "path_semantics": "paths under artifacts/ are bundle-relative raw artifact paths for public beta, not tracked git files"
+  }
 }

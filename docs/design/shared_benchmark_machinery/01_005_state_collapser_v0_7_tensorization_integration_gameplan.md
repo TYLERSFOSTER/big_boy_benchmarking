@@ -7,7 +7,7 @@ Status: implementation workplan, not yet executed
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 ## Purpose
@@ -58,9 +58,9 @@ This workplan follows:
 - `docs/design/shared_benchmark_machinery/01_003_shared_benchmark_machinery_implementation_log.md`
 - `docs/design/shared_benchmark_machinery/01_004_state_collapser_tensorization_resume_note.md`
 - `docs/design/first_counterpoint_environment/first_counterpoint_serious_evaluation/design_discussion.md`
-- `/Users/foster/state_collapser/docs/usage/01_010_tensorization_boundary.md`
-- `/Users/foster/state_collapser/docs/design/tensorization/01_004_tensorization_implementation_log.md`
-- `/Users/foster/state_collapser/docs/engineer_continuity/2026/05/29/01_013_log_tropical_tensorization_and_hgraphml_followup.md`
+- `<state-collapser-repo>/docs/usage/01_010_tensorization_boundary.md`
+- `<state-collapser-repo>/docs/design/tensorization/01_004_tensorization_implementation_log.md`
+- `<state-collapser-repo>/docs/engineer_continuity/2026/05/29/01_013_log_tropical_tensorization_and_hgraphml_followup.md`
 
 ## Current Reality Bound By This Plan
 
@@ -89,7 +89,7 @@ ImportError
 state_collapser.__version__ = 0.6.0
 ```
 
-Upstream `/Users/foster/state_collapser` now exposes the required tensorization
+Upstream `<state-collapser-repo>` now exposes the required tensorization
 surface in release `v0.7.0`.
 
 ## Fixed Decisions For This Workplan
@@ -105,7 +105,7 @@ Pin BBB to:
 state-collapser[rl] @ git+https://github.com/TYLERSFOSTER/state_collapser.git@v0.7.0
 ```
 
-Do not use a local editable `/Users/foster/state_collapser` dependency for this
+Do not use a local editable `<state-collapser-repo>` dependency for this
 integration.
 
 ### Tensorization Axis
@@ -237,7 +237,7 @@ Stop and ask the Project Owner if:
 - the `v0.7.0` tag does not resolve;
 - changing the lockfile requires network access that fails under sandboxing;
 - the current branch or git status diverges from this workplan's assumptions;
-- an implementation action requires editing `/Users/foster/state_collapser`;
+- an implementation action requires editing `<state-collapser-repo>`;
 - a source action would require reinterpreting tensorization as the existing
   execution-mode axis;
 - the existing smoke runners cannot be updated without changing their public CLI
@@ -515,7 +515,7 @@ Update dependency-state tests.
 Acceptance criteria:
 
 - dependency-state `to_dict()` includes the new fields;
-- tests do not require a local `/Users/foster/state_collapser` checkout;
+- tests do not require a local `<state-collapser-repo>` checkout;
 - tests pass with installed `v0.7.0`.
 
 ## Phase 3: Linearization Mode Contracts
@@ -1048,7 +1048,7 @@ Acceptance criteria:
 
 #### Action 11.3.1
 
-Run counterpoint direct smoke into `/private/tmp`.
+Run counterpoint direct smoke into `<tmp-dir>`.
 
 Acceptance criteria:
 
@@ -1058,7 +1058,7 @@ Acceptance criteria:
 
 #### Action 11.3.2
 
-Run counterpoint tower smoke into `/private/tmp`.
+Run counterpoint tower smoke into `<tmp-dir>`.
 
 Acceptance criteria:
 

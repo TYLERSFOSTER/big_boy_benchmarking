@@ -1,2 +1,0 @@
-evaluation_id,run_mode,pair_count,unblocked_pair_count,schema1_faster_pair_count,schema1_slower_pair_count,same_status_pair_count,blocked_pair_count,claim_status,bounded_claim_text
-counterpoint_second_serious_schema_comparison_v001,smoke_schema_comparison_first_sustained_hit,1,0,0,0,0,1,claim_blocked,All pairs are blocked or non-sustained; no speed-to-hit claim is supported.

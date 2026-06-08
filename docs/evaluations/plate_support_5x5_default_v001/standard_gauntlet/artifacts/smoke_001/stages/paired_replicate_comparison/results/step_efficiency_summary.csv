@@ -1,3 +1,0 @@
-arm_id,episode_count,mean_step_count,mean_steps_per_target_hit
-plate_support_direct_concrete_baseline,128,47.0078125,401.1333333333333
-plate_support_selected_tower_candidate:plate_support_candidate:source_local_ratio:0:342448ef2e,128,49.25,1050.6666666666667

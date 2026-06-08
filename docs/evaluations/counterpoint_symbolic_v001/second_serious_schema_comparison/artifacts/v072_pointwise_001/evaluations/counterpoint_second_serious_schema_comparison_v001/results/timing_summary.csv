@@ -1,3 +1,0 @@
-run_id,schema_class_id,timing_summary
-counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0-schema0_no_contraction-trainrep0,schema0_no_contraction,"{""algorithm_online"": 11.174444969277829, ""linearization_setup"": 0.9208737500011921, ""total"": 12.095318719279021}"
-counterpoint_symbolic_n3_wide_20_108_span18_v001-p001_over_018-schema0-schema1_noisy_rate_one_drop-trainrep0,schema1_noisy_rate_one_drop,"{""algorithm_online"": 261.9022235891316, ""linearization_setup"": 0.49190512497443706, ""total"": 262.39412871410605}"

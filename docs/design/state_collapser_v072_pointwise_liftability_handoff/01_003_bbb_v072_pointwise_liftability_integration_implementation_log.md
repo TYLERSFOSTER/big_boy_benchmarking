@@ -5,7 +5,7 @@ Date started: 2026-06-05
 Repository:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Source blueprint:
@@ -139,10 +139,10 @@ docs/design/state_collapser_v072_pointwise_liftability_handoff/01_002_bbb_v072_p
 - Phase 7. Stage 0. Action 3: completed as written. Ruff passed on touched
   Python files.
 - Phase 8. Stage 0. Action 1: completed as written with one repo-guard
-  correction. Graph diagnostics smoke passed in `/private/tmp`; second-serious
-  `/private/tmp` smoke was correctly rejected because that runner requires
+  correction. Graph diagnostics smoke passed in `<tmp-dir>`; second-serious
+  `<tmp-dir>` smoke was correctly rejected because that runner requires
   repo-resident artifact roots; fallback serious-learning tower-control smoke
-  passed in `/private/tmp`.
+  passed in `<tmp-dir>`.
 - Phase 8. Stage 1. Action 1: blocked with Project Owner guidance needed.
   The configured parent candidate readout source contains one eligible
   `wide_span18` candidate and zero eligible `medium` candidates, so the
@@ -260,15 +260,15 @@ uv run python -c 'import state_collapser; print(state_collapser.__version__)'
 Smoke:
 
 ```text
-uv run python -m big_boy_benchmarking.cli counterpoint graph-diagnostics --artifact-root /private/tmp/bbb-v072-pointwise-smoke --instance-id tiny
+uv run python -m big_boy_benchmarking.cli counterpoint graph-diagnostics --artifact-root <tmp-dir>/bbb-v072-pointwise-smoke --instance-id tiny
 {"artifact_count": 10, "edge_count": 16, "state_count": 8, "status": "ok"}
 ```
 
 Second-serious smoke attempts:
 
 ```text
-uv run python -m big_boy_benchmarking.cli counterpoint second-serious-comparison run --artifact-root /private/tmp/bbb-v072-pointwise-second-smoke ...
-ValueError: path must be repo-resident under /Users/foster/big_boy_benchmarking; got /private/tmp/bbb-v072-pointwise-second-smoke
+uv run python -m big_boy_benchmarking.cli counterpoint second-serious-comparison run --artifact-root <tmp-dir>/bbb-v072-pointwise-second-smoke ...
+ValueError: path must be repo-resident under <repo-root>; got <tmp-dir>/bbb-v072-pointwise-second-smoke
 ```
 
 ```text
@@ -293,8 +293,8 @@ eligible medium candidates: 0
 Fallback serious-learning smoke:
 
 ```text
-uv run python -m big_boy_benchmarking.cli counterpoint serious-learning run --artifact-root /private/tmp/bbb-v072-pointwise-serious-smoke --instance-id small --episodes 1 --replicates 1 --schema-seeds 2 --locked-by foster --horizon 4 --linearization-mode tensor_available_disabled
-{"evaluation_budget_lock": "/private/tmp/bbb-v072-pointwise-serious-smoke/evaluations/counterpoint_first_serious_learning_v001/evaluation_budget_lock.json", "evaluation_run_index": "/private/tmp/bbb-v072-pointwise-serious-smoke/evaluations/counterpoint_first_serious_learning_v001/evaluation_run_index.csv", "run_count": 9, "status": "complete"}
+uv run python -m big_boy_benchmarking.cli counterpoint serious-learning run --artifact-root <tmp-dir>/bbb-v072-pointwise-serious-smoke --instance-id small --episodes 1 --replicates 1 --schema-seeds 2 --locked-by foster --horizon 4 --linearization-mode tensor_available_disabled
+{"evaluation_budget_lock": "<tmp-dir>/bbb-v072-pointwise-serious-smoke/evaluations/counterpoint_first_serious_learning_v001/evaluation_budget_lock.json", "evaluation_run_index": "<tmp-dir>/bbb-v072-pointwise-serious-smoke/evaluations/counterpoint_first_serious_learning_v001/evaluation_run_index.csv", "run_count": 9, "status": "complete"}
 ```
 
 ## Surprises And Stop Conditions
@@ -303,7 +303,7 @@ uv run python -m big_boy_benchmarking.cli counterpoint serious-learning run --ar
   workplan requires medium corrected calibration using four eligible candidates,
   but the configured parent source currently has one eligible `wide_span18`
   candidate and no eligible `medium` candidates.
-- The second-serious CLI correctly rejected `/private/tmp` artifact roots
+- The second-serious CLI correctly rejected `<tmp-dir>` artifact roots
   because its path guard requires repo-resident artifacts.
 
 ## Final Audit

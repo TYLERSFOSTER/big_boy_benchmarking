@@ -35,9 +35,9 @@ collapse.
 
 | Field | Value |
 | --- | --- |
-| Repo readout surface | `/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning` |
-| Source artifact root | `/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001` |
-| Source evaluation root | `/Users/foster/big_boy_benchmarking/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001` |
+| Repo readout surface | `<repo-root>/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning` |
+| Source artifact root | `<repo-root>/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001` |
+| Source evaluation root | `<repo-root>/docs/evaluations/counterpoint_symbolic_v001/first_serious_learning/artifacts/pi0_h_evaluation_001/evaluations/counterpoint_first_serious_learning_v001` |
 | Evaluation id | `counterpoint_first_serious_learning_v001` |
 | Environment instance | `counterpoint_symbolic_n3_small_v001` |
 | Artifact schema version | `bbb.v001` |

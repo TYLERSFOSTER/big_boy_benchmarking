@@ -1,5 +1,0 @@
-pair_id,replicate_index,active_arm_count,completed_arm_count,pair_complete,incomplete_reason,shared_environment_seed,shared_exploration_seed,shared_target_policy_id
-pairrep000,0,2,2,1,,0,2002,plate_support_binary_goal_success_v001
-pairrep001,1,2,2,1,,10000,12002,plate_support_binary_goal_success_v001
-pairrep002,2,2,2,1,,20000,22002,plate_support_binary_goal_success_v001
-pairrep003,3,2,2,1,,30000,32002,plate_support_binary_goal_success_v001

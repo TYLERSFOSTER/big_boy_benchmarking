@@ -4,7 +4,7 @@ Status: implementation smoke complete
 
 Created: 2026-05-28
 
-Repository: `/Users/foster/big_boy_benchmarking`
+Repository: `<repo-root>`
 
 Implementation branch:
 
@@ -58,7 +58,7 @@ Operational obligations recorded:
 - re-read each Phase.Stage.Action before executing it;
 - stop on ambiguity, surprise, failed baseline, missing prerequisite, or required simplification;
 - no silent rewrite, compression, reordering, or reinterpretation of this workplan;
-- do not edit upstream `/Users/foster/state_collapser`;
+- do not edit upstream `<state-collapser-repo>`;
 - do not use git destructively.
 
 ## Design Authority Re-read
@@ -146,7 +146,7 @@ Phase 0.5.1 completed.
 Working directory:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Git status during global reconstruction:
@@ -346,7 +346,7 @@ merged into the active counterpoint branch.
 Working directory:
 
 ```text
-/Users/foster/big_boy_benchmarking
+<repo-root>
 ```
 
 Git status:
@@ -379,7 +379,7 @@ Current package facts:
 - Dev dependencies still include `pytest`, `pytest-cov`, and `ruff`.
 - Package exports now include shared machinery symbols in addition to the dependency probe.
 - Installed upstream `state_collapser` version is still `0.6.0`.
-- No upstream `/Users/foster/state_collapser` files were edited.
+- No upstream `<state-collapser-repo>` files were edited.
 
 ### Phase 0.6 Resume Recheck
 
@@ -701,7 +701,7 @@ tower smoke calls it.
 Artifact root:
 
 ```text
-/private/tmp/bbb-counterpoint-phase13-20260528
+<tmp-dir>/bbb-counterpoint-phase13-20260528
 ```
 
 Smoke commands completed:
