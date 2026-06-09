@@ -211,6 +211,24 @@ from big_boy_benchmarking.environments.plate_support.graph_stats import (
 from big_boy_benchmarking.environments.plate_support.runner import (
     run_plate_support_environment_readiness,
 )
+from big_boy_benchmarking.environments.plate_support.direct_star_culdesac_control.config import (
+    DirectStarCuldesacControlConfig as PlateSupportDirectStarCuldesacControlConfig,
+)
+from big_boy_benchmarking.environments.plate_support.direct_star_culdesac_control.runner import (
+    run_direct_star_culdesac_control as run_plate_support_direct_star_culdesac_control,
+)
+from big_boy_benchmarking.environments.plate_support.direct_star_culdesac_control.runner import (
+    summarize_direct_star_culdesac_control as summarize_plate_support_direct_star_culdesac_control,
+)
+from big_boy_benchmarking.environments.plate_support.tower_star.config import (
+    TowerStarGuardedLiftComparisonConfig as PlateSupportTowerStarGuardedLiftComparisonConfig,
+)
+from big_boy_benchmarking.environments.plate_support.tower_star.runner import (
+    run_tower_star as run_plate_support_tower_star,
+)
+from big_boy_benchmarking.environments.plate_support.tower_star.runner import (
+    summarize_tower_star as summarize_plate_support_tower_star,
+)
 from big_boy_benchmarking.environments.plate_support.standard_gauntlet.gates import (
     gate_for_stage as plate_support_gauntlet_gate_for_stage,
 )
@@ -393,6 +411,89 @@ def build_parser() -> argparse.ArgumentParser:
     )
     plate_support_graph_stats_parser.add_argument("--output", type=Path)
     plate_support_graph_stats_parser.add_argument("--pretty", action="store_true")
+
+    plate_support_direct_star_parser = plate_support_subparsers.add_parser(
+        "direct-star-culdesac-control"
+    )
+    plate_support_direct_star_subparsers = plate_support_direct_star_parser.add_subparsers(
+        dest="direct_star_culdesac_control_command",
+        required=True,
+    )
+    plate_support_direct_star_run_parser = plate_support_direct_star_subparsers.add_parser(
+        "run"
+    )
+    plate_support_direct_star_run_parser.add_argument("--repo-root", required=True, type=Path)
+    plate_support_direct_star_run_parser.add_argument("--artifact-root", required=True, type=Path)
+    plate_support_direct_star_run_parser.add_argument(
+        "--parent-gauntlet-source",
+        required=True,
+        type=Path,
+    )
+    plate_support_direct_star_run_parser.add_argument("--run-label", default="guarded_001")
+    plate_support_direct_star_run_parser.add_argument("--locked-by", required=True)
+    plate_support_direct_star_run_parser.add_argument("--episodes-per-replicate", type=int)
+    plate_support_direct_star_run_parser.add_argument("--replicates-per-arm", type=int)
+    plate_support_direct_star_run_parser.add_argument(
+        "--max-steps-per-episode",
+        type=int,
+        default=50,
+    )
+    plate_support_direct_star_run_parser.add_argument("--base-seed", type=int, default=0)
+    plate_support_direct_star_run_parser.add_argument("--learning-rate", type=float, default=0.25)
+    plate_support_direct_star_run_parser.add_argument("--discount", type=float, default=0.95)
+    plate_support_direct_star_run_parser.add_argument("--epsilon", type=float, default=0.20)
+    plate_support_direct_star_run_parser.add_argument("--smoke", action="store_true")
+    plate_support_direct_star_summarize_parser = (
+        plate_support_direct_star_subparsers.add_parser("summarize")
+    )
+    plate_support_direct_star_summarize_parser.add_argument("--repo-root", required=True, type=Path)
+    plate_support_direct_star_summarize_parser.add_argument(
+        "--artifact-root",
+        required=True,
+        type=Path,
+    )
+
+    plate_support_tower_star_parser = plate_support_subparsers.add_parser("tower-star")
+    plate_support_tower_star_subparsers = plate_support_tower_star_parser.add_subparsers(
+        dest="tower_star_command",
+        required=True,
+    )
+    plate_support_tower_star_run_parser = plate_support_tower_star_subparsers.add_parser("run")
+    plate_support_tower_star_run_parser.add_argument("--repo-root", required=True, type=Path)
+    plate_support_tower_star_run_parser.add_argument("--artifact-root", required=True, type=Path)
+    plate_support_tower_star_run_parser.add_argument(
+        "--parent-gauntlet-source",
+        required=True,
+        type=Path,
+    )
+    plate_support_tower_star_run_parser.add_argument(
+        "--direct-star-source",
+        required=True,
+        type=Path,
+    )
+    plate_support_tower_star_run_parser.add_argument("--run-label", default="tower_star_001")
+    plate_support_tower_star_run_parser.add_argument("--locked-by", required=True)
+    plate_support_tower_star_run_parser.add_argument("--episodes-per-replicate", type=int)
+    plate_support_tower_star_run_parser.add_argument("--replicates-per-arm", type=int)
+    plate_support_tower_star_run_parser.add_argument(
+        "--max-steps-per-episode",
+        type=int,
+        default=50,
+    )
+    plate_support_tower_star_run_parser.add_argument("--base-seed", type=int, default=0)
+    plate_support_tower_star_run_parser.add_argument("--learning-rate", type=float, default=0.25)
+    plate_support_tower_star_run_parser.add_argument("--discount", type=float, default=0.95)
+    plate_support_tower_star_run_parser.add_argument("--epsilon", type=float, default=0.20)
+    plate_support_tower_star_run_parser.add_argument("--smoke", action="store_true")
+    plate_support_tower_star_summarize_parser = plate_support_tower_star_subparsers.add_parser(
+        "summarize"
+    )
+    plate_support_tower_star_summarize_parser.add_argument("--repo-root", required=True, type=Path)
+    plate_support_tower_star_summarize_parser.add_argument(
+        "--artifact-root",
+        required=True,
+        type=Path,
+    )
 
     plate_support_gauntlet_parser = plate_support_subparsers.add_parser("standard-gauntlet")
     plate_support_gauntlet_subparsers = plate_support_gauntlet_parser.add_subparsers(
@@ -1289,6 +1390,118 @@ def _run_plate_support_command(args: argparse.Namespace) -> int:
             write_json(args.output, payload)
         print(json.dumps(payload, indent=2 if args.pretty else None, sort_keys=True))
         return 0
+
+    if args.plate_support_command == "direct-star-culdesac-control":
+        if args.direct_star_culdesac_control_command == "run":
+            result = run_plate_support_direct_star_culdesac_control(
+                PlateSupportDirectStarCuldesacControlConfig(
+                    repo_root=args.repo_root,
+                    artifact_root=args.artifact_root,
+                    parent_gauntlet_source=args.parent_gauntlet_source,
+                    run_label=args.run_label,
+                    locked_by=args.locked_by,
+                    episodes_per_replicate=args.episodes_per_replicate,
+                    replicates_per_arm=args.replicates_per_arm,
+                    max_steps_per_episode=args.max_steps_per_episode,
+                    base_seed=args.base_seed,
+                    learning_rate=args.learning_rate,
+                    discount=args.discount,
+                    epsilon=args.epsilon,
+                    smoke=args.smoke,
+                )
+            )
+            print(
+                json.dumps(
+                    {
+                        "status": result.status,
+                        "evaluation_root": str(result.evaluation_root),
+                        "readout_source": str(result.readout_source_path),
+                        "interpretation_case": result.interpretation_case,
+                        "artifact_count": len(result.artifact_paths),
+                        "failure_reason": result.failure_reason,
+                    },
+                    sort_keys=True,
+                )
+            )
+            return 0 if result.status == "complete" else 2
+        if args.direct_star_culdesac_control_command == "summarize":
+            result = summarize_plate_support_direct_star_culdesac_control(
+                repo_root=args.repo_root,
+                artifact_root=args.artifact_root,
+            )
+            print(
+                json.dumps(
+                    {
+                        "status": result.status,
+                        "evaluation_root": str(result.evaluation_root),
+                        "readout_source": str(result.readout_source_path),
+                        "interpretation_case": result.interpretation_case,
+                        "artifact_count": len(result.artifact_paths),
+                        "failure_reason": result.failure_reason,
+                    },
+                    sort_keys=True,
+                )
+            )
+            return 0 if result.status == "complete" else 2
+        raise ValueError(
+            "unknown PlateSupport direct-star culdesac control command: "
+            f"{args.direct_star_culdesac_control_command}"
+        )
+
+    if args.plate_support_command == "tower-star":
+        if args.tower_star_command == "run":
+            result = run_plate_support_tower_star(
+                PlateSupportTowerStarGuardedLiftComparisonConfig(
+                    repo_root=args.repo_root,
+                    artifact_root=args.artifact_root,
+                    parent_gauntlet_source=args.parent_gauntlet_source,
+                    direct_star_source=args.direct_star_source,
+                    run_label=args.run_label,
+                    locked_by=args.locked_by,
+                    episodes_per_replicate=args.episodes_per_replicate,
+                    replicates_per_arm=args.replicates_per_arm,
+                    max_steps_per_episode=args.max_steps_per_episode,
+                    base_seed=args.base_seed,
+                    learning_rate=args.learning_rate,
+                    discount=args.discount,
+                    epsilon=args.epsilon,
+                    smoke=args.smoke,
+                )
+            )
+            print(
+                json.dumps(
+                    {
+                        "status": result.status,
+                        "evaluation_root": str(result.evaluation_root),
+                        "readout_source": str(result.readout_source_path),
+                        "interpretation_case": result.interpretation_case,
+                        "artifact_count": len(result.artifact_paths),
+                        "failure_reason": result.failure_reason,
+                    },
+                    sort_keys=True,
+                )
+            )
+            return 0 if result.status == "complete" else 2
+        if args.tower_star_command == "summarize":
+            result = summarize_plate_support_tower_star(
+                repo_root=args.repo_root,
+                artifact_root=args.artifact_root,
+            )
+            print(
+                json.dumps(
+                    {
+                        "status": result.status,
+                        "evaluation_root": str(result.evaluation_root),
+                        "readout_source": str(result.readout_source_path),
+                        "interpretation_case": result.interpretation_case,
+                        "artifact_count": len(result.artifact_paths),
+                        "failure_reason": result.failure_reason,
+                    },
+                    sort_keys=True,
+                )
+            )
+            return 0 if result.status == "complete" else 2
+        raise ValueError(f"unknown PlateSupport tower-star command: {args.tower_star_command}")
 
     if args.plate_support_command == "standard-gauntlet":
         if args.standard_gauntlet_command == "inspect-architecture":

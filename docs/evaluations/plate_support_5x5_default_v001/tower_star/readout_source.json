@@ -1,0 +1,201 @@
+{
+  "artifact_run_label": "tower_star_001",
+  "artifact_schema_version": "bbb.v001",
+  "badge_policy": {
+    "dimensions": [
+      "artifact_status",
+      "direct_star_status",
+      "tower_star_status",
+      "primary_interpretation",
+      "tower_surface_blockage",
+      "claim_scope",
+      "provenance_status"
+    ]
+  },
+  "calibrated_target": {
+    "baseline_feasibility": "not_required_for_binary_success_definition",
+    "calibration_status": "threshold_calibrated",
+    "candidate_feasibility": "feasible_sparse_success_3_of_32",
+    "claim_boundary": "threshold calibration evidence only; no tower-vs-flat comparison claim",
+    "episodes_required_minimum": "1",
+    "reason": "Stage 4 traces contain both goal hits and misses for a trainable candidate, so goal_reached is a table-backed target. Success is sparse, so Stage 6 should use a larger paired budget.",
+    "recommended_episodes_per_replicate": "32",
+    "recommended_replicates_per_arm": "4",
+    "required_count": "1",
+    "target_policy_id": "plate_support_binary_goal_success_v001",
+    "target_type": "binary_success",
+    "threshold_value": "",
+    "window_length": ""
+  },
+  "claim_boundary": [
+    "diagnostic tower-star smoke/calibration evidence only; not a final robotics benchmark claim",
+    "This evaluation may compare direct-star and tower-star one-step local controls.",
+    "This evaluation may not claim broad tower superiority or broad tower failure."
+  ],
+  "direct_star_source": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/readout_source.json",
+  "environment_family_id": "plate_support",
+  "environment_instance_id": "plate_support_5x5_default_v001",
+  "evaluation_id": "plate_support_tower_star_guarded_lift_comparison_v001",
+  "expected_files": {
+    "conditional": {},
+    "expectation_sources": [
+      "docs/design/first_plate_support_environment/standard_gauntlet_suite/10_tower_star/01_001_plate_support_tower_star_guarded_lift_comparison_blueprint.md",
+      "docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md"
+    ],
+    "expected_absent_is_gap": [],
+    "not_applicable": [],
+    "required": [
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/paired_seed_bundle_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/evaluation_run_index.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/evaluation_arm_manifest.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/arm_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/guard_filter_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/self_loop_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/invalid_vs_self_loop_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/paired_guard_comparison.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/paired_star_comparison.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/action_surface_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/direct_guard_filter_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/tower_lift_guard_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/tower_action_cell_surface_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/lift_pool_mixing_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/star_surface_blockage_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/interpretation_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/badge_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/timing_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/guard_events.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/episode_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/step_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/controller_action_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/learner_update_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/lift_fiber_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/tier_transition_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/timing_segments.csv"
+    ]
+  },
+  "goal_criteria": [
+    {
+      "claim_if_met": "bounded smoke evidence for tower value beyond local cul-de-sac filtering",
+      "claim_if_not_met": "the prior PlateSupport signal remains unseparated from one-step local action filtering",
+      "failure_signal": "direct_nonself_guard remains above tower_nonself_guard under the checked-in budget",
+      "goal_id": "plate_support_tower_star_guarded_lift_comparison",
+      "partial_signal": "tower-star surfaces are implemented but margins are small or surface blockage limits comparison",
+      "question": "Does the selected PlateSupport tower candidate survive when both direct and tower are normalized against one-step local invalid/self-loop star controls?",
+      "success_signal": "interpretation_summary.csv reports tower_survives_star_control"
+    }
+  ],
+  "goal_summary_sources": [
+    "docs/design/first_plate_support_environment/standard_gauntlet_suite/10_tower_star/01_001_plate_support_tower_star_guarded_lift_comparison_blueprint.md",
+    "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/method.md"
+  ],
+  "information_parity_warning": "Direct-star filters primitive actions. Tower-star filters concrete lift candidates inside quotient action cells before the tower chooses among those cells. Both are one-step oracle local controls, not final deployable fairness proofs.",
+  "interpretation_summary": {
+    "allowed_claim": "the control surfaces are implemented but need larger or sharper budget",
+    "blocked_claim": "the diagnostic resolves tower-vs-direct advantage",
+    "direct_star_still_explains_signal_flag": "0",
+    "evaluation_id": "plate_support_tower_star_guarded_lift_comparison_v001",
+    "information_parity_warning": "Guarded direct uses oracle one-step local transition masks; this diagnoses invalid/self-loop filtering but does not prove perfect action-surface parity with tower.",
+    "interpretation_case": "inconclusive_small_margin",
+    "primary_interpretation_case": "inconclusive_small_margin",
+    "primary_target_comparison": "direct_nonself_guard_vs_tower_nonself_guard",
+    "primary_target_delta": "0.0",
+    "run_label": "tower_star_001",
+    "tower_current_star_clean_flag": "1",
+    "tower_star_surface_blocked": "0",
+    "tower_survives_star_control_flag": "0",
+    "tower_vs_invalid_guard_delta": "0.0",
+    "tower_vs_nonself_guard_delta": "0.0",
+    "tower_vs_raw_delta": "0.0"
+  },
+  "methodology_summary_sources": [
+    "docs/design/first_plate_support_environment/standard_gauntlet_suite/10_tower_star/01_001_plate_support_tower_star_guarded_lift_comparison_blueprint.md",
+    "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/method.md",
+    "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/runbook.md"
+  ],
+  "parent_gauntlet_source": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json",
+  "readout_badges": {
+    "artifacts_complete": {
+      "color": "green",
+      "label": "Artifacts",
+      "reason": "Required run and summary artifacts were generated.",
+      "source": "evaluation_run_index.csv",
+      "value": "Complete"
+    },
+    "blocked_guard_states": {
+      "color": "green",
+      "label": "Blocked Guards",
+      "reason": "Nonzero blocked guard states require inspection.",
+      "source": "guard_filter_summary.csv",
+      "value": "0"
+    },
+    "claim_boundary": {
+      "color": "blue",
+      "label": "Claim",
+      "reason": "diagnostic tower-star smoke/calibration evidence only; not a final robotics benchmark claim",
+      "source": "readout_source.json",
+      "value": "Diagnostic"
+    },
+    "guarded_direct": {
+      "color": "green",
+      "label": "Guarded Direct",
+      "reason": "Guard event rows expose raw, invalid-guard, and nonself-guard surfaces.",
+      "source": "guard_events.csv",
+      "value": "Complete"
+    },
+    "self_loop_confound": {
+      "color": "yellow",
+      "label": "Self-loop",
+      "reason": "Interpretation comes from the guarded comparison grid.",
+      "source": "interpretation_summary.csv",
+      "value": "Inconclusive Small Margin"
+    },
+    "tower_vs_nonself": {
+      "color": "yellow",
+      "label": "Tower vs Nonself",
+      "reason": "Compares tower target-hit rate to direct_nonself_guard.",
+      "source": "arm_summary.csv",
+      "value": "Not Positive"
+    }
+  },
+  "repo_readout_surface": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star",
+  "run_mode": "tower_star_guarded_lift_comparison_diagnostic",
+  "source_artifact_root": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001",
+  "source_binding_type": "evaluation_readout_source",
+  "source_evaluation_root": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001",
+  "source_files": {
+    "action_surface_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/action_surface_summary.csv",
+    "arm_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/arm_summary.csv",
+    "badge_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/badge_summary.csv",
+    "controller_action_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/controller_action_summary.csv",
+    "direct_guard_filter_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/direct_guard_filter_summary.csv",
+    "episode_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/episode_summary.csv",
+    "evaluation_arm_manifest": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/evaluation_arm_manifest.csv",
+    "evaluation_run_index": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/evaluation_run_index.csv",
+    "guard_events": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/guard_events.csv",
+    "guard_filter_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/guard_filter_summary.csv",
+    "interpretation_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/interpretation_summary.csv",
+    "invalid_vs_self_loop_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/invalid_vs_self_loop_summary.csv",
+    "learner_update_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/learner_update_summary.csv",
+    "lift_fiber_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/lift_fiber_summary.csv",
+    "lift_pool_mixing_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/lift_pool_mixing_summary.csv",
+    "paired_guard_comparison": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/paired_guard_comparison.csv",
+    "paired_seed_bundle_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/paired_seed_bundle_summary.csv",
+    "paired_star_comparison": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/paired_star_comparison.csv",
+    "self_loop_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/self_loop_summary.csv",
+    "star_surface_blockage_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/star_surface_blockage_summary.csv",
+    "step_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/step_summary.csv",
+    "tier_transition_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/tier_transition_summary.csv",
+    "timing_segments": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/timing_segments.csv",
+    "timing_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/timing_summary.csv",
+    "tower_action_cell_surface_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/tower_action_cell_surface_summary.csv",
+    "tower_lift_guard_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/tower_star/artifacts/tower_star_001/evaluations/plate_support_tower_star_guarded_lift_comparison_v001/results/tower_lift_guard_summary.csv"
+  },
+  "structural_limit_checks": [
+    {
+      "check_id": "tower_star_preselection_lift_filtering",
+      "claim_effect": "blocks tower-star comparison claims",
+      "interpretation_if_triggered": "The diagnostic is invalid because tower-star must remove lift candidates and empty action cells before selection.",
+      "trigger": "tower-star guard is implemented after tower action selection"
+    }
+  ]
+}

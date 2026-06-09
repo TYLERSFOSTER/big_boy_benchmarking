@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="232" height="20" role="img" aria-label="Tower vs Nonself: Not Positive">
+<rect width="130" height="20" fill="#555"/>
+<rect x="130" width="102" height="20" fill="#b58900"/>
+<text x="65.0" y="14" fill="#fff" font-family="Verdana,Arial,sans-serif" font-size="11" text-anchor="middle">Tower vs Nonself</text>
+<text x="181.0" y="14" fill="#fff" font-family="Verdana,Arial,sans-serif" font-size="11" text-anchor="middle">Not Positive</text>
+</svg>

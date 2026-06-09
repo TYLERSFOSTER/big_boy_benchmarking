@@ -61,6 +61,8 @@ pointwise liftability semantics.
 | Counterpoint threshold frontier probe | Complete next-measure probe | [README](docs/evaluations/counterpoint_symbolic_v001/threshold_frontier_probe/README.md) | Threshold sweeps expose a small Schema 1 margin pattern, not broad dominance. |
 | Counterpoint small paired replicate probe | Complete next-measure probe | [README](docs/evaluations/counterpoint_symbolic_v001/small_paired_replicate_probe/README.md) | Seed-paired machinery works and records a weak positive Schema 1 margin pattern; not statistical significance. |
 | PlateSupport standard gauntlet | Complete correction gauntlet with bounded positive smoke signal | [README](docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/README.md) | The selected iterated tower candidate beat the direct baseline on the calibrated binary-success target and showed a coherent action-filtering signal. |
+| PlateSupport direct-star cul-de-sac control | Complete diagnostic control | [README](docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/README.md) | Abdul Malik's cul-de-sac concern is tested by adding one-step guarded direct controls beside the selected tower candidate. |
+| PlateSupport tower-star guarded lift comparison | Complete diagnostic control with inconclusive smoke result | [README](docs/evaluations/plate_support_5x5_default_v001/tower_star/README.md) | Direct-star and tower-star controls are both implemented; the first smoke run is tied on the primary target and does not resolve a tower advantage. |
 
 The full evaluation index is in [docs/evaluations/README.md](docs/evaluations/README.md).
 
@@ -76,6 +78,10 @@ Supported by the checked-in readouts:
   standard gauntlet correction run, the selected tower arm hit the calibrated
   target more often than direct, had much better mean reward, and made zero
   invalid concrete moves while direct made many invalid moves.
+- Follow-up PlateSupport control diagnostics now separate the Abdul Malik
+  cul-de-sac concern from the original positive smoke result. The first
+  tower-star guarded-lift smoke run is correctly bounded as inconclusive, not
+  as a new positive tower claim.
 - The current evidence is strong enough to justify further benchmark design.
 
 Not supported yet:

@@ -47,3 +47,5 @@ the local release-asset bundle described in
 | Evaluation | Status | Readout | Claim boundary |
 | --- | --- | --- | --- |
 | standard gauntlet | Complete correction gauntlet with bounded positive smoke signal | [README](plate_support_5x5_default_v001/standard_gauntlet/README.md) | One selected iterated tower candidate beats direct on one calibrated binary-success target and shows a coherent invalid-move/reward counter-signal; not a general PlateSupport benchmark claim. |
+| direct-star cul-de-sac control | Complete diagnostic control | [README](plate_support_5x5_default_v001/direct_star_culdesac_control/README.md) | Tests Abdul Malik's cul-de-sac concern by comparing raw direct, one-step guarded direct, and the selected tower candidate; diagnostic only. |
+| tower-star guarded lift comparison | Complete diagnostic control with inconclusive small-margin smoke result | [README](plate_support_5x5_default_v001/tower_star/README.md) | Compares direct-star controls against tower lift-candidate star controls; current smoke run is tied on the primary target and does not resolve a tower advantage. |

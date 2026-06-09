@@ -1,0 +1,7 @@
+badge_id,label,value,color,reason,source
+artifacts_complete,Artifacts,Complete,green,Required run and summary artifacts were generated.,evaluation_run_index.csv
+guarded_direct,Guarded Direct,Complete,green,"Guard event rows expose raw, invalid-guard, and nonself-guard surfaces.",guard_events.csv
+self_loop_confound,Self-loop,Inconclusive Small Margin,yellow,Interpretation comes from the guarded comparison grid.,interpretation_summary.csv
+tower_vs_nonself,Tower vs Nonself,Not Positive,yellow,Compares tower target-hit rate to direct_nonself_guard.,arm_summary.csv
+blocked_guard_states,Blocked Guards,0,green,Nonzero blocked guard states require inspection.,guard_filter_summary.csv
+claim_boundary,Claim,Diagnostic,blue,diagnostic tower-star smoke/calibration evidence only; not a final robotics benchmark claim,readout_source.json

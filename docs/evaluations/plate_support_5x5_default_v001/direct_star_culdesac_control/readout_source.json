@@ -1,0 +1,178 @@
+{
+  "artifact_run_label": "guarded_001",
+  "artifact_schema_version": "bbb.v001",
+  "badge_policy": {
+    "dimensions": [
+      "artifact_status",
+      "guarded_direct_status",
+      "self_loop_confound_status",
+      "tower_vs_nonself_status",
+      "claim_scope",
+      "provenance_status"
+    ]
+  },
+  "calibrated_target": {
+    "baseline_feasibility": "not_required_for_binary_success_definition",
+    "calibration_status": "threshold_calibrated",
+    "candidate_feasibility": "feasible_sparse_success_3_of_32",
+    "claim_boundary": "threshold calibration evidence only; no tower-vs-flat comparison claim",
+    "episodes_required_minimum": "1",
+    "reason": "Stage 4 traces contain both goal hits and misses for a trainable candidate, so goal_reached is a table-backed target. Success is sparse, so Stage 6 should use a larger paired budget.",
+    "recommended_episodes_per_replicate": "32",
+    "recommended_replicates_per_arm": "4",
+    "required_count": "1",
+    "target_policy_id": "plate_support_binary_goal_success_v001",
+    "target_type": "binary_success",
+    "threshold_value": "",
+    "window_length": ""
+  },
+  "claim_boundary": [
+    "diagnostic guarded-direct smoke/calibration evidence only; not a final robotics benchmark claim",
+    "This evaluation may diagnose invalid/self-loop filtering as a confound.",
+    "This evaluation may not claim broad tower superiority."
+  ],
+  "environment_family_id": "plate_support",
+  "environment_instance_id": "plate_support_5x5_default_v001",
+  "evaluation_id": "plate_support_direct_star_culdesac_control_v001",
+  "expected_files": {
+    "conditional": {},
+    "expectation_sources": [
+      "docs/design/first_plate_support_environment/standard_gauntlet_suite/09_direct_star_culdesac_control/01_001_plate_support_direct_star_culdesac_control_blueprint.md",
+      "docs/prime_directive/evaluation_construction_for_readable_artifacts_protocol.md"
+    ],
+    "expected_absent_is_gap": [],
+    "not_applicable": [],
+    "required": [
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/paired_seed_bundle_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/evaluation_run_index.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/evaluation_arm_manifest.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/arm_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/guard_filter_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/self_loop_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/invalid_vs_self_loop_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/paired_guard_comparison.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/action_surface_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/interpretation_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/badge_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/timing_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/guard_events.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/episode_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/step_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/controller_action_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/learner_update_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/lift_fiber_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/tier_transition_summary.csv",
+      "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/timing_segments.csv"
+    ]
+  },
+  "goal_criteria": [
+    {
+      "claim_if_met": "bounded diagnostic evidence remains after one-step local nonself action filtering",
+      "claim_if_not_met": "the prior PlateSupport signal is explained or not yet separated from local action filtering",
+      "failure_signal": "guarded direct erases or reverses the tower signal",
+      "goal_id": "plate_support_direct_star_culdesac_control",
+      "partial_signal": "guarded tables complete but interpretation is mixed or inconclusive",
+      "question": "Does the PlateSupport tower signal survive raw direct, invalid-guarded direct, and nonself-guarded direct controls?",
+      "success_signal": "interpretation_summary.csv reports tower_survives_nonself_guard"
+    }
+  ],
+  "goal_summary_sources": [
+    "docs/design/first_plate_support_environment/standard_gauntlet_suite/09_direct_star_culdesac_control/01_001_plate_support_direct_star_culdesac_control_blueprint.md",
+    "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/method.md"
+  ],
+  "information_parity_warning": "Guarded direct uses oracle one-step local transition masks. It diagnoses invalid/self-loop filtering but does not prove perfect action-surface parity with tower.",
+  "interpretation_summary": {
+    "allowed_claim": "ordinary one-step validity filtering explains most of the original tower signal",
+    "blocked_claim": "tower hierarchy beat direct learning on an equivalent decision surface",
+    "information_parity_warning": "Guarded direct uses oracle one-step local transition masks; this diagnoses invalid/self-loop filtering but does not prove perfect action-surface parity with tower.",
+    "interpretation_case": "validity_filtering_explains_signal",
+    "tower_vs_invalid_guard_delta": "-0.1640625",
+    "tower_vs_nonself_guard_delta": "-0.3203125",
+    "tower_vs_raw_delta": "0.078125"
+  },
+  "methodology_summary_sources": [
+    "docs/design/first_plate_support_environment/standard_gauntlet_suite/09_direct_star_culdesac_control/01_001_plate_support_direct_star_culdesac_control_blueprint.md",
+    "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/method.md",
+    "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/runbook.md"
+  ],
+  "parent_gauntlet_source": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json",
+  "readout_badges": {
+    "artifacts_complete": {
+      "color": "green",
+      "label": "Artifacts",
+      "reason": "Required run and summary artifacts were generated.",
+      "source": "evaluation_run_index.csv",
+      "value": "Complete"
+    },
+    "blocked_guard_states": {
+      "color": "green",
+      "label": "Blocked Guards",
+      "reason": "Nonzero blocked guard states require inspection.",
+      "source": "guard_filter_summary.csv",
+      "value": "0"
+    },
+    "claim_boundary": {
+      "color": "blue",
+      "label": "Claim",
+      "reason": "diagnostic guarded-direct smoke/calibration evidence only; not a final robotics benchmark claim",
+      "source": "readout_source.json",
+      "value": "Diagnostic"
+    },
+    "guarded_direct": {
+      "color": "green",
+      "label": "Guarded Direct",
+      "reason": "Guard event rows expose raw, invalid-guard, and nonself-guard surfaces.",
+      "source": "guard_events.csv",
+      "value": "Complete"
+    },
+    "self_loop_confound": {
+      "color": "yellow",
+      "label": "Self-loop",
+      "reason": "Interpretation comes from the guarded comparison grid.",
+      "source": "interpretation_summary.csv",
+      "value": "Validity Filtering Explains Signal"
+    },
+    "tower_vs_nonself": {
+      "color": "yellow",
+      "label": "Tower vs Nonself",
+      "reason": "Compares tower target-hit rate to direct_nonself_guard.",
+      "source": "arm_summary.csv",
+      "value": "Not Positive"
+    }
+  },
+  "repo_readout_surface": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control",
+  "run_mode": "direct_star_culdesac_control_diagnostic",
+  "source_artifact_root": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001",
+  "source_binding_type": "evaluation_readout_source",
+  "source_evaluation_root": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001",
+  "source_files": {
+    "action_surface_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/action_surface_summary.csv",
+    "arm_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/arm_summary.csv",
+    "badge_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/badge_summary.csv",
+    "controller_action_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/controller_action_summary.csv",
+    "episode_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/episode_summary.csv",
+    "evaluation_arm_manifest": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/evaluation_arm_manifest.csv",
+    "evaluation_run_index": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/evaluation_run_index.csv",
+    "guard_events": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/guard_events.csv",
+    "guard_filter_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/guard_filter_summary.csv",
+    "interpretation_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/interpretation_summary.csv",
+    "invalid_vs_self_loop_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/invalid_vs_self_loop_summary.csv",
+    "learner_update_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/learner_update_summary.csv",
+    "lift_fiber_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/lift_fiber_summary.csv",
+    "paired_guard_comparison": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/paired_guard_comparison.csv",
+    "paired_seed_bundle_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/paired_seed_bundle_summary.csv",
+    "self_loop_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/self_loop_summary.csv",
+    "step_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/step_summary.csv",
+    "tier_transition_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/tier_transition_summary.csv",
+    "timing_segments": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/timing_segments.csv",
+    "timing_summary": "<repo-root>/docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/artifacts/guarded_001/evaluations/plate_support_direct_star_culdesac_control_v001/results/timing_summary.csv"
+  },
+  "structural_limit_checks": [
+    {
+      "check_id": "guarded_direct_oracle_local_transition",
+      "claim_effect": "blocks overclaiming from guarded-direct outcomes",
+      "interpretation_if_triggered": "The guarded arms are oracle one-step local controls, not proof of perfect parity with the tower action surface.",
+      "trigger": "direct_invalid_guard or direct_nonself_guard is interpreted as fully fair direct"
+    }
+  ]
+}

@@ -61,9 +61,7 @@ In the present framework, this is equivalent to the above. The present implement
 Or to say it in more homotopy-theoretic language, Abdul is implicitly noting that loops downstairs are the obstruction to simplicial homotopy lifting.
 
 #### PO Follow-up 2
-There is just something here... it keeps slipping way from me, but it's like I keep seeing flashes that the problem is illusory.
-
-Right?... Right. Like the little graph quotienting picture above is *really* an indication that the tower *with* "$\text{Out}(\text{lift of}\;s)\neq\emptyset$" is still at a simimlar disadvantage. Because direct upstairs would hit $\widetilde{s}$ and be done or have to back-track, whereas downstairs would finish trainin, freeze that work, and only then discover liftability issues.
+There is just something here... it keeps slippingaway from me, but it's like I keep seeing flashes that the problem is illusory ... Right?... Right. Like the little graph quotienting picture above is *really* an indication that the tower *with* "$\text{Out}(\text{lift of}\;s)\neq\emptyset$" is still at a simimlar disadvantage. Because direct upstairs would hit $\widetilde{s}$ and be done or have to back-track, whereas downstairs would finish trainin, freeze that work, and only then discover liftability issues.
 
 But is this what's even going on? 
 
@@ -602,31 +600,675 @@ the kind of hidden local filtering confound Abdul identified.
 ```
 
 ### Project Owner Turn
-> ...
+> Why? Is this about hidden MDP (hidden phase graph $H$) versus Markov chain (discover graph)? I'm not putting the whole thing together yet.
 
 ### Codex Turn
-> ...
+
+Yes. This is very much about the distinction between the hidden phase graph
+`H` and the discovered / quotient control graph, but I would phrase it a little
+more carefully:
+
+```text
+H is the environment's full primitive transition system.
+The discovered graph is the runtime-visible part of H.
+The tower control surface is not H itself; it is a quotient/action-cell surface
+built from discovered edges, with loop/internal-edge policy applied.
+```
+
+So the comparison we accidentally made was not simply:
+
+```text
+direct learner on H
+vs.
+tower learner on H
+```
+
+It was closer to:
+
+```text
+raw direct learner over all primitive action labels in H
+vs.
+tower learner over live quotient action cells derived from discovered H,
+where self/internal edges are not live outgoing decision actions.
+```
+
+That is the missing piece.
+
+In the hidden PlateSupport transition graph `H`, every valid state has all 12
+primitive action labels available as proposals. Some proposals move to a
+different valid state. Some proposals produce an invalid candidate and are
+realized by the environment as a self-loop at the current state. Some proposals
+are valid but clip back to the same state, also a self-loop.
+
+So at the level of `H`, raw direct sees something like:
+
+```text
+s --action 0--> s'
+s --action 1--> s
+s --action 2--> s''
+s --action 3--> s
+...
+```
+
+where the arrows back to `s` include the invalid and clipped moves. Direct is
+learning over the primitive action proposal alphabet. It is allowed to pick the
+self-loop arrows, and the environment then charges it for them.
+
+The tower controller does something different. It does not choose from the
+raw 12 action labels. It chooses from action cells in the partition tower:
+
+```text
+current base state
+-> current state cell at some tier
+-> live outgoing action cells from that state cell
+-> executable concrete lift of one selected action cell
+-> primitive action index
+```
+
+The crucial fact is that action cells are built from non-internal outgoing
+edges. If an edge has source and target in the same current cell, the partition
+tower treats it as an internal/self-loop edge. Under the current default:
+
+```text
+LoopPolicy.drop_internal()
+```
+
+those internal edges are retained as diagnostic/internal structure but are not
+surfaced as live outgoing decision actions. At tier 0, a primitive self-loop is
+already internal because source state equals target state. At higher tiers,
+additional edges can become internal because contraction identifies their
+source and target cells.
+
+That explains why the effect is so strong:
+
+```text
+invalid primitive action
+-> candidate invalid
+-> environment realizes next_state = source_state
+-> edge is a self-loop in H
+-> tower action-layer rebuild does not expose it as a live outgoing action cell
+-> tower controller never selects it
+```
+
+And similarly:
+
+```text
+valid clipped primitive action
+-> candidate valid but next_state = source_state
+-> edge is still a self-loop
+-> not exposed as live outgoing tower action cell
+-> tower controller never selects it
+```
+
+So Abdul's "avoiding self-loops" point is not merely an empirical pattern. It
+matches the construction. The tower action surface is a quotient/discovered
+control surface with self-loop/internal edges suppressed from live action
+choice.
+
+The Markov-chain language is useful, but only after choosing a policy. The
+hidden phase graph `H` is the transition system / MDP-like object. A direct
+policy over primitive actions induces a Markov chain on `H`. A tower policy
+induces a different process: it has base state, discovered graph state, tower
+state, current tier cells, and executable lift constraints. Once those runtime
+rules are fixed, it also induces a stochastic process, but not the same
+policy-on-raw-`H` object as direct.
+
+That is why the current result is a confounded comparison:
+
+```text
+direct is punished for learning which primitive proposals are loops;
+tower is structurally protected from many loop proposals before learning.
+```
+
+This also explains why the right control is not just "avoid terminal
+cul-de-sacs." There are no literal dead-end states in the valid non-self graph.
+The obstruction is more local:
+
+```text
+bad proposal / loop in H
+-> not live as an outgoing tower action
+-> direct baseline needs an analogous local mask if we want to isolate tower
+   learning from loop-filtering.
+```
+
+So I would now say the conceptual diagnosis is:
+
+```text
+The observed zero-invalid-move tower behavior is caused by comparing a raw
+primitive-action learner on H against a discovered quotient-action learner
+whose live action surface has internal/self-loop edges removed.
+```
+
+The future `direct*` arm should therefore answer:
+
+```text
+What happens if the direct learner is still direct on H, but its visible action
+set is restricted to the same kind of non-loop primitive proposals that the
+tower action surface receives for free?
+```
+
+That would make the comparison much cleaner.
 
 ### Project Owner Turn
-> ...
+> Ah ok... Ok... Ok. Is this what's happening: The Plate Support environament has a little... *ambient* set of possible actions. Constraints maybe, or something, makes it so that lots of the actions get a status `"invalid"` for certain states. The `direct` arm just treats that actions like any other in some4 sense that isn't clear to me yet. Regardless, the very fact that we throw out loops in our tower construction is getting rid of `"invalid"` actions somehow? Am I at all in the vicinity? Please reinvesitgate.
 
 ### Codex Turn
-> ...
+
+Yes, you are absolutely in the vicinity. I rechecked it, and I would now state
+the mechanism this way:
+
+```text
+PlateSupport has a fixed ambient primitive action alphabet.
+Validity is state-action dependent.
+Raw direct chooses from the full ambient alphabet.
+Invalid proposals are realized by the environment as self-loops with penalty.
+The tower action surface does not expose self-loop/internal edges as live
+outgoing action cells.
+Therefore many invalid proposals disappear from tower choice because, in this
+environment, invalid proposals become loops.
+```
+
+The main correction is that an action is not globally `"invalid"` in isolation.
+It is a state-action proposal that becomes invalid at a particular state.
+
+For example, at the PlateSupport start state:
+
+```text
+state = PlateSupportState(x_idx=2, y_idx=2, theta_idx=0, e1=1, e2=1, e3=1)
+```
+
+the 12 ambient primitive actions break down like this:
+
+```text
+action 0: valid, moves to different state, reward -1
+action 1: valid, moves to different state, reward -1
+action 2: valid, moves to different state, reward -1
+action 3: valid, moves to different state, reward -1
+action 4: invalid, stays at same state, reward -3
+action 5: invalid, stays at same state, reward -3
+action 6: valid, moves to different state, reward -1
+action 7: invalid, stays at same state, reward -3
+action 8: valid, moves to different state, reward -1
+action 9: valid, moves to different state, reward -1
+action 10: valid, moves to different state, reward -1
+action 11: invalid, stays at same state, reward -3
+```
+
+So yes: constraints make many ambient action proposals invalid at specific
+states. When that happens, the upstream `primitive_transition(...)` returns:
+
+```text
+candidate_valid = False
+valid_transition = False
+invalid_move = True
+next_state = source_state
+```
+
+Then `PlateSupportEnv.step(...)` applies that result and charges the local
+self-loop penalty:
+
+```text
+reward = -3.0
+```
+
+Now the direct side:
+
+```text
+_choose_direct_action(...)
+```
+
+currently does this:
+
+```text
+actions = tuple(range(surface.ACTION_COUNT))
+```
+
+That means direct chooses among all 12 primitive action labels. It does not
+pre-filter invalid proposals. It does not pre-filter self-loops. It does not
+ask `primitive_transition(...)` whether the action would be valid before
+choosing. If direct chooses an invalid proposal, the environment executes the
+penalized self-loop and the Q learner may eventually learn that this was bad.
+
+So the unclear phrase "direct treats invalid actions like any other" should
+be made precise:
+
+```text
+Direct treats invalid-capable primitive labels as selectable actions. It only
+finds out that the chosen state-action proposal was invalid after the
+environment executes the step and returns invalid_move=True, next_state=same,
+and reward=-3.
+```
+
+The tower side is different, but not because it asks for `invalid_move` and
+deletes those rows by name. The tower side is different because invalid moves
+become loops, and loops are not live outgoing actions in the partition tower's
+action surface.
+
+The path is:
+
+```text
+invalid state-action proposal
+-> primitive_transition returns next_state = source_state
+-> hidden graph edge is source -> source
+-> partition/action layer sees source cell == target cell
+-> edge is treated as internal/self-loop structure
+-> action-cell rebuild does not create a live outgoing action cell for it
+-> tower controller cannot choose it
+```
+
+So your sentence:
+
+```text
+the very fact that we throw out loops in our tower construction is getting rid
+of "invalid" actions somehow
+```
+
+is basically right, with two refinements:
+
+1. It is not removing an `"invalid"` label directly. It is removing self-loop
+   edges from the live outgoing tower action surface.
+2. In PlateSupport, invalid proposals are one important source of self-loop
+   edges, but not the only source. Valid clipped self-transitions also become
+   self-loops and are also excluded from the live tower action surface.
+
+That second point is why the Stage 6 row-level numbers were stronger than just
+`invalid_move_count`:
+
+```text
+direct:
+  invalid self-transitions:       2142
+  valid clipped self-transitions:  645
+  total self-transitions:         2787
+
+tower:
+  invalid self-transitions:       0
+  valid clipped self-transitions: 0
+  total self-transitions:         0
+```
+
+So Abdul's hypothesis is not merely "tower avoids invalid actions." The more
+accurate statement is:
+
+```text
+tower avoids the live selection of self-loop/internal edges, and in
+PlateSupport that automatically avoids invalid moves because invalid moves are
+implemented as self-loops.
+```
+
+This is also why the hidden-graph/discovered-graph distinction matters. The
+hidden graph `H` can be seen as having all these primitive proposal edges,
+including self-loop edges. The discovered/runtime graph sees local pieces of
+that transition structure. Then the tower builds a quotient/action-cell surface
+from the discovered edges, with the loop policy deciding what happens to edges
+that are internal to a state cell.
+
+In the current construction, the loop policy is effectively giving tower a
+local action-surface filter:
+
+```text
+do not present internal/self-loop edges as live outgoing actions.
+```
+
+Direct does not receive the corresponding filter.
+
+So the conceptual diagnosis is now very concrete:
+
+```text
+The PlateSupport comparison is not only direct-vs-tower learning. It is also
+unfiltered primitive action proposals versus a quotient action surface that
+suppresses self-loop/internal edges. Since PlateSupport invalid moves are
+realized as self-loops, this suppresses invalid moves too.
+```
+
+That is exactly why a `direct*` control is needed.
+
+I would now design `direct*` as two explicit controls, because they answer
+different questions:
+
+```text
+direct_invalid_guard:
+  Before direct chooses, remove actions whose primitive_transition would set
+  invalid_move=True.
+
+direct_nonself_guard:
+  Before direct chooses, remove actions whose primitive_transition would return
+  next_state == source_state, whether invalid or valid clipped.
+```
+
+`direct_invalid_guard` asks:
+
+```text
+Was the tower advantage mostly ordinary validity filtering?
+```
+
+`direct_nonself_guard` asks Abdul's sharper question:
+
+```text
+Was the tower advantage mostly self-loop/internal-edge filtering?
+```
+
+If tower still beats `direct_nonself_guard`, then we finally have cleaner
+evidence that something tower-specific remains after matching the local
+self-loop filter.
 
 ### Project Owner Turn
-> ...
+> Then I think we have two tasks in front of us. One is "easy," Namely, redesign the last evaluation so the match is comparison is less noisy. The other is to figure out the laguage/framing for `state_collapser` that would help a future engineer trying to use `state_collapser` from falling into the pitfall that comes from invalid actions and hidden MDP versus dynamically discovered Markov chain. Just let me know if you recognize my reasoning
 
 ### Codex Turn
-> ...
+
+Yes, I recognize the reasoning, and I think this is exactly the right split.
+
+There are two different products of the diagnosis:
+
+```text
+Task A, BBB evaluation repair:
+  Make the PlateSupport comparison less noisy and more causally interpretable.
+
+Task B, state_collapser framing/language:
+  Explain the hidden-MDP / dynamically discovered control-surface pitfall so
+  future engineers do not accidentally compare unfiltered primitive control
+  against loop-filtered quotient control and overclaim the result.
+```
+
+Task A is "easy" only in the relative sense that it is local to this repo and
+has a clear experimental shape. We already know the immediate change:
+
+```text
+rerun / redesign the PlateSupport paired comparison with direct controls that
+receive explicit local filtering:
+
+1. raw direct;
+2. direct_invalid_guard;
+3. direct_nonself_guard;
+4. selected tower candidate.
+```
+
+That turns the comparison from:
+
+```text
+raw direct vs tower
+```
+
+into:
+
+```text
+raw direct vs locally guarded direct vs loop-guarded direct vs tower
+```
+
+Then the readout can say which part of the tower signal survives each control:
+
+```text
+tower > raw direct:
+  confirms the original bounded smoke signal.
+
+tower ~= direct_invalid_guard:
+  suggests ordinary validity filtering explains most of the signal.
+
+tower ~= direct_nonself_guard:
+  suggests Abdul's self-loop/internal-edge filtering concern explains most of
+  the signal.
+
+tower > direct_nonself_guard:
+  suggests the tower retains an advantage after matching the local loop filter.
+```
+
+This is a clean BBB-side follow-up because it uses the same environment,
+candidate, target, seed policy, and Stage 6 comparison machinery, but adds
+better direct baselines. It should not require changing the environment or
+changing `state_collapser`.
+
+Task B is not an evaluation task. It is a conceptual safety rail for
+`state_collapser` users and future engineers. The language needs to warn that
+there are several different objects in play:
+
+```text
+hidden phase graph / hidden MDP H:
+  the environment's primitive transition system, including ambient action
+  proposals, invalid proposals, and self-loop realizations.
+
+runtime discovered graph:
+  the portion of H exposed so far by interaction and local vista refresh.
+
+quotient / tower action surface:
+  a derived control surface built from discovered edges, state/action cells,
+  executable lifts, and loop/internal-edge policy.
+
+policy-induced Markov chain:
+  what you get only after choosing a policy on one of those control surfaces.
+```
+
+The pitfall is that a direct learner and a tower learner may not be choosing
+from the same kind of action object:
+
+```text
+direct may choose from ambient primitive action labels;
+tower may choose from live quotient action cells whose internal/self-loop
+edges have been suppressed.
+```
+
+If invalid environment actions are represented as self-loops, then a
+loop-dropping tower construction can silently produce an action-safety
+advantage. That advantage may be desirable, but it must be named. Otherwise an
+engineer can mistake:
+
+```text
+benefit from local loop/invalid filtering
+```
+
+for:
+
+```text
+benefit from abstraction or hierarchy itself.
+```
+
+So yes: I think your two-task split is exactly right.
+
+For BBB, we design the cleaner direct-control evaluation. For
+`state_collapser`, we create language that tells engineers:
+
+```text
+Before comparing direct and tower control, ask whether the direct baseline and
+the tower controller see equivalent action surfaces. If the tower drops
+internal/self-loop edges and the environment realizes invalid moves as
+self-loops, add an explicit guarded-direct baseline or narrow the claim.
+```
+
+That framing would have caught this PlateSupport ambiguity before the first
+public interpretation pass.
 
 ### Project Owner Turn
-> ...
+> Can you create a document for me, at root, that explains to `state_collapser` engineers exactly what the issue is, and that also explains where in `state_collapser` this becomes relevant? And then, in the present design folder, create an extremely detailed blueprint for the work we need to do for par t1 of the fix.
 
 ### Codex Turn
-> ...
 
-### Project Owner Turn
-> ...
+Yes. I can create both of those, and I think the split you propose is exactly
+the right artifact split:
 
-### Codex Turn
-> ...
+```text
+root handoff / issue document:
+  for state_collapser engineers;
+  explains the conceptual pitfall and points to where it becomes relevant in
+  state_collapser.
+
+BBB blueprint:
+  for this repo;
+  specifies the guarded-direct PlateSupport follow-up evaluation that repairs
+  the comparison ambiguity.
+```
+
+I would not merge these into one document. They have different audiences and
+different authority surfaces.
+
+For the root handoff document, I would create something like:
+
+```text
+state_collapser_hidden_mdp_vs_quotient_action_surface_handoff.md
+```
+
+or, slightly more directly:
+
+```text
+state_collapser_invalid_action_self_loop_filtering_issue.md
+```
+
+The audience should be `state_collapser` engineers, not BBB evaluation
+implementers. The document should say, in plain engineering terms:
+
+```text
+When an environment has an ambient primitive action alphabet, and invalid
+state-action proposals are realized as self-loops, a tower/quotient controller
+that drops internal/self-loop edges may receive an implicit local action
+filter that a raw direct controller does not receive.
+```
+
+It should then make the pitfall explicit:
+
+```text
+If you compare raw primitive-action direct control against tower control,
+and the tower action surface hides internal/self-loop edges, the tower may
+look better partly because it was never offered invalid/self-loop choices.
+That can be a valid engineering feature, but it is not the same claim as
+"hierarchical abstraction improved learning."
+```
+
+The `state_collapser` locations I would point engineers toward are:
+
+```text
+state_collapser.examples.plate_support_env.primitive_transition(...)
+```
+
+because that is where invalid PlateSupport proposals become:
+
+```text
+candidate_valid = False
+valid_transition = False
+invalid_move = True
+next_state = source_state
+```
+
+and:
+
+```text
+state_collapser.examples.plate_support_env.PlateSupportHiddenGraph.out_edges(...)
+state_collapser.examples.plate_support_env.PlateSupportHiddenGraph.apply_action(...)
+```
+
+because those expose primitive proposal edges to the tower runtime.
+
+Then:
+
+```text
+state_collapser.tower.runtime.TowerRuntime
+```
+
+because it builds/updates the partition tower from the discovered/vista graph.
+
+Then:
+
+```text
+state_collapser.tower.partition.tower.PartitionTower
+state_collapser.tower.partition.action_layer.ActionPartitionLayer
+state_collapser.tower.partition.loop_policy.LoopPolicy
+```
+
+because that is where internal/self-loop edges are treated as internal
+structure rather than live outgoing action cells. In particular, the relevant
+ideas are:
+
+```text
+LoopPolicy.drop_internal()
+ActionPartitionLayer.rebuild_action_cells_for_collection(...)
+PartitionTower.executable_action_cells(...)
+PartitionTower.executable_lift_candidates(...)
+```
+
+The handoff should be careful not to say "`state_collapser` is wrong." The
+better language is:
+
+```text
+The semantics are useful and may be intended, but benchmark users need to
+compare equivalent action surfaces or explicitly label the tower as receiving
+a loop/internal-edge filter.
+```
+
+For the BBB blueprint, I would create it in this folder, probably:
+
+```text
+docs/design/first_plate_support_environment/standard_gauntlet_suite/09_direct_star_culdesac_control/01_001_plate_support_direct_star_culdesac_control_blueprint.md
+```
+
+The blueprint should cover Part 1 of the fix only: the evaluation repair in
+BBB. It should not attempt to redesign `state_collapser`.
+
+The core blueprint target should be:
+
+```text
+Create a PlateSupport guarded-direct follow-up comparison that reuses the
+current iterated tower candidate and Stage 5 binary target, then compares:
+
+1. raw direct;
+2. direct_invalid_guard;
+3. direct_nonself_guard;
+4. selected tower candidate.
+```
+
+The most important design lock is:
+
+```text
+direct_invalid_guard and direct_nonself_guard must be explicit arms, not
+silent changes to the existing direct baseline.
+```
+
+Otherwise we erase the very comparison we are trying to explain.
+
+The blueprint should also specify the event/readout additions:
+
+```text
+guard_type
+guarded_action_count
+available_action_count_before_guard
+available_action_count_after_guard
+invalid_guard_filtered_count
+self_loop_guard_filtered_count
+all_actions_filtered_count
+guard_fallback_used
+chosen_action_would_have_been_invalid
+chosen_action_would_have_been_self_loop
+```
+
+And it should make the interpretation grid explicit:
+
+```text
+tower beats raw direct but not direct_invalid_guard:
+  ordinary validity filtering explains most of the original signal.
+
+tower beats direct_invalid_guard but not direct_nonself_guard:
+  Abdul's self-loop/internal-edge filtering explanation explains most of the
+  remaining signal.
+
+tower beats direct_nonself_guard:
+  evidence remains for a tower-specific advantage after matching local
+  non-loop action filtering.
+
+direct_nonself_guard beats tower:
+  tower may be paying abstraction/executable-lift overhead relative to a
+  direct controller with the same local safety surface.
+```
+
+I would also make the blueprint preserve the current claim boundary:
+
+```text
+This is still smoke/calibration evidence, not a final robotics benchmark
+claim. The purpose is causal diagnosis of the previous PlateSupport signal.
+```
+
+So yes: I can create both. My recommendation is:
+
+```text
+1. root state_collapser-engineer handoff document first;
+2. BBB direct-star evaluation blueprint second;
+3. only after PO review, turn the blueprint into a Phase.Stage.Action workplan.
+```
+
+That sequencing keeps the conceptual issue visible before we start coding the
+evaluation repair.

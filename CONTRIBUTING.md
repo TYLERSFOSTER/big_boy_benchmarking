@@ -67,7 +67,7 @@ general performance claim.
 The immediate next fork is a Project Owner decision, not automatic execution.
 Do not assume the next step from old counterpoint notes.
 
-The latest completed result is the PlateSupport standard-gauntlet correction
+The main positive PlateSupport result remains the standard-gauntlet correction
 run:
 
 ```text
@@ -87,10 +87,27 @@ invalid moves: selected tower 0, direct baseline 2142
 
 Treat this as bounded smoke-scale positive evidence for a promising
 PlateSupport tower-control mechanism. It is not a general PlateSupport tower
-superiority claim. The next PlateSupport design block, if the Project Owner
-chooses it, should strengthen or challenge this signal with larger budgets,
-more seeds, more candidates, and possibly harder or varied PlateSupport
-instances. Do not jump directly from this one correction run to a general
+superiority claim.
+
+After Abdul Malik raised the cul-de-sac / validity-filtering concern, the repo
+added two follow-up diagnostic controls:
+
+```text
+docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/
+docs/evaluations/plate_support_5x5_default_v001/tower_star/
+```
+
+`direct_star_culdesac_control` tests whether one-step direct guards explain the
+original tower signal. `tower_star` then applies analogous one-step filtering
+inside tower lift-candidate pools before tower action-cell selection. The first
+`tower_star_001` smoke run is inconclusive/tied on the primary target, so it
+should be treated as a diagnostic control result, not a new positive tower
+claim.
+
+The next PlateSupport design block, if the Project Owner chooses it, should
+start from those control diagnostics and decide whether to increase budgets,
+adjust targets, test more candidates, or broaden PlateSupport instances. Do
+not jump directly from the standard-gauntlet correction run to a general
 success claim.
 
 A separate counterpoint next-measure path has also progressed beyond the old
@@ -172,8 +189,9 @@ The current PlateSupport standard gauntlet is complete as a correction suite.
 It supports a bounded statement only: the selected iterated tower candidate is
 trainable, the suite can calibrate a binary-success target, and the Stage 6
 paired comparison is positive on that target while also recording better tower
-mean reward and zero invalid moves. Do not summarize this as general
-PlateSupport tower success.
+mean reward and zero invalid moves. The later direct-star and tower-star
+controls are diagnostic follow-ups to that signal. Do not summarize any of
+this as general PlateSupport tower success.
 
 ## Root Contribution Rule
 
@@ -354,6 +372,14 @@ The durable suite readout is rebuilt with:
 uv run python -m big_boy_benchmarking.cli plate-support standard-gauntlet readout build \
   --readout-source docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/readout_source.json \
   --create-system-learning-archive
+```
+
+PlateSupport direct-star and tower-star control readouts use explicit
+repo-side source bindings:
+
+```text
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/readout_source.json
+execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/plate_support_5x5_default_v001/tower_star/readout_source.json
 ```
 
 Counterpoint serious-learning commands:
