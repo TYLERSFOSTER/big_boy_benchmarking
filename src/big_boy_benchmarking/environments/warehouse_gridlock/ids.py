@@ -1,0 +1,12 @@
+"""Stable identifiers for the Warehouse Gridlock environment family."""
+
+WAREHOUSE_GRIDLOCK_ENVIRONMENT_FAMILY_ID = "warehouse_gridlock_001"
+WAREHOUSE_GRIDLOCK_IMPLEMENTATION_FAMILY_ID = "warehouse_gridlock_v001"
+WAREHOUSE_GRIDLOCK_FULL_INSTANCE_ID = "warehouse_gridlock_16x16_v001"
+WAREHOUSE_GRIDLOCK_READINESS_EVALUATION_ID = "warehouse_gridlock_environment_readiness_v001"
+WAREHOUSE_GRIDLOCK_COLLISION_POLICY_ID = "warehouse_gridlock_collision_node_and_head_on_v001"
+WAREHOUSE_GRIDLOCK_TRANSITION_POLICY_ID = "warehouse_gridlock_synchronous_push_v001"
+WAREHOUSE_GRIDLOCK_REWARD_POLICY_ID = "warehouse_gridlock_elapsed_success_progress_v001"
+WAREHOUSE_GRIDLOCK_DISCOVERY_POLICY_ID = "warehouse_gridlock_discovery_per_run_per_arm_v001"
+
+SUPPORTED_INSTANCE_IDS = (WAREHOUSE_GRIDLOCK_FULL_INSTANCE_ID,)

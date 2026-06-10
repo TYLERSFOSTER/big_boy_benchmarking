@@ -1,0 +1,25 @@
+# Warehouse Gridlock Readiness Artifact Index
+
+- `action_mask_policy_manifest`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/action_mask_policy_manifest.json`
+- `action_space_manifest`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/action_space_manifest.json`
+- `admissibility_budget_summary`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/results/admissibility_budget_summary.csv`
+- `admissibility_cache_policy_manifest`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/admissibility_cache_policy_manifest.json`
+- `collision_policy_manifest`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/collision_policy_manifest.json`
+- `discovered_state_summary`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/results/discovered_state_summary.csv`
+- `discovered_transition_summary`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/results/discovered_transition_summary.csv`
+- `discovery_coverage_summary`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/results/discovery_coverage_summary.csv`
+- `discovery_events`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/results/discovery_events.csv`
+- `environment_instance_manifest`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/environment_instance_manifest.json`
+- `goal_state`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/goal_state.json`
+- `graph_manifest`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/graph_manifest.json`
+- `graph_summary`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/results/graph_summary.csv`
+- `invalid_action_summary`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/results/invalid_action_summary.csv`
+- `readiness_report`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/readiness_report.json`
+- `readiness_summary`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/results/readiness_summary.csv`
+- `reward_mode_manifest`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/reward_mode_manifest.json`
+- `start_state`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/start_state.json`
+- `state_validation_summary`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/results/state_validation_summary.csv`
+- `target_manifest`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/target_manifest.json`
+- `target_validation_summary`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/results/target_validation_summary.csv`
+- `transition_rule_manifest`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/transition_rule_manifest.json`
+- `transition_smoke_summary`: `docs/evaluations/warehouse_gridlock_001/environment_readiness/artifacts/smoke_001/results/transition_smoke_summary.csv`

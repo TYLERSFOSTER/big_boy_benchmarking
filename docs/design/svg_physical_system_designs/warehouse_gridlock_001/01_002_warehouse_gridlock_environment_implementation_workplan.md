@@ -2,7 +2,13 @@
 
 ## Status
 
-Initial implementation workplan.
+Execution complete for the environment-readiness slice.
+
+Execution details are recorded in:
+
+```text
+docs/design/svg_physical_system_designs/warehouse_gridlock_001/01_003_warehouse_gridlock_environment_implementation_log.md
+```
 
 This workplan is derived from:
 
@@ -1688,7 +1694,8 @@ Verification:
 
 Stop if:
 
-- readout source would point to `/private/tmp` or another machine-local output
+- readout source would point to a machine-local tmp directory or another
+  machine-local output
   as the canonical result.
 
 ##### Phase 7.Stage 2.Action 2: Write initial human docs

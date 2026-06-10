@@ -59,3 +59,9 @@ Project Owner text actually supports it. Codex must not invent physical
 semantics that the drawing does not specify. When Codex infers a constraint,
 goal, or variable from the drawing, label it as an inference until the Project
 Owner confirms it.
+
+## Current Systems
+
+- `warehouse_gridlock_001/`: PO-authored Warehouse Gridlock drawing set,
+  environment blueprint, Phase.Stage.Action implementation workplan, and
+  implementation log.

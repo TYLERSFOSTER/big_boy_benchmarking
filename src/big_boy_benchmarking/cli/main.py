@@ -292,6 +292,21 @@ from big_boy_benchmarking.environments.plate_support.standard_gauntlet.readout_s
 from big_boy_benchmarking.environments.plate_support.standard_gauntlet.readout_system_learning.runner import (
     build_readout_system_learning as build_plate_support_readout_system_learning,
 )
+from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
+    build_readiness_docs as build_warehouse_gridlock_readiness_docs,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
+    run_graph_diagnostics as run_warehouse_gridlock_graph_diagnostics,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
+    run_random_rollout as run_warehouse_gridlock_random_rollout,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
+    run_state_diagnostics as run_warehouse_gridlock_state_diagnostics,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
+    run_transition_smoke as run_warehouse_gridlock_transition_smoke,
+)
 from big_boy_benchmarking.modes.contracts import validate_mode_contract
 from big_boy_benchmarking.modes.linearization import (
     iter_linearization_mode_contracts,
@@ -379,6 +394,58 @@ def build_parser() -> argparse.ArgumentParser:
         "--run-family-id",
         default="upstream_smoke_readout_discipline_v001",
     )
+
+    warehouse_parser = subparsers.add_parser("warehouse-gridlock")
+    warehouse_subparsers = warehouse_parser.add_subparsers(
+        dest="warehouse_gridlock_command",
+        required=True,
+    )
+    warehouse_graph_parser = warehouse_subparsers.add_parser("graph-diagnostics")
+    warehouse_graph_parser.add_argument("--artifact-root", required=True, type=Path)
+    warehouse_graph_parser.add_argument(
+        "--instance-id",
+        default="warehouse_gridlock_16x16_v001",
+    )
+    warehouse_graph_parser.add_argument("--run-label", default="smoke_001")
+    warehouse_graph_parser.add_argument("--repo-root", type=Path, default=Path("."))
+
+    warehouse_state_parser = warehouse_subparsers.add_parser("state-diagnostics")
+    warehouse_state_parser.add_argument("--artifact-root", required=True, type=Path)
+    warehouse_state_parser.add_argument(
+        "--instance-id",
+        default="warehouse_gridlock_16x16_v001",
+    )
+    warehouse_state_parser.add_argument("--run-label", default="smoke_001")
+    warehouse_state_parser.add_argument("--repo-root", type=Path, default=Path("."))
+
+    warehouse_transition_parser = warehouse_subparsers.add_parser("transition-smoke")
+    warehouse_transition_parser.add_argument("--artifact-root", required=True, type=Path)
+    warehouse_transition_parser.add_argument(
+        "--instance-id",
+        default="warehouse_gridlock_16x16_v001",
+    )
+    warehouse_transition_parser.add_argument("--run-label", default="smoke_001")
+    warehouse_transition_parser.add_argument("--repo-root", type=Path, default=Path("."))
+
+    warehouse_rollout_parser = warehouse_subparsers.add_parser("random-rollout")
+    warehouse_rollout_parser.add_argument("--artifact-root", required=True, type=Path)
+    warehouse_rollout_parser.add_argument(
+        "--instance-id",
+        default="warehouse_gridlock_16x16_v001",
+    )
+    warehouse_rollout_parser.add_argument("--run-label", default="smoke_001")
+    warehouse_rollout_parser.add_argument("--seconds", type=int, default=8)
+    warehouse_rollout_parser.add_argument("--seed", type=int, default=0)
+    warehouse_rollout_parser.add_argument("--repo-root", type=Path, default=Path("."))
+
+    warehouse_docs_parser = warehouse_subparsers.add_parser("readiness-docs")
+    warehouse_docs_parser.add_argument("--artifact-root", required=True, type=Path)
+    warehouse_docs_parser.add_argument(
+        "--instance-id",
+        default="warehouse_gridlock_16x16_v001",
+    )
+    warehouse_docs_parser.add_argument("--run-label", default="smoke_001")
+    warehouse_docs_parser.add_argument("--repo-root", type=Path, default=Path("."))
 
     plate_support_parser = subparsers.add_parser("plate-support")
     plate_support_subparsers = plate_support_parser.add_subparsers(
@@ -1919,6 +1986,75 @@ def _run_plate_support_command(args: argparse.Namespace) -> int:
     raise ValueError(f"unknown PlateSupport command: {args.plate_support_command}")
 
 
+def _run_warehouse_gridlock_command(args: argparse.Namespace) -> int:
+    if args.warehouse_gridlock_command == "graph-diagnostics":
+        result = run_warehouse_gridlock_graph_diagnostics(
+            artifact_root=args.artifact_root,
+            instance_id=args.instance_id,
+            run_label=args.run_label,
+        )
+        print(json.dumps(_warehouse_gridlock_result_payload(result), sort_keys=True))
+        return 0 if result.status == "ok" else 2
+
+    if args.warehouse_gridlock_command == "state-diagnostics":
+        result = run_warehouse_gridlock_state_diagnostics(
+            artifact_root=args.artifact_root,
+            instance_id=args.instance_id,
+            run_label=args.run_label,
+        )
+        print(json.dumps(_warehouse_gridlock_result_payload(result), sort_keys=True))
+        return 0 if result.status == "ok" else 2
+
+    if args.warehouse_gridlock_command == "transition-smoke":
+        result = run_warehouse_gridlock_transition_smoke(
+            artifact_root=args.artifact_root,
+            instance_id=args.instance_id,
+            run_label=args.run_label,
+        )
+        print(json.dumps(_warehouse_gridlock_result_payload(result), sort_keys=True))
+        return 0 if result.status == "ok" else 2
+
+    if args.warehouse_gridlock_command == "random-rollout":
+        result = run_warehouse_gridlock_random_rollout(
+            artifact_root=args.artifact_root,
+            instance_id=args.instance_id,
+            run_label=args.run_label,
+            seconds=args.seconds,
+            seed=args.seed,
+        )
+        print(json.dumps(_warehouse_gridlock_result_payload(result), sort_keys=True))
+        return 0 if result.status == "ok" else 2
+
+    if args.warehouse_gridlock_command == "readiness-docs":
+        result = build_warehouse_gridlock_readiness_docs(
+            repo_root=args.repo_root,
+            artifact_root=args.artifact_root,
+            instance_id=args.instance_id,
+            run_label=args.run_label,
+        )
+        print(json.dumps(_warehouse_gridlock_result_payload(result), sort_keys=True))
+        return 0 if result.status == "ok" else 2
+
+    raise ValueError(f"unknown Warehouse Gridlock command: {args.warehouse_gridlock_command}")
+
+
+def _warehouse_gridlock_result_payload(result: object) -> dict[str, object]:
+    summary = result.summary
+    artifact_paths = result.artifact_paths
+    return {
+        "status": result.status,
+        "artifact_count": len(artifact_paths),
+        "instance_id": summary.get("instance_id"),
+        "robot_count": summary.get("robot_count"),
+        "box_count": summary.get("box_count"),
+        "traversable_node_count": summary.get("traversable_node_count"),
+        "directed_edge_count": summary.get("directed_edge_count"),
+        "transition_case_count": summary.get("transition_case_count"),
+        "invalid_reason_count": summary.get("invalid_reason_count"),
+        "rollout_steps_recorded": summary.get("rollout_steps_recorded"),
+    }
+
+
 def _run_counterpoint_command(args: argparse.Namespace) -> int:
     if args.counterpoint_command == "search-fixtures":
         candidates = tiny_candidate_specs() if args.scale == "tiny" else small_candidate_specs()
@@ -2603,6 +2739,9 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     if args.command == "plate-support":
         return _run_plate_support_command(args)
+
+    if args.command == "warehouse-gridlock":
+        return _run_warehouse_gridlock_command(args)
 
     if args.command == "counterpoint":
         return _run_counterpoint_command(args)

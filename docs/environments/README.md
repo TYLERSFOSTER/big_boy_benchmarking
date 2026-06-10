@@ -25,6 +25,7 @@ Environment docs should describe:
 | --- | --- | --- | --- |
 | Counterpoint Symbolic v001 | Active calibration/smoke environment | [counterpoint_symbolic_v001.md](counterpoint_symbolic_v001.md) | first serious learning, one-third diagnostics, fraction sweep, noisy-rate diagnostics, full-tower training health, schema comparison, threshold frontier, small paired replicate |
 | PlateSupport 5x5 Default v001 | Active constrained robotics-style calibration/smoke environment | [plate_support_5x5_default_v001.md](plate_support_5x5_default_v001.md) | environment readiness and standard gauntlet |
+| Warehouse Gridlock 001 | Candidate discrete robotics environment; environment-readiness implementation complete | [warehouse_gridlock_001/README.md](warehouse_gridlock_001/README.md) | environment readiness only |
 
 ## Upstream Smoke Pages
 
@@ -41,4 +42,3 @@ Follow:
 ```text
 docs/prime_directive/environment_construction_for_benchmark_evaluations_protocol.md
 ```
-
