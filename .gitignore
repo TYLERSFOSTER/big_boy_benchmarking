@@ -253,3 +253,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# IDK
+assets/**/*.bkp
+assets/**/.$*
