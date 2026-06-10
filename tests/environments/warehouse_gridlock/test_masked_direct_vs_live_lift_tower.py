@@ -202,6 +202,8 @@ def test_cli_smoke_writes_readout_and_no_lookahead_audit(tmp_path: Path, capsys)
                 "3",
                 "--candidate-mix-id",
                 CANDIDATE_MIX_COORDINATION_READY,
+                "--progress-every-episodes",
+                "1",
                 "--schema-seeds",
                 "1",
                 "--smoke",
@@ -209,8 +211,10 @@ def test_cli_smoke_writes_readout_and_no_lookahead_audit(tmp_path: Path, capsys)
         )
         == 0
     )
-    payload = json.loads(capsys.readouterr().out)
+    captured = capsys.readouterr()
+    payload = json.loads(captured.out)
     assert payload["status"] == "success"
+    assert "[warehouse progress]" in captured.err
 
     readout_source_path = (
         tmp_path
@@ -239,3 +243,13 @@ def test_cli_smoke_writes_readout_and_no_lookahead_audit(tmp_path: Path, capsys)
         "two_active",
         "three_active",
     }
+
+    progress_path = artifact_root / "progress_events.jsonl"
+    progress_rows = [
+        json.loads(line)
+        for line in progress_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+    assert progress_rows[0]["event_type"] == "evaluation_start"
+    assert any(row["event_type"] == "episode_complete" for row in progress_rows)
+    assert progress_rows[-1]["event_type"] == "evaluation_complete"

@@ -100,6 +100,10 @@ class EvaluationPaths:
         return self.artifact_root / "run_index.csv"
 
     @property
+    def progress_events(self) -> Path:
+        return self.artifact_root / "progress_events.jsonl"
+
+    @property
     def artifact_readout_source(self) -> Path:
         return self.artifact_root / "readout_source.json"
 

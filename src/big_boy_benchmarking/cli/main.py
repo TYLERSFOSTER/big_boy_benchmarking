@@ -313,6 +313,7 @@ from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_
     DEFAULT_EPISODES_PER_ARM as WAREHOUSE_MASKED_DEFAULT_EPISODES,
     DEFAULT_MAX_ACTIVE_ROBOTS as WAREHOUSE_MASKED_DEFAULT_MAX_ACTIVE_ROBOTS,
     DEFAULT_MAX_SECONDS_PER_EPISODE as WAREHOUSE_MASKED_DEFAULT_MAX_SECONDS,
+    DEFAULT_PROGRESS_EVERY_EPISODES as WAREHOUSE_MASKED_DEFAULT_PROGRESS_EVERY_EPISODES,
     DEFAULT_REPLICATES_PER_ARM as WAREHOUSE_MASKED_DEFAULT_REPLICATES,
     DEFAULT_SCHEMA_SEEDS as WAREHOUSE_MASKED_DEFAULT_SCHEMA_SEEDS,
     DEFAULT_SEED as WAREHOUSE_MASKED_DEFAULT_SEED,
@@ -518,6 +519,17 @@ def build_parser() -> argparse.ArgumentParser:
         "--seed",
         type=int,
         default=WAREHOUSE_MASKED_DEFAULT_SEED,
+    )
+    warehouse_masked_run_parser.add_argument(
+        "--progress-every-episodes",
+        type=int,
+        default=WAREHOUSE_MASKED_DEFAULT_PROGRESS_EVERY_EPISODES,
+        help="Emit progress to stderr and progress_events.jsonl every N completed episodes; use 0 to disable.",
+    )
+    warehouse_masked_run_parser.add_argument(
+        "--no-progress",
+        action="store_true",
+        help="Disable terminal and JSONL progress events.",
     )
     warehouse_masked_run_parser.add_argument("--smoke", action="store_true")
 
@@ -2134,6 +2146,10 @@ def _run_warehouse_gridlock_command(args: argparse.Namespace) -> int:
                     schema_seeds=args.schema_seeds,
                     seed=args.seed,
                     smoke=args.smoke,
+                    progress_every_episodes=0
+                    if args.no_progress
+                    else args.progress_every_episodes,
+                    progress_to_stderr=not args.no_progress,
                 )
             )
             print(json.dumps(_warehouse_gridlock_result_payload(result), sort_keys=True))

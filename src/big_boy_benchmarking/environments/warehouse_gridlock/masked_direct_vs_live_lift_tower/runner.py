@@ -3,12 +3,13 @@
 from __future__ import annotations
 
 import csv
+import sys
 import time
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from big_boy_benchmarking.artifacts.writers import write_csv, write_json
+from big_boy_benchmarking.artifacts.writers import append_jsonl, write_csv, write_json
 from big_boy_benchmarking.environments.warehouse_gridlock.instances import load_instance
 from big_boy_benchmarking.environments.warehouse_gridlock.rewards import (
     is_terminal,
@@ -126,6 +127,9 @@ def run_masked_direct_vs_live_lift_tower(
     all_tower_surface_rows: list[dict[str, object]] = []
     all_tower_shape_rows: list[dict[str, object]] = []
     run_index_rows: list[dict[str, object]] = []
+    total_runs = config.schema_seeds * config.replicates_per_arm * len((DIRECT_ARM_ID, TOWER_ARM_ID))
+    progress = _ProgressReporter(paths=paths, config=config, total_runs=total_runs)
+    progress.record_evaluation_start()
 
     for schema_seed in range(config.schema_seeds):
         for replicate_index in range(config.replicates_per_arm):
@@ -139,6 +143,12 @@ def run_masked_direct_vs_live_lift_tower(
                 run_root = paths.run_root(current_run_id)
                 run_root.mkdir(parents=True, exist_ok=True)
                 seed = config.seed + schema_seed * 1000 + replicate_index * 100
+                progress.record_run_start(
+                    run_id=current_run_id,
+                    arm_id=arm_id,
+                    replicate_index=replicate_index,
+                    schema_seed=schema_seed,
+                )
                 rows = _run_arm(
                     instance=instance,
                     config=config,
@@ -147,6 +157,13 @@ def run_masked_direct_vs_live_lift_tower(
                     replicate_index=replicate_index,
                     schema_seed=schema_seed,
                     seed=seed,
+                    progress=progress,
+                )
+                progress.record_run_complete(
+                    run_id=current_run_id,
+                    arm_id=arm_id,
+                    replicate_index=replicate_index,
+                    schema_seed=schema_seed,
                 )
                 _write_run_rows(run_root=run_root, rows=rows)
                 write_run_manifest(
@@ -223,9 +240,11 @@ def run_masked_direct_vs_live_lift_tower(
     docs = write_human_docs(paths=paths, run_label=config.run_label, summary=summary)
     elapsed = time.perf_counter() - started
     summary = {**summary, "duration_seconds": elapsed}
+    progress.record_evaluation_complete(status="success", duration_seconds=elapsed)
     artifact_paths = {
         **manifest_paths,
         "run_index": str(paths.run_index),
+        "progress_events": str(paths.progress_events),
         "aggregate_summary": str(paths.aggregate_summary),
         "readout_source": str(readout_source_path),
         **docs,
@@ -272,6 +291,7 @@ def _run_arm(
     replicate_index: int,
     schema_seed: int,
     seed: int,
+    progress: "_ProgressReporter",
 ) -> _RunRows:
     rows = _RunRows([], [], [], [], [], [], [], [], [], [], [])
     q_values: dict[str, float] = {}
@@ -391,28 +411,28 @@ def _run_arm(
             robot_targets=instance.manifest.robot_target_map(),
             box_targets=instance.manifest.box_target_map(),
         )
-        rows.episode_rows.append(
-            {
-                "run_id": run_id,
-                "arm_id": arm_id,
-                "replicate_index": replicate_index,
-                "schema_seed": schema_seed,
-                "episode_index": episode_index,
-                "status": "success" if not failure_reason else "blocked",
-                "failure_reason": failure_reason,
-                "total_reward": total_reward,
-                "initial_correct_box_count": initial_counts["correct_box_count"],
-                "final_correct_box_count": final_counts["correct_box_count"],
-                "initial_correct_robot_count": initial_counts["correct_robot_count"],
-                "final_correct_robot_count": final_counts["correct_robot_count"],
-                "terminal_success": terminal,
-                "terminated": terminal,
-                "truncated": state.time_step >= config.max_seconds_per_episode and not terminal,
-                "selected_step_count": valid_selected + invalid_selected,
-                "valid_selected_step_count": valid_selected,
-                "invalid_selected_step_count": invalid_selected,
-            }
-        )
+        episode_row = {
+            "run_id": run_id,
+            "arm_id": arm_id,
+            "replicate_index": replicate_index,
+            "schema_seed": schema_seed,
+            "episode_index": episode_index,
+            "status": "success" if not failure_reason else "blocked",
+            "failure_reason": failure_reason,
+            "total_reward": total_reward,
+            "initial_correct_box_count": initial_counts["correct_box_count"],
+            "final_correct_box_count": final_counts["correct_box_count"],
+            "initial_correct_robot_count": initial_counts["correct_robot_count"],
+            "final_correct_robot_count": final_counts["correct_robot_count"],
+            "terminal_success": terminal,
+            "terminated": terminal,
+            "truncated": state.time_step >= config.max_seconds_per_episode and not terminal,
+            "selected_step_count": valid_selected + invalid_selected,
+            "valid_selected_step_count": valid_selected,
+            "invalid_selected_step_count": invalid_selected,
+        }
+        rows.episode_rows.append(episode_row)
+        progress.record_episode_complete(episode_row)
     rows.timing_rows.append(
         {
             "run_id": run_id,
@@ -422,6 +442,183 @@ def _run_arm(
         }
     )
     return rows
+
+
+class _ProgressReporter:
+    def __init__(
+        self,
+        *,
+        paths: EvaluationPaths,
+        config: MaskedDirectVsLiveLiftConfig,
+        total_runs: int,
+    ) -> None:
+        self.paths = paths
+        self.config = config
+        self.total_runs = total_runs
+        self.total_episodes = max(1, total_runs * config.episodes_per_arm)
+        self.completed_episodes = 0
+        self.completed_runs = 0
+        self.started = time.perf_counter()
+        self.enabled = config.progress_every_episodes > 0
+        if self.enabled:
+            paths.progress_events.write_text("", encoding="utf-8")
+
+    def record_evaluation_start(self) -> None:
+        self._emit(
+            {
+                "event_type": "evaluation_start",
+                "run_label": self.config.run_label,
+                "total_runs": self.total_runs,
+                "total_episodes": self.total_episodes,
+                "episodes_per_arm": self.config.episodes_per_arm,
+                "replicates_per_arm": self.config.replicates_per_arm,
+                "schema_seeds": self.config.schema_seeds,
+                "max_seconds_per_episode": self.config.max_seconds_per_episode,
+                "candidate_proposals_per_step": self.config.candidate_proposals_per_step,
+                "max_active_robots": self.config.max_active_robots,
+                "candidate_mix_id": self.config.candidate_mix_id,
+            },
+            force_stderr=True,
+        )
+
+    def record_run_start(
+        self,
+        *,
+        run_id: str,
+        arm_id: str,
+        replicate_index: int,
+        schema_seed: int,
+    ) -> None:
+        self._emit(
+            {
+                "event_type": "run_start",
+                "run_id": run_id,
+                "arm_id": arm_id,
+                "replicate_index": replicate_index,
+                "schema_seed": schema_seed,
+                "completed_runs": self.completed_runs,
+                "total_runs": self.total_runs,
+            },
+            force_stderr=True,
+        )
+
+    def record_episode_complete(self, episode_row: dict[str, object]) -> None:
+        self.completed_episodes += 1
+        should_print = (
+            self.completed_episodes == self.total_episodes
+            or self.completed_episodes % self.config.progress_every_episodes == 0
+        )
+        self._emit(
+            {
+                "event_type": "episode_complete",
+                "completed_episodes": self.completed_episodes,
+                "total_episodes": self.total_episodes,
+                "percent_complete": round(
+                    100.0 * self.completed_episodes / self.total_episodes,
+                    3,
+                ),
+                "elapsed_seconds": round(time.perf_counter() - self.started, 3),
+                **episode_row,
+            },
+            force_stderr=should_print,
+        )
+
+    def record_run_complete(
+        self,
+        *,
+        run_id: str,
+        arm_id: str,
+        replicate_index: int,
+        schema_seed: int,
+    ) -> None:
+        self.completed_runs += 1
+        self._emit(
+            {
+                "event_type": "run_complete",
+                "run_id": run_id,
+                "arm_id": arm_id,
+                "replicate_index": replicate_index,
+                "schema_seed": schema_seed,
+                "completed_runs": self.completed_runs,
+                "total_runs": self.total_runs,
+                "completed_episodes": self.completed_episodes,
+                "total_episodes": self.total_episodes,
+                "elapsed_seconds": round(time.perf_counter() - self.started, 3),
+            },
+            force_stderr=True,
+        )
+
+    def record_evaluation_complete(self, *, status: str, duration_seconds: float) -> None:
+        self._emit(
+            {
+                "event_type": "evaluation_complete",
+                "status": status,
+                "completed_runs": self.completed_runs,
+                "total_runs": self.total_runs,
+                "completed_episodes": self.completed_episodes,
+                "total_episodes": self.total_episodes,
+                "duration_seconds": round(duration_seconds, 3),
+            },
+            force_stderr=True,
+        )
+
+    def _emit(self, payload: dict[str, object], *, force_stderr: bool) -> None:
+        if not self.enabled:
+            return
+        append_jsonl(self.paths.progress_events, payload, create_parents=True)
+        if self.config.progress_to_stderr and force_stderr:
+            print(_progress_line(payload), file=sys.stderr, flush=True)
+
+
+def _progress_line(payload: dict[str, object]) -> str:
+    event_type = str(payload.get("event_type", "progress"))
+    if event_type == "episode_complete":
+        return (
+            "[warehouse progress] "
+            f"{payload.get('completed_episodes')}/{payload.get('total_episodes')} episodes "
+            f"({payload.get('percent_complete')}%) "
+            f"arm={payload.get('arm_id')} "
+            f"rep={payload.get('replicate_index')} "
+            f"schema={payload.get('schema_seed')} "
+            f"episode={payload.get('episode_index')} "
+            f"reward={payload.get('total_reward')} "
+            f"boxes={payload.get('final_correct_box_count')} "
+            f"robots={payload.get('final_correct_robot_count')} "
+            f"terminal={payload.get('terminal_success')} "
+            f"elapsed={payload.get('elapsed_seconds')}s"
+        )
+    if event_type == "run_start":
+        return (
+            "[warehouse progress] "
+            f"run start {payload.get('completed_runs')}/{payload.get('total_runs')} "
+            f"arm={payload.get('arm_id')} rep={payload.get('replicate_index')} "
+            f"schema={payload.get('schema_seed')}"
+        )
+    if event_type == "run_complete":
+        return (
+            "[warehouse progress] "
+            f"run complete {payload.get('completed_runs')}/{payload.get('total_runs')} "
+            f"arm={payload.get('arm_id')} "
+            f"episodes={payload.get('completed_episodes')}/{payload.get('total_episodes')} "
+            f"elapsed={payload.get('elapsed_seconds')}s"
+        )
+    if event_type == "evaluation_start":
+        return (
+            "[warehouse progress] "
+            f"start run_label={payload.get('run_label')} "
+            f"runs={payload.get('total_runs')} episodes={payload.get('total_episodes')} "
+            f"candidates={payload.get('candidate_proposals_per_step')} "
+            f"max_active={payload.get('max_active_robots')}"
+        )
+    if event_type == "evaluation_complete":
+        return (
+            "[warehouse progress] "
+            f"complete status={payload.get('status')} "
+            f"runs={payload.get('completed_runs')}/{payload.get('total_runs')} "
+            f"episodes={payload.get('completed_episodes')}/{payload.get('total_episodes')} "
+            f"duration={payload.get('duration_seconds')}s"
+        )
+    return f"[warehouse progress] {event_type}"
 
 
 def _direct_step(

@@ -63,6 +63,7 @@ def write_readout_source(
             "direct_candidate_events": _rel(
                 paths.repo_root, paths.results_dir / "direct_candidate_events.csv"
             ),
+            "progress_events": _rel(paths.repo_root, paths.artifact_root / "progress_events.jsonl"),
         },
         "artifact_storage": {
             "mode": "git_tracked",
@@ -78,6 +79,7 @@ def write_readout_source(
                 "dependency_manifest.json",
                 "arm_manifest.json",
                 "candidate_generation_manifest.json",
+                "progress_events.jsonl",
                 "admissibility_policy_manifest.json",
                 "live_lift_policy_manifest.json",
                 "no_lookahead_policy_manifest.json",
@@ -346,6 +348,7 @@ uv run python -m big_boy_benchmarking.cli warehouse-gridlock masked-direct-vs-li
   --locked-by foster \\
   --candidate-proposals-per-step {candidate_budget} \\
   --max-active-robots {max_active_robots} \\
+  --progress-every-episodes 25 \\
   --candidate-mix-id {CANDIDATE_MIX_COORDINATION_READY}{smoke_flag}
 
 uv run python -m big_boy_benchmarking.cli warehouse-gridlock masked-direct-vs-live-lift-tower summarize \\
@@ -362,7 +365,21 @@ For the long diagnostic run, use a non-smoke run label and do not pass
 --max-seconds-per-episode <warehouse time horizon>
 --candidate-proposals-per-step 256
 --max-active-robots 8
+--progress-every-episodes 25
 --candidate-mix-id {CANDIDATE_MIX_COORDINATION_READY}
+```
+
+Progress prints to stderr while the final machine-readable CLI result remains
+on stdout. A persistent copy is written to:
+
+```text
+docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/{run_label}/progress_events.jsonl
+```
+
+In another terminal, you can watch it with:
+
+```bash
+tail -f docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/{run_label}/progress_events.jsonl
 ```
 
 Human-readable regeneration prompt:

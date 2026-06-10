@@ -40,6 +40,7 @@ DEFAULT_SCHEMA_SEEDS = 1
 DEFAULT_SEED = 0
 DEFAULT_RATIO_NUMERATOR = 9
 DEFAULT_RATIO_DENOMINATOR = 10
+DEFAULT_PROGRESS_EVERY_EPISODES = 25
 
 
 @dataclass(frozen=True)
@@ -64,6 +65,8 @@ class MaskedDirectVsLiveLiftConfig:
     smoke: bool = False
     ratio_numerator: int = DEFAULT_RATIO_NUMERATOR
     ratio_denominator: int = DEFAULT_RATIO_DENOMINATOR
+    progress_every_episodes: int = DEFAULT_PROGRESS_EVERY_EPISODES
+    progress_to_stderr: bool = True
 
     @property
     def run_mode(self) -> str:
@@ -88,6 +91,8 @@ class MaskedDirectVsLiveLiftConfig:
             "seed": self.seed,
             "ratio_numerator": self.ratio_numerator,
             "ratio_denominator": self.ratio_denominator,
+            "progress_every_episodes": self.progress_every_episodes,
+            "progress_to_stderr": self.progress_to_stderr,
             "active_arm_ids": list(ACTIVE_ARM_IDS),
             "no_lookahead_policy_id": NO_LOOKAHEAD_POLICY_ID,
         }

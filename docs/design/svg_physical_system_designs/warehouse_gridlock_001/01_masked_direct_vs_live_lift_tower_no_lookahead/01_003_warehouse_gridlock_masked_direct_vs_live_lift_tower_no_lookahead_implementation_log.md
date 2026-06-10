@@ -533,3 +533,88 @@ Verification result:
 6 passed
 21 passed
 ```
+
+## Phase 15: Command-Line Progress Surface
+
+Status: complete.
+
+Reason:
+
+- PO asked to be able to start the serious Warehouse run from the command line
+  and see progress while it is running.
+- The progress surface must not pollute final stdout JSON, because downstream
+  scripts and shell captures may parse that output.
+
+Implemented progress behavior:
+
+- Progress emits human-readable lines to stderr.
+- The final CLI result remains on stdout as JSON.
+- Progress is also persisted to:
+
+```text
+progress_events.jsonl
+```
+
+inside the artifact root.
+
+CLI knobs:
+
+```text
+--progress-every-episodes <N>
+--no-progress
+```
+
+Default:
+
+```text
+--progress-every-episodes 25
+```
+
+Progress event types:
+
+```text
+evaluation_start
+run_start
+episode_complete
+run_complete
+evaluation_complete
+```
+
+Episode progress records include:
+
+```text
+completed_episodes
+total_episodes
+percent_complete
+elapsed_seconds
+arm_id
+replicate_index
+schema_seed
+episode_index
+total_reward
+final_correct_box_count
+final_correct_robot_count
+terminal_success
+status
+failure_reason
+```
+
+Watch command for a serious run:
+
+```bash
+tail -f docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/masked_001/progress_events.jsonl
+```
+
+Verification commands rerun:
+
+```text
+uv run pytest tests/environments/warehouse_gridlock/test_masked_direct_vs_live_lift_tower.py
+uv run pytest tests/environments/warehouse_gridlock
+```
+
+Verification result:
+
+```text
+6 passed
+21 passed
+```
