@@ -313,6 +313,30 @@ from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_
 from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_lift_tower.runner import (
     summarize_masked_direct_vs_live_lift_tower as summarize_warehouse_masked_direct_vs_live_lift_tower,
 )
+from big_boy_benchmarking.environments.warehouse_gridlock.full_state_policy_comparison.config import (
+    DEFAULT_BASELINE_RATE as WAREHOUSE_POLICY_DEFAULT_BASELINE_RATE,
+    DEFAULT_EPISODES_PER_ARM as WAREHOUSE_POLICY_DEFAULT_EPISODES,
+    DEFAULT_LEARNING_RATE as WAREHOUSE_POLICY_DEFAULT_LEARNING_RATE,
+    DEFAULT_MAX_SECONDS_PER_EPISODE as WAREHOUSE_POLICY_DEFAULT_MAX_SECONDS,
+    DEFAULT_PROGRESS_EVERY_EPISODES as WAREHOUSE_POLICY_DEFAULT_PROGRESS_EVERY_EPISODES,
+    DEFAULT_PROJECTION_ATTEMPT_BUDGET as WAREHOUSE_POLICY_DEFAULT_PROJECTION_BUDGET,
+    DEFAULT_REPLICATES_PER_ARM as WAREHOUSE_POLICY_DEFAULT_REPLICATES,
+    DEFAULT_SCHEMA_SEEDS as WAREHOUSE_POLICY_DEFAULT_SCHEMA_SEEDS,
+    DEFAULT_SEED as WAREHOUSE_POLICY_DEFAULT_SEED,
+    DEFAULT_TEMPERATURE_DECAY_PER_EPISODE as WAREHOUSE_POLICY_DEFAULT_TEMPERATURE_DECAY,
+    DEFAULT_TEMPERATURE_FLOOR as WAREHOUSE_POLICY_DEFAULT_TEMPERATURE_FLOOR,
+    DEFAULT_TEMPERATURE_INITIAL as WAREHOUSE_POLICY_DEFAULT_TEMPERATURE_INITIAL,
+    FullStatePolicyComparisonConfig as WarehouseFullStatePolicyComparisonConfig,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.full_state_policy_comparison.paths import (
+    default_readiness_source as default_warehouse_policy_readiness_source,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.full_state_policy_comparison.runner import (
+    run_full_state_policy_comparison as run_warehouse_full_state_policy_comparison,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.full_state_policy_comparison.runner import (
+    summarize_full_state_policy_comparison as summarize_warehouse_full_state_policy_comparison,
+)
 from big_boy_benchmarking.environments.warehouse_gridlock.replay import (
     render_episode_gif as render_warehouse_gridlock_episode_gif,
 )
@@ -577,6 +601,86 @@ def build_parser() -> argparse.ArgumentParser:
     warehouse_masked_summarize_parser = warehouse_masked_subparsers.add_parser("summarize")
     warehouse_masked_summarize_parser.add_argument("--repo-root", type=Path, default=Path("."))
     warehouse_masked_summarize_parser.add_argument("--artifact-root", required=True, type=Path)
+
+    warehouse_policy_parser = warehouse_subparsers.add_parser("full-state-policy-comparison")
+    warehouse_policy_subparsers = warehouse_policy_parser.add_subparsers(
+        dest="warehouse_full_state_policy_command",
+        required=True,
+    )
+    warehouse_policy_run_parser = warehouse_policy_subparsers.add_parser("run")
+    warehouse_policy_run_parser.add_argument("--repo-root", type=Path, default=Path("."))
+    warehouse_policy_run_parser.add_argument("--artifact-root", required=True, type=Path)
+    warehouse_policy_run_parser.add_argument("--readiness-source", type=Path)
+    warehouse_policy_run_parser.add_argument("--run-label", default="policy_contract_smoke_001")
+    warehouse_policy_run_parser.add_argument("--locked-by", required=True)
+    warehouse_policy_run_parser.add_argument(
+        "--episodes-per-arm",
+        type=int,
+        default=WAREHOUSE_POLICY_DEFAULT_EPISODES,
+    )
+    warehouse_policy_run_parser.add_argument(
+        "--replicates-per-arm",
+        type=int,
+        default=WAREHOUSE_POLICY_DEFAULT_REPLICATES,
+    )
+    warehouse_policy_run_parser.add_argument(
+        "--schema-seeds",
+        type=int,
+        default=WAREHOUSE_POLICY_DEFAULT_SCHEMA_SEEDS,
+    )
+    warehouse_policy_run_parser.add_argument(
+        "--max-seconds-per-episode",
+        type=int,
+        default=WAREHOUSE_POLICY_DEFAULT_MAX_SECONDS,
+    )
+    warehouse_policy_run_parser.add_argument(
+        "--learning-rate",
+        type=float,
+        default=WAREHOUSE_POLICY_DEFAULT_LEARNING_RATE,
+    )
+    warehouse_policy_run_parser.add_argument(
+        "--baseline-rate",
+        type=float,
+        default=WAREHOUSE_POLICY_DEFAULT_BASELINE_RATE,
+    )
+    warehouse_policy_run_parser.add_argument(
+        "--temperature-initial",
+        type=float,
+        default=WAREHOUSE_POLICY_DEFAULT_TEMPERATURE_INITIAL,
+    )
+    warehouse_policy_run_parser.add_argument(
+        "--temperature-floor",
+        type=float,
+        default=WAREHOUSE_POLICY_DEFAULT_TEMPERATURE_FLOOR,
+    )
+    warehouse_policy_run_parser.add_argument(
+        "--temperature-decay-per-episode",
+        type=float,
+        default=WAREHOUSE_POLICY_DEFAULT_TEMPERATURE_DECAY,
+    )
+    warehouse_policy_run_parser.add_argument(
+        "--projection-attempt-budget",
+        type=int,
+        default=WAREHOUSE_POLICY_DEFAULT_PROJECTION_BUDGET,
+    )
+    warehouse_policy_run_parser.add_argument(
+        "--progress-every-episodes",
+        type=int,
+        default=WAREHOUSE_POLICY_DEFAULT_PROGRESS_EVERY_EPISODES,
+    )
+    warehouse_policy_run_parser.add_argument(
+        "--seed",
+        type=int,
+        default=WAREHOUSE_POLICY_DEFAULT_SEED,
+    )
+    warehouse_policy_run_parser.add_argument(
+        "--no-progress",
+        action="store_true",
+        help="Disable terminal and JSONL progress events.",
+    )
+    warehouse_policy_summarize_parser = warehouse_policy_subparsers.add_parser("summarize")
+    warehouse_policy_summarize_parser.add_argument("--repo-root", type=Path, default=Path("."))
+    warehouse_policy_summarize_parser.add_argument("--artifact-root", required=True, type=Path)
 
     plate_support_parser = subparsers.add_parser("plate-support")
     plate_support_subparsers = plate_support_parser.add_subparsers(
@@ -2223,6 +2327,49 @@ def _run_warehouse_gridlock_command(args: argparse.Namespace) -> int:
         raise ValueError(
             "unknown Warehouse Gridlock masked direct/live-lift command: "
             f"{args.warehouse_masked_direct_command}"
+        )
+
+    if args.warehouse_gridlock_command == "full-state-policy-comparison":
+        if args.warehouse_full_state_policy_command == "run":
+            readiness_source = args.readiness_source or default_warehouse_policy_readiness_source(
+                args.repo_root
+            )
+            result = run_warehouse_full_state_policy_comparison(
+                WarehouseFullStatePolicyComparisonConfig(
+                    repo_root=args.repo_root,
+                    artifact_root=args.artifact_root,
+                    readiness_source=readiness_source,
+                    run_label=args.run_label,
+                    locked_by=args.locked_by,
+                    episodes_per_arm=args.episodes_per_arm,
+                    replicates_per_arm=args.replicates_per_arm,
+                    schema_seeds=args.schema_seeds,
+                    max_seconds_per_episode=args.max_seconds_per_episode,
+                    learning_rate=args.learning_rate,
+                    baseline_rate=args.baseline_rate,
+                    temperature_initial=args.temperature_initial,
+                    temperature_floor=args.temperature_floor,
+                    temperature_decay_per_episode=args.temperature_decay_per_episode,
+                    projection_attempt_budget=args.projection_attempt_budget,
+                    progress_every_episodes=0
+                    if args.no_progress
+                    else args.progress_every_episodes,
+                    seed=args.seed,
+                    progress_to_stderr=not args.no_progress,
+                )
+            )
+            print(json.dumps(_warehouse_gridlock_result_payload(result), sort_keys=True))
+            return 0 if result.status == "success" else 2
+        if args.warehouse_full_state_policy_command == "summarize":
+            result = summarize_warehouse_full_state_policy_comparison(
+                repo_root=args.repo_root,
+                artifact_root=args.artifact_root,
+            )
+            print(json.dumps(_warehouse_gridlock_result_payload(result), sort_keys=True))
+            return 0 if result.status in {"success", "complete"} else 2
+        raise ValueError(
+            "unknown Warehouse Gridlock full-state policy command: "
+            f"{args.warehouse_full_state_policy_command}"
         )
 
     raise ValueError(f"unknown Warehouse Gridlock command: {args.warehouse_gridlock_command}")

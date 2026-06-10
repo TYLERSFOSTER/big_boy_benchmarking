@@ -109,7 +109,7 @@ Do not:
 - introduce neural-model dependencies;
 - overwrite the existing `masked_direct_vs_live_lift_tower` diagnostic;
 - mutate prior Warehouse artifacts as if they were corrected learning runs;
-- write canonical artifacts to `/private/tmp`;
+- write canonical artifacts to a machine-local temporary directory;
 - claim broad benchmark success or statistical significance.
 
 ## Decision Locks

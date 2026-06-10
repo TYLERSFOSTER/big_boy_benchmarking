@@ -1,0 +1,149 @@
+{
+  "artifact_run_label": "policy_contract_smoke_001",
+  "artifact_schema_version": "v1",
+  "artifact_storage": {
+    "asset_name": null,
+    "bundle_manifest_path": null,
+    "mode": "git_tracked",
+    "release_tag": null
+  },
+  "badge_policy": {
+    "dimensions": [
+      "artifact_status",
+      "learning_signal",
+      "behavioral_status",
+      "fairness_status",
+      "no_lookahead_status",
+      "provenance_status"
+    ]
+  },
+  "claim_boundary": [
+    "trainable policy contract smoke/pilot evidence only",
+    "no broad Warehouse benchmark claim",
+    "no backprop claim",
+    "no statistical significance claim"
+  ],
+  "environment_instance_id": "warehouse_gridlock_16x16_v001",
+  "evaluation_id": "warehouse_gridlock_full_state_full_action_trainable_policy_v001",
+  "expected_files": {
+    "conditional": {
+      "tower_only": [
+        "results/tower_live_lift_summary.csv",
+        "results/tower_shape_summary.csv"
+      ]
+    },
+    "expectation_sources": [
+      "docs/design/svg_physical_system_designs/warehouse_gridlock_001/02_full_state_full_action_trainable_policy_contract/01_002_warehouse_gridlock_full_state_full_action_trainable_policy_contract_implementation_workplan.md"
+    ],
+    "expected_absent_is_gap": [],
+    "not_applicable": [
+      "backprop_gradient_events",
+      "full_action_space_enumeration"
+    ],
+    "required": [
+      "evaluation_manifest.json",
+      "evaluation_budget_lock.json",
+      "evaluation_arm_manifest.json",
+      "environment_instance_manifest.json",
+      "policy_contract_manifest.json",
+      "policy_model_manifest.json",
+      "policy_training_manifest.json",
+      "admissibility_resolver_manifest.json",
+      "tower_policy_manifest.json",
+      "tower_construction_manifest.json",
+      "run_index.csv",
+      "results/arm_summary.csv",
+      "results/paired_summary.csv",
+      "results/learning_health_summary.csv",
+      "results/learning_curve_summary.csv",
+      "results/policy_reuse_summary.csv",
+      "results/mask_projection_summary.csv",
+      "results/no_lookahead_audit_summary.csv"
+    ]
+  },
+  "goal_criteria": [
+    {
+      "claim_if_met": "both arms used trainable reusable policy state in the smoke run",
+      "claim_if_not_met": "the run is not a real learning comparison",
+      "failure_signal": "any arm is nominal_updates_only, no_updates, or failed",
+      "goal_id": "real_learning_signal",
+      "partial_signal": "one arm passes and one arm fails learning health",
+      "question": "Did both arms produce reusable non-nominal learning evidence?",
+      "success_signal": "learning_health_summary.csv learning_status is real_learning_signal_present for both arms"
+    },
+    {
+      "claim_if_met": "the PO-specified policy contract is implemented",
+      "claim_if_not_met": "policy contract implementation is blocked",
+      "failure_signal": "policy decision rows are missing",
+      "goal_id": "full_state_full_action_contract",
+      "partial_signal": "contract rows exist but action hashes are incomplete",
+      "question": "Did policies consume full Warehouse state plus second and emit full action vectors?",
+      "success_signal": "policy_contract_manifest plus policy_decision_events with full action hashes"
+    },
+    {
+      "claim_if_met": "no one-hop successor cul-de-sac lookahead was used",
+      "claim_if_not_met": "comparison fairness is blocked",
+      "failure_signal": "any successor_out_count_used_for_selection_count is nonzero",
+      "goal_id": "no_successor_lookahead",
+      "partial_signal": "audit rows are present for only one arm",
+      "question": "Did either arm use successor Out for selection?",
+      "success_signal": "successor_out_count_used_for_selection_count is zero for both arms"
+    }
+  ],
+  "goal_summary_sources": [
+    "docs/design/svg_physical_system_designs/warehouse_gridlock_001/02_full_state_full_action_trainable_policy_contract/01_001_warehouse_gridlock_full_state_full_action_trainable_policy_contract_blueprint.md"
+  ],
+  "methodology_summary_sources": [
+    "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/method.md",
+    "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/runbook.md"
+  ],
+  "repo_readout_surface": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison",
+  "run_mode": "trainable_policy_smoke",
+  "source_artifact_root": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001",
+  "source_evaluation_root": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001",
+  "source_files": {
+    "aggregate_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/evaluation_aggregate_summary.json",
+    "aggregate_table": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/evaluation_aggregate_table.csv",
+    "arm_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/results/arm_summary.csv",
+    "learning_curve_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/results/learning_curve_summary.csv",
+    "learning_health_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/results/learning_health_summary.csv",
+    "mask_projection_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/results/mask_projection_summary.csv",
+    "no_lookahead_audit_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/results/no_lookahead_audit_summary.csv",
+    "paired_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/results/paired_summary.csv",
+    "policy_reuse_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/results/policy_reuse_summary.csv",
+    "progress_events": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/progress_events.jsonl",
+    "run_index": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/run_index.csv",
+    "tower_live_lift_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/results/tower_live_lift_summary.csv",
+    "tower_shape_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/results/tower_shape_summary.csv"
+  },
+  "structural_limit_checks": [
+    {
+      "check_id": "not_backprop",
+      "claim_effect": "blocks backprop claims",
+      "interpretation_if_triggered": "the run uses a linear trainable model, not neural backprop",
+      "trigger": "policy_model_manifest neural_or_backprop=false"
+    },
+    {
+      "check_id": "full_action_space_not_enumerated",
+      "claim_effect": "blocks full-MDP tower coverage claims",
+      "interpretation_if_triggered": "the tower arm uses a scoped generated/discovered surface",
+      "trigger": "tower_construction_manifest complete_full_action_surface=false"
+    }
+  ],
+  "summary": {
+    "arm_count": 2,
+    "claim_boundary": [
+      "trainable policy contract smoke/pilot evidence only",
+      "no broad Warehouse benchmark claim",
+      "no backprop claim",
+      "no statistical significance claim"
+    ],
+    "evaluation_id": "warehouse_gridlock_full_state_full_action_trainable_policy_v001",
+    "learning_contract_status": "passed",
+    "no_lookahead_status": "passed",
+    "paired_episode_count": 4,
+    "run_label": "policy_contract_smoke_001",
+    "score_direction": "tower",
+    "status": "complete"
+  }
+}
