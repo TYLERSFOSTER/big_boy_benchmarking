@@ -1,0 +1,151 @@
+{
+  "artifact_run_label": "smoke_001",
+  "artifact_schema_version": "v1",
+  "artifact_storage": {
+    "asset_name": null,
+    "bundle_manifest_path": null,
+    "mode": "git_tracked",
+    "release_tag": null
+  },
+  "badge_policy": {
+    "dimensions": [
+      "artifact_status",
+      "score_direction",
+      "admissibility_masking",
+      "one_step_lookahead",
+      "tower_live_lift",
+      "mask_scope",
+      "claim_scope",
+      "provenance_status"
+    ]
+  },
+  "claim_boundary": [
+    "diagnostic evidence only",
+    "candidate-set masks, not full action-space masks",
+    "no one-step successor-state cul-de-sac lookahead"
+  ],
+  "environment_instance_id": "warehouse_gridlock_16x16_v001",
+  "evaluation_id": "warehouse_gridlock_masked_direct_vs_live_lift_tower_no_lookahead_v001",
+  "expected_files": {
+    "conditional": {},
+    "expectation_sources": [
+      "docs/design/svg_physical_system_designs/warehouse_gridlock_001/01_masked_direct_vs_live_lift_tower_no_lookahead/01_002_warehouse_gridlock_masked_direct_vs_live_lift_tower_no_lookahead_implementation_workplan.md"
+    ],
+    "expected_absent_is_gap": [],
+    "not_applicable": [
+      "full_action_space_enumeration"
+    ],
+    "required": [
+      "evaluation_manifest.json",
+      "evaluation_budget_lock.json",
+      "evaluation_input_manifest.json",
+      "dependency_manifest.json",
+      "arm_manifest.json",
+      "candidate_generation_manifest.json",
+      "admissibility_policy_manifest.json",
+      "live_lift_policy_manifest.json",
+      "no_lookahead_policy_manifest.json",
+      "run_index.csv",
+      "results/arm_summary.csv",
+      "results/paired_summary.csv",
+      "results/admissibility_query_summary.csv",
+      "results/tower_live_lift_summary.csv",
+      "results/no_lookahead_audit_summary.csv"
+    ]
+  },
+  "goal_criteria": [
+    {
+      "claim_if_met": "bounded diagnostic score direction under candidate-set masking",
+      "claim_if_not_met": "no score direction claim",
+      "failure_signal": "score_direction is blocked",
+      "goal_id": "score_direction",
+      "partial_signal": "score_direction is inconclusive",
+      "question": "What was the direct-vs-tower score direction under the checked budget?",
+      "success_signal": "evaluation_aggregate_summary.json score_direction is direct, tower, or tie"
+    },
+    {
+      "claim_if_met": "both arms were protected from selected impossible moves",
+      "claim_if_not_met": "comparison fairness is blocked",
+      "failure_signal": "one active arm is missing from mask summary",
+      "goal_id": "equal_immediate_masking",
+      "partial_signal": "one arm has incomplete mask counts",
+      "question": "Did both arms use immediate inadmissibility masks?",
+      "success_signal": "admissibility_query_summary has both active arms"
+    },
+    {
+      "claim_if_met": "no one-step successor cul-de-sac lookahead was used",
+      "claim_if_not_met": "comparison is blocked",
+      "failure_signal": "any successor_out_used_for_selection_count is nonzero",
+      "goal_id": "no_successor_lookahead",
+      "partial_signal": "successor Out rows are missing",
+      "question": "Did either arm use successor Out for selection?",
+      "success_signal": "successor_out_used_for_selection_count is zero for both arms"
+    },
+    {
+      "claim_if_met": "tower state lifts avoided already-dead upstairs representatives",
+      "claim_if_not_met": "tower lift behavior is not interpretable",
+      "failure_signal": "tower live-lift rows are missing",
+      "goal_id": "tower_live_lift",
+      "partial_signal": "tower live lifts are present with failures",
+      "question": "Did tower use live state-lift hygiene?",
+      "success_signal": "tower_live_lift_summary reports selected live lifts"
+    }
+  ],
+  "goal_summary_sources": [
+    "docs/design/svg_physical_system_designs/warehouse_gridlock_001/01_masked_direct_vs_live_lift_tower_no_lookahead/01_001_warehouse_gridlock_masked_direct_vs_live_lift_tower_no_lookahead_blueprint.md"
+  ],
+  "methodology_summary_sources": [
+    "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/method.md"
+  ],
+  "repo_readout_surface": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower",
+  "run_mode": "smoke",
+  "source_artifact_root": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001",
+  "source_evaluation_root": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001",
+  "source_files": {
+    "admissibility_query_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/results/admissibility_query_summary.csv",
+    "aggregate_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/evaluation_aggregate_summary.json",
+    "aggregate_table": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/evaluation_aggregate_table.csv",
+    "arm_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/results/arm_summary.csv",
+    "no_lookahead_audit_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/results/no_lookahead_audit_summary.csv",
+    "paired_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/results/paired_summary.csv",
+    "run_index": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/run_index.csv",
+    "target_progress_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/results/target_progress_summary.csv",
+    "tower_live_lift_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/results/tower_live_lift_summary.csv",
+    "tower_shape_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/results/tower_shape_summary.csv",
+    "tower_surface_scope_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/results/tower_surface_scope_summary.csv"
+  },
+  "structural_limit_checks": [
+    {
+      "check_id": "full_action_space_not_enumerated",
+      "claim_effect": "blocks full-MDP tower coverage claims",
+      "interpretation_if_triggered": "the evaluation used bounded generated candidate surfaces",
+      "trigger": "tower_surface_scope_summary complete_full_action_surface=false"
+    }
+  ],
+  "summary": {
+    "active_arms": [
+      "warehouse_direct_admissible_masked",
+      "warehouse_tower_live_lift_masked"
+    ],
+    "blocked_claims": [
+      "final benchmark significance",
+      "broad tower superiority",
+      "full serious-MDP tower coverage",
+      "Abdul-style one-hop direct-star/tower-star cul-de-sac control"
+    ],
+    "claim_boundary": [
+      "diagnostic evidence only",
+      "candidate-set masks, not full action-space masks",
+      "no one-step successor-state cul-de-sac lookahead"
+    ],
+    "evaluation_id": "warehouse_gridlock_masked_direct_vs_live_lift_tower_no_lookahead_v001",
+    "fairness_audit_status": "pass",
+    "main_result_sentence": "Score direction is tie: mean reward direct=-30.5, tower=-30.5 under the checked budget.",
+    "mask_scope_summary": "candidate_set",
+    "no_lookahead_status": "pass",
+    "run_label": "smoke_001",
+    "score_direction": "tie",
+    "status": "success",
+    "tower_surface_scope_summary": "generated_discovered_surface"
+  }
+}

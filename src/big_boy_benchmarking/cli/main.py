@@ -307,6 +307,26 @@ from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
 from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
     run_transition_smoke as run_warehouse_gridlock_transition_smoke,
 )
+from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_lift_tower.config import (
+    CANDIDATE_MIX_COORDINATION_READY as WAREHOUSE_MASKED_DEFAULT_CANDIDATE_MIX,
+    DEFAULT_CANDIDATE_PROPOSALS_PER_STEP as WAREHOUSE_MASKED_DEFAULT_CANDIDATES,
+    DEFAULT_EPISODES_PER_ARM as WAREHOUSE_MASKED_DEFAULT_EPISODES,
+    DEFAULT_MAX_ACTIVE_ROBOTS as WAREHOUSE_MASKED_DEFAULT_MAX_ACTIVE_ROBOTS,
+    DEFAULT_MAX_SECONDS_PER_EPISODE as WAREHOUSE_MASKED_DEFAULT_MAX_SECONDS,
+    DEFAULT_REPLICATES_PER_ARM as WAREHOUSE_MASKED_DEFAULT_REPLICATES,
+    DEFAULT_SCHEMA_SEEDS as WAREHOUSE_MASKED_DEFAULT_SCHEMA_SEEDS,
+    DEFAULT_SEED as WAREHOUSE_MASKED_DEFAULT_SEED,
+    MaskedDirectVsLiveLiftConfig as WarehouseMaskedDirectVsLiveLiftConfig,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_lift_tower.paths import (
+    default_readiness_source as default_warehouse_masked_readiness_source,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_lift_tower.runner import (
+    run_masked_direct_vs_live_lift_tower as run_warehouse_masked_direct_vs_live_lift_tower,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_lift_tower.runner import (
+    summarize_masked_direct_vs_live_lift_tower as summarize_warehouse_masked_direct_vs_live_lift_tower,
+)
 from big_boy_benchmarking.modes.contracts import validate_mode_contract
 from big_boy_benchmarking.modes.linearization import (
     iter_linearization_mode_contracts,
@@ -446,6 +466,64 @@ def build_parser() -> argparse.ArgumentParser:
     )
     warehouse_docs_parser.add_argument("--run-label", default="smoke_001")
     warehouse_docs_parser.add_argument("--repo-root", type=Path, default=Path("."))
+
+    warehouse_masked_parser = warehouse_subparsers.add_parser(
+        "masked-direct-vs-live-lift-tower"
+    )
+    warehouse_masked_subparsers = warehouse_masked_parser.add_subparsers(
+        dest="warehouse_masked_direct_command",
+        required=True,
+    )
+    warehouse_masked_run_parser = warehouse_masked_subparsers.add_parser("run")
+    warehouse_masked_run_parser.add_argument("--repo-root", type=Path, default=Path("."))
+    warehouse_masked_run_parser.add_argument("--artifact-root", required=True, type=Path)
+    warehouse_masked_run_parser.add_argument("--readiness-source", type=Path)
+    warehouse_masked_run_parser.add_argument("--run-label", default="smoke_001")
+    warehouse_masked_run_parser.add_argument("--locked-by", required=True)
+    warehouse_masked_run_parser.add_argument(
+        "--episodes-per-arm",
+        type=int,
+        default=WAREHOUSE_MASKED_DEFAULT_EPISODES,
+    )
+    warehouse_masked_run_parser.add_argument(
+        "--replicates-per-arm",
+        type=int,
+        default=WAREHOUSE_MASKED_DEFAULT_REPLICATES,
+    )
+    warehouse_masked_run_parser.add_argument(
+        "--max-seconds-per-episode",
+        type=int,
+        default=WAREHOUSE_MASKED_DEFAULT_MAX_SECONDS,
+    )
+    warehouse_masked_run_parser.add_argument(
+        "--candidate-proposals-per-step",
+        type=int,
+        default=WAREHOUSE_MASKED_DEFAULT_CANDIDATES,
+    )
+    warehouse_masked_run_parser.add_argument(
+        "--max-active-robots",
+        type=int,
+        default=WAREHOUSE_MASKED_DEFAULT_MAX_ACTIVE_ROBOTS,
+    )
+    warehouse_masked_run_parser.add_argument(
+        "--candidate-mix-id",
+        default=WAREHOUSE_MASKED_DEFAULT_CANDIDATE_MIX,
+    )
+    warehouse_masked_run_parser.add_argument(
+        "--schema-seeds",
+        type=int,
+        default=WAREHOUSE_MASKED_DEFAULT_SCHEMA_SEEDS,
+    )
+    warehouse_masked_run_parser.add_argument(
+        "--seed",
+        type=int,
+        default=WAREHOUSE_MASKED_DEFAULT_SEED,
+    )
+    warehouse_masked_run_parser.add_argument("--smoke", action="store_true")
+
+    warehouse_masked_summarize_parser = warehouse_masked_subparsers.add_parser("summarize")
+    warehouse_masked_summarize_parser.add_argument("--repo-root", type=Path, default=Path("."))
+    warehouse_masked_summarize_parser.add_argument("--artifact-root", required=True, type=Path)
 
     plate_support_parser = subparsers.add_parser("plate-support")
     plate_support_subparsers = plate_support_parser.add_subparsers(
@@ -2034,6 +2112,43 @@ def _run_warehouse_gridlock_command(args: argparse.Namespace) -> int:
         )
         print(json.dumps(_warehouse_gridlock_result_payload(result), sort_keys=True))
         return 0 if result.status == "ok" else 2
+
+    if args.warehouse_gridlock_command == "masked-direct-vs-live-lift-tower":
+        if args.warehouse_masked_direct_command == "run":
+            readiness_source = args.readiness_source or default_warehouse_masked_readiness_source(
+                args.repo_root
+            )
+            result = run_warehouse_masked_direct_vs_live_lift_tower(
+                WarehouseMaskedDirectVsLiveLiftConfig(
+                    repo_root=args.repo_root,
+                    artifact_root=args.artifact_root,
+                    readiness_source=readiness_source,
+                    run_label=args.run_label,
+                    locked_by=args.locked_by,
+                    episodes_per_arm=args.episodes_per_arm,
+                    replicates_per_arm=args.replicates_per_arm,
+                    max_seconds_per_episode=args.max_seconds_per_episode,
+                    candidate_proposals_per_step=args.candidate_proposals_per_step,
+                    max_active_robots=args.max_active_robots,
+                    candidate_mix_id=args.candidate_mix_id,
+                    schema_seeds=args.schema_seeds,
+                    seed=args.seed,
+                    smoke=args.smoke,
+                )
+            )
+            print(json.dumps(_warehouse_gridlock_result_payload(result), sort_keys=True))
+            return 0 if result.status == "success" else 2
+        if args.warehouse_masked_direct_command == "summarize":
+            result = summarize_warehouse_masked_direct_vs_live_lift_tower(
+                repo_root=args.repo_root,
+                artifact_root=args.artifact_root,
+            )
+            print(json.dumps(_warehouse_gridlock_result_payload(result), sort_keys=True))
+            return 0 if result.status == "success" else 2
+        raise ValueError(
+            "unknown Warehouse Gridlock masked direct/live-lift command: "
+            f"{args.warehouse_masked_direct_command}"
+        )
 
     raise ValueError(f"unknown Warehouse Gridlock command: {args.warehouse_gridlock_command}")
 
