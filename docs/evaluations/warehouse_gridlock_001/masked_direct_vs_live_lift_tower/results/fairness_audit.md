@@ -1,11 +1,12 @@
 # Fairness Audit
 
-The required fairness evidence lives in:
+The fairness audit passed for this diagnostic.
 
-- `results/admissibility_query_summary.csv`
-- `results/direct_mask_summary.csv`
-- `results/tower_live_lift_summary.csv`
-- `results/no_lookahead_audit_summary.csv`
+Both arms:
 
-Both active arms must appear in the admissibility summary. Both active arms
-must report zero successor-Out uses for selection.
+- used immediate inadmissibility masking;
+- selected zero invalid concrete moves;
+- used the same candidate budget and generated candidate mix;
+- did not use successor-state `Out` for action selection.
+
+The direct arm and tower arm each considered `524288` generated candidates before masking and retained `40797` candidates after masking. This symmetry is why the tied result is interpretable as a genuine small-budget tie rather than an artifact of one arm being given an easier admissibility surface.

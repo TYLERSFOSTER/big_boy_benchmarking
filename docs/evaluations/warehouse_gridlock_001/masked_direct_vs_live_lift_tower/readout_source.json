@@ -1,5 +1,5 @@
 {
-  "artifact_run_label": "smoke_001",
+  "artifact_run_label": "masked_8ep_001",
   "artifact_schema_version": "v1",
   "artifact_storage": {
     "asset_name": null,
@@ -14,6 +14,7 @@
       "admissibility_masking",
       "one_step_lookahead",
       "tower_live_lift",
+      "candidate_family_status",
       "mask_scope",
       "claim_scope",
       "provenance_status"
@@ -42,6 +43,7 @@
       "dependency_manifest.json",
       "arm_manifest.json",
       "candidate_generation_manifest.json",
+      "progress_events.jsonl",
       "admissibility_policy_manifest.json",
       "live_lift_policy_manifest.json",
       "no_lookahead_policy_manifest.json",
@@ -49,6 +51,7 @@
       "results/arm_summary.csv",
       "results/paired_summary.csv",
       "results/admissibility_query_summary.csv",
+      "results/candidate_family_summary.csv",
       "results/tower_live_lift_summary.csv",
       "results/no_lookahead_audit_summary.csv"
     ]
@@ -89,6 +92,15 @@
       "partial_signal": "tower live lifts are present with failures",
       "question": "Did tower use live state-lift hygiene?",
       "success_signal": "tower_live_lift_summary reports selected live lifts"
+    },
+    {
+      "claim_if_met": "the run can test bounded coordinated-ensemble discovery",
+      "claim_if_not_met": "the run remains smoke-only for coordinated gridlock behavior",
+      "failure_signal": "candidate rows contain only all_stay and one_active proposals",
+      "goal_id": "coordination_ready_candidate_surface",
+      "partial_signal": "multi-robot candidate rows are present but rare",
+      "question": "Did the generated surface expose multi-robot ensemble proposals early enough for a long run?",
+      "success_signal": "direct_candidate_events includes candidate_family values beyond one_active under the configured budget"
     }
   ],
   "goal_summary_sources": [
@@ -98,21 +110,24 @@
     "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/method.md"
   ],
   "repo_readout_surface": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower",
-  "run_mode": "smoke",
-  "source_artifact_root": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001",
-  "source_evaluation_root": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001",
+  "run_mode": "diagnostic",
+  "source_artifact_root": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/masked_8ep_001",
+  "source_evaluation_root": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/masked_8ep_001",
   "source_files": {
-    "admissibility_query_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/results/admissibility_query_summary.csv",
-    "aggregate_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/evaluation_aggregate_summary.json",
-    "aggregate_table": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/evaluation_aggregate_table.csv",
-    "arm_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/results/arm_summary.csv",
-    "no_lookahead_audit_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/results/no_lookahead_audit_summary.csv",
-    "paired_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/results/paired_summary.csv",
-    "run_index": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/run_index.csv",
-    "target_progress_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/results/target_progress_summary.csv",
-    "tower_live_lift_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/results/tower_live_lift_summary.csv",
-    "tower_shape_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/results/tower_shape_summary.csv",
-    "tower_surface_scope_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/smoke_001/results/tower_surface_scope_summary.csv"
+    "admissibility_query_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/masked_8ep_001/results/admissibility_query_summary.csv",
+    "aggregate_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/masked_8ep_001/evaluation_aggregate_summary.json",
+    "aggregate_table": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/masked_8ep_001/evaluation_aggregate_table.csv",
+    "arm_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/masked_8ep_001/results/arm_summary.csv",
+    "candidate_family_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/masked_8ep_001/results/candidate_family_summary.csv",
+    "direct_candidate_events": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/masked_8ep_001/results/direct_candidate_events.csv",
+    "no_lookahead_audit_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/masked_8ep_001/results/no_lookahead_audit_summary.csv",
+    "paired_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/masked_8ep_001/results/paired_summary.csv",
+    "progress_events": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/masked_8ep_001/progress_events.jsonl",
+    "run_index": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/masked_8ep_001/run_index.csv",
+    "target_progress_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/masked_8ep_001/results/target_progress_summary.csv",
+    "tower_live_lift_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/masked_8ep_001/results/tower_live_lift_summary.csv",
+    "tower_shape_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/masked_8ep_001/results/tower_shape_summary.csv",
+    "tower_surface_scope_summary": "docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/masked_8ep_001/results/tower_surface_scope_summary.csv"
   },
   "structural_limit_checks": [
     {
@@ -133,6 +148,7 @@
       "full serious-MDP tower coverage",
       "Abdul-style one-hop direct-star/tower-star cul-de-sac control"
     ],
+    "candidate_family_status": "coordination_ready",
     "claim_boundary": [
       "diagnostic evidence only",
       "candidate-set masks, not full action-space masks",
@@ -140,10 +156,10 @@
     ],
     "evaluation_id": "warehouse_gridlock_masked_direct_vs_live_lift_tower_no_lookahead_v001",
     "fairness_audit_status": "pass",
-    "main_result_sentence": "Score direction is tie: mean reward direct=-30.5, tower=-30.5 under the checked budget.",
+    "main_result_sentence": "Score direction is tie: mean reward direct=379.9375, tower=379.9375 under the checked budget.",
     "mask_scope_summary": "candidate_set",
     "no_lookahead_status": "pass",
-    "run_label": "smoke_001",
+    "run_label": "masked_8ep_001",
     "score_direction": "tie",
     "status": "success",
     "tower_surface_scope_summary": "generated_discovered_surface"

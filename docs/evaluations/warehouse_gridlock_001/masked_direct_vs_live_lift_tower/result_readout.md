@@ -1,13 +1,24 @@
 # Result Readout
 
-Score direction: `tie`.
+The `masked_8ep_001` diagnostic completed successfully and produced a tie.
 
-Fairness audit status: `pass`.
+Direct masked control and tower live-lift control both reported:
 
-No-lookahead status: `pass`.
+- mean total reward: `379.9375`;
+- median total reward: `341.5`;
+- terminal successes: `0`;
+- mean final correct boxes: `0.0`;
+- mean final correct robots: `6.1875`;
+- mean selected valid steps: `128.0`;
+- mean selected invalid steps: `0.0`.
 
-Mask scope: `candidate_set`.
+The paired comparison table contains 16 pairs and every pair is a tie. The tower arm therefore does not show an advantage in this run.
 
-Tower surface scope: `generated_discovered_surface`.
+The important positive result is diagnostic rather than performance-based:
 
-Score direction is tie: mean reward direct=-30.5, tower=-30.5 under the checked budget.
+- both arms used equal immediate candidate-set masking;
+- neither arm used successor-state `Out` for selection;
+- tower live lifting had zero failures;
+- the candidate surface included multi-robot proposals up to 8 active robots.
+
+The important negative or limiting result is that neither arm solved the task: terminal success count is zero and boxes did not reach targets.

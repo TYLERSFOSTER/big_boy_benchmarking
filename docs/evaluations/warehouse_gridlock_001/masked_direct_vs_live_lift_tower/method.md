@@ -1,15 +1,34 @@
 # Method
 
-This diagnostic runs two active Warehouse Gridlock arms:
+This diagnostic compares two Warehouse Gridlock control arms under equal immediate admissibility masking.
 
-- direct concrete control with immediate inadmissibility masking;
-- tower control over a scoped generated/discovered surface with live state-lift
-  hygiene.
+The direct arm, `warehouse_direct_admissible_masked`, chooses among bounded generated concrete ensemble actions after invalid actions are removed by the current-state transition check.
 
-Both arms receive bounded generated candidate sets. Candidate masks are exact
-over those generated sets, not over the full `5^32` action surface. The tower
-surface is built from generated states, generated concrete candidates, and
-valid immediate transitions under the Warehouse transition engine.
+The tower arm, `warehouse_tower_live_lift_masked`, uses the same generated candidate policy but builds a scoped generated/discovered tower surface. It applies live state-lift hygiene, meaning the fixed downstairs state is lifted only to representatives with nonempty generated `Out`.
 
-Successor `Out` may be observed after an action is selected and executed for
-diagnosis. It is not used for action selection.
+Budget:
+
+- run label: `masked_8ep_001`;
+- episodes per arm per replicate: `8`;
+- replicates per arm: `2`;
+- schema seeds: `1`;
+- max seconds per episode: `128`;
+- candidate proposals per step: `256`;
+- max active robots in generated proposals: `8`;
+- candidate mix id: `coordination_ready_sparse_interleaved_v001`;
+- progress reporting: tqdm on stderr and `progress_events.jsonl`.
+
+Fairness constraints:
+
+- both arms mask immediate inadmissible actions;
+- neither arm uses successor-state `Out` for action selection;
+- successor `Out` is diagnostic only;
+- no Abdul-style direct-star or tower-star one-hop guard is included;
+- masks are exact only over the generated candidate set.
+
+Claim constraints:
+
+- the full primitive action surface is `5^32` and is not enumerated;
+- the tower is scoped to generated/discovered candidate surfaces;
+- the run is diagnostic, not a final benchmark;
+- timing values are implementation wall time, not a method-speed result.

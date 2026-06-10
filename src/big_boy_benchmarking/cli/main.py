@@ -292,21 +292,6 @@ from big_boy_benchmarking.environments.plate_support.standard_gauntlet.readout_s
 from big_boy_benchmarking.environments.plate_support.standard_gauntlet.readout_system_learning.runner import (
     build_readout_system_learning as build_plate_support_readout_system_learning,
 )
-from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
-    build_readiness_docs as build_warehouse_gridlock_readiness_docs,
-)
-from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
-    run_graph_diagnostics as run_warehouse_gridlock_graph_diagnostics,
-)
-from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
-    run_random_rollout as run_warehouse_gridlock_random_rollout,
-)
-from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
-    run_state_diagnostics as run_warehouse_gridlock_state_diagnostics,
-)
-from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
-    run_transition_smoke as run_warehouse_gridlock_transition_smoke,
-)
 from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_lift_tower.config import (
     CANDIDATE_MIX_COORDINATION_READY as WAREHOUSE_MASKED_DEFAULT_CANDIDATE_MIX,
     DEFAULT_CANDIDATE_PROPOSALS_PER_STEP as WAREHOUSE_MASKED_DEFAULT_CANDIDATES,
@@ -327,6 +312,24 @@ from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_
 )
 from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_lift_tower.runner import (
     summarize_masked_direct_vs_live_lift_tower as summarize_warehouse_masked_direct_vs_live_lift_tower,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.replay import (
+    render_episode_gif as render_warehouse_gridlock_episode_gif,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
+    build_readiness_docs as build_warehouse_gridlock_readiness_docs,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
+    run_graph_diagnostics as run_warehouse_gridlock_graph_diagnostics,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
+    run_random_rollout as run_warehouse_gridlock_random_rollout,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
+    run_state_diagnostics as run_warehouse_gridlock_state_diagnostics,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
+    run_transition_smoke as run_warehouse_gridlock_transition_smoke,
 )
 from big_boy_benchmarking.modes.contracts import validate_mode_contract
 from big_boy_benchmarking.modes.linearization import (
@@ -468,6 +471,41 @@ def build_parser() -> argparse.ArgumentParser:
     warehouse_docs_parser.add_argument("--run-label", default="smoke_001")
     warehouse_docs_parser.add_argument("--repo-root", type=Path, default=Path("."))
 
+    warehouse_replay_parser = warehouse_subparsers.add_parser("render-episode")
+    warehouse_replay_parser.add_argument(
+        "--artifact-root",
+        type=Path,
+        help="Evaluation artifact root containing run_index.csv and runs/*/step_events.csv.",
+    )
+    warehouse_replay_parser.add_argument(
+        "--step-events",
+        type=Path,
+        help="Direct path to a step_events.csv file. Overrides artifact-root selectors.",
+    )
+    warehouse_replay_parser.add_argument(
+        "--run-id",
+        help="Run id under artifact-root/runs. Optional when arm/replicate/schema selects one run.",
+    )
+    warehouse_replay_parser.add_argument(
+        "--arm-id",
+        help="Arm id to select from run_index.csv, for example warehouse_direct_admissible_masked.",
+    )
+    warehouse_replay_parser.add_argument("--replicate-index", type=int)
+    warehouse_replay_parser.add_argument("--schema-seed", type=int)
+    warehouse_replay_parser.add_argument("--episode-index", required=True, type=int)
+    warehouse_replay_parser.add_argument("--output", type=Path)
+    warehouse_replay_parser.add_argument(
+        "--instance-id",
+        default="warehouse_gridlock_16x16_v001",
+    )
+    warehouse_replay_parser.add_argument("--frame-ms", type=int, default=140)
+    warehouse_replay_parser.add_argument("--cell-pixels", type=int, default=36)
+    warehouse_replay_parser.add_argument(
+        "--max-frames",
+        type=int,
+        help="Render only the first N frames for quick visual checks.",
+    )
+
     warehouse_masked_parser = warehouse_subparsers.add_parser(
         "masked-direct-vs-live-lift-tower"
     )
@@ -524,7 +562,10 @@ def build_parser() -> argparse.ArgumentParser:
         "--progress-every-episodes",
         type=int,
         default=WAREHOUSE_MASKED_DEFAULT_PROGRESS_EVERY_EPISODES,
-        help="Emit progress to stderr and progress_events.jsonl every N completed episodes; use 0 to disable.",
+        help=(
+            "Refresh tqdm detail postfix every N completed episodes and write "
+            "progress_events.jsonl; use 0 to disable progress."
+        ),
     )
     warehouse_masked_run_parser.add_argument(
         "--no-progress",
@@ -2124,6 +2165,24 @@ def _run_warehouse_gridlock_command(args: argparse.Namespace) -> int:
         )
         print(json.dumps(_warehouse_gridlock_result_payload(result), sort_keys=True))
         return 0 if result.status == "ok" else 2
+
+    if args.warehouse_gridlock_command == "render-episode":
+        result = render_warehouse_gridlock_episode_gif(
+            artifact_root=args.artifact_root,
+            step_events_path=args.step_events,
+            run_id=args.run_id,
+            arm_id=args.arm_id,
+            replicate_index=args.replicate_index,
+            schema_seed=args.schema_seed,
+            episode_index=args.episode_index,
+            output_path=args.output,
+            instance_id=args.instance_id,
+            frame_ms=args.frame_ms,
+            cell_pixels=args.cell_pixels,
+            max_frames=args.max_frames,
+        )
+        print(json.dumps(result.to_dict(), sort_keys=True))
+        return 0 if result.status == "success" else 2
 
     if args.warehouse_gridlock_command == "masked-direct-vs-live-lift-tower":
         if args.warehouse_masked_direct_command == "run":

@@ -3,14 +3,13 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
 
 from big_boy_benchmarking.artifacts.writers import write_json
 from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_lift_tower.config import (
     CANDIDATE_MIX_COORDINATION_READY,
+    DEFAULT_MAX_ACTIVE_ROBOTS,
     DIRECT_ARM_ID,
     EVALUATION_ID,
-    DEFAULT_MAX_ACTIVE_ROBOTS,
     TOWER_ARM_ID,
 )
 from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_lift_tower.paths import (
@@ -369,8 +368,8 @@ For the long diagnostic run, use a non-smoke run label and do not pass
 --candidate-mix-id {CANDIDATE_MIX_COORDINATION_READY}
 ```
 
-Progress prints to stderr while the final machine-readable CLI result remains
-on stdout. A persistent copy is written to:
+Progress displays as a `tqdm` bar on stderr while the final machine-readable
+CLI result remains on stdout. A persistent JSONL copy is written to:
 
 ```text
 docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/{run_label}/progress_events.jsonl
@@ -381,6 +380,21 @@ In another terminal, you can watch it with:
 ```bash
 tail -f docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/{run_label}/progress_events.jsonl
 ```
+
+Render a specific recorded episode as an animated GIF:
+
+```bash
+uv run python -m big_boy_benchmarking.cli warehouse-gridlock render-episode \\
+  --artifact-root docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/artifacts/{run_label} \\
+  --arm-id warehouse_direct_admissible_masked \\
+  --replicate-index 0 \\
+  --schema-seed 0 \\
+  --episode-index 0
+```
+
+The command reads `run_index.csv` plus the selected run's `step_events.csv`.
+If `--output` is omitted, it writes to the selected artifact root under
+`replays/`.
 
 Human-readable regeneration prompt:
 

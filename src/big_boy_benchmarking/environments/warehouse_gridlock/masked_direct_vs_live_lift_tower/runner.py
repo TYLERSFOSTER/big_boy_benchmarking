@@ -9,6 +9,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from tqdm import tqdm
+
 from big_boy_benchmarking.artifacts.writers import append_jsonl, write_csv, write_json
 from big_boy_benchmarking.environments.warehouse_gridlock.instances import load_instance
 from big_boy_benchmarking.environments.warehouse_gridlock.rewards import (
@@ -460,6 +462,20 @@ class _ProgressReporter:
         self.completed_runs = 0
         self.started = time.perf_counter()
         self.enabled = config.progress_every_episodes > 0
+        self.detail_interval = max(1, config.progress_every_episodes)
+        self.bar = (
+            tqdm(
+                total=self.total_episodes,
+                desc=f"warehouse {config.run_label}",
+                unit="episode",
+                file=sys.stderr,
+                dynamic_ncols=True,
+                miniters=self.detail_interval,
+                leave=True,
+            )
+            if self.enabled and config.progress_to_stderr
+            else None
+        )
         if self.enabled:
             paths.progress_events.write_text("", encoding="utf-8")
 
@@ -478,7 +494,6 @@ class _ProgressReporter:
                 "max_active_robots": self.config.max_active_robots,
                 "candidate_mix_id": self.config.candidate_mix_id,
             },
-            force_stderr=True,
         )
 
     def record_run_start(
@@ -499,14 +514,15 @@ class _ProgressReporter:
                 "completed_runs": self.completed_runs,
                 "total_runs": self.total_runs,
             },
-            force_stderr=True,
         )
+        if self.bar is not None:
+            self.bar.set_description_str(f"warehouse {self.config.run_label} {arm_id}")
 
     def record_episode_complete(self, episode_row: dict[str, object]) -> None:
         self.completed_episodes += 1
-        should_print = (
+        should_refresh_detail = (
             self.completed_episodes == self.total_episodes
-            or self.completed_episodes % self.config.progress_every_episodes == 0
+            or self.completed_episodes % self.detail_interval == 0
         )
         self._emit(
             {
@@ -520,8 +536,22 @@ class _ProgressReporter:
                 "elapsed_seconds": round(time.perf_counter() - self.started, 3),
                 **episode_row,
             },
-            force_stderr=should_print,
         )
+        if self.bar is not None:
+            if should_refresh_detail:
+                self.bar.set_postfix(
+                    {
+                        "arm": episode_row["arm_id"],
+                        "rep": episode_row["replicate_index"],
+                        "schema": episode_row["schema_seed"],
+                        "reward": episode_row["total_reward"],
+                        "boxes": episode_row["final_correct_box_count"],
+                        "robots": episode_row["final_correct_robot_count"],
+                        "terminal": episode_row["terminal_success"],
+                    },
+                    refresh=False,
+                )
+            self.bar.update(1)
 
     def record_run_complete(
         self,
@@ -545,7 +575,6 @@ class _ProgressReporter:
                 "total_episodes": self.total_episodes,
                 "elapsed_seconds": round(time.perf_counter() - self.started, 3),
             },
-            force_stderr=True,
         )
 
     def record_evaluation_complete(self, *, status: str, duration_seconds: float) -> None:
@@ -559,66 +588,14 @@ class _ProgressReporter:
                 "total_episodes": self.total_episodes,
                 "duration_seconds": round(duration_seconds, 3),
             },
-            force_stderr=True,
         )
+        if self.bar is not None:
+            self.bar.close()
 
-    def _emit(self, payload: dict[str, object], *, force_stderr: bool) -> None:
+    def _emit(self, payload: dict[str, object]) -> None:
         if not self.enabled:
             return
         append_jsonl(self.paths.progress_events, payload, create_parents=True)
-        if self.config.progress_to_stderr and force_stderr:
-            print(_progress_line(payload), file=sys.stderr, flush=True)
-
-
-def _progress_line(payload: dict[str, object]) -> str:
-    event_type = str(payload.get("event_type", "progress"))
-    if event_type == "episode_complete":
-        return (
-            "[warehouse progress] "
-            f"{payload.get('completed_episodes')}/{payload.get('total_episodes')} episodes "
-            f"({payload.get('percent_complete')}%) "
-            f"arm={payload.get('arm_id')} "
-            f"rep={payload.get('replicate_index')} "
-            f"schema={payload.get('schema_seed')} "
-            f"episode={payload.get('episode_index')} "
-            f"reward={payload.get('total_reward')} "
-            f"boxes={payload.get('final_correct_box_count')} "
-            f"robots={payload.get('final_correct_robot_count')} "
-            f"terminal={payload.get('terminal_success')} "
-            f"elapsed={payload.get('elapsed_seconds')}s"
-        )
-    if event_type == "run_start":
-        return (
-            "[warehouse progress] "
-            f"run start {payload.get('completed_runs')}/{payload.get('total_runs')} "
-            f"arm={payload.get('arm_id')} rep={payload.get('replicate_index')} "
-            f"schema={payload.get('schema_seed')}"
-        )
-    if event_type == "run_complete":
-        return (
-            "[warehouse progress] "
-            f"run complete {payload.get('completed_runs')}/{payload.get('total_runs')} "
-            f"arm={payload.get('arm_id')} "
-            f"episodes={payload.get('completed_episodes')}/{payload.get('total_episodes')} "
-            f"elapsed={payload.get('elapsed_seconds')}s"
-        )
-    if event_type == "evaluation_start":
-        return (
-            "[warehouse progress] "
-            f"start run_label={payload.get('run_label')} "
-            f"runs={payload.get('total_runs')} episodes={payload.get('total_episodes')} "
-            f"candidates={payload.get('candidate_proposals_per_step')} "
-            f"max_active={payload.get('max_active_robots')}"
-        )
-    if event_type == "evaluation_complete":
-        return (
-            "[warehouse progress] "
-            f"complete status={payload.get('status')} "
-            f"runs={payload.get('completed_runs')}/{payload.get('total_runs')} "
-            f"episodes={payload.get('completed_episodes')}/{payload.get('total_episodes')} "
-            f"duration={payload.get('duration_seconds')}s"
-        )
-    return f"[warehouse progress] {event_type}"
 
 
 def _direct_step(

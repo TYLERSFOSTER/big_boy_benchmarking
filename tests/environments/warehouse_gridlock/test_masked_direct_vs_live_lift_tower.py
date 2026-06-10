@@ -214,7 +214,8 @@ def test_cli_smoke_writes_readout_and_no_lookahead_audit(tmp_path: Path, capsys)
     captured = capsys.readouterr()
     payload = json.loads(captured.out)
     assert payload["status"] == "success"
-    assert "[warehouse progress]" in captured.err
+    assert "warehouse smoke_001" in captured.err
+    assert "episode" in captured.err
 
     readout_source_path = (
         tmp_path

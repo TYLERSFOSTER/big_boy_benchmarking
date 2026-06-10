@@ -547,7 +547,7 @@ Reason:
 
 Implemented progress behavior:
 
-- Progress emits human-readable lines to stderr.
+- Progress displays as a `tqdm` progress bar on stderr.
 - The final CLI result remains on stdout as JSON.
 - Progress is also persisted to:
 
@@ -569,6 +569,14 @@ Default:
 ```text
 --progress-every-episodes 25
 ```
+
+Meaning:
+
+- the tqdm bar advances once per completed episode;
+- the detailed tqdm postfix refreshes every `--progress-every-episodes`
+  completed episodes;
+- `progress_events.jsonl` records the progress event stream for later
+  inspection.
 
 Progress event types:
 
