@@ -2,22 +2,30 @@
 
 
 
-## Pre-flight checklist
+- **Science:**<br>Goal of *control* is *epistemic clarity*
+- **Engineering:**<br>Goal of *control* is *operational reliability*
 
+## Preflight checklist
 
-### What is your inference model is modelling?
-#### Is it $v$?
-#### Is it $\pi$?
-#### Is it $Q$?
+### What is your environment?
+
+#### What are your rewards?
+- Are they order-$1$ Markovian?
+- Are they order-$n\ge 2$ Markovian?
+- Are they not Markovian at all?
+
+#### How are states/actions recorded and encoded from environment?
+
+#### What is your inference model is modelling?
+- Is it modelling $v$?
+- Is it modelling $\pi$?
+- Is it modelling $Q$?
 
 ### What model are you using?
+#### How are individual states endocded?
+#### How are individual actions encoded?
 
 ### What exploration policy?...
-
-
-
-- **Science:** Goal of *control* is *epistemic clarity*
-- **Engineering:** Goal of *control* is *operational reliability*
 
 ## Tier-0 *fibers* get no logarithmic speed-up
 

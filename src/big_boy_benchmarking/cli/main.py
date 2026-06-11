@@ -202,15 +202,6 @@ from big_boy_benchmarking.environments.counterpoint.small_paired_replicate_probe
 from big_boy_benchmarking.environments.counterpoint.threshold_frontier_probe import (
     paths as threshold_frontier_paths,
 )
-from big_boy_benchmarking.environments.plate_support.ids import (
-    DEFAULT_INSTANCE_ID as PLATE_SUPPORT_DEFAULT_INSTANCE_ID,
-)
-from big_boy_benchmarking.environments.plate_support.graph_stats import (
-    summarize_plate_support_graph,
-)
-from big_boy_benchmarking.environments.plate_support.runner import (
-    run_plate_support_environment_readiness,
-)
 from big_boy_benchmarking.environments.plate_support.direct_star_culdesac_control.config import (
     DirectStarCuldesacControlConfig as PlateSupportDirectStarCuldesacControlConfig,
 )
@@ -220,14 +211,26 @@ from big_boy_benchmarking.environments.plate_support.direct_star_culdesac_contro
 from big_boy_benchmarking.environments.plate_support.direct_star_culdesac_control.runner import (
     summarize_direct_star_culdesac_control as summarize_plate_support_direct_star_culdesac_control,
 )
-from big_boy_benchmarking.environments.plate_support.tower_star.config import (
-    TowerStarGuardedLiftComparisonConfig as PlateSupportTowerStarGuardedLiftComparisonConfig,
+from big_boy_benchmarking.environments.plate_support.graph_stats import (
+    summarize_plate_support_graph,
 )
-from big_boy_benchmarking.environments.plate_support.tower_star.runner import (
-    run_tower_star as run_plate_support_tower_star,
+from big_boy_benchmarking.environments.plate_support.ids import (
+    DEFAULT_INSTANCE_ID as PLATE_SUPPORT_DEFAULT_INSTANCE_ID,
 )
-from big_boy_benchmarking.environments.plate_support.tower_star.runner import (
-    summarize_tower_star as summarize_plate_support_tower_star,
+from big_boy_benchmarking.environments.plate_support.runner import (
+    run_plate_support_environment_readiness,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.candidate_discovery.config import (
+    CandidateDiscoveryConfig as PlateSupportCandidateDiscoveryConfig,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.candidate_discovery.runner import (
+    run_candidate_discovery as run_plate_support_candidate_discovery,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.contraction_schema_sweep.config import (
+    SchemaSweepConfig as PlateSupportSchemaSweepConfig,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.contraction_schema_sweep.runner import (
+    run_contraction_schema_sweep as run_plate_support_schema_sweep,
 )
 from big_boy_benchmarking.environments.plate_support.standard_gauntlet.gates import (
     gate_for_stage as plate_support_gauntlet_gate_for_stage,
@@ -241,6 +244,12 @@ from big_boy_benchmarking.environments.plate_support.standard_gauntlet.ids impor
 from big_boy_benchmarking.environments.plate_support.standard_gauntlet.ids import (
     SUITE_ID as PLATE_SUPPORT_GAUNTLET_SUITE_ID,
 )
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.paired_replicate_comparison.config import (
+    PairedReplicateComparisonConfig as PlateSupportPairedReplicateComparisonConfig,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.paired_replicate_comparison.runner import (
+    run_paired_replicate_comparison as run_plate_support_paired_replicate_comparison,
+)
 from big_boy_benchmarking.environments.plate_support.standard_gauntlet.paths import (
     default_readiness_source_path as plate_support_gauntlet_readiness_source_path,
 )
@@ -250,29 +259,17 @@ from big_boy_benchmarking.environments.plate_support.standard_gauntlet.paths imp
 from big_boy_benchmarking.environments.plate_support.standard_gauntlet.paths import (
     suite_readout_surface as plate_support_gauntlet_readout_surface,
 )
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.readout_system_learning.config import (
+    ReadoutSystemLearningConfig as PlateSupportReadoutSystemLearningConfig,
+)
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.readout_system_learning.runner import (
+    build_readout_system_learning as build_plate_support_readout_system_learning,
+)
 from big_boy_benchmarking.environments.plate_support.standard_gauntlet.structural_and_tower_diagnostics.config import (
     StructuralDiagnosticsConfig as PlateSupportStructuralDiagnosticsConfig,
 )
 from big_boy_benchmarking.environments.plate_support.standard_gauntlet.structural_and_tower_diagnostics.runner import (
     run_structural_and_tower_diagnostics as run_plate_support_structural_diagnostics,
-)
-from big_boy_benchmarking.environments.plate_support.standard_gauntlet.contraction_schema_sweep.config import (
-    SchemaSweepConfig as PlateSupportSchemaSweepConfig,
-)
-from big_boy_benchmarking.environments.plate_support.standard_gauntlet.contraction_schema_sweep.runner import (
-    run_contraction_schema_sweep as run_plate_support_schema_sweep,
-)
-from big_boy_benchmarking.environments.plate_support.standard_gauntlet.candidate_discovery.config import (
-    CandidateDiscoveryConfig as PlateSupportCandidateDiscoveryConfig,
-)
-from big_boy_benchmarking.environments.plate_support.standard_gauntlet.candidate_discovery.runner import (
-    run_candidate_discovery as run_plate_support_candidate_discovery,
-)
-from big_boy_benchmarking.environments.plate_support.standard_gauntlet.tower_training_health.config import (
-    TowerTrainingHealthConfig as PlateSupportTowerTrainingHealthConfig,
-)
-from big_boy_benchmarking.environments.plate_support.standard_gauntlet.tower_training_health.runner import (
-    run_tower_training_health as run_plate_support_tower_training_health,
 )
 from big_boy_benchmarking.environments.plate_support.standard_gauntlet.threshold_frontier_calibration.config import (
     ThresholdFrontierCalibrationConfig as PlateSupportThresholdFrontierCalibrationConfig,
@@ -280,38 +277,20 @@ from big_boy_benchmarking.environments.plate_support.standard_gauntlet.threshold
 from big_boy_benchmarking.environments.plate_support.standard_gauntlet.threshold_frontier_calibration.runner import (
     run_threshold_frontier_calibration as run_plate_support_threshold_frontier_calibration,
 )
-from big_boy_benchmarking.environments.plate_support.standard_gauntlet.paired_replicate_comparison.config import (
-    PairedReplicateComparisonConfig as PlateSupportPairedReplicateComparisonConfig,
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.tower_training_health.config import (
+    TowerTrainingHealthConfig as PlateSupportTowerTrainingHealthConfig,
 )
-from big_boy_benchmarking.environments.plate_support.standard_gauntlet.paired_replicate_comparison.runner import (
-    run_paired_replicate_comparison as run_plate_support_paired_replicate_comparison,
+from big_boy_benchmarking.environments.plate_support.standard_gauntlet.tower_training_health.runner import (
+    run_tower_training_health as run_plate_support_tower_training_health,
 )
-from big_boy_benchmarking.environments.plate_support.standard_gauntlet.readout_system_learning.config import (
-    ReadoutSystemLearningConfig as PlateSupportReadoutSystemLearningConfig,
+from big_boy_benchmarking.environments.plate_support.tower_star.config import (
+    TowerStarGuardedLiftComparisonConfig as PlateSupportTowerStarGuardedLiftComparisonConfig,
 )
-from big_boy_benchmarking.environments.plate_support.standard_gauntlet.readout_system_learning.runner import (
-    build_readout_system_learning as build_plate_support_readout_system_learning,
+from big_boy_benchmarking.environments.plate_support.tower_star.runner import (
+    run_tower_star as run_plate_support_tower_star,
 )
-from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_lift_tower.config import (
-    CANDIDATE_MIX_COORDINATION_READY as WAREHOUSE_MASKED_DEFAULT_CANDIDATE_MIX,
-    DEFAULT_CANDIDATE_PROPOSALS_PER_STEP as WAREHOUSE_MASKED_DEFAULT_CANDIDATES,
-    DEFAULT_EPISODES_PER_ARM as WAREHOUSE_MASKED_DEFAULT_EPISODES,
-    DEFAULT_MAX_ACTIVE_ROBOTS as WAREHOUSE_MASKED_DEFAULT_MAX_ACTIVE_ROBOTS,
-    DEFAULT_MAX_SECONDS_PER_EPISODE as WAREHOUSE_MASKED_DEFAULT_MAX_SECONDS,
-    DEFAULT_PROGRESS_EVERY_EPISODES as WAREHOUSE_MASKED_DEFAULT_PROGRESS_EVERY_EPISODES,
-    DEFAULT_REPLICATES_PER_ARM as WAREHOUSE_MASKED_DEFAULT_REPLICATES,
-    DEFAULT_SCHEMA_SEEDS as WAREHOUSE_MASKED_DEFAULT_SCHEMA_SEEDS,
-    DEFAULT_SEED as WAREHOUSE_MASKED_DEFAULT_SEED,
-    MaskedDirectVsLiveLiftConfig as WarehouseMaskedDirectVsLiveLiftConfig,
-)
-from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_lift_tower.paths import (
-    default_readiness_source as default_warehouse_masked_readiness_source,
-)
-from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_lift_tower.runner import (
-    run_masked_direct_vs_live_lift_tower as run_warehouse_masked_direct_vs_live_lift_tower,
-)
-from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_lift_tower.runner import (
-    summarize_masked_direct_vs_live_lift_tower as summarize_warehouse_masked_direct_vs_live_lift_tower,
+from big_boy_benchmarking.environments.plate_support.tower_star.runner import (
+    summarize_tower_star as summarize_plate_support_tower_star,
 )
 from big_boy_benchmarking.environments.warehouse_gridlock.full_state_policy_comparison.config import (
     ACTIVE_ARM_IDS as WAREHOUSE_POLICY_ACTIVE_ARM_IDS,
@@ -338,6 +317,27 @@ from big_boy_benchmarking.environments.warehouse_gridlock.full_state_policy_comp
 from big_boy_benchmarking.environments.warehouse_gridlock.full_state_policy_comparison.runner import (
     summarize_full_state_policy_comparison as summarize_warehouse_full_state_policy_comparison,
 )
+from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_lift_tower.config import (
+    CANDIDATE_MIX_COORDINATION_READY as WAREHOUSE_MASKED_DEFAULT_CANDIDATE_MIX,
+    DEFAULT_CANDIDATE_PROPOSALS_PER_STEP as WAREHOUSE_MASKED_DEFAULT_CANDIDATES,
+    DEFAULT_EPISODES_PER_ARM as WAREHOUSE_MASKED_DEFAULT_EPISODES,
+    DEFAULT_MAX_ACTIVE_ROBOTS as WAREHOUSE_MASKED_DEFAULT_MAX_ACTIVE_ROBOTS,
+    DEFAULT_MAX_SECONDS_PER_EPISODE as WAREHOUSE_MASKED_DEFAULT_MAX_SECONDS,
+    DEFAULT_PROGRESS_EVERY_EPISODES as WAREHOUSE_MASKED_DEFAULT_PROGRESS_EVERY_EPISODES,
+    DEFAULT_REPLICATES_PER_ARM as WAREHOUSE_MASKED_DEFAULT_REPLICATES,
+    DEFAULT_SCHEMA_SEEDS as WAREHOUSE_MASKED_DEFAULT_SCHEMA_SEEDS,
+    DEFAULT_SEED as WAREHOUSE_MASKED_DEFAULT_SEED,
+    MaskedDirectVsLiveLiftConfig as WarehouseMaskedDirectVsLiveLiftConfig,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_lift_tower.paths import (
+    default_readiness_source as default_warehouse_masked_readiness_source,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_lift_tower.runner import (
+    run_masked_direct_vs_live_lift_tower as run_warehouse_masked_direct_vs_live_lift_tower,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_lift_tower.runner import (
+    summarize_masked_direct_vs_live_lift_tower as summarize_warehouse_masked_direct_vs_live_lift_tower,
+)
 from big_boy_benchmarking.environments.warehouse_gridlock.replay import (
     render_episode_gif as render_warehouse_gridlock_episode_gif,
 )
@@ -355,6 +355,15 @@ from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
 )
 from big_boy_benchmarking.environments.warehouse_gridlock.runner import (
     run_transition_smoke as run_warehouse_gridlock_transition_smoke,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.transformer_policy import (
+    config as warehouse_transformer_config,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.transformer_policy import (
+    paths as warehouse_transformer_paths,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.transformer_policy import (
+    runner as warehouse_transformer_runner,
 )
 from big_boy_benchmarking.modes.contracts import validate_mode_contract
 from big_boy_benchmarking.modes.linearization import (
@@ -715,6 +724,142 @@ def build_parser() -> argparse.ArgumentParser:
     warehouse_policy_summarize_parser = warehouse_policy_subparsers.add_parser("summarize")
     warehouse_policy_summarize_parser.add_argument("--repo-root", type=Path, default=Path("."))
     warehouse_policy_summarize_parser.add_argument("--artifact-root", required=True, type=Path)
+
+    warehouse_transformer_parser = warehouse_subparsers.add_parser("transformer-policy")
+    warehouse_transformer_subparsers = warehouse_transformer_parser.add_subparsers(
+        dest="warehouse_transformer_policy_command",
+        required=True,
+    )
+    warehouse_transformer_run_parser = warehouse_transformer_subparsers.add_parser("run")
+    warehouse_transformer_run_parser.add_argument("--repo-root", type=Path, default=Path("."))
+    warehouse_transformer_run_parser.add_argument("--artifact-root", required=True, type=Path)
+    warehouse_transformer_run_parser.add_argument("--readiness-source", type=Path)
+    warehouse_transformer_run_parser.add_argument(
+        "--run-label",
+        default=warehouse_transformer_config.DEFAULT_RUN_LABEL,
+    )
+    warehouse_transformer_run_parser.add_argument("--locked-by", required=True)
+    warehouse_transformer_run_parser.add_argument(
+        "--episodes",
+        type=int,
+        default=warehouse_transformer_config.DEFAULT_EPISODES,
+    )
+    warehouse_transformer_run_parser.add_argument(
+        "--replicates",
+        type=int,
+        default=warehouse_transformer_config.DEFAULT_REPLICATES,
+    )
+    warehouse_transformer_run_parser.add_argument(
+        "--schema-seeds",
+        type=int,
+        default=warehouse_transformer_config.DEFAULT_SCHEMA_SEEDS,
+    )
+    warehouse_transformer_run_parser.add_argument(
+        "--active-arm-id",
+        action="append",
+        choices=warehouse_transformer_config.SUPPORTED_ARM_IDS,
+        help="Run only the specified transformer arm id; defaults to tower-only.",
+    )
+    warehouse_transformer_run_parser.add_argument(
+        "--max-seconds-start",
+        type=int,
+        default=warehouse_transformer_config.DEFAULT_MAX_SECONDS_START,
+    )
+    warehouse_transformer_run_parser.add_argument(
+        "--max-seconds-end",
+        type=int,
+        default=warehouse_transformer_config.DEFAULT_MAX_SECONDS_END,
+    )
+    warehouse_transformer_run_parser.add_argument(
+        "--curriculum-ramp-episodes",
+        type=int,
+        default=warehouse_transformer_config.DEFAULT_CURRICULUM_RAMP_EPISODES,
+    )
+    warehouse_transformer_run_parser.add_argument(
+        "--candidate-proposals-per-step",
+        type=int,
+        default=WAREHOUSE_MASKED_DEFAULT_CANDIDATES,
+    )
+    warehouse_transformer_run_parser.add_argument(
+        "--max-active-robots",
+        type=int,
+        default=warehouse_transformer_config.DEFAULT_MAX_ACTIVE_ROBOTS,
+    )
+    warehouse_transformer_run_parser.add_argument(
+        "--candidate-mix-id",
+        default=WAREHOUSE_MASKED_DEFAULT_CANDIDATE_MIX,
+    )
+    warehouse_transformer_run_parser.add_argument(
+        "--projection-attempt-budget",
+        type=int,
+        default=warehouse_transformer_config.DEFAULT_PROJECTION_ATTEMPT_BUDGET,
+    )
+    warehouse_transformer_run_parser.add_argument(
+        "--checkpoint-every-episodes",
+        type=int,
+        default=warehouse_transformer_config.DEFAULT_CHECKPOINT_EVERY_EPISODES,
+    )
+    warehouse_transformer_run_parser.add_argument(
+        "--trace-episode-index",
+        action="append",
+        help="Retain a renderable trace for this episode index, or 'final'. Repeatable.",
+    )
+    warehouse_transformer_run_parser.add_argument(
+        "--trace-every-episodes",
+        type=int,
+        default=warehouse_transformer_config.DEFAULT_TRACE_EVERY_EPISODES,
+    )
+    warehouse_transformer_run_parser.add_argument(
+        "--soft-artifact-budget-bytes",
+        type=int,
+        default=warehouse_transformer_config.DEFAULT_SOFT_ARTIFACT_BUDGET_BYTES,
+    )
+    warehouse_transformer_run_parser.add_argument(
+        "--hard-artifact-budget-bytes",
+        type=int,
+        default=warehouse_transformer_config.DEFAULT_HARD_ARTIFACT_BUDGET_BYTES,
+    )
+    warehouse_transformer_run_parser.add_argument(
+        "--progress-every-episodes",
+        type=int,
+        default=warehouse_transformer_config.DEFAULT_PROGRESS_EVERY_EPISODES,
+    )
+    warehouse_transformer_run_parser.add_argument(
+        "--seed",
+        type=int,
+        default=warehouse_transformer_config.DEFAULT_SEED,
+    )
+    warehouse_transformer_run_parser.add_argument("--device", default="cpu")
+    warehouse_transformer_run_parser.add_argument(
+        "--no-progress",
+        action="store_true",
+        help="Disable terminal progress output.",
+    )
+    warehouse_transformer_summarize_parser = warehouse_transformer_subparsers.add_parser(
+        "summarize"
+    )
+    warehouse_transformer_summarize_parser.add_argument(
+        "--repo-root",
+        type=Path,
+        default=Path("."),
+    )
+    warehouse_transformer_summarize_parser.add_argument(
+        "--artifact-root",
+        required=True,
+        type=Path,
+    )
+    warehouse_transformer_render_parser = warehouse_transformer_subparsers.add_parser(
+        "render-episode"
+    )
+    warehouse_transformer_render_parser.add_argument("--artifact-root", required=True, type=Path)
+    warehouse_transformer_render_parser.add_argument("--arm-id", required=True)
+    warehouse_transformer_render_parser.add_argument("--replicate-index", type=int, required=True)
+    warehouse_transformer_render_parser.add_argument("--schema-seed", type=int, required=True)
+    warehouse_transformer_render_parser.add_argument("--episode-index", type=int, required=True)
+    warehouse_transformer_render_parser.add_argument("--output", type=Path)
+    warehouse_transformer_render_parser.add_argument("--frame-ms", type=int, default=140)
+    warehouse_transformer_render_parser.add_argument("--cell-pixels", type=int, default=36)
+    warehouse_transformer_render_parser.add_argument("--max-frames", type=int)
 
     plate_support_parser = subparsers.add_parser("plate-support")
     plate_support_subparsers = plate_support_parser.add_subparsers(
@@ -2410,6 +2555,97 @@ def _run_warehouse_gridlock_command(args: argparse.Namespace) -> int:
         raise ValueError(
             "unknown Warehouse Gridlock full-state policy command: "
             f"{args.warehouse_full_state_policy_command}"
+        )
+
+    if args.warehouse_gridlock_command == "transformer-policy":
+        if args.warehouse_transformer_policy_command == "run":
+            readiness_source = (
+                args.readiness_source
+                or warehouse_transformer_paths.default_readiness_source(args.repo_root)
+            )
+            trace_episode_indices = (
+                tuple(args.trace_episode_index)
+                if args.trace_episode_index
+                else ("0", "final")
+            )
+            result = warehouse_transformer_runner.run_transformer_policy(
+                warehouse_transformer_config.WarehouseTransformerPolicyRunConfig(
+                    repo_root=args.repo_root,
+                    artifact_root=args.artifact_root,
+                    readiness_source=readiness_source,
+                    run_label=args.run_label,
+                    locked_by=args.locked_by,
+                    episodes=args.episodes,
+                    replicates=args.replicates,
+                    schema_seeds=args.schema_seeds,
+                    seed=args.seed,
+                    active_arm_ids=tuple(args.active_arm_id)
+                    if args.active_arm_id
+                    else warehouse_transformer_config.ACTIVE_ARM_IDS,
+                    curriculum=warehouse_transformer_config.CurriculumConfig(
+                        max_seconds_start=args.max_seconds_start,
+                        max_seconds_end=args.max_seconds_end,
+                        ramp_episodes=args.curriculum_ramp_episodes,
+                    ),
+                    checkpoint=warehouse_transformer_config.CheckpointConfig(
+                        checkpoint_every_episodes=args.checkpoint_every_episodes,
+                    ),
+                    trace_retention=warehouse_transformer_config.TraceRetentionConfig(
+                        trace_episode_indices=trace_episode_indices,
+                        trace_every_episodes=args.trace_every_episodes,
+                        soft_artifact_budget_bytes=args.soft_artifact_budget_bytes,
+                        hard_artifact_budget_bytes=args.hard_artifact_budget_bytes,
+                    ),
+                    candidate_proposals_per_step=args.candidate_proposals_per_step,
+                    max_active_robots=args.max_active_robots,
+                    candidate_mix_id=args.candidate_mix_id,
+                    projection_attempt_budget=args.projection_attempt_budget,
+                    progress_every_episodes=0
+                    if args.no_progress
+                    else args.progress_every_episodes,
+                    progress_to_stderr=not args.no_progress,
+                    device=args.device,
+                )
+            )
+            print(json.dumps(_warehouse_gridlock_result_payload(result), sort_keys=True))
+            return 0 if result.status == "success" else 2
+        if args.warehouse_transformer_policy_command == "summarize":
+            result = warehouse_transformer_runner.summarize_transformer_policy(
+                repo_root=args.repo_root,
+                artifact_root=args.artifact_root,
+            )
+            print(json.dumps(_warehouse_gridlock_result_payload(result), sort_keys=True))
+            return 0 if result.status in {"success", "complete"} else 2
+        if args.warehouse_transformer_policy_command == "render-episode":
+            try:
+                result = warehouse_transformer_runner.render_transformer_policy_episode(
+                    artifact_root=args.artifact_root,
+                    arm_id=args.arm_id,
+                    replicate_index=args.replicate_index,
+                    schema_seed=args.schema_seed,
+                    episode_index=args.episode_index,
+                    output_path=args.output,
+                    frame_ms=args.frame_ms,
+                    cell_pixels=args.cell_pixels,
+                    max_frames=args.max_frames,
+                )
+            except FileNotFoundError as exc:
+                print(
+                    json.dumps(
+                        {
+                            "error_type": "missing_renderable_trace",
+                            "message": str(exc),
+                            "status": "error",
+                        },
+                        sort_keys=True,
+                    )
+                )
+                return 2
+            print(json.dumps(result.to_dict(), sort_keys=True))
+            return 0 if result.status == "success" else 2
+        raise ValueError(
+            "unknown Warehouse Gridlock transformer policy command: "
+            f"{args.warehouse_transformer_policy_command}"
         )
 
     raise ValueError(f"unknown Warehouse Gridlock command: {args.warehouse_gridlock_command}")
