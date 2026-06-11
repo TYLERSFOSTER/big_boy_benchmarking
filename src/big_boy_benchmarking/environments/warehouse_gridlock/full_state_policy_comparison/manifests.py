@@ -6,7 +6,6 @@ from pathlib import Path
 
 from big_boy_benchmarking.artifacts.writers import write_json
 from big_boy_benchmarking.environments.warehouse_gridlock.full_state_policy_comparison.config import (
-    ACTIVE_ARM_IDS,
     DIRECT_ARM_ID,
     EVALUATION_ID,
     TOWER_ARM_ID,
@@ -71,31 +70,34 @@ def write_initial_manifests(
         create_parents=True,
     )
     write_json(paths.evaluation_budget_lock, config.to_manifest(), create_parents=True)
+    arm_catalog = {
+        DIRECT_ARM_ID: {
+            "arm_id": DIRECT_ARM_ID,
+            "label": "Direct full-state trainable policy",
+            "policy_contract_id": POLICY_CONTRACT_ID,
+            "model_family_id": MODEL_FAMILY_ID,
+            "uses_tower": False,
+            "immediate_admissibility_masked": True,
+            "one_step_successor_lookahead": False,
+        },
+        TOWER_ARM_ID: {
+            "arm_id": TOWER_ARM_ID,
+            "label": "Tower full-state trainable policy with live lift",
+            "policy_contract_id": POLICY_CONTRACT_ID,
+            "model_family_id": MODEL_FAMILY_ID,
+            "uses_tower": True,
+            "immediate_admissibility_masked": True,
+            "live_state_lift_hygiene": True,
+            "one_step_successor_lookahead": False,
+        },
+    }
     write_json(
         paths.evaluation_arm_manifest,
         {
             "evaluation_id": EVALUATION_ID,
-            "arms": [
-                {
-                    "arm_id": DIRECT_ARM_ID,
-                    "label": "Direct full-state trainable policy",
-                    "policy_contract_id": POLICY_CONTRACT_ID,
-                    "model_family_id": MODEL_FAMILY_ID,
-                    "uses_tower": False,
-                    "immediate_admissibility_masked": True,
-                    "one_step_successor_lookahead": False,
-                },
-                {
-                    "arm_id": TOWER_ARM_ID,
-                    "label": "Tower full-state trainable policy with live lift",
-                    "policy_contract_id": POLICY_CONTRACT_ID,
-                    "model_family_id": MODEL_FAMILY_ID,
-                    "uses_tower": True,
-                    "immediate_admissibility_masked": True,
-                    "live_state_lift_hygiene": True,
-                    "one_step_successor_lookahead": False,
-                },
-            ],
+            "active_arm_ids": list(config.active_arm_ids),
+            "available_arm_ids": [DIRECT_ARM_ID, TOWER_ARM_ID],
+            "arms": [arm_catalog[arm_id] for arm_id in config.active_arm_ids],
         },
         create_parents=True,
     )
@@ -120,7 +122,7 @@ def write_initial_manifests(
             "policy_contract_id": POLICY_CONTRACT_ID,
             "input": "full system configuration plus current second",
             "output": "full simultaneous Warehouse action vector",
-            "active_arm_ids": list(ACTIVE_ARM_IDS),
+            "active_arm_ids": list(config.active_arm_ids),
             "not_candidate_id_learning": True,
         },
         create_parents=True,

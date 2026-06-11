@@ -56,6 +56,9 @@ class FullStatePolicyComparisonConfig:
     replicates_per_arm: int = DEFAULT_REPLICATES_PER_ARM
     schema_seeds: int = DEFAULT_SCHEMA_SEEDS
     max_seconds_per_episode: int = DEFAULT_MAX_SECONDS_PER_EPISODE
+    max_seconds_schedule_start: int | None = None
+    max_seconds_schedule_end: int | None = None
+    max_seconds_schedule_span_episodes: int | None = None
     learning_rate: float = DEFAULT_LEARNING_RATE
     baseline_rate: float = DEFAULT_BASELINE_RATE
     temperature_initial: float = DEFAULT_TEMPERATURE_INITIAL
@@ -67,11 +70,49 @@ class FullStatePolicyComparisonConfig:
     candidate_proposals_per_step: int = DEFAULT_CANDIDATE_PROPOSALS_PER_STEP
     max_active_robots: int = DEFAULT_MAX_ACTIVE_ROBOTS
     candidate_mix_id: str = CANDIDATE_MIX_COORDINATION_READY
+    active_arm_ids: tuple[str, ...] = ACTIVE_ARM_IDS
     progress_to_stderr: bool = True
+
+    def __post_init__(self) -> None:
+        if not self.active_arm_ids:
+            raise ValueError("active_arm_ids must contain at least one arm id")
+        unknown = set(self.active_arm_ids) - set(ACTIVE_ARM_IDS)
+        if unknown:
+            raise ValueError(f"unknown Warehouse policy arm ids: {sorted(unknown)}")
+        schedule_values = (
+            self.max_seconds_schedule_start,
+            self.max_seconds_schedule_end,
+            self.max_seconds_schedule_span_episodes,
+        )
+        if any(value is not None for value in schedule_values) and not all(
+            value is not None for value in schedule_values
+        ):
+            raise ValueError(
+                "max-seconds curriculum requires start, end, and span episode values"
+            )
+        if (
+            self.max_seconds_schedule_span_episodes is not None
+            and self.max_seconds_schedule_span_episodes <= 0
+        ):
+            raise ValueError("max_seconds_schedule_span_episodes must be positive")
 
     @property
     def run_mode(self) -> str:
         return "trainable_policy_smoke" if "smoke" in self.run_label else "trainable_policy_pilot"
+
+    def max_seconds_for_episode(self, episode_index: int) -> int:
+        if (
+            self.max_seconds_schedule_start is None
+            or self.max_seconds_schedule_end is None
+            or self.max_seconds_schedule_span_episodes is None
+        ):
+            return self.max_seconds_per_episode
+        span = max(1, self.max_seconds_schedule_span_episodes)
+        fraction = min(max(episode_index, 0), span) / span
+        scheduled = self.max_seconds_schedule_start + (
+            self.max_seconds_schedule_end - self.max_seconds_schedule_start
+        ) * fraction
+        return max(1, int(round(scheduled)))
 
     def to_manifest(self) -> dict[str, object]:
         return {
@@ -86,6 +127,9 @@ class FullStatePolicyComparisonConfig:
             "replicates_per_arm": self.replicates_per_arm,
             "schema_seeds": self.schema_seeds,
             "max_seconds_per_episode": self.max_seconds_per_episode,
+            "max_seconds_schedule_start": self.max_seconds_schedule_start,
+            "max_seconds_schedule_end": self.max_seconds_schedule_end,
+            "max_seconds_schedule_span_episodes": self.max_seconds_schedule_span_episodes,
             "learning_rate": self.learning_rate,
             "baseline_rate": self.baseline_rate,
             "temperature_initial": self.temperature_initial,
@@ -100,5 +144,5 @@ class FullStatePolicyComparisonConfig:
             "candidate_proposals_per_step": self.candidate_proposals_per_step,
             "max_active_robots": self.max_active_robots,
             "candidate_mix_id": self.candidate_mix_id,
-            "active_arm_ids": list(ACTIVE_ARM_IDS),
+            "active_arm_ids": list(self.active_arm_ids),
         }

@@ -16,7 +16,6 @@ from big_boy_benchmarking.environments.warehouse_gridlock.full_state_policy_comp
     aggregate_results,
 )
 from big_boy_benchmarking.environments.warehouse_gridlock.full_state_policy_comparison.config import (
-    ACTIVE_ARM_IDS,
     DIRECT_ARM_ID,
     EVALUATION_ID,
     TOWER_ARM_ID,
@@ -117,12 +116,12 @@ def run_full_state_policy_comparison(
     )
     all_rows = _RunRows([], [], [], [], [], [], [], [], [], [], [])
     run_index_rows: list[dict[str, object]] = []
-    total_runs = config.schema_seeds * config.replicates_per_arm * len(ACTIVE_ARM_IDS)
+    total_runs = config.schema_seeds * config.replicates_per_arm * len(config.active_arm_ids)
     progress = _ProgressReporter(paths=paths, config=config, total_runs=total_runs)
     progress.record_evaluation_start()
     for schema_seed in range(config.schema_seeds):
         for replicate_index in range(config.replicates_per_arm):
-            for arm_id in ACTIVE_ARM_IDS:
+            for arm_id in config.active_arm_ids:
                 current_run_id = build_run_id(
                     arm_id=arm_id,
                     replicate_index=replicate_index,
@@ -290,6 +289,7 @@ def _run_arm(
     )
     run_started = time.perf_counter()
     for episode_index in range(config.episodes_per_arm):
+        episode_max_seconds = config.max_seconds_for_episode(episode_index)
         state = instance.start_state
         total_reward = 0.0
         valid_selected = 0
@@ -303,11 +303,12 @@ def _run_arm(
             box_targets=instance.manifest.box_target_map(),
         )
         failure_reason = ""
-        for step_index in range(config.max_seconds_per_episode):
+        for step_index in range(episode_max_seconds):
             step_payload = (
                 _direct_step(
                     instance=instance,
                     config=config,
+                    max_seconds_per_episode=episode_max_seconds,
                     state=state,
                     run_id=run_id,
                     arm_id=arm_id,
@@ -321,6 +322,7 @@ def _run_arm(
                 else _tower_step(
                     instance=instance,
                     config=config,
+                    max_seconds_per_episode=episode_max_seconds,
                     state=state,
                     run_id=run_id,
                     arm_id=arm_id,
@@ -343,12 +345,12 @@ def _run_arm(
             pre_config = config_from_instance_state(
                 instance=instance,
                 state=state,
-                max_seconds_per_episode=config.max_seconds_per_episode,
+                max_seconds_per_episode=episode_max_seconds,
             )
             post_config = config_from_instance_state(
                 instance=instance,
                 state=result.next_state,
-                max_seconds_per_episode=config.max_seconds_per_episode,
+                max_seconds_per_episode=episode_max_seconds,
             )
             update = policy.update(
                 transition=WarehousePolicyTransition(
@@ -469,7 +471,7 @@ def _run_arm(
             "final_correct_robot_count": final_counts["correct_robot_count"],
             "terminal_success": terminal,
             "terminated": terminal,
-            "truncated": state.time_step >= config.max_seconds_per_episode and not terminal,
+            "truncated": state.time_step >= episode_max_seconds and not terminal,
             "selected_step_count": valid_selected + invalid_selected,
             "valid_selected_step_count": valid_selected,
             "invalid_selected_step_count": invalid_selected,
@@ -494,6 +496,7 @@ def _direct_step(
     *,
     instance,
     config: FullStatePolicyComparisonConfig,
+    max_seconds_per_episode: int,
     state: WarehouseGridlockState,
     run_id: str,
     arm_id: str,
@@ -506,14 +509,14 @@ def _direct_step(
     full_config = config_from_instance_state(
         instance=instance,
         state=state,
-        max_seconds_per_episode=config.max_seconds_per_episode,
+        max_seconds_per_episode=max_seconds_per_episode,
     )
     mask_context = WarehouseMaskContext(
         arm_id=arm_id,
         run_id=run_id,
         episode_index=episode_index,
         step_index=step_index,
-        max_seconds_per_episode=config.max_seconds_per_episode,
+        max_seconds_per_episode=max_seconds_per_episode,
         projection_attempt_budget=config.projection_attempt_budget,
     )
     raw_decision = policy.act(
@@ -526,7 +529,7 @@ def _direct_step(
         instance=instance,
         state=state,
         raw_action_vector=raw_decision.raw_action_vector,
-        max_seconds=config.max_seconds_per_episode,
+        max_seconds=max_seconds_per_episode,
         robot_command_margins=dict(raw_decision.robot_command_margins),
     )
     decision = decision_with_projection(
@@ -548,6 +551,7 @@ def _tower_step(
     *,
     instance,
     config: FullStatePolicyComparisonConfig,
+    max_seconds_per_episode: int,
     state: WarehouseGridlockState,
     run_id: str,
     arm_id: str,
@@ -565,7 +569,7 @@ def _tower_step(
         candidate_budget=config.candidate_proposals_per_step,
         seed=seed + episode_index * 1000 + step_index,
         schema_seed=schema_seed,
-        max_seconds=config.max_seconds_per_episode,
+        max_seconds=max_seconds_per_episode,
         max_active_robots=config.max_active_robots,
         candidate_mix_id=config.candidate_mix_id,
     )
@@ -589,14 +593,14 @@ def _tower_step(
         instance=instance,
         state=state,
         candidates=tower_candidates,
-        max_seconds=config.max_seconds_per_episode,
+        max_seconds=max_seconds_per_episode,
     )
     if not valid_tower_candidates:
         return None
     full_config = config_from_instance_state(
         instance=instance,
         state=state,
-        max_seconds_per_episode=config.max_seconds_per_episode,
+        max_seconds_per_episode=max_seconds_per_episode,
     )
     scored = []
     for candidate in valid_tower_candidates:
@@ -635,7 +639,7 @@ def _tower_step(
         instance=instance,
         state=state,
         raw_action_vector=raw_vector,
-        max_seconds=config.max_seconds_per_episode,
+        max_seconds=max_seconds_per_episode,
         robot_command_margins=dict(raw_decision.robot_command_margins),
     )
     decision = decision_with_projection(
@@ -730,7 +734,11 @@ class _ProgressReporter:
                 "replicates_per_arm": self.config.replicates_per_arm,
                 "schema_seeds": self.config.schema_seeds,
                 "max_seconds_per_episode": self.config.max_seconds_per_episode,
+                "max_seconds_schedule_start": self.config.max_seconds_schedule_start,
+                "max_seconds_schedule_end": self.config.max_seconds_schedule_end,
+                "max_seconds_schedule_span_episodes": self.config.max_seconds_schedule_span_episodes,
                 "projection_attempt_budget": self.config.projection_attempt_budget,
+                "active_arm_ids": list(self.config.active_arm_ids),
             }
         )
 
@@ -770,9 +778,9 @@ class _ProgressReporter:
         if self.bar is not None:
             self.bar.set_postfix(
                 {
-                    "arm": episode_row["arm_id"],
                     "reward": episode_row["total_reward"],
                     "updates": episode_row["non_noop_update_count"],
+                    "arm": episode_row["arm_id"],
                 },
                 refresh=False,
             )

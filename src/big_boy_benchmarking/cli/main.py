@@ -314,6 +314,7 @@ from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_
     summarize_masked_direct_vs_live_lift_tower as summarize_warehouse_masked_direct_vs_live_lift_tower,
 )
 from big_boy_benchmarking.environments.warehouse_gridlock.full_state_policy_comparison.config import (
+    ACTIVE_ARM_IDS as WAREHOUSE_POLICY_ACTIVE_ARM_IDS,
     DEFAULT_BASELINE_RATE as WAREHOUSE_POLICY_DEFAULT_BASELINE_RATE,
     DEFAULT_EPISODES_PER_ARM as WAREHOUSE_POLICY_DEFAULT_EPISODES,
     DEFAULT_LEARNING_RATE as WAREHOUSE_POLICY_DEFAULT_LEARNING_RATE,
@@ -632,6 +633,39 @@ def build_parser() -> argparse.ArgumentParser:
         "--max-seconds-per-episode",
         type=int,
         default=WAREHOUSE_POLICY_DEFAULT_MAX_SECONDS,
+    )
+    warehouse_policy_run_parser.add_argument(
+        "--max-seconds-curriculum-start",
+        type=int,
+        help=(
+            "Optional absolute episode-index curriculum start horizon. "
+            "When set with end/span, episode 0 uses this many seconds."
+        ),
+    )
+    warehouse_policy_run_parser.add_argument(
+        "--max-seconds-curriculum-end",
+        type=int,
+        help=(
+            "Optional absolute episode-index curriculum end horizon. "
+            "When set with start/span, episodes at or beyond span use this many seconds."
+        ),
+    )
+    warehouse_policy_run_parser.add_argument(
+        "--max-seconds-curriculum-span-episodes",
+        type=int,
+        help=(
+            "Optional absolute episode index over which to ramp the horizon. "
+            "The schedule does not normalize by the number of episodes actually run."
+        ),
+    )
+    warehouse_policy_run_parser.add_argument(
+        "--active-arm-id",
+        action="append",
+        choices=WAREHOUSE_POLICY_ACTIVE_ARM_IDS,
+        help=(
+            "Run only the specified arm id; repeat for multiple arms. "
+            "Defaults to the standard direct+tower pair."
+        ),
     )
     warehouse_policy_run_parser.add_argument(
         "--learning-rate",
@@ -2345,6 +2379,9 @@ def _run_warehouse_gridlock_command(args: argparse.Namespace) -> int:
                     replicates_per_arm=args.replicates_per_arm,
                     schema_seeds=args.schema_seeds,
                     max_seconds_per_episode=args.max_seconds_per_episode,
+                    max_seconds_schedule_start=args.max_seconds_curriculum_start,
+                    max_seconds_schedule_end=args.max_seconds_curriculum_end,
+                    max_seconds_schedule_span_episodes=args.max_seconds_curriculum_span_episodes,
                     learning_rate=args.learning_rate,
                     baseline_rate=args.baseline_rate,
                     temperature_initial=args.temperature_initial,
@@ -2355,6 +2392,9 @@ def _run_warehouse_gridlock_command(args: argparse.Namespace) -> int:
                     if args.no_progress
                     else args.progress_every_episodes,
                     seed=args.seed,
+                    active_arm_ids=tuple(args.active_arm_id)
+                    if args.active_arm_id
+                    else WAREHOUSE_POLICY_ACTIVE_ARM_IDS,
                     progress_to_stderr=not args.no_progress,
                 )
             )

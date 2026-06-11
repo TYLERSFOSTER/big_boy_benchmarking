@@ -1,5 +1,5 @@
 {
-  "artifact_run_label": "policy_contract_smoke_001",
+  "artifact_run_label": "tower_curriculum_train_2024_001",
   "artifact_schema_version": "v1",
   "artifact_storage": {
     "asset_name": null,
@@ -98,23 +98,23 @@
     "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/runbook.md"
   ],
   "repo_readout_surface": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison",
-  "run_mode": "trainable_policy_smoke",
-  "source_artifact_root": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001",
-  "source_evaluation_root": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001",
+  "run_mode": "trainable_policy_pilot",
+  "source_artifact_root": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/tower_curriculum_train_2024_001",
+  "source_evaluation_root": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/tower_curriculum_train_2024_001",
   "source_files": {
-    "aggregate_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/evaluation_aggregate_summary.json",
-    "aggregate_table": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/evaluation_aggregate_table.csv",
-    "arm_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/results/arm_summary.csv",
-    "learning_curve_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/results/learning_curve_summary.csv",
-    "learning_health_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/results/learning_health_summary.csv",
-    "mask_projection_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/results/mask_projection_summary.csv",
-    "no_lookahead_audit_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/results/no_lookahead_audit_summary.csv",
-    "paired_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/results/paired_summary.csv",
-    "policy_reuse_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/results/policy_reuse_summary.csv",
-    "progress_events": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/progress_events.jsonl",
-    "run_index": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/run_index.csv",
-    "tower_live_lift_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/results/tower_live_lift_summary.csv",
-    "tower_shape_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/policy_contract_smoke_001/results/tower_shape_summary.csv"
+    "aggregate_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/tower_curriculum_train_2024_001/evaluation_aggregate_summary.json",
+    "aggregate_table": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/tower_curriculum_train_2024_001/evaluation_aggregate_table.csv",
+    "arm_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/tower_curriculum_train_2024_001/results/arm_summary.csv",
+    "learning_curve_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/tower_curriculum_train_2024_001/results/learning_curve_summary.csv",
+    "learning_health_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/tower_curriculum_train_2024_001/results/learning_health_summary.csv",
+    "mask_projection_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/tower_curriculum_train_2024_001/results/mask_projection_summary.csv",
+    "no_lookahead_audit_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/tower_curriculum_train_2024_001/results/no_lookahead_audit_summary.csv",
+    "paired_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/tower_curriculum_train_2024_001/results/paired_summary.csv",
+    "policy_reuse_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/tower_curriculum_train_2024_001/results/policy_reuse_summary.csv",
+    "progress_events": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/tower_curriculum_train_2024_001/progress_events.jsonl",
+    "run_index": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/tower_curriculum_train_2024_001/run_index.csv",
+    "tower_live_lift_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/tower_curriculum_train_2024_001/results/tower_live_lift_summary.csv",
+    "tower_shape_summary": "docs/evaluations/warehouse_gridlock_001/full_state_policy_comparison/artifacts/tower_curriculum_train_2024_001/results/tower_shape_summary.csv"
   },
   "structural_limit_checks": [
     {
@@ -131,7 +131,7 @@
     }
   ],
   "summary": {
-    "arm_count": 2,
+    "arm_count": 1,
     "claim_boundary": [
       "trainable policy contract smoke/pilot evidence only",
       "no broad Warehouse benchmark claim",
@@ -141,9 +141,9 @@
     "evaluation_id": "warehouse_gridlock_full_state_full_action_trainable_policy_v001",
     "learning_contract_status": "passed",
     "no_lookahead_status": "passed",
-    "paired_episode_count": 4,
-    "run_label": "policy_contract_smoke_001",
-    "score_direction": "tower",
+    "paired_episode_count": 0,
+    "run_label": "tower_curriculum_train_2024_001",
+    "score_direction": "tie",
     "status": "complete"
   }
 }

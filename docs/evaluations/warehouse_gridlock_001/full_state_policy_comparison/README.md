@@ -5,9 +5,9 @@
 ## Status At A Glance
 
 - Evaluation id: `warehouse_gridlock_full_state_full_action_trainable_policy_v001`.
-- Run label: `policy_contract_smoke_001`.
+- Run label: `tower_curriculum_train_2024_001`.
 - Learning contract status: `passed`.
-- Score direction: `tower`.
+- Score direction: `tie`.
 - No-lookahead status: `passed`.
 
 ## Summary of Goals Behind this Evaluation
@@ -46,9 +46,9 @@ or the full serious MDP was enumerated.
 ## Evidence Map
 
 - `readout_source.json`: source binding for human-readable regeneration.
-- `artifacts/policy_contract_smoke_001/results/learning_health_summary.csv`: whether updates
+- `artifacts/tower_curriculum_train_2024_001/results/learning_health_summary.csv`: whether updates
   became real reusable learning.
-- `artifacts/policy_contract_smoke_001/results/policy_reuse_summary.csv`: prior-signal reuse.
-- `artifacts/policy_contract_smoke_001/results/no_lookahead_audit_summary.csv`: no-lookahead
+- `artifacts/tower_curriculum_train_2024_001/results/policy_reuse_summary.csv`: prior-signal reuse.
+- `artifacts/tower_curriculum_train_2024_001/results/no_lookahead_audit_summary.csv`: no-lookahead
   audit.
-- `artifacts/policy_contract_smoke_001/results/arm_summary.csv`: arm-level behavior.
+- `artifacts/tower_curriculum_train_2024_001/results/arm_summary.csv`: arm-level behavior.

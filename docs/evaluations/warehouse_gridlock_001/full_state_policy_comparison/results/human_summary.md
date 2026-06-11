@@ -2,7 +2,7 @@
 
 - Status: `complete`.
 - Learning contract status: `passed`.
-- Score direction: `tower`.
+- Score direction: `tie`.
 - No-lookahead status: `passed`.
 
 Inspect `results/learning_health_summary.csv` before treating this as a real

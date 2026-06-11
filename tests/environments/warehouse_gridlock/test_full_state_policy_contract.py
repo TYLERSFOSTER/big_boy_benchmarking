@@ -246,3 +246,88 @@ def test_full_state_policy_cli_smoke_writes_learning_health(tmp_path: Path, caps
         )
         == 0
     )
+
+
+def test_full_state_policy_cli_tower_only_curriculum(tmp_path: Path, capsys) -> None:
+    readiness_root = (
+        tmp_path
+        / "docs"
+        / "evaluations"
+        / "warehouse_gridlock_001"
+        / "environment_readiness"
+        / "artifacts"
+        / "smoke_001"
+    )
+    instance = load_instance()
+    artifact_paths = write_core_readiness_artifacts(
+        instance=instance,
+        artifact_root=readiness_root,
+        run_label="smoke_001",
+    )
+    readiness_source = write_warehouse_readiness_source(
+        repo_root=tmp_path,
+        artifact_root=readiness_root,
+        artifact_paths=artifact_paths,
+        instance=instance,
+    )
+    artifact_root = (
+        tmp_path
+        / "docs"
+        / "evaluations"
+        / "warehouse_gridlock_001"
+        / "full_state_policy_comparison"
+        / "artifacts"
+        / "tower_curriculum_smoke_001"
+    )
+
+    assert (
+        main(
+            [
+                "warehouse-gridlock",
+                "full-state-policy-comparison",
+                "run",
+                "--repo-root",
+                str(tmp_path),
+                "--artifact-root",
+                str(artifact_root),
+                "--readiness-source",
+                str(readiness_source),
+                "--run-label",
+                "tower_curriculum_smoke_001",
+                "--locked-by",
+                "test",
+                "--episodes-per-arm",
+                "2",
+                "--replicates-per-arm",
+                "1",
+                "--schema-seeds",
+                "1",
+                "--max-seconds-per-episode",
+                "64",
+                "--max-seconds-curriculum-start",
+                "2",
+                "--max-seconds-curriculum-end",
+                "4",
+                "--max-seconds-curriculum-span-episodes",
+                "2",
+                "--active-arm-id",
+                "warehouse_tower_full_state_policy_live_lift_masked",
+                "--projection-attempt-budget",
+                "8",
+                "--no-progress",
+            ]
+        )
+        == 0
+    )
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["status"] == "success"
+
+    budget_lock = json.loads((artifact_root / "evaluation_budget_lock.json").read_text())
+    assert budget_lock["active_arm_ids"] == ["warehouse_tower_full_state_policy_live_lift_masked"]
+    assert budget_lock["max_seconds_schedule_start"] == 2
+    assert budget_lock["max_seconds_schedule_end"] == 4
+    assert budget_lock["max_seconds_schedule_span_episodes"] == 2
+
+    run_index = (artifact_root / "run_index.csv").read_text(encoding="utf-8")
+    assert "warehouse_direct_full_state_policy_masked" not in run_index
+    assert "warehouse_tower_full_state_policy_live_lift_masked" in run_index
