@@ -1,6 +1,21 @@
 # Pro tips and Pitfalls
 
 
+
+## Pre-flight checklist
+
+
+### What is your inference model is modelling?
+#### Is it $v$?
+#### Is it $\pi$?
+#### Is it $Q$?
+
+### What model are you using?
+
+### What exploration policy?...
+
+
+
 - **Science:** Goal of *control* is *epistemic clarity*
 - **Engineering:** Goal of *control* is *operational reliability*
 
@@ -38,6 +53,24 @@
 
 ## A tower can alter *WHERE* an agent explores
 
+<p align="center">
+  <picture>
+    <img
+      alt="Warehouse Gridlock 001 start state"
+      src="../assets/images/image_003.svg"
+      width="450"
+    >
+  </picture>
+</p>
+
+<table align="center">
+  <tr>
+    <td width="520" align="center">
+      <sub><em>[...]</em></sub>
+    </td>
+  </tr>
+</table>
+
 ### Example
 
 ### Example
@@ -49,7 +82,7 @@
     <img
       alt="Warehouse Gridlock 001 start state"
       src="../assets/images/image_002.svg"
-      width="850"
+      width="1000"
     >
   </picture>
 </p>

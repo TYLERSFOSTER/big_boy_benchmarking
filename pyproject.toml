@@ -33,6 +33,11 @@ dependencies = [
   "tqdm>=4.67",
 ]
 
+[project.optional-dependencies]
+ml = [
+  "torch>=2.4",
+]
+
 [project.urls]
 Homepage = "https://github.com/TYLERSFOSTER/big_boy_benchmarking"
 Repository = "https://github.com/TYLERSFOSTER/big_boy_benchmarking"
