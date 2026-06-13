@@ -5,6 +5,34 @@
 - **Science:**<br>Goal of *control* is *epistemic clarity*
 - **Engineering:**<br>Goal of *control* is *operational reliability*
 
+## What a `state_collapser` framework entails
+### An *environment* with associated RL problem
+
+<p align="center">
+  <picture>
+    <img
+      alt="Warehouse Gridlock 001 start state"
+      src="../assets/images/image_004.svg"
+      width="600"
+    >
+  </picture>
+</p>
+
+<table align="center">
+  <tr>
+    <td width="520" align="center">
+      <sub><em>THe tower does no put any kind of extra, "vertical" search structure on fibers lying in the uppermost tier.</em></sub>
+    </td>
+  </tr>
+</table>
+
+### A *contraction schema* and its associated dynamic tower
+### A *system of models*
+### A *system of training algorithms*
+  #### [HOW]
+  #### Includes normal explore/exploit strategies.
+### Tower elevator strategy
+
 ## Preflight checklist
 
 ### What is your environment?
@@ -126,3 +154,29 @@ $$
 ### Example
 
 ### Example
+
+## Tower can reduce the demand on total model capacity
+### Logarithmically addressed capacity
+$$
+\underset{k\,\text{terms, one for each tier}}{
+  \underbrace{
+    \;
+    C_{1\text{-d}/\text{time}}
+    \,+\,
+    C_{1\text{-d}/\text{time}}
+    \,+\,
+    \cdots
+    \,+\,
+    C_{1\text{-d}/\text{time}}
+    \;
+  }
+}
+\quad\text{versus}\quad
+C_{k\text{-d}/\text{time}}
+$$
+[...]
+$$
+C_{k\text{-d}/\text{time}}
+\quad>\quad
+k\;C_{1\text{-d}/\text{time}}
+$$
