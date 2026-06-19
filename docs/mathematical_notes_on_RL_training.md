@@ -256,8 +256,6 @@ Since $\frac{1}{f(t)}D_{+}f(t)$ is algebraic, we wee that this object $D_{+}\log
 
 There is a statistical error that a lot of people make: they treat the occurence of many indpendent, relatively likely events as relatively likely. The picture they're missing, when they make this mistake, is that of *product* distributions on *product* spaces.
 
-$$
-d\,e^{\log P}\;:=\;\frac{d\log P}{d\theta}dP
-$$
+[...]
 
 ## 3. Dee Jay
