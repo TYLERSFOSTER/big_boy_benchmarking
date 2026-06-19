@@ -1,9 +1,19 @@
-# Entropy, Surprise, and KL Divergence
+# Mathematical notes on RL training
 
-## 1. 
+
+1. Entropy, Surprise, and KL Divergence
+- 1.1 Surprise at the occurence of an event
+- 1.2 Entropy as expected surprise
+- 1.3 Context-relative surprise
+- 1.4 The non-ambient part of surprise
+2. Surprise as the Lie algebra "*mass decay rate of repeating events*"
+- 2.1 Infinitesimal multiplicative action and the *multiplicative* derivative
+- 2.2 Algebra or analysis? You decide
+- 2.3 The multiplicative derivative in probability theory
+
+## 1. Entropy, Surprise, and KL Divergence
 
 ### 1.1 Surprise at the occurence of an event
-
 Suppose we have a space $X$ equipped with a porability measure $P$. Consider an *event* in $X$ given by a measurable subset $S\subset X$. Define $p:=P(S) \in (0,1]$. 
 
 We want an assignment that associates to $S$ and $P$ a number $I(S|P)$ that measures "how *surprising* it is when $S$ occurs, given the probability measure $P$." We ask for a family of functions
@@ -70,7 +80,7 @@ $$
 #### Example
 > [Uniform]
 
-### 1.3
+### 1.3 Context-relative surprise
 
 In our integral $\int_{X}I(x|P)\;d\mu_{P}$, it is a little strange to couple the measure $\mu_{P}$ we use to compute teh integral and the probability distribution $P$ we use to measure surprise. In general, the measure on our space $X$ might come from somewhere else, and might no even be a probability measure. But the integral defining entropy still makes sesen in these cases. It becomes
 
@@ -132,7 +142,6 @@ Equivalently, $D_{\mathrm{KL}}(P\|Q)=H(P,Q)-H(P)$.
 ## 2. Surprise as the Lie algebra "*mass decay rate of repeating events*"
 
 ### 2.1 Infinitesimal multiplicative action and the *multiplicative* derivative
-
 The maxim for the present section is as follows.
 
 > ***MAXIM:*** Picking a base for your logarithms too early can hide what's really going on. It often makes exponentiatation and the taking of logarithms look like formal tricks instead of deep aspects of the underlying arithmetic and geometry.
@@ -159,9 +168,7 @@ D_{\times}f(t)
 \lim_{h\to 0}\;\Big(f(t+h)\big/f(t)\Big)^{1/h}
 $$
 
-The additive derivative of $f(t)$ is the "instantaneous change in $f$ at the point $t$" that I get if I imainge the value of $f$ as changing additively with respect to time, meaning that values close to $0$ get added to $f(t)$ in order to get $f(t+h)$. The multiplicative derivative of $f(t)$ is *again* the "instantaneous change in $f$ at the point $t$," but the one I get if I now imainge the value of $f$ as changing *multiplicatively* with respect to time, meaning that values close to $1$ multiply $f(t)$ in order to get $f(t+h)$.
-
-The quotient $f(t+h)\big/f(t)$ is a positive multiplicative displacement from time $t$ to time $t+h$. Its $h^\text{th}$-root is, by definition, the *constant per-unit-time **multiplier*** that would produce this displacement $f(t+h)\big/f(t)$ when compounded $h$ times. Thus $D_{\times}f(t)$ is the *instantaneous multiplicative velocity* of $f$. Written in the language of ***mutlitplicative*** linear approximation, this says that
+The additive derivative of $f(t)$ is the "instantaneous change in $f$ at the point $t$" that I get if I imainge the value of $f$ as changing additively with respect to time, meaning that values close to $0$ get added to $f(t)$ in order to get $f(t+h)$. The multiplicative derivative of $f(t)$ is *again* the "instantaneous change in $f$ at the point $t$," but the one I get if I now imainge the value of $f$ as changing *multiplicatively* with respect to time, meaning that values close to $1$ multiply $f(t)$ in order to get $f(t+h)$. Written in the language of ***mutlitplicative*** linear approximation, this says that
 
 $$
 f(t+h)
@@ -206,6 +213,43 @@ In words:
 > If you have a nonegative valued, smooth (or at least second order differentiable) function $f(t)$, then at each point $t$ in the domain, there is a special base for multiplication, denoted $D_{\times}f(t)$, that can be computed as a limit, and has the property that the normal linear expanstion of $h$ successive multiplicaitons by this base $D_{\times}f(t)$ has linear coefficient $f'(t)/f(t)$.
 
 This *is* the statement that $d\,\log_{b}\,f(t)=\frac{1}{f(t)}d\,f(t)$, but stated in a way that does not require any choice of base. In fact, it is stated in a way that produces the canonical base for you
+
+### 2.2 Algebra or analysis? You decide
+
+Note that $\frac{1}{f(t)}D_{+}f(t)$ is an algebraic object. It live is an alement in the vector space of Kahler differentials:
+
+$$
+\frac{1}{f(t)}D_{+}f(t)
+\quad\in\quad
+\Omega^{1}_{\mathbb{R}[f,f^{-1}]}
+$$
+
+"But what *is* $D_{\times}f(t)$?" you ask? It's $D_{\times}f(t)=e^{D_{+}\log\,f(t)}$. This identity is true for any choice of bas3 $b$. We have
+
+$$
+D_{\times}f(t)
+\;=\;
+b^{D_{+}\log_{\ b}\,f(t)}
+\quad\text{for any}\quad b\in\mathbb{R}_{>1}.
+$$
+
+Since the expansion of $e^{h\,D_{+}\log\,f(t)}$ is
+
+$$
+e^{h\;D_{+}\log\,f(t)}
+\quad=\quad
+1\;+\;h\;D_{+}\log\,f(t)\;+\;O(h^2),
+$$
+
+we get the familiar formula of the logarithmic derivative
+
+$$
+D_{+}\log\,f(t)
+\;=\;
+\frac{1}{f(t)}D_{+}f(t)
+$$
+
+Since $\frac{1}{f(t)}D_{+}f(t)$ is algebraic, we wee that this object $D_{+}\log\,f(t)$, which is manifestly analytic, is in fact algebraic. A change of base is just a scalar change of $\frac{1}{f(t)}D_{+}f(t)$. Finding the scalar might be analytic in difficulty, but applying it once you find it is a purely algebraic operation.
 
 ### 2.3 The multiplicative derivative in probability theory
 
