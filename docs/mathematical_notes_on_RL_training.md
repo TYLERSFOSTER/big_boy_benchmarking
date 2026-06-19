@@ -10,6 +10,7 @@
 - 2.1 Infinitesimal multiplicative action and the *multiplicative* derivative
 - 2.2 Algebra or analysis? You decide
 - 2.3 The multiplicative derivative in probability theory
+3. Dee Jay
 
 ## 1. Entropy, Surprise, and KL Divergence
 
@@ -258,3 +259,5 @@ There is a statistical error that a lot of people make: they treat the occurence
 $$
 d\,e^{\log P}\;:=\;\frac{d\log P}{d\theta}dP
 $$
+
+## 3. Dee Jay
