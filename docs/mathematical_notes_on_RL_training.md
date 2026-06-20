@@ -329,6 +329,11 @@ $$
 \;}
 $$
 
+
+[...]
+
+### 3.2 Probabilistic policy's associated measure on path space
+
 $$
 J(\theta)
 \quad:=\quad
@@ -340,12 +345,8 @@ $$
 $$
 \nabla_{\theta}\,J
 \quad=\quad
-\nabla_{\theta}\int_{\text{Path}(X)}R(\gamma)\,\pi_{\vartheta}\,d\mu_{\text{Path}(X)}
+\nabla_{\theta}\int_{\text{Path}(X)}R(\gamma)\;P_{\vartheta}\;d\mu_{\text{Path}(X)}
 $$
-
-[...]
-
-### 3.2
 
 [...]
 
