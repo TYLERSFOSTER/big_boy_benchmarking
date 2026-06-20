@@ -169,7 +169,14 @@ D_{\times}f(t)
 \lim_{h\to 0}\;\Big(f(t+h)\big/f(t)\Big)^{1/h}
 $$
 
-The additive derivative of $f(t)$ is the "instantaneous change in $f$ at the point $t$" that I get if I imainge the value of $f$ as changing additively with respect to time, meaning that values close to $0$ get added to $f(t)$ in order to get $f(t+h)$. The multiplicative derivative of $f(t)$ is *again* the "instantaneous change in $f$ at the point $t$," but the one I get if I now imainge the value of $f$ as changing *multiplicatively* with respect to time, meaning that values close to $1$ multiply $f(t)$ in order to get $f(t+h)$. Written in the language of ***mutlitplicative*** linear approximation, this says that
+The additive derivative of $f(t)$ is the "instantaneous change in $f$ at the point $t$" that I get if I imainge the value of $f$ as changing additively with respect to time, meaning that values close to $0$ get added to $f(t)$ in order to get $f(t+h)$. The multiplicative derivative of $f(t)$ is *again* the "instantaneous change in $f$ at the point $t$," but the one I get if I now imainge the value of $f$ as changing *multiplicatively* with respect to time, meaning that values close to $1$ multiply $f(t)$ in order to get $f(t+h)$. 
+
+From the definition, we immediately have an exponential version of "linearity":
+
+1. $D_{\times}\big(\,f(t)\cdot g(t)\,\big)=D_{\times}f(t)\cdot D_{\times}g(t)$
+2. $D_{\times}\big(f(t)^{a}\big)=\big(D_{\times}f(t)\big)^{a}$ for all $a\in\mathbb{R}_{>0}$
+
+Written in the language of ***mutlitplicative*** linear approximation, this says that
 
 $$
 f(t+h)
@@ -202,18 +209,23 @@ $$
 The condition that $\varepsilon(h)^{1/h^2}$ stay bounded in $\mathbb{R}_{>0}$ implies that $\varepsilon(h)=1+O(h^2)$. Thus $1/\varepsilon(h)=1+O(h^2)$. Plugging all this into the defining identity relating $D_{\times}f(t)$, $\frac{f(t+h)}{f(t)}$, and $\varepsilon(h)$, we arrive an identity relating the mutlitplicative and additive derivatives, 
 
 $$
-\boxed{
+\boxed{\quad
 D_{\times}f(t)^{\ h}
 \;=\;
 1+\frac{1}{f(t)}D_{+}f(t)\;h+O(h^2)
-}
+\quad}
 $$
 
 In words:
 
 > If you have a nonegative valued, smooth (or at least second order differentiable) function $f(t)$, then at each point $t$ in the domain, there is a special base for multiplication, denoted $D_{\times}f(t)$, that can be computed as a limit, and has the property that the normal linear expanstion of $h$ successive multiplicaitons by this base $D_{\times}f(t)$ has linear coefficient $f'(t)/f(t)$.
 
-This *is* the statement that $d\,\log_{b}\,f(t)=\frac{1}{f(t)}d\,f(t)$, but stated in a way that does not require any choice of base. In fact, it is stated in a way that produces the canonical base for you
+This *is* the statement that $d\,\log_{b}\,f(t)=\frac{1}{f(t)}d\,f(t)$, but stated in a way that does not require any choice of base. In fact, it is stated in a way that produces the canonical base for you [...]
+
+[...]
+
+1. $D_{+}\log\big(\,f(t)\cdot g(t)\,\big)\;=\;D_{+}\log\,f(t)\;+\;D_{+}\log\,g(t)$
+2. $D_{+}\log\big(\,f(t)^{a}\big)\;=\;a\cdot D_{+}\log\,f(t)$
 
 ### 2.2 Algebra or analysis? You decide
 
@@ -252,10 +264,89 @@ $$
 
 Since $\frac{1}{f(t)}D_{+}f(t)$ is algebraic, we wee that this object $D_{+}\log\,f(t)$, which is manifestly analytic, is in fact algebraic. A change of base is just a scalar change of $\frac{1}{f(t)}D_{+}f(t)$. Finding the scalar might be analytic in difficulty, but applying it once you find it is a purely algebraic operation.
 
+We can also interpret this as an identity telling us how to write the additive deriviative in terms of the logarithm derivative:
+
+$$
+\boxed{\quad
+D_{+}f(t)
+\;=\;
+\Big(\,D_{+}\log\,f(t)\,\Big)\,\cdot\,f(t)
+\quad}
+$$
+
+Describes how to write $D_{+}$ as a multiplicative operator on $f(t)$. If you're in a weird situation where you need to take the additive derivative $D_{+}f(t)$, but you also want your answer to have $f(t)$ as a factor, then [...]
+
 ### 2.3 The multiplicative derivative in probability theory
 
 There is a statistical error that a lot of people make: they treat the occurence of many indpendent, relatively likely events as relatively likely. The picture they're missing, when they make this mistake, is that of *product* distributions on *product* spaces.
 
 [...]
 
+$\frac{1}{\,P_{\vartheta}(S)\,}D_{+}P_{\vartheta}(S)=$ the infinitesimal change of the exponential rate of repeated occurrence of $S$
+
+[...]
+
+$$
+\mathbb{E}_{\ x\sim P}\,:\;L^{2}_{\mu_{P}}(X,\mathbb{R})\longrightarrow\mathbb{R}
+$$
+
+Fix $G(x)$ in $L^{2}_{\mu_{P}}(X,\mathbb{R})$. If our probability distribution $P$ varies with time, so that we can write it "$P_{t}$," then the expected value of $G(x)$ with respect to $P_{t}$ becomes a function of $t$:
+
+$$
+f(t)
+\;=\;
+\mathbb{E}_{\ x\sim P_{t}}\big[G(x)\big]
+$$
+
+[...]
+
+$$
+D_{+}\mathbb{E}_{\ x\sim P_{t}}[\;-\;]
+\quad=\quad
+\mathbb{E}_{\ x\sim P_{t}}\Big[\big(D_{+}\log\,P_{t}\big)\cdot(-)\Big]
+$$
+
+[...]
+
 ## 3. Dee Jay
+
+We return to [...]
+
+
+### 3.1 The core optimization problem in RL training
+
+$$
+\boxed{\;
+\text{Choose a policy}\;\pi\;\text{that maximizes expected return.}
+\;}
+$$
+In symbols:
+$$
+\boxed{\;
+\theta_{\text{sol}}
+\quad=\quad
+\argmax_{\theta}\;\mathbb{E}_{\gamma\sim P_{\theta}{}}\big[R(\gamma)\big]
+\;}
+$$
+
+$$
+J(\theta)
+\quad:=\quad
+\mathbb{E}_{\ \gamma\sim \pi_{\theta}}\big[\;R(\gamma)\;\big]
+$$
+
+[...]
+
+$$
+\nabla_{\theta}\,J
+\quad=\quad
+\nabla_{\theta}\int_{\text{Path}(X)}R(\gamma)\,\pi_{\vartheta}\,d\mu_{\text{Path}(X)}
+$$
+
+[...]
+
+### 3.2
+
+[...]
+
+### 3.3 Monte Carlo gradient update
