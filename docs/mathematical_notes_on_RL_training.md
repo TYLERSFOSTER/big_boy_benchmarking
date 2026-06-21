@@ -302,16 +302,11 @@ $$
 
 $$
 \begin{array}{rcl}
-D^{+}_{t}\ \mathbb{E}_{x\sim P_{t}}\big[G(x)\big] & = & D^{+}_{t}\int_{X}G(x)\ \ dP_{t}
-\\[10pt]
-& = & D^{+}_{t}\int_{X}G(x)\cdot P_{t}\cdot dx
-\\[10pt]
-& = & \int_{X}G(x)\cdot D^{+}_{t}(P_{t})\cdot dx
-\\[10pt]
-& = & \int_{X}G(x)\cdot \big(D^{+}_{t}\log\ P_{t}\big)\cdot P_{t}\cdot dx
-\\[10pt]
-& = & \int_{X}G(x)\cdot \big(D^{+}_{t}\log\ P_{t}\big)\cdot dP_{t}
-\\[10pt]
+D^{+}_{t}\ \mathbb{E}_{x\sim P_{t}}\big[G(x)\big] & = & D^{+}_{t}\int_{X}G(x)\ \ dP_{t}\\ 
+& = & D^{+}_{t}\int_{X}G(x)\cdot P_{t}\cdot dx\\ 
+& = & \int_{X}G(x)\cdot D^{+}_{t}(P_{t})\cdot dx\\ 
+& = & \int_{X}G(x)\cdot \big(D^{+}_{t}\log\ P_{t}\big)\cdot P_{t}\cdot dx\\ 
+& = & \int_{X}G(x)\cdot \big(D^{+}_{t}\log\ P_{t}\big)\cdot dP_{t}\\ 
 & = & \mathbb{E}_{x\sim P_{t}}\big[G(x)\cdot D^{+}_{t}\log\ P_{t}\big]
 \end{array}
 $$
