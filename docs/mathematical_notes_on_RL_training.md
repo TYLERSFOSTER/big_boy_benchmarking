@@ -10,7 +10,11 @@
 - 2.1 Infinitesimal multiplicative action and the *multiplicative* derivative
 - 2.2 Algebra or analysis? You decide
 - 2.3 The multiplicative derivative in probability theory
-3. Dee Jay
+3. RL training frameworks
+- 3.1 RL training frameworks: General shape
+- 3.2 RL training framework: REINFORCE
+- 3.3 RL training framework: TRPO
+- 3.4 RL training framework: PPO
 
 ## 1. Entropy, Surprise, and KL Divergence
 
@@ -321,7 +325,7 @@ $$
 
 [...]
 
-## 3. Dee Jay
+## 3. RL training frameworks
 
 We return to [...]
 
