@@ -135,9 +135,7 @@ $$
 We call this the *Kullback-Leibler* (*KL*) *divergence*, and denote it $D_{\mathrm{KL}}(P\|Q)$. In the special case that $X$ is discrete, it becomes
 
 $$
-D_{\mathrm{KL}}(P\|Q)
-=
-\sum_x P(x)\log\frac{P(x)}{Q(x)}.
+D_{\text{KL}}(P\|Q)=\sum_x P(x)\log\frac{P(x)}{Q(x)}.
 $$
 
 Equivalently, $D_{\mathrm{KL}}(P\|Q)=H(P,Q)-H(P)$.
