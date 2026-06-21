@@ -96,7 +96,7 @@ In the special case that the measure on $X$ comes from a probability distributio
 $$
 \mathbb E_{x\sim P}\big[I(x|Q)\big]
 \;=\;
-\int_{X}I(x|Q)\;d\mu_{P}.
+\int_{X}I(x|Q)\;dP.
 $$
 
 For discrete distributions, we can compute it as
@@ -150,7 +150,7 @@ The maxim for the present section is as follows.
 The real numbers $\mathbb{R}$ or complex numbers $\mathbb{C}$ form an additive Lie group. The derivative and/or differential in these groups, introduced in first-year calculus courses, is defined relative to this additive structure:
 
 $$
-D_{+}f(t)\;=\lim_{h\to 0}\;\frac{1}{h}\;\Big(f(t+h)-f(t)\Big)\;
+D^{+}_{t}f(t)\;=\lim_{h\to 0}\;\frac{1}{h}\;\Big(f(t+h)-f(t)\Big)\;
 $$
 
 But suppose I have reason to interpret the dependence of $f(t)$ on its argument $t$ as growing in a compounded manner, like radioactive decay or population growth or frquency, instead of a linear manner, like spacial position. in other words, what if we re-interpret $f(t)$ as being something more like a multiplicative transformation so that $f(1)$ is some operator that acts on some *thing* $\lvert x\rangle$, such that
@@ -164,7 +164,7 @@ $$
 This is clearly some kind of approximation at best. If $f$ is a positive differentiable function near $t$, we can try to make it precise by defining the *multiplicative derivative* of $f$ at $t$:
 
 $$
-D_{\times}f(t)
+D^{\times}_{t}f(t)
 \;:=\;
 \lim_{h\to 0}\;\Big(f(t+h)\big/f(t)\Big)^{1/h}
 $$
@@ -173,108 +173,108 @@ The additive derivative of $f(t)$ is the "instantaneous change in $f$ at the poi
 
 From the definition, we immediately have an exponential version of "linearity":
 
-1. $D_{\times}\big(\,f(t)\cdot g(t)\,\big)=D_{\times}f(t)\cdot D_{\times}g(t)$
-2. $D_{\times}\big(f(t)^{a}\big)=\big(D_{\times}f(t)\big)^{a}$ for all $a\in\mathbb{R}_{>0}$
+1. $D^{\times}_{t}\big(\,f(t)\cdot g(t)\,\big)=D^{\times}_{t}f(t)\cdot D^{\times}_{t}g(t)$
+2. $D^{\times}_{t}\big(f(t)^{a}\big)=\big(D^{\times}_{t}f(t)\big)^{a}$ for all $a\in\mathbb{R}_{>0}$
 
 Written in the language of ***mutlitplicative*** linear approximation, this says that
 
 $$
 f(t+h)
 \quad=\quad
-\varepsilon(h)\cdot D_{+}f(t)^{\ h}\cdot f(t)
+\varepsilon(h)\cdot D^{+}_{t}f(t)^{\ h}\cdot f(t)
 $$
 
 where $\varepsilon(h)^{1/h^2}$ stays bounded in $\mathbb{R}_{>0}$. Note that this gives us the formula
 
 $$
-D_{+}f(t)^{\ h}
+D^{+}_{t}f(t)^{\ h}
 \;=\;
 \frac{1}{\varepsilon(h)}\cdot\frac{f(t+h)}{f(t)}
 $$
 
-When $h=0$, the multiplicative operator $D_{\times}f(t)^{\ h}$ becomes multiplication by $1$. This means that if we expand $D_{\times}f(t)^{h}$ as a funciton of $h$, in the standard additive way, we get
+When $h=0$, the multiplicative operator $D^{\times}_{t}f(t)^{\ h}$ becomes multiplication by $1$. This means that if we expand $D^{\times}_{t}f(t)^{h}$ as a funciton of $h$, in the standard additive way, we get
 
 $$
-D_{\times}f(t)^{\ h}
+D^{\times}_{t}f(t)^{\ h}
 \;=\;
 1+A\,h+O(h^2)
 $$
-for some coefficient $A\in\mathbb{R}$. To find this coefficient $A$, observe that the ordinary expansion of $f(t)$ at $t$ is $f(t+h)=f(t)+D_{+}f(t)\;h+O(h^2)$. Dividing by $f(t)$ gives
+for some coefficient $A\in\mathbb{R}$. To find this coefficient $A$, observe that the ordinary expansion of $f(t)$ at $t$ is $f(t+h)=f(t)+D^{+}_{t}f(t)\;h+O(h^2)$. Dividing by $f(t)$ gives
 $$
 \frac{f(t+h)}{f(t)}
 \;=\;
-1+\frac{1}{f(t)}D_{+}f(t)\;h+O(h^2).
+1+\frac{1}{f(t)}D^{+}_{t}f(t)\;h+O(h^2).
 $$
 
-The condition that $\varepsilon(h)^{1/h^2}$ stay bounded in $\mathbb{R}_{>0}$ implies that $\varepsilon(h)=1+O(h^2)$. Thus $1/\varepsilon(h)=1+O(h^2)$. Plugging all this into the defining identity relating $D_{\times}f(t)$, $\frac{f(t+h)}{f(t)}$, and $\varepsilon(h)$, we arrive an identity relating the mutlitplicative and additive derivatives, 
+The condition that $\varepsilon(h)^{1/h^2}$ stay bounded in $\mathbb{R}_{>0}$ implies that $\varepsilon(h)=1+O(h^2)$. Thus $1/\varepsilon(h)=1+O(h^2)$. Plugging all this into the defining identity relating $D^{\times}_{t}f(t)$, $\frac{f(t+h)}{f(t)}$, and $\varepsilon(h)$, we arrive an identity relating the mutlitplicative and additive derivatives, 
 
 $$
 \boxed{\quad
-D_{\times}f(t)^{\ h}
+D^{\times}_{t}f(t)^{\ h}
 \;=\;
-1+\frac{1}{f(t)}D_{+}f(t)\;h+O(h^2)
+1+\frac{1}{f(t)}D^{+}_{t}f(t)\;h+O(h^2)
 \quad}
 $$
 
 In words:
 
-> If you have a nonegative valued, smooth (or at least second order differentiable) function $f(t)$, then at each point $t$ in the domain, there is a special base for multiplication, denoted $D_{\times}f(t)$, that can be computed as a limit, and has the property that the normal linear expanstion of $h$ successive multiplicaitons by this base $D_{\times}f(t)$ has linear coefficient $f'(t)/f(t)$.
+> If you have a nonegative valued, smooth (or at least second order differentiable) function $f(t)$, then at each point $t$ in the domain, there is a special base for multiplication, denoted $D^{\times}_{t}f(t)$, that can be computed as a limit, and has the property that the normal linear expanstion of $h$ successive multiplicaitons by this base $D^{\times}_{t}f(t)$ has linear coefficient $f'(t)/f(t)$.
 
 This *is* the statement that $d\,\log_{b}\,f(t)=\frac{1}{f(t)}d\,f(t)$, but stated in a way that does not require any choice of base. In fact, it is stated in a way that produces the canonical base for you [...]
 
 [...]
 
-1. $D_{+}\log\big(\,f(t)\cdot g(t)\,\big)\;=\;D_{+}\log\,f(t)\;+\;D_{+}\log\,g(t)$
-2. $D_{+}\log\big(\,f(t)^{a}\big)\;=\;a\cdot D_{+}\log\,f(t)$
+1. $D^{+}_{t}\log\big(\,f(t)\cdot g(t)\,\big)\;=\;D^{+}_{t}\log\,f(t)\;+\;D^{+}_{t}\log\,g(t)$
+2. $D^{+}_{t}\log\big(\,f(t)^{a}\big)\;=\;a\cdot D^{+}_{t}\log\,f(t)$
 
 ### 2.2 Algebra or analysis? You decide
 
-Note that $\frac{1}{f(t)}D_{+}f(t)$ is an algebraic object. It live is an alement in the vector space of Kahler differentials:
+Note that $\frac{1}{f(t)}D^{+}_{t}f(t)$ is an algebraic object. It live is an alement in the vector space of Kahler differentials:
 
 $$
-\frac{1}{f(t)}D_{+}f(t)
+\frac{1}{f(t)}D^{+}_{t}f(t)
 \quad\in\quad
 \Omega^{1}_{\mathbb{R}[f,f^{-1}]}
 $$
 
-"But what *is* $D_{\times}f(t)$?" you ask? It's $D_{\times}f(t)=e^{D_{+}\log\,f(t)}$. This identity is true for any choice of bas3 $b$. We have
+"But what *is* $D^{\times}_{t}f(t)$?" you ask? It's $D^{\times}_{t}f(t)=e^{D^{+}_{t}\log\,f(t)}$. This identity is true for any choice of bas3 $b$. We have
 
 $$
-D_{\times}f(t)
+D^{\times}_{t}f(t)
 \;=\;
-b^{D_{+}\log_{\ b}\,f(t)}
+b^{D^{+}_{t}\log_{\ b}\,f(t)}
 \quad\text{for any}\quad b\in\mathbb{R}_{>1}.
 $$
 
-Since the expansion of $e^{h\,D_{+}\log\,f(t)}$ is
+Since the expansion of $e^{h\,D^{+}_{t}\log\,f(t)}$ is
 
 $$
-e^{h\;D_{+}\log\,f(t)}
+e^{h\;D^{+}_{t}\log\,f(t)}
 \quad=\quad
-1\;+\;h\;D_{+}\log\,f(t)\;+\;O(h^2),
+1\;+\;h\;D^{+}_{t}\log\,f(t)\;+\;O(h^2),
 $$
 
 we get the familiar formula of the logarithmic derivative
 
 $$
-D_{+}\log\,f(t)
+D^{+}_{t}\log\,f(t)
 \;=\;
-\frac{1}{f(t)}D_{+}f(t)
+\frac{1}{f(t)}D^{+}_{t}f(t)
 $$
 
-Since $\frac{1}{f(t)}D_{+}f(t)$ is algebraic, we wee that this object $D_{+}\log\,f(t)$, which is manifestly analytic, is in fact algebraic. A change of base is just a scalar change of $\frac{1}{f(t)}D_{+}f(t)$. Finding the scalar might be analytic in difficulty, but applying it once you find it is a purely algebraic operation.
+Since $\frac{1}{f(t)}D^{+}_{t}f(t)$ is algebraic, we wee that this object $D^{+}_{t}\log\,f(t)$, which is manifestly analytic, is in fact algebraic. A change of base is just a scalar change of $\frac{1}{f(t)}D^{+}_{t}f(t)$. Finding the scalar might be analytic in difficulty, but applying it once you find it is a purely algebraic operation.
 
 We can also interpret this as an identity telling us how to write the additive deriviative in terms of the logarithm derivative:
 
 $$
 \boxed{\quad
-D_{+}f(t)
+D^{+}_{t}f(t)
 \;=\;
-\Big(\,D_{+}\log\,f(t)\,\Big)\,\cdot\,f(t)
+\Big(\,D^{+}_{t}\log\,f(t)\,\Big)\,\cdot\,f(t)
 \quad}
 $$
 
-Describes how to write $D_{+}$ as a multiplicative operator on $f(t)$. If you're in a weird situation where you need to take the additive derivative $D_{+}f(t)$, but you also want your answer to have $f(t)$ as a factor, then [...]
+Describes how to write $D^{+}_{t}$ as a multiplicative operator on $f(t)$. If you're in a weird situation where you need to take the additive derivative $D^{+}_{t}f(t)$, but you also want your answer to have $f(t)$ as a factor, then [...]
 
 ### 2.3 The multiplicative derivative in probability theory
 
@@ -282,7 +282,7 @@ There is a statistical error that a lot of people make: they treat the occurence
 
 [...]
 
-$\frac{1}{\,P_{\vartheta}(S)\,}D_{+}P_{\vartheta}(S)=$ the infinitesimal change of the exponential rate of repeated occurrence of $S$
+$\frac{1}{\,P_{\vartheta}(S)\,}D^{+}_{t}P_{\vartheta}(S)=$ the infinitesimal change of the exponential rate of repeated occurrence of $S$
 
 [...]
 
@@ -301,9 +301,27 @@ $$
 [...]
 
 $$
-D_{+}\mathbb{E}_{\ x\sim P_{t}}[\;-\;]
+\begin{array}{rcl}
+D^{+}_{t}\,\mathbb{E}_{x\sim P_{t}}\big[G(x)\big] & = & D^{+}_{t}\int_{X}G(x)\,\,dP_{t}
+\\[10pt]
+& = & D^{+}_{t}\int_{X}G(x)\cdot P_{t}\cdot dx
+\\[10pt]
+& = & \int_{X}G(x)\cdot D^{+}_{t}(P_{t})\cdot dx
+\\[10pt]
+& = & \int_{X}G(x)\cdot \big(D^{+}_{t}\log\,P_{t}\big)\cdot P_{t}\cdot dx
+\\[10pt]
+& = & \int_{X}G(x)\cdot \big(D^{+}_{t}\log\,P_{t}\big)\cdot dP_{t}
+\\[10pt]
+& = & \mathbb{E}_{x\sim P_{t}}\big[G(x)\cdot D^{+}_{t}\log\,P_{t}\big]
+\end{array}
+$$
+
+[...]
+
+$$
+D^{+}_{t}\mathbb{E}_{\ x\sim P_{t}}[\;-\;]
 \quad=\quad
-\mathbb{E}_{\ x\sim P_{t}}\Big[\big(D_{+}\log\,P_{t}\big)\cdot(-)\Big]
+\mathbb{E}_{\ x\sim P_{t}}\Big[\big(D^{+}_{t}\log\,P_{t}\big)\cdot(-)\Big]
 $$
 
 [...]
@@ -337,7 +355,7 @@ $$
 $$
 J(\theta)
 \quad:=\quad
-\mathbb{E}_{\ \gamma\sim \pi_{\theta}}\big[\;R(\gamma)\;\big]
+\mathbb{E}_{\ \gamma\sim \P_{\theta}}\big[\;R(\gamma)\;\big]
 $$
 
 [...]
