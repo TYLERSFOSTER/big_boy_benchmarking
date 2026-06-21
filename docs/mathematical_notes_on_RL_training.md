@@ -32,24 +32,24 @@ $$
 
 such that $I\big(P(S)\big)=I(S\mid P)$. Let us require that this function $I:(0,1]\longrightarrow \mathbb R_{\ge 0}$ be continuous, i.e., "surprise varies continuously with respect to the value of the probability of an event. Condition 3 then says that $I:(0,1]\longrightarrow \mathbb R_{\ge 0}$ is a strictly decreasing function. Condition 2 becomes the condition that $I(1)=0$. 
 
-The interval $(0,1]$ is a continuous multiplicative monoid. Conditions 2 and 4 together imply that $I$ has no upperbound, thus it is a bijection from $(0,1]$ onto $\mathbb{R}_{\ge0}$. Thus there exists some element $\varepsilon\in(0,1)$ such that $I(\varepsilon)=1$. Note that $1=\text{log}_{\ \!b}\,b$ for all $b\neq 1$.
+The interval $(0,1]$ is a continuous multiplicative monoid. Conditions 2 and 4 together imply that $I$ has no upperbound, thus it is a bijection from $(0,1]$ onto $\mathbb{R}_{\ge0}$. Thus there exists some element $\varepsilon\in(0,1)$ such that $I(\varepsilon)=1$. Note that $1=\text{log}_{\ \!b}\ b$ for all $b\neq 1$.
 
-Condition 4 implies that $I(\varepsilon^r)=r\,I(\varepsilon)=r$ for all $r\in\mathbb{Q}$. Thus, there exists some scalar $\lambda\in\mathbb{R}^{\times}$ such that
-
-$$
-I(p)\,\,=\,\,\lambda\cdot\text{log}_{\ \varepsilon}(p)\quad\text{for all}\quad p\in\varepsilon^{\mathbb{Q}}
-$$
-
-By continuity, this imples $I(p)\,\,=\,\,\lambda\cdot\text{log}_{\ \varepsilon}\,\,p$ for all $p\in(0,1]$. Condition 3 implies that $I$ reverses direction, and therefore $\lambda<0$. Because $\log_{\varepsilon}p=\log_{\delta}p\cdot\log_{\epsilon}\delta$, we can conclude that our measure of suprise *must be*, up to scalar multiple, just
+Condition 4 implies that $I(\varepsilon^r)=r\ I(\varepsilon)=r$ for all $r\in\mathbb{Q}$. Thus, there exists some scalar $\lambda\in\mathbb{R}^{\times}$ such that
 
 $$
-I(S|P)\,\,=\,\,-\text{log}\,\,P(S),
+I(p)\ \ =\ \ \lambda\cdot\text{log}_{\ \varepsilon}(p)\quad\text{for all}\quad p\in\varepsilon^{\mathbb{Q}}
+$$
+
+By continuity, this imples $I(p)\ \ =\ \ \lambda\cdot\text{log}_{\ \varepsilon}\ \ p$ for all $p\in(0,1]$. Condition 3 implies that $I$ reverses direction, and therefore $\lambda<0$. Because $\log_{\varepsilon}p=\log_{\delta}p\cdot\log_{\epsilon}\delta$, we can conclude that our measure of suprise *must be*, up to scalar multiple, just
+
+$$
+I(S|P)\ \ =\ \ -\text{log}\ \ P(S),
 $$
 
 or equivalently,
 
 $$
-I(S|P)\,\,=\,\,\text{log}\,\,\frac{1}{P(S)}.
+I(S|P)\ \ =\ \ \text{log}\ \ \frac{1}{P(S)}.
 $$
 
 ### 1.2 Entropy as expected surprise
@@ -66,8 +66,8 @@ Thus the moment integral
 
 $$
 \mathbb E_{x\sim P}\big[I(x|P)\big]
-\,\,=\,\,
-\int_{X}I(x|P)\,\,d\mu_{P}
+\ \ =\ \ 
+\int_{X}I(x|P)\ \ d\mu_{P}
 $$
 computes the *expected surprise over all of $X$, sampling from $P$*. We call this quanitity the *entropy* of the distribution $P$ on $X$, denoted $H(P)$. For a discrete distribution, we can compute it as
 
@@ -83,20 +83,20 @@ $$
 
 ### 1.3 Context-relative surprise
 
-In our integral $\int_{X}I(x|P)\,\,d\mu_{P}$, it is a little strange to couple the measure $\mu_{P}$ we use to compute teh integral and the probability distribution $P$ we use to measure surprise. In general, the measure on our space $X$ might come from somewhere else, and might no even be a probability measure. But the integral defining entropy still makes sesen in these cases. It becomes
+In our integral $\int_{X}I(x|P)\ \ d\mu_{P}$, it is a little strange to couple the measure $\mu_{P}$ we use to compute teh integral and the probability distribution $P$ we use to measure surprise. In general, the measure on our space $X$ might come from somewhere else, and might no even be a probability measure. But the integral defining entropy still makes sesen in these cases. It becomes
 
 $$
 \mathbb E_{\mu}\big[I(x|Q)\big]
-\,\,=\,\,
-\int_{X}I(x|Q)\,\,d\mu,
+\ \ =\ \ 
+\int_{X}I(x|Q)\ \ d\mu,
 $$
 
 In the special case that the measure on $X$ comes from a probability distribution $P$, we can write this as
 
 $$
 \mathbb E_{x\sim P}\big[I(x|Q)\big]
-\,\,=\,\,
-\int_{X}I(x|Q)\,\,dP.
+\ \ =\ \ 
+\int_{X}I(x|Q)\ \ dP.
 $$
 
 For discrete distributions, we can compute it as
@@ -123,9 +123,9 @@ becomes something like "surprise at sampling $x$ from the distribution $Q$, *ign
 We can think of the difference $I(x|Q)-I(x|P)$ as being the "pure $Q$ part of surprise." If we integrate this pure $Q$ part of surprise across $X$, we get something like the "expected pure $Q$ part of surprise, modulo mass density in $X$":
 
 $$
-\mathbb E_{x\sim P}\big[\,\,I(x|Q)-I(x|P)\,\,\big]
-\,\,:=\,\,
-\int_{X}\Big(\,I(x|Q)-I(x|P)\,\Big)\,\,d\mu_{P}
+\mathbb E_{x\sim P}\big[\ \ I(x|Q)-I(x|P)\ \ \big]
+\ \ :=\ \ 
+\int_{X}\Big(\ I(x|Q)-I(x|P)\ \Big)\ \ d\mu_{P}
 $$
 
 We call this the *Kullback-Leibler* (*KL*) *divergence*, and denote it $D_{\mathrm{KL}}(P\|Q)$. In the special case that $X$ is discrete, it becomes
@@ -150,30 +150,30 @@ The maxim for the present section is as follows.
 The real numbers $\mathbb{R}$ or complex numbers $\mathbb{C}$ form an additive Lie group. The derivative and/or differential in these groups, introduced in first-year calculus courses, is defined relative to this additive structure:
 
 $$
-D^{+}_{t}f(t)\,\,=\lim_{h\to 0}\,\,\frac{1}{h}\,\,\Big(f(t+h)-f(t)\Big)\,\,
+D^{+}_{t}f(t)\ \ =\lim_{h\to 0}\ \ \frac{1}{h}\ \ \Big(f(t+h)-f(t)\Big)\ \ 
 $$
 
 But suppose I have reason to interpret the dependence of $f(t)$ on its argument $t$ as growing in a compounded manner, like radioactive decay or population growth or frquency, instead of a linear manner, like spacial position. in other words, what if we re-interpret $f(t)$ as being something more like a multiplicative transformation so that $f(1)$ is some operator that acts on some *thing* $\lvert x\rangle$, such that
 
 $$
-f(n)\,\,\lvert x\rangle
+f(n)\ \ \lvert x\rangle
 \quad=\quad
-f(1)^n\,\,\lvert x\rangle.
+f(1)^n\ \ \lvert x\rangle.
 $$
 
 This is clearly some kind of approximation at best. If $f$ is a positive differentiable function near $t$, we can try to make it precise by defining the *multiplicative derivative* of $f$ at $t$:
 
 $$
 D^{\times}_{t}f(t)
-\,\,:=\,\,
-\lim_{h\to 0}\,\,\Big(f(t+h)\big/f(t)\Big)^{1/h}
+\ \ :=\ \ 
+\lim_{h\to 0}\ \ \Big(f(t+h)\big/f(t)\Big)^{1/h}
 $$
 
 The additive derivative of $f(t)$ is the "instantaneous change in $f$ at the point $t$" that I get if I imainge the value of $f$ as changing additively with respect to time, meaning that values close to $0$ get added to $f(t)$ in order to get $f(t+h)$. The multiplicative derivative of $f(t)$ is *again* the "instantaneous change in $f$ at the point $t$," but the one I get if I now imainge the value of $f$ as changing *multiplicatively* with respect to time, meaning that values close to $1$ multiply $f(t)$ in order to get $f(t+h)$. 
 
 From the definition, we immediately have an exponential version of "linearity":
 
-1. $D^{\times}_{t}\big(\,f(t)\cdot g(t)\,\big)=D^{\times}_{t}f(t)\cdot D^{\times}_{t}g(t)$
+1. $D^{\times}_{t}\big(\ f(t)\cdot g(t)\ \big)=D^{\times}_{t}f(t)\cdot D^{\times}_{t}g(t)$
 2. $D^{\times}_{t}\big(f(t)^{a}\big)=\big(D^{\times}_{t}f(t)\big)^{a}$ for all $a\in\mathbb{R}_{>0}$
 
 Written in the language of ***mutlitplicative*** linear approximation, this says that
@@ -188,7 +188,7 @@ where $\varepsilon(h)^{1/h^2}$ stays bounded in $\mathbb{R}_{>0}$. Note that thi
 
 $$
 D^{+}_{t}f(t)^{\ h}
-\,\,=\,\,
+\ \ =\ \ 
 \frac{1}{\varepsilon(h)}\cdot\frac{f(t+h)}{f(t)}
 $$
 
@@ -196,14 +196,14 @@ When $h=0$, the multiplicative operator $D^{\times}_{t}f(t)^{\ h}$ becomes multi
 
 $$
 D^{\times}_{t}f(t)^{\ h}
-\,\,=\,\,
-1+A\,h+O(h^2)
+\ \ =\ \ 
+1+A\ h+O(h^2)
 $$
-for some coefficient $A\in\mathbb{R}$. To find this coefficient $A$, observe that the ordinary expansion of $f(t)$ at $t$ is $f(t+h)=f(t)+D^{+}_{t}f(t)\,\,h+O(h^2)$. Dividing by $f(t)$ gives
+for some coefficient $A\in\mathbb{R}$. To find this coefficient $A$, observe that the ordinary expansion of $f(t)$ at $t$ is $f(t+h)=f(t)+D^{+}_{t}f(t)\ \ h+O(h^2)$. Dividing by $f(t)$ gives
 $$
 \frac{f(t+h)}{f(t)}
-\,\,=\,\,
-1+\frac{1}{f(t)}D^{+}_{t}f(t)\,\,h+O(h^2).
+\ \ =\ \ 
+1+\frac{1}{f(t)}D^{+}_{t}f(t)\ \ h+O(h^2).
 $$
 
 The condition that $\varepsilon(h)^{1/h^2}$ stay bounded in $\mathbb{R}_{>0}$ implies that $\varepsilon(h)=1+O(h^2)$. Thus $1/\varepsilon(h)=1+O(h^2)$. Plugging all this into the defining identity relating $D^{\times}_{t}f(t)$, $\frac{f(t+h)}{f(t)}$, and $\varepsilon(h)$, we arrive an identity relating the mutlitplicative and additive derivatives, 
@@ -211,8 +211,8 @@ The condition that $\varepsilon(h)^{1/h^2}$ stay bounded in $\mathbb{R}_{>0}$ im
 $$
 \boxed{\quad
 D^{\times}_{t}f(t)^{\ h}
-\,\,=\,\,
-1+\frac{1}{f(t)}D^{+}_{t}f(t)\,\,h+O(h^2)
+\ \ =\ \ 
+1+\frac{1}{f(t)}D^{+}_{t}f(t)\ \ h+O(h^2)
 \quad}
 $$
 
@@ -220,12 +220,12 @@ In words:
 
 > If you have a nonegative valued, smooth (or at least second order differentiable) function $f(t)$, then at each point $t$ in the domain, there is a special base for multiplication, denoted $D^{\times}_{t}f(t)$, that can be computed as a limit, and has the property that the normal linear expanstion of $h$ successive multiplicaitons by this base $D^{\times}_{t}f(t)$ has linear coefficient $f'(t)/f(t)$.
 
-This *is* the statement that $d\,\log_{b}\,f(t)=\frac{1}{f(t)}d\,f(t)$, but stated in a way that does not require any choice of base. In fact, it is stated in a way that produces the canonical base for you [...]
+This *is* the statement that $d\ \log_{b}\ f(t)=\frac{1}{f(t)}d\ f(t)$, but stated in a way that does not require any choice of base. In fact, it is stated in a way that produces the canonical base for you [...]
 
 [...]
 
-1. $D^{+}_{t}\log\big(\,f(t)\cdot g(t)\,\big)\,\,=\,\,D^{+}_{t}\log\,f(t)\,\,+\,\,D^{+}_{t}\log\,g(t)$
-2. $D^{+}_{t}\log\big(\,f(t)^{a}\big)\,\,=\,\,a\cdot D^{+}_{t}\log\,f(t)$
+1. $D^{+}_{t}\log\big(\ f(t)\cdot g(t)\ \big)\ \ =\ \ D^{+}_{t}\log\ f(t)\ \ +\ \ D^{+}_{t}\log\ g(t)$
+2. $D^{+}_{t}\log\big(\ f(t)^{a}\big)\ \ =\ \ a\cdot D^{+}_{t}\log\ f(t)$
 
 ### 2.2 Algebra or analysis? You decide
 
@@ -237,40 +237,40 @@ $$
 \Omega^{1}_{\mathbb{R}[f,f^{-1}]}
 $$
 
-"But what *is* $D^{\times}_{t}f(t)$?" you ask? It's $D^{\times}_{t}f(t)=e^{D^{+}_{t}\log\,f(t)}$. This identity is true for any choice of bas3 $b$. We have
+"But what *is* $D^{\times}_{t}f(t)$?" you ask? It's $D^{\times}_{t}f(t)=e^{D^{+}_{t}\log\ f(t)}$. This identity is true for any choice of bas3 $b$. We have
 
 $$
 D^{\times}_{t}f(t)
-\,\,=\,\,
-b^{D^{+}_{t}\log_{\ b}\,f(t)}
+\ \ =\ \ 
+b^{D^{+}_{t}\log_{\ b}\ f(t)}
 \quad\text{for any}\quad b\in\mathbb{R}_{>1}.
 $$
 
-Since the expansion of $e^{h\,D^{+}_{t}\log\,f(t)}$ is
+Since the expansion of $e^{h\ D^{+}_{t}\log\ f(t)}$ is
 
 $$
-e^{h\,\,D^{+}_{t}\log\,f(t)}
+e^{h\ \ D^{+}_{t}\log\ f(t)}
 \quad=\quad
-1\,\,+\,\,h\,\,D^{+}_{t}\log\,f(t)\,\,+\,\,O(h^2),
+1\ \ +\ \ h\ \ D^{+}_{t}\log\ f(t)\ \ +\ \ O(h^2),
 $$
 
 we get the familiar formula of the logarithmic derivative
 
 $$
-D^{+}_{t}\log\,f(t)
-\,\,=\,\,
+D^{+}_{t}\log\ f(t)
+\ \ =\ \ 
 \frac{1}{f(t)}D^{+}_{t}f(t)
 $$
 
-Since $\frac{1}{f(t)}D^{+}_{t}f(t)$ is algebraic, we wee that this object $D^{+}_{t}\log\,f(t)$, which is manifestly analytic, is in fact algebraic. A change of base is just a scalar change of $\frac{1}{f(t)}D^{+}_{t}f(t)$. Finding the scalar might be analytic in difficulty, but applying it once you find it is a purely algebraic operation.
+Since $\frac{1}{f(t)}D^{+}_{t}f(t)$ is algebraic, we wee that this object $D^{+}_{t}\log\ f(t)$, which is manifestly analytic, is in fact algebraic. A change of base is just a scalar change of $\frac{1}{f(t)}D^{+}_{t}f(t)$. Finding the scalar might be analytic in difficulty, but applying it once you find it is a purely algebraic operation.
 
 We can also interpret this as an identity telling us how to write the additive deriviative in terms of the logarithm derivative:
 
 $$
 \boxed{\quad
 D^{+}_{t}f(t)
-\,\,=\,\,
-\Big(\,D^{+}_{t}\log\,f(t)\,\Big)\,\cdot\,f(t)
+\ \ =\ \ 
+\Big(\ D^{+}_{t}\log\ f(t)\ \Big)\ \cdot\ f(t)
 \quad}
 $$
 
@@ -282,19 +282,19 @@ There is a statistical error that a lot of people make: they treat the occurence
 
 [...]
 
-$\frac{1}{\,P_{\vartheta}(S)\,}D^{+}_{t}P_{\vartheta}(S)=$ the infinitesimal change of the exponential rate of repeated occurrence of $S$
+$\frac{1}{\ P_{\vartheta}(S)\ }D^{+}_{t}P_{\vartheta}(S)=$ the infinitesimal change of the exponential rate of repeated occurrence of $S$
 
 [...]
 
 $$
-\mathbb{E}_{\ x\sim P}\,:\,\,L^{2}_{\mu_{P}}(X,\mathbb{R})\longrightarrow\mathbb{R}
+\mathbb{E}_{\ x\sim P}\ :\ \ L^{2}_{\mu_{P}}(X,\mathbb{R})\longrightarrow\mathbb{R}
 $$
 
 Fix $G(x)$ in $L^{2}_{\mu_{P}}(X,\mathbb{R})$. If our probability distribution $P$ varies with time, so that we can write it "$P_{t}$," then the expected value of $G(x)$ with respect to $P_{t}$ becomes a function of $t$:
 
 $$
 f(t)
-\,\,=\,\,
+\ \ =\ \ 
 \mathbb{E}_{\ x\sim P_{t}}\big[G(x)\big]
 $$
 
@@ -302,26 +302,26 @@ $$
 
 $$
 \begin{array}{rcl}
-D^{+}_{t}\,\mathbb{E}_{x\sim P_{t}}\big[G(x)\big] & = & D^{+}_{t}\int_{X}G(x)\,\,dP_{t}
+D^{+}_{t}\ \mathbb{E}_{x\sim P_{t}}\big[G(x)\big] & = & D^{+}_{t}\int_{X}G(x)\ \ dP_{t}
 \\[10pt]
 & = & D^{+}_{t}\int_{X}G(x)\cdot P_{t}\cdot dx
 \\[10pt]
 & = & \int_{X}G(x)\cdot D^{+}_{t}(P_{t})\cdot dx
 \\[10pt]
-& = & \int_{X}G(x)\cdot \big(D^{+}_{t}\log\,P_{t}\big)\cdot P_{t}\cdot dx
+& = & \int_{X}G(x)\cdot \big(D^{+}_{t}\log\ P_{t}\big)\cdot P_{t}\cdot dx
 \\[10pt]
-& = & \int_{X}G(x)\cdot \big(D^{+}_{t}\log\,P_{t}\big)\cdot dP_{t}
+& = & \int_{X}G(x)\cdot \big(D^{+}_{t}\log\ P_{t}\big)\cdot dP_{t}
 \\[10pt]
-& = & \mathbb{E}_{x\sim P_{t}}\big[G(x)\cdot D^{+}_{t}\log\,P_{t}\big]
+& = & \mathbb{E}_{x\sim P_{t}}\big[G(x)\cdot D^{+}_{t}\log\ P_{t}\big]
 \end{array}
 $$
 
 [...]
 
 $$
-D^{+}_{t}\mathbb{E}_{\ x\sim P_{t}}[\,\,-\,\,]
+D^{+}_{t}\mathbb{E}_{\ x\sim P_{t}}[\ \ -\ \ ]
 \quad=\quad
-\mathbb{E}_{\ x\sim P_{t}}\Big[\big(D^{+}_{t}\log\,P_{t}\big)\cdot(-)\Big]
+\mathbb{E}_{\ x\sim P_{t}}\Big[\big(D^{+}_{t}\log\ P_{t}\big)\cdot(-)\Big]
 $$
 
 [...]
@@ -343,17 +343,17 @@ The name *REINFORCE* is written in all caps because it's some acronym, but it's 
 #### 3.2.1 
 
 $$
-\boxed{\,\,
-\text{Choose a policy}\,\,\pi\,\,\text{that maximizes expected return.}
-\,\,}
+\boxed{\ \ 
+\text{Choose a policy}\ \ \pi\ \ \text{that maximizes expected return.}
+\ \ }
 $$
 In symbols:
 $$
-\boxed{\,\,
+\boxed{\ \ 
 \theta_{\text{sol}}
 \quad=\quad
-\argmax_{\theta}\,\,\mathbb{E}_{\gamma\sim P_{\theta}{}}\big[R(\gamma)\big]
-\,\,}
+\argmax_{\theta}\ \ \mathbb{E}_{\gamma\sim P_{\theta}{}}\big[R(\gamma)\big]
+\ \ }
 $$
 
 
@@ -364,15 +364,15 @@ $$
 $$
 J(\theta)
 \quad:=\quad
-\mathbb{E}_{\ \gamma\sim \P_{\theta}}\big[\,\,R(\gamma)\,\,\big]
+\mathbb{E}_{\ \gamma\sim \P_{\theta}}\big[\ \ R(\gamma)\ \ \big]
 $$
 
 [...]
 
 $$
-\nabla_{\theta}\,J
+\nabla_{\theta}\ J
 \quad=\quad
-\nabla_{\theta}\int_{\text{Path}(X,x_0)}R(\gamma)\,\,P_{\vartheta}\,\,d\gamma
+\nabla_{\theta}\int_{\text{Path}(X,x_0)}R(\gamma)\ \ P_{\vartheta}\ \ d\gamma
 $$
 
 [...]
