@@ -325,62 +325,376 @@ $$
 
 ## 3. RL training frameworks
 
-We return to [...]
+This section collects three central policy-gradient algorithms. The common object is a policy $\pi_\theta(a\mid s)$ and a trajectory law $P_\theta(d\tau)$ induced by running that policy in the environment.
 
+### 3.1 Shared value and advantage
 
-### 3.1 RL training frameworks: General shape
-
-All the RL training frameworks have the same broad shape: *ptimize the expected value* $\mathbb{E}_{\mu}[\mathcal{L}]$, *for some measure* $mu$ *and some funciton* $\mathcal{L}$. the differences between the frameworks below are due, in large part, to the choices of $\mu$ and $\mathcal{L}$ relative to epsiode index, episode time step index, etc.
-
-
-### 3.2 RL training framework: REINFORCE
-
-The name *REINFORCE* is written in all caps because it's some acronym, but it's one of those derangedly cute acronyms that techies like. It's stupid and not helpful.
-
-#### 3.2.1 
+For a fixed policy $\pi$, define the *value* of state $s$ to be
 
 $$
-\boxed{\ \ 
-\text{Choose a policy}\ \ \pi\ \ \text{that maximizes expected return.}
-\ \ }
-$$
-In symbols:
-$$
-\boxed{\ \ 
-\theta_{\text{sol}}
-\quad=\quad
-\argmax_{\theta}\ \ \mathbb{E}_{\gamma\sim P_{\theta}{}}\big[R(\gamma)\big]
-\ \ }
-$$
-
-
-[...]
-
-#### 3.2.2 Probabilistic policy's associated measure on path space
-
-$$
-J(\theta)
+V^\pi(s)
 \quad:=\quad
-\mathbb{E}_{\ \gamma\sim \P_{\theta}}\big[\ \ R(\gamma)\ \ \big]
+\mathbb E_\pi
+\big[\ 
+G(\gamma_{\ge t})
+\ \big|\ 
+s_t=s
+\ \big],
 $$
 
-[...]
+and
 
 $$
-\nabla_{\theta}\ J
+Q^\pi(s,a)
+\quad:=\quad
+\mathbb E_\pi
+\big[\ 
+G(\gamma_{\ge t})
+\ \big|\ 
+s_t=s,\ a_{t}=a
+\ \big],
+$$
+
+The *advantage* is $A^\pi(s,a):=Q^\pi(s,a)-V^\pi(s)$. Equivalently,
+
+$$
+A^\pi(s,a)
+\quad:=\quad
+\mathbb E_\pi
+\big[\ 
+G(\gamma_{\ge t})
+\ \big|\ 
+s_t=s,\ a_{t}=a
+\ \big]
+\ -\ 
+\mathbb E_\pi
+\big[\ 
+G(\gamma_{\ge t})
+\ \big|\ 
+s_t=s
+\ \big]
+$$
+
+So $A^\pi(s,a)$ is the expected gain from knowing that action $a$ was chosen, beyond merely knowing the state $s$. One important feature of *advantage* is that under the policy itself, advantage is *centered*:
+
+$$
+\mathbb E_{a\sim \pi(\cdot\mid s)}
+\big[\ 
+A^\pi(s,a)
+\ \big]
+\ \ =\ \ 
+0
+$$
+
+### 3.2 REINFORCE
+
+*REINFORCE increases the probability of sampled actions in proportion to their observed return or advantage.*
+
+REINFORCE is the direct Monte Carlo policy-gradient algorithm. It uses trajectories sampled from the current policy $\tau_i\sim P_\theta$. The pure expectation form is
+
+$$
+\nabla_\theta J(\theta)
+=
+\mathbb E_{\tau\sim P_\theta}
+\left[
+\sum_t
+G_t(\tau)
+\nabla_\theta
+\log \pi_\theta(a_t\mid s_t)
+\right].
+$$
+
+It has gradient
+
+$$
+\nabla_\theta L_{\mathrm{REINFORCE}}(\theta)
+=
+-
+\frac{1}{N}
+\sum_{i=1}^N
+\sum_t
+\widehat G_t^{(i)}
+\nabla_\theta
+\log \pi_\theta(a_t^{(i)}\mid s_t^{(i)}).
+$$
+
+Gradient descent on $L_{\mathrm{REINFORCE}}$ is therefore stochastic gradient ascent on $J$:
+
+$$
+\theta
+\leftarrow
+\theta
++
+\alpha
+\frac{1}{N}
+\sum_{i=1}^N
+\sum_t
+\widehat G_t^{(i)}
+\nabla_\theta
+\log \pi_\theta(a_t^{(i)}\mid s_t^{(i)}).
+$$
+
+A baseline may be subtracted without changing the expected gradient: $\widehat A_t=\widehat G_t-b(s_t)$. Then the practical loss is
+
+$$
+L_{\mathrm{REINFORCE}}(\theta)
+=
+-
+\frac{1}{N}
+\sum_{i=1}^N
+\sum_t
+\widehat A_t^{(i)}
+\log \pi_\theta(a_t^{(i)}\mid s_t^{(i)}).
+$$
+
+The update is
+
+$$
+\theta
+\leftarrow
+\theta
++
+\alpha
+\frac{1}{N}
+\sum_{i=1}^N
+\sum_t
+\widehat A_t^{(i)}
+\nabla_\theta
+\log \pi_\theta(a_t^{(i)}\mid s_t^{(i)}).
+$$
+
+### 3.3 TRPO: Trust Region Policy Optimization
+
+*TRPO chooses the best advantage-improving policy move inside a KL ball around the old policy.*
+
+TRPO starts with an old policy $\pi_{\mathrm{old}}=\pi_{\theta_{\mathrm{old}}}$. It collects data from $\pi_{\mathrm{old}}$, estimates the old advantage $A_{\mathrm{old}}(s,a)=A^{\pi_{\mathrm{old}}}(s,a)$, and then asks for a new policy $\pi_\theta$ that chooses positive-advantage actions at states visited by the old policy.
+
+Let $\rho_{\mathrm{old}}(s)$ be the old state-visitation distribution. The clean surrogate objective is
+
+$$
+\mathcal J_{\mathrm{TRPO}}(\theta)
 \quad=\quad
-\nabla_{\theta}\int_{\text{Path}(X,x_0)}R(\gamma)\ \ P_{\vartheta}\ \ d\gamma
+\mathbb E_{s\sim\rho_{\mathrm{old}},\,a\sim\pi_\theta(\cdot\mid s)}
+\big[\ 
+A_{\mathrm{old}}(s,a)
+\ \big].
 $$
 
-[...]
+Expanding $A_{\mathrm{old}}$, this is
 
-### 3.2.3 Monte Carlo gradient update
+$$
+\mathcal J_{\mathrm{TRPO}}(\theta)
+\ \ =\ \ 
+\mathbb E_{s\sim\rho_{\mathrm{old}},\ a\sim\pi_\theta(\cdot\mid s)}
+\mathbb E_{\pi_{\mathrm{old}}}
+\Big[\ 
+\big[\ 
+G(\gamma_{\ge t})
+\big|
+s_t=s,\ a_t=a
+\ \big]
+-
+\mathbb E_{\pi_{\mathrm{old}}}
+\big[\ 
+G(\gamma_{\ge t})
+\big|
+s_t=s
+\ \big]
+\ \Big]
+$$
 
-### 3.3 RL training framework: TRPO
+This says: at states the old policy visits, let the new policy choose actions; score those actions by how much better they were than old-policy average.
 
-The acronym *TRPO*stands for *Trust Region Policy Optimization*.
+Because data are sampled from the old action distribution, the same objective is estimated using the likelihood ratio
 
+$$
+r_\theta(s,a)
+=
+\frac{\pi_\theta(a\mid s)}
+{\pi_{\mathrm{old}}(a\mid s)}.
+$$
 
-### 3.4 RL training framework: PPO
+Thus $\mathcal J_{\mathrm{TRPO}}(\theta)=\mathbb E_{s\sim\rho_{\mathrm{old}},\,a\sim\pi_{\mathrm{old}}(\cdot\mid s)}\left[r_\theta(s,a)A_{\mathrm{old}}(s,a)\right]$. TRPO maximizes this surrogate subject to a KL trust-region constraint:
 
-The acronym *PPO* stands for *Proximal Policy Optimization*.
+$$
+\mathbb E_{s\sim\rho_{\mathrm{old}}}
+\left[
+D_{\mathrm{KL}}
+\left(
+\pi_{\mathrm{old}}(\cdot\mid s)
+\;\|\;
+\pi_\theta(\cdot\mid s)
+\right)
+\right]
+\le
+\delta.
+$$
+
+The gradient of the surrogate at $\theta=\theta_{\mathrm{old}}$ is
+
+$$
+g
+=
+\nabla_\theta
+\mathbb E_{\mathrm{old}}
+\left[
+r_\theta(s,a)A_{\mathrm{old}}(s,a)
+\right]
+\bigg|_{\theta=\theta_{\mathrm{old}}}.
+$$
+
+Since $r_{\theta_{\mathrm{old}}}(s,a)=1$, this becomes
+
+$$
+g
+=
+\mathbb E_{\mathrm{old}}
+\left[
+A_{\mathrm{old}}(s,a)
+\nabla_\theta
+\log \pi_\theta(a\mid s)
+\right]_{\theta=\theta_{\mathrm{old}}}.
+$$
+
+Let $F$ be the local Fisher/KL curvature matrix, obtained from the second-order expansion
+
+$$
+\mathbb E_{s\sim\rho_{\mathrm{old}}}
+\left[
+D_{\mathrm{KL}}
+\left(
+\pi_{\mathrm{old}}(\cdot\mid s)
+\;\|\;
+\pi_{\theta_{\mathrm{old}}+\Delta\theta}(\cdot\mid s)
+\right)
+\right]
+\approx
+\frac{1}{2}
+\Delta\theta^\top F\Delta\theta.
+$$
+
+Then the idealized TRPO step solves $\max_{\Delta\theta}\ g^\top\Delta\theta$ subject to
+
+$$
+\frac{1}{2}\Delta\theta^\top F\Delta\theta
+\le
+\delta.
+$$
+
+The solution direction is the natural-gradient direction $\Delta\theta\propto F^{-1}g$. With the trust-region scaling,
+
+$$
+\Delta\theta
+\ \ =\ \ 
+\sqrt{
+\frac{2\delta}
+{g^\top F^{-1}g}
+}
+F^{-1}g.
+$$
+
+In practice, $F^{-1}g$ is computed approximately, often by conjugate gradient, and then a line search is used to ensure the KL constraint and surrogate improvement actually hold.
+
+### 3.4 PPO: Proximal Policy Optimization
+
+*PPO uses the same old-state advantage surrogate as TRPO, but controls policy movement with probability-ratio clipping or a similar proximal penalty rather than a hard KL-constrained solve.*
+
+PPO starts from the same old-policy surrogate as TRPO: $\mathcal J_{\mathrm{surr}}(\theta)=\mathbb E_{\mathrm{old}}\left[r_\theta(s,a)A_{\mathrm{old}}(s,a)\right]$. The difference is how they prevent the policy from moving too far. TRPO imposes a hard KL trust-region. PPO replaces the constrained optimization with a simpler proximal surrogate.
+
+The clipped PPO objective is
+
+$$
+\mathcal J_{\mathrm{PPO}}^{\mathrm{clip}}(\theta)
+=
+\mathbb E_{\mathrm{old}}
+\left[
+\min
+\left(
+r_\theta(s,a)A_{\mathrm{old}}(s,a),
+\operatorname{clip}
+\left(
+r_\theta(s,a),
+1-\epsilon,
+1+\epsilon
+\right)
+A_{\mathrm{old}}(s,a)
+\right)
+\right].
+$$
+
+The implementation loss is usually the negative objective:
+
+$$
+L_{\mathrm{PPO}}^{\mathrm{actor}}(\theta)
+=
+-
+\frac{1}{N}
+\sum_{i=1}^N
+\min
+\left(
+r_i(\theta)\widehat A_i,
+\operatorname{clip}
+\left(
+r_i(\theta),
+1-\epsilon,
+1+\epsilon
+\right)
+\widehat A_i
+\right).
+$$
+
+When the sample is not clipped, the gradient contribution is
+
+$$
+\nabla_\theta
+\left(
+r_\theta(s,a)A_{\mathrm{old}}(s,a)
+\right)
+=
+r_\theta(s,a)
+A_{\mathrm{old}}(s,a)
+\nabla_\theta\log\pi_\theta(a\mid s).
+$$
+
+So the unclipped PPO update direction is
+
+$$
+\theta
+\leftarrow
+\theta
++
+\alpha
+\frac{1}{N}
+\sum_i
+r_i(\theta)
+\widehat A_i
+\nabla_\theta
+\log\pi_\theta(a_i\mid s_i).
+$$
+
+The clipping rule modifies this by setting the gradient to zero, or reducing it, when the probability ratio has already moved too far in the advantage-improving direction.
+
+In practice PPO often uses a combined actor-critic loss:
+
+$$
+L_{\mathrm{PPO}}(\theta,\phi)
+=
+L_{\mathrm{PPO}}^{\mathrm{actor}}(\theta)
++
+c_v
+\frac{1}{N}
+\sum_i
+\left(
+V_\phi(s_i)-\widehat G_i
+\right)^2
+-
+c_H
+\frac{1}{N}
+\sum_i
+H
+\left(
+\pi_\theta(\cdot\mid s_i)
+\right).
+$$
+
+The value term trains the critic. The entropy term encourages exploration.
