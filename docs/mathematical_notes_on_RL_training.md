@@ -609,7 +609,7 @@ The clipped PPO objective is
 \min
 \left(
 r_\theta(s,a)A_{\mathrm{old}}(s,a),
-\operatorname{clip}
+\text{clip}
 \left(
 r_\theta(s,a),
 1-\epsilon,
@@ -631,7 +631,7 @@ L_{\mathrm{PPO}}^{\mathrm{actor}}(\theta)
 \min
 \left(
 r_i(\theta)\widehat A_i,
-\operatorname{clip}
+\text{clip}
 \left(
 r_i(\theta),
 1-\epsilon,
