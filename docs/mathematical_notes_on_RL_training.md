@@ -1,20 +1,21 @@
 # Mathematical notes on RL training
 
+## Contents
 
-1. Entropy, Surprise, and KL Divergence
-- 1.1 Surprise at the occurence of an event
-- 1.2 Entropy as expected surprise
-- 1.3 Context-relative surprise
-- 1.4 The non-ambient part of surprise
-2. Surprise as the Lie algebra "*mass decay rate of repeating events*"
-- 2.1 Infinitesimal multiplicative action and the *multiplicative* derivative
-- 2.2 Algebra or analysis? You decide
-- 2.3 The multiplicative derivative in probability theory
-3. RL training frameworks
-- 3.1 RL training frameworks: General shape
-- 3.2 RL training framework: REINFORCE
-- 3.3 RL training framework: TRPO
-- 3.4 RL training framework: PPO
+- [1. Entropy, Surprise, and KL Divergence](#1-entropy-surprise-and-kl-divergence)
+  - [1.1 Surprise at the occurence of an event](#11-surprise-at-the-occurence-of-an-event)
+  - [1.2 Entropy as expected surprise](#12-entropy-as-expected-surprise)
+  - [1.3 Context-relative surprise](#13-context-relative-surprise)
+  - [1.4 The non-ambient part of surprise](#14-the-non-ambient-part-of-surprise)
+- [2. Surprise as the Lie algebra "*mass decay rate of repeating events*"](#2-surprise-as-the-lie-algebra-mass-decay-rate-of-repeating-events)
+  - [2.1 Infinitesimal multiplicative action and the *multiplicative* derivative](#21-infinitesimal-multiplicative-action-and-the-multiplicative-derivative)
+  - [2.2 Algebra or analysis? You decide](#22-algebra-or-analysis-you-decide)
+  - [2.3 The multiplicative derivative in probability theory](#23-the-multiplicative-derivative-in-probability-theory)
+- [3. RL training frameworks](#3-rl-training-frameworks)
+  - [3.1 Shared value and advantage](#31-shared-value-and-advantage)
+  - [3.2 REINFORCE](#32-reinforce)
+  - [3.3 TRPO: Trust Region Policy Optimization](#33-trpo-trust-region-policy-optimization)
+  - [3.4 PPO: Proximal Policy Optimization](#34-ppo-proximal-policy-optimization)
 
 ## 1. Entropy, Surprise, and KL Divergence
 
@@ -332,11 +333,11 @@ For a fixed policy $\pi$, define the *value* of state $s$ to be
 V^\pi(s)
 \quad:=\quad
 \mathbb E_\pi
-\big[\
+\bigl[
 G(\gamma_{\ge t})
-\ \big|\
+\bigm|
 s_t=s
-\ \big],
+\bigr],
 ```
 
 and
@@ -345,11 +346,11 @@ and
 Q^\pi(s,a)
 \quad:=\quad
 \mathbb E_\pi
-\big[\
+\bigl[
 G(\gamma_{\ge t})
-\ \big|\
+\bigm|
 s_t=s,\ a_{t}=a
-\ \big],
+\bigr],
 ```
 
 The *advantage* is $A^\pi(s,a):=Q^\pi(s,a)-V^\pi(s)$. Equivalently,
@@ -358,28 +359,28 @@ The *advantage* is $A^\pi(s,a):=Q^\pi(s,a)-V^\pi(s)$. Equivalently,
 A^\pi(s,a)
 \quad:=\quad
 \mathbb E_\pi
-\big[\
+\bigl[
 G(\gamma_{\ge t})
-\ \big|\
+\bigm|
 s_t=s,\ a_{t}=a
-\ \big]
-\ -\
+\bigr]
+-
 \mathbb E_\pi
-\big[\
+\bigl[
 G(\gamma_{\ge t})
-\ \big|\
+\bigm|
 s_t=s
-\ \big]
+\bigr]
 ```
 
 So $A^\pi(s,a)$ is the expected gain from knowing that action $a$ was chosen, beyond merely knowing the state $s$. One important feature of *advantage* is that under the policy itself, advantage is *centered*:
 
 ```math
 \mathbb E_{a\sim \pi(\cdot\mid s)}
-\big[\
+\bigl[
 A^\pi(s,a)
-\ \big]
-\ \ =\ \
+\bigr]
+\quad=\quad
 0
 ```
 
@@ -391,7 +392,7 @@ REINFORCE is the direct Monte Carlo policy-gradient algorithm. It uses trajector
 
 ```math
 \nabla_\theta J(\theta)
-\ \ =\ \
+\quad=\quad
 \mathbb E_{\tau\sim P_\theta}
 \left[
 \sum_t
@@ -405,7 +406,7 @@ It has gradient
 
 ```math
 \nabla_\theta L_{\mathrm{REINFORCE}}(\theta)
-\ \ =\ \
+\quad=\quad
 -
 \frac{1}{N}
 \sum_{i=1}^N
@@ -435,7 +436,7 @@ A baseline may be subtracted without changing the expected gradient: $\widehat A
 
 ```math
 L_{\mathrm{REINFORCE}}(\theta)
-\ \ =\ \
+\quad=\quad
 -
 \frac{1}{N}
 \sum_{i=1}^N
@@ -472,32 +473,32 @@ Let $\rho_{\mathrm{old}}(s)$ be the old state-visitation distribution. The clean
 \mathcal J_{\mathrm{TRPO}}(\theta)
 \quad=\quad
 \mathbb E_{s\sim\rho_{\mathrm{old}},\,a\sim\pi_\theta(\cdot\mid s)}
-\big[\
+\bigl[
 A_{\mathrm{old}}(s,a)
-\ \big].
+\bigr].
 ```
 
 Expanding $A_{\mathrm{old}}$, this is
 
 ```math
 \mathcal J_{\mathrm{TRPO}}(\theta)
-\ \ =\ \
+\quad=\quad
 \mathbb E_{s\sim\rho_{\mathrm{old}},\ a\sim\pi_\theta(\cdot\mid s)}
 \mathbb E_{\pi_{\mathrm{old}}}
-\Big[\
-\big[\
+\Bigl[
+\bigl[
 G(\gamma_{\ge t})
-\big|
+\bigm|
 s_t=s,\ a_t=a
-\ \big]
+\bigr]
 -
 \mathbb E_{\pi_{\mathrm{old}}}
-\big[\
+\bigl[
 G(\gamma_{\ge t})
-\big|
+\bigm|
 s_t=s
-\ \big]
-\ \Big]
+\bigr]
+\Bigr]
 ```
 
 This says: at states the old policy visits, let the new policy choose actions; score those actions by how much better they were than old-policy average.
@@ -506,7 +507,7 @@ Because data are sampled from the old action distribution, the same objective is
 
 ```math
 r_\theta(s,a)
-\ \ =\ \
+\quad=\quad
 \frac{\pi_\theta(a\mid s)}
 {\pi_{\mathrm{old}}(a\mid s)}.
 ```
@@ -531,7 +532,7 @@ The gradient of the surrogate at $\theta=\theta_{\mathrm{old}}$ is
 
 ```math
 g
-\ \ =\ \
+\quad=\quad
 \nabla_\theta
 \mathbb E_{\mathrm{old}}
 \left[
@@ -544,7 +545,7 @@ Since $r_{\theta_{\mathrm{old}}}(s,a)=1$, this becomes
 
 ```math
 g
-\ \ =\ \
+\quad=\quad
 \mathbb E_{\mathrm{old}}
 \left[
 A_{\mathrm{old}}(s,a)
@@ -582,7 +583,7 @@ The solution direction is the natural-gradient direction $\Delta\theta\propto F^
 
 ```math
 \Delta\theta
-\ \ =\ \
+\quad=\quad
 \sqrt{
 \frac{2\delta}
 {g^\top F^{-1}g}
@@ -602,7 +603,7 @@ The clipped PPO objective is
 
 ```math
 \mathcal J_{\mathrm{PPO}}^{\mathrm{clip}}(\theta)
-\ \ =\ \
+\quad=\quad
 \mathbb E_{\mathrm{old}}
 \left[
 \min
@@ -623,7 +624,7 @@ The implementation loss is usually the negative objective:
 
 ```math
 L_{\mathrm{PPO}}^{\mathrm{actor}}(\theta)
-\ \ =\ \
+\quad=\quad
 -
 \frac{1}{N}
 \sum_{i=1}^N
@@ -647,7 +648,7 @@ When the sample is not clipped, the gradient contribution is
 \left(
 r_\theta(s,a)A_{\mathrm{old}}(s,a)
 \right)
-\ \ =\ \
+\quad=\quad
 r_\theta(s,a)
 A_{\mathrm{old}}(s,a)
 \nabla_\theta\log\pi_\theta(a\mid s).
@@ -675,7 +676,7 @@ In practice PPO often uses a combined actor-critic loss:
 
 ```math
 L_{\mathrm{PPO}}(\theta,\phi)
-\ \ =\ \
+\quad=\quad
 L_{\mathrm{PPO}}^{\mathrm{actor}}(\theta)
 +
 c_v
