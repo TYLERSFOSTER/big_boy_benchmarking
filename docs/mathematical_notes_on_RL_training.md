@@ -146,9 +146,7 @@ Equivalently, $D_{\mathrm{KL}}(P\|Q)=H(P,Q)-H(P)$.
 ## 2. Surprise as the Lie algebra "*mass decay rate of repeating events*"
 
 ### 2.1 Infinitesimal multiplicative action and the *multiplicative* derivative
-The maxim for the present section is as follows.
-
-> ***MAXIM:*** Picking a base for your logarithms too early can hide what's really going on. It often makes exponentiatation and the taking of logarithms look like formal tricks instead of deep aspects of the underlying arithmetic and geometry.
+The maxim for the present section: Picking a base for your logarithms too early can hide what's really going on. It often makes exponentiatation and the taking of logarithms look like formal tricks instead of deep aspects of the underlying arithmetic and geometry.
 
 The real numbers $\mathbb{R}$ or complex numbers $\mathbb{C}$ form an additive Lie group. The derivative and/or differential in these groups, introduced in first-year calculus courses, is defined relative to this additive structure:
 
@@ -219,9 +217,7 @@ D^{\times}_{t}f(t)^{\ h}
 \quad}
 ```
 
-In words:
-
-> If you have a nonegative valued, smooth (or at least second order differentiable) function $f(t)$, then at each point $t$ in the domain, there is a special base for multiplication, denoted $D^{\times}_{t}f(t)$, that can be computed as a limit, and has the property that the normal linear expanstion of $h$ successive multiplicaitons by this base $D^{\times}_{t}f(t)$ has linear coefficient $f'(t)/f(t)$.
+In words: If you have a nonegative valued, smooth (or at least second order differentiable) function $f(t)$, then at each point $t$ in the domain, there is a special base for multiplication, denoted $D^{\times}_{t}f(t)$, that can be computed as a limit, and has the property that the normal linear expanstion of $h$ successive multiplicaitons by this base $D^{\times}_{t}f(t)$ has linear coefficient $f'(t)/f(t)$.
 
 This *is* the statement that $d\ \log_{b}\ f(t)=\frac{1}{f(t)}d\ f(t)$, but stated in a way that does not require any choice of base. In fact, it is stated in a way that produces the canonical base for you [...]
 
