@@ -73,6 +73,7 @@ $$
 \ \ =\ \ 
 \int_{X}I(x|P)\ \ d\mu_{P}
 $$
+
 computes the *expected surprise over all of $X$, sampling from $P$*. We call this quanitity the *entropy* of the distribution $P$ on $X$, denoted $H(P)$. For a discrete distribution, we can compute it as
 
 $$
@@ -394,7 +395,7 @@ REINFORCE is the direct Monte Carlo policy-gradient algorithm. It uses trajector
 
 $$
 \nabla_\theta J(\theta)
-=
+\ \ =\ \ 
 \mathbb E_{\tau\sim P_\theta}
 \left[
 \sum_t
@@ -408,7 +409,7 @@ It has gradient
 
 $$
 \nabla_\theta L_{\mathrm{REINFORCE}}(\theta)
-=
+\ \ =\ \ 
 -
 \frac{1}{N}
 \sum_{i=1}^N
@@ -438,7 +439,7 @@ A baseline may be subtracted without changing the expected gradient: $\widehat A
 
 $$
 L_{\mathrm{REINFORCE}}(\theta)
-=
+\ \ =\ \ 
 -
 \frac{1}{N}
 \sum_{i=1}^N
@@ -509,7 +510,7 @@ Because data are sampled from the old action distribution, the same objective is
 
 $$
 r_\theta(s,a)
-=
+\ \ =\ \ 
 \frac{\pi_\theta(a\mid s)}
 {\pi_{\mathrm{old}}(a\mid s)}.
 $$
@@ -534,7 +535,7 @@ The gradient of the surrogate at $\theta=\theta_{\mathrm{old}}$ is
 
 $$
 g
-=
+\ \ =\ \ 
 \nabla_\theta
 \mathbb E_{\mathrm{old}}
 \left[
@@ -547,7 +548,7 @@ Since $r_{\theta_{\mathrm{old}}}(s,a)=1$, this becomes
 
 $$
 g
-=
+\ \ =\ \ 
 \mathbb E_{\mathrm{old}}
 \left[
 A_{\mathrm{old}}(s,a)
@@ -605,7 +606,7 @@ The clipped PPO objective is
 
 $$
 \mathcal J_{\mathrm{PPO}}^{\mathrm{clip}}(\theta)
-=
+\ \ =\ \ 
 \mathbb E_{\mathrm{old}}
 \left[
 \min
@@ -626,7 +627,7 @@ The implementation loss is usually the negative objective:
 
 $$
 L_{\mathrm{PPO}}^{\mathrm{actor}}(\theta)
-=
+\ \ =\ \ 
 -
 \frac{1}{N}
 \sum_{i=1}^N
@@ -650,7 +651,7 @@ $$
 \left(
 r_\theta(s,a)A_{\mathrm{old}}(s,a)
 \right)
-=
+\ \ =\ \ 
 r_\theta(s,a)
 A_{\mathrm{old}}(s,a)
 \nabla_\theta\log\pi_\theta(a\mid s).
@@ -678,7 +679,7 @@ In practice PPO often uses a combined actor-critic loss:
 
 $$
 L_{\mathrm{PPO}}(\theta,\phi)
-=
+\ \ =\ \ 
 L_{\mathrm{PPO}}^{\mathrm{actor}}(\theta)
 +
 c_v
