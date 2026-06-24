@@ -121,8 +121,8 @@ The guarded direct controls use oracle one-step local transition masks. They dia
 
 #### Project Owner / Evaluator Turn
 
-> ...
+_No additional public clarification turns are recorded after this point._
 
 #### Embedded Engineering Consultant / Codex Turn
 
-> ...
+_No additional public clarification turns are recorded after this point._

@@ -49,3 +49,13 @@ the local release-asset bundle described in
 | standard gauntlet | Complete correction gauntlet with bounded positive smoke signal | [README](plate_support_5x5_default_v001/standard_gauntlet/README.md) | One selected iterated tower candidate beats direct on one calibrated binary-success target and shows a coherent invalid-move/reward counter-signal; not a general PlateSupport benchmark claim. |
 | direct-star cul-de-sac control | Complete diagnostic control | [README](plate_support_5x5_default_v001/direct_star_culdesac_control/README.md) | Tests Abdul Malik's cul-de-sac concern by comparing raw direct, one-step guarded direct, and the selected tower candidate; diagnostic only. |
 | tower-star guarded lift comparison | Complete diagnostic control with inconclusive small-margin smoke result | [README](plate_support_5x5_default_v001/tower_star/README.md) | Compares direct-star controls against tower lift-candidate star controls; current smoke run is tied on the primary target and does not resolve a tower advantage. |
+
+## Warehouse Gridlock v001
+
+| Evaluation | Status | Readout | Claim boundary |
+| --- | --- | --- | --- |
+| environment readiness | Complete environment readiness surface | [README](warehouse_gridlock_001/environment_readiness/README.md) | SVG-derived 16x16 multi-robot/box environment is implemented and smoke-checked; no learning claim. |
+| masked direct vs live-lift tower | Complete control-surface smoke | [README](warehouse_gridlock_001/masked_direct_vs_live_lift_tower/README.md) | Both arms use admissibility masks; tower uses live-lift state filtering; not a trainable PPO comparison. |
+| full-state policy comparison | Complete trainable-policy contract smoke | [README](warehouse_gridlock_001/full_state_policy_comparison/README.md) | Establishes full-state/full-action policy surface and replayability; early model is intentionally simple. |
+| transformer policy | Complete transformer-policy smoke | [README](warehouse_gridlock_001/transformer_policy/README.md) | Establishes transformer-policy mechanics and selected trace retention; not full-tower PPO. |
+| full-tower GPU PPO | Complete CPU smoke for full-tower PPO machinery | [README](warehouse_gridlock_001/full_tower_gpu_ppo/README.md) | Direct/no-contraction and tower/nontrivial arms share PPO machinery; smoke proves real PPO updates and replayability, not a serious GPU benchmark result. |

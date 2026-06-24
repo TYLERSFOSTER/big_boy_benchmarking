@@ -49,6 +49,7 @@ pointwise liftability semantics.
 | --- | --- | --- | --- |
 | Counterpoint Symbolic v001 | Active calibration/smoke environment | [environment docs](docs/environments/counterpoint_symbolic_v001.md) | Symbolic hidden-graph and contraction-schema workbench used to develop BBB artifact, readout, liftability, and tower-training machinery. |
 | PlateSupport 5x5 Default v001 | Active robotics-like calibration/smoke environment | [environment docs](docs/environments/plate_support_5x5_default_v001.md) | Constrained plate-support control surface with meaningful invalid-action behavior and a completed standard gauntlet. |
+| Warehouse Gridlock v001 | Active robotics-style hidden/discovered MDP environment | [evaluation family](docs/evaluations/warehouse_gridlock_001/README.md) | SVG-originated 16x16 multi-robot/multi-box gridlock environment used to develop serious trainable policy and full-tower PPO surfaces. |
 
 ### Main Human-Readable Reports
 
@@ -63,6 +64,7 @@ pointwise liftability semantics.
 | PlateSupport standard gauntlet | Complete correction gauntlet with bounded positive smoke signal | [README](docs/evaluations/plate_support_5x5_default_v001/standard_gauntlet/README.md) | The selected iterated tower candidate beat the direct baseline on the calibrated binary-success target and showed a coherent action-filtering signal. |
 | PlateSupport direct-star cul-de-sac control | Complete diagnostic control | [README](docs/evaluations/plate_support_5x5_default_v001/direct_star_culdesac_control/README.md) | Abdul Malik's cul-de-sac concern is tested by adding one-step guarded direct controls beside the selected tower candidate. |
 | PlateSupport tower-star guarded lift comparison | Complete diagnostic control with inconclusive smoke result | [README](docs/evaluations/plate_support_5x5_default_v001/tower_star/README.md) | Direct-star and tower-star controls are both implemented; the first smoke run is tied on the primary target and does not resolve a tower advantage. |
+| Warehouse full-tower GPU PPO | Complete CPU smoke for full-tower PPO machinery | [README](docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/README.md) | Direct/no-contraction and tower/nontrivial arms share PPO machinery with real optimizer updates and renderable traces; no serious GPU benchmark claim yet. |
 
 The full evaluation index is in [docs/evaluations/README.md](docs/evaluations/README.md).
 
@@ -82,6 +84,10 @@ Supported by the checked-in readouts:
   cul-de-sac concern from the original positive smoke result. The first
   tower-star guarded-lift smoke run is correctly bounded as inconclusive, not
   as a new positive tower claim.
+- Warehouse Gridlock now has a full-tower PPO mechanics surface: direct as
+  no-contraction schema, tower as nontrivial schema, per-tier `policy_k` /
+  `rollout_policy_k`, stored old log probabilities, strict pointwise
+  executable lifts, and renderable smoke traces.
 - The current evidence is strong enough to justify further benchmark design.
 
 Not supported yet:
@@ -90,6 +96,7 @@ Not supported yet:
 - final robotics benchmark claims;
 - statistical significance across large budgets;
 - tensor-enabled or GPU performance claims;
+- serious Warehouse Gridlock PPO benchmark claims;
 - PyPI release stability;
 - broad claims beyond the exact checked-in environments, budgets, and
   readouts.

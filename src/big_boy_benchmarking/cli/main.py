@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from dataclasses import replace
 from collections.abc import Sequence
 from pathlib import Path
 
@@ -316,6 +317,21 @@ from big_boy_benchmarking.environments.warehouse_gridlock.full_state_policy_comp
 )
 from big_boy_benchmarking.environments.warehouse_gridlock.full_state_policy_comparison.runner import (
     summarize_full_state_policy_comparison as summarize_warehouse_full_state_policy_comparison,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.full_tower_gpu_ppo import (
+    config as warehouse_full_tower_ppo_config,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.full_tower_gpu_ppo import (
+    ids as warehouse_full_tower_ppo_ids,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.full_tower_gpu_ppo import (
+    paths as warehouse_full_tower_ppo_paths,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.full_tower_gpu_ppo import (
+    profiles as warehouse_full_tower_ppo_profiles,
+)
+from big_boy_benchmarking.environments.warehouse_gridlock.full_tower_gpu_ppo import (
+    runner as warehouse_full_tower_ppo_runner,
 )
 from big_boy_benchmarking.environments.warehouse_gridlock.masked_direct_vs_live_lift_tower.config import (
     CANDIDATE_MIX_COORDINATION_READY as WAREHOUSE_MASKED_DEFAULT_CANDIDATE_MIX,
@@ -860,6 +876,180 @@ def build_parser() -> argparse.ArgumentParser:
     warehouse_transformer_render_parser.add_argument("--frame-ms", type=int, default=140)
     warehouse_transformer_render_parser.add_argument("--cell-pixels", type=int, default=36)
     warehouse_transformer_render_parser.add_argument("--max-frames", type=int)
+
+    warehouse_full_tower_ppo_parser = warehouse_subparsers.add_parser(
+        "full-tower-gpu-ppo",
+        help=(
+            "Run Warehouse full-tower PPO; repo readout surface is "
+            "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/."
+        ),
+    )
+    warehouse_full_tower_ppo_subparsers = warehouse_full_tower_ppo_parser.add_subparsers(
+        dest="warehouse_full_tower_ppo_command",
+        required=True,
+    )
+    warehouse_full_tower_ppo_inspect_parser = (
+        warehouse_full_tower_ppo_subparsers.add_parser(
+            "inspect",
+            help="Check readiness, dependency, schema-arm, and device state.",
+        )
+    )
+    warehouse_full_tower_ppo_inspect_parser.add_argument(
+        "--repo-root",
+        type=Path,
+        default=Path("."),
+    )
+    warehouse_full_tower_ppo_inspect_parser.add_argument(
+        "--artifact-root",
+        required=True,
+        type=Path,
+    )
+    warehouse_full_tower_ppo_inspect_parser.add_argument("--readiness-source", type=Path)
+    warehouse_full_tower_ppo_inspect_parser.add_argument(
+        "--run-label",
+        default=warehouse_full_tower_ppo_config.DEFAULT_RUN_LABEL,
+    )
+    warehouse_full_tower_ppo_inspect_parser.add_argument(
+        "--locked-by",
+        default="inspect",
+    )
+    warehouse_full_tower_ppo_inspect_parser.add_argument(
+        "--profile",
+        default="smoke_cpu",
+        choices=("smoke_cpu", "debug_gpu", "serious_gpu"),
+    )
+    warehouse_full_tower_ppo_inspect_parser.add_argument("--device")
+    warehouse_full_tower_ppo_inspect_parser.add_argument(
+        "--confirm-long-run",
+        action="store_true",
+        help="Required for the serious_gpu profile.",
+    )
+
+    warehouse_full_tower_ppo_run_parser = warehouse_full_tower_ppo_subparsers.add_parser(
+        "run",
+        help=(
+            "Run PPO training and write artifacts plus "
+            "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/readout_source.json."
+        ),
+    )
+    warehouse_full_tower_ppo_run_parser.add_argument("--repo-root", type=Path, default=Path("."))
+    warehouse_full_tower_ppo_run_parser.add_argument(
+        "--artifact-root",
+        required=True,
+        type=Path,
+    )
+    warehouse_full_tower_ppo_run_parser.add_argument("--readiness-source", type=Path)
+    warehouse_full_tower_ppo_run_parser.add_argument(
+        "--run-label",
+        default=warehouse_full_tower_ppo_config.DEFAULT_RUN_LABEL,
+    )
+    warehouse_full_tower_ppo_run_parser.add_argument("--locked-by", required=True)
+    warehouse_full_tower_ppo_run_parser.add_argument(
+        "--profile",
+        default="smoke_cpu",
+        choices=("smoke_cpu", "debug_gpu", "serious_gpu"),
+    )
+    warehouse_full_tower_ppo_run_parser.add_argument("--episodes-per-arm", type=int)
+    warehouse_full_tower_ppo_run_parser.add_argument("--replicates-per-arm", type=int)
+    warehouse_full_tower_ppo_run_parser.add_argument("--schema-seeds", type=int)
+    warehouse_full_tower_ppo_run_parser.add_argument("--max-seconds-per-episode", type=int)
+    warehouse_full_tower_ppo_run_parser.add_argument(
+        "--active-arm-id",
+        action="append",
+        choices=warehouse_full_tower_ppo_ids.WAREHOUSE_GRIDLOCK_FULL_TOWER_GPU_PPO_ACTIVE_ARM_IDS,
+        help="Run only the specified arm id; repeat for multiple arms.",
+    )
+    warehouse_full_tower_ppo_run_parser.add_argument("--device")
+    warehouse_full_tower_ppo_run_parser.add_argument(
+        "--ppo-update-interval-samples",
+        type=int,
+        help="Override PPO update interval samples.",
+    )
+    warehouse_full_tower_ppo_run_parser.add_argument(
+        "--min-tier-update-samples",
+        type=int,
+        help="Override minimum samples required for a tier update.",
+    )
+    warehouse_full_tower_ppo_run_parser.add_argument("--ppo-epochs", type=int)
+    warehouse_full_tower_ppo_run_parser.add_argument("--minibatch-size", type=int)
+    warehouse_full_tower_ppo_run_parser.add_argument("--learning-rate", type=float)
+    warehouse_full_tower_ppo_run_parser.add_argument("--clip-epsilon", type=float)
+    warehouse_full_tower_ppo_run_parser.add_argument("--entropy-coef", type=float)
+    warehouse_full_tower_ppo_run_parser.add_argument("--value-coef", type=float)
+    warehouse_full_tower_ppo_run_parser.add_argument("--target-kl", type=float)
+    warehouse_full_tower_ppo_run_parser.add_argument("--max-grad-norm", type=float)
+    warehouse_full_tower_ppo_run_parser.add_argument(
+        "--progress-every-episodes",
+        type=int,
+    )
+    warehouse_full_tower_ppo_run_parser.add_argument(
+        "--no-progress",
+        action="store_true",
+        help="Disable terminal progress output.",
+    )
+    warehouse_full_tower_ppo_run_parser.add_argument(
+        "--seed",
+        type=int,
+        help="Override the base random seed.",
+    )
+    warehouse_full_tower_ppo_run_parser.add_argument(
+        "--confirm-long-run",
+        action="store_true",
+        help="Required for the serious_gpu profile or unusually large budgets.",
+    )
+
+    warehouse_full_tower_ppo_summarize_parser = (
+        warehouse_full_tower_ppo_subparsers.add_parser(
+            "summarize",
+            help=(
+                "Regenerate aggregate tables, badges, docs, and the repo-side "
+                "full_tower_gpu_ppo/readout_source.json."
+            ),
+        )
+    )
+    warehouse_full_tower_ppo_summarize_parser.add_argument(
+        "--repo-root",
+        type=Path,
+        default=Path("."),
+    )
+    warehouse_full_tower_ppo_summarize_parser.add_argument(
+        "--artifact-root",
+        required=True,
+        type=Path,
+    )
+    warehouse_full_tower_ppo_summarize_parser.add_argument("--run-label")
+
+    warehouse_full_tower_ppo_render_parser = (
+        warehouse_full_tower_ppo_subparsers.add_parser(
+            "render-episode",
+            help="Render a selected retained episode from this PPO artifact root.",
+        )
+    )
+    warehouse_full_tower_ppo_render_parser.add_argument(
+        "--artifact-root",
+        required=True,
+        type=Path,
+    )
+    warehouse_full_tower_ppo_render_parser.add_argument("--arm-id", required=True)
+    warehouse_full_tower_ppo_render_parser.add_argument(
+        "--replicate-index",
+        type=int,
+        required=True,
+    )
+    warehouse_full_tower_ppo_render_parser.add_argument(
+        "--schema-seed",
+        type=int,
+        required=True,
+    )
+    warehouse_full_tower_ppo_render_parser.add_argument(
+        "--episode-index",
+        type=int,
+        required=True,
+    )
+    warehouse_full_tower_ppo_render_parser.add_argument("--output", type=Path)
+    warehouse_full_tower_ppo_render_parser.add_argument("--frame-ms", type=int, default=140)
+    warehouse_full_tower_ppo_render_parser.add_argument("--cell-pixels", type=int, default=36)
+    warehouse_full_tower_ppo_render_parser.add_argument("--max-frames", type=int)
 
     plate_support_parser = subparsers.add_parser("plate-support")
     plate_support_subparsers = plate_support_parser.add_subparsers(
@@ -2648,7 +2838,163 @@ def _run_warehouse_gridlock_command(args: argparse.Namespace) -> int:
             f"{args.warehouse_transformer_policy_command}"
         )
 
+    if args.warehouse_gridlock_command == "full-tower-gpu-ppo":
+        if args.warehouse_full_tower_ppo_command == "inspect":
+            try:
+                config = _warehouse_full_tower_ppo_config_from_args(args)
+                result = warehouse_full_tower_ppo_runner.inspect_full_tower_gpu_ppo(
+                    config
+                )
+            except Exception as exc:
+                print(
+                    json.dumps(
+                        {
+                            "status": "error",
+                            "failure_reason": str(exc),
+                            "evaluation_id": (
+                                warehouse_full_tower_ppo_ids
+                                .WAREHOUSE_GRIDLOCK_FULL_TOWER_GPU_PPO_EVALUATION_ID
+                            ),
+                        },
+                        sort_keys=True,
+                    )
+                )
+                return 2
+            print(
+                json.dumps(
+                    {
+                        **result.summary,
+                        "artifact_count": len(result.artifact_paths),
+                    },
+                    sort_keys=True,
+                )
+            )
+            return 0 if result.status == "ok" else 2
+        if args.warehouse_full_tower_ppo_command == "run":
+            config = _warehouse_full_tower_ppo_config_from_args(args)
+            result = warehouse_full_tower_ppo_runner.run_full_tower_gpu_ppo(config)
+            print(json.dumps(_warehouse_gridlock_result_payload(result), sort_keys=True))
+            return 0 if result.status == "success" else 2
+        if args.warehouse_full_tower_ppo_command == "summarize":
+            result = warehouse_full_tower_ppo_runner.summarize_full_tower_gpu_ppo(
+                repo_root=args.repo_root,
+                artifact_root=args.artifact_root,
+                run_label=args.run_label,
+            )
+            print(json.dumps(_warehouse_gridlock_result_payload(result), sort_keys=True))
+            return 0 if result.status in {"success", "complete"} else 2
+        if args.warehouse_full_tower_ppo_command == "render-episode":
+            try:
+                result = render_warehouse_gridlock_episode_gif(
+                    artifact_root=args.artifact_root,
+                    step_events_path=None,
+                    run_id=None,
+                    arm_id=args.arm_id,
+                    replicate_index=args.replicate_index,
+                    schema_seed=args.schema_seed,
+                    episode_index=args.episode_index,
+                    output_path=args.output,
+                    instance_id="warehouse_gridlock_16x16_v001",
+                    frame_ms=args.frame_ms,
+                    cell_pixels=args.cell_pixels,
+                    max_frames=args.max_frames,
+                )
+            except FileNotFoundError as exc:
+                print(
+                    json.dumps(
+                        {
+                            "error_type": "missing_renderable_trace",
+                            "message": str(exc),
+                            "status": "error",
+                        },
+                        sort_keys=True,
+                    )
+                )
+                return 2
+            print(json.dumps(result.to_dict(), sort_keys=True))
+            return 0 if result.status == "success" else 2
+        raise ValueError(
+            "unknown Warehouse Gridlock full-tower PPO command: "
+            f"{args.warehouse_full_tower_ppo_command}"
+        )
+
     raise ValueError(f"unknown Warehouse Gridlock command: {args.warehouse_gridlock_command}")
+
+
+def _warehouse_full_tower_ppo_config_from_args(
+    args: argparse.Namespace,
+) -> warehouse_full_tower_ppo_config.WarehouseFullTowerPPOConfig:
+    readiness_source = (
+        args.readiness_source
+        or warehouse_full_tower_ppo_paths.default_readiness_source(args.repo_root)
+    )
+    profile_id = getattr(args, "profile", "smoke_cpu")
+    config = warehouse_full_tower_ppo_profiles.apply_profile(
+        profile_id=profile_id,
+        repo_root=args.repo_root,
+        artifact_root=args.artifact_root,
+        readiness_source=readiness_source,
+        run_label=args.run_label,
+        locked_by=args.locked_by,
+        episodes_per_arm=getattr(args, "episodes_per_arm", None),
+        replicates_per_arm=getattr(args, "replicates_per_arm", None),
+        schema_seeds=getattr(args, "schema_seeds", None),
+        max_seconds_per_episode=getattr(args, "max_seconds_per_episode", None),
+        device=getattr(args, "device", None),
+        confirm_long_run=getattr(args, "confirm_long_run", False),
+    )
+    if getattr(args, "active_arm_id", None):
+        config = replace(config, active_arm_ids=tuple(args.active_arm_id))
+    config = _warehouse_full_tower_ppo_apply_optional_overrides(config, args)
+    if getattr(args, "no_progress", False):
+        config = replace(config, progress_every_episodes=0)
+    elif getattr(args, "progress_every_episodes", None) is not None:
+        config = replace(config, progress_every_episodes=args.progress_every_episodes)
+    if getattr(args, "seed", None) is not None:
+        config = replace(config, seed=args.seed)
+    total_episode_budget = (
+        config.episodes_per_arm
+        * config.replicates_per_arm
+        * config.schema_seeds
+        * len(config.active_arm_ids)
+    )
+    if (
+        not getattr(args, "confirm_long_run", False)
+        and (config.profile_id == "serious_gpu" or total_episode_budget > 2048)
+    ):
+        raise ValueError(
+            "full-tower PPO long runs require --confirm-long-run "
+            f"(profile={config.profile_id}, total_episode_budget={total_episode_budget})"
+        )
+    return config
+
+
+def _warehouse_full_tower_ppo_apply_optional_overrides(
+    config: warehouse_full_tower_ppo_config.WarehouseFullTowerPPOConfig,
+    args: argparse.Namespace,
+) -> warehouse_full_tower_ppo_config.WarehouseFullTowerPPOConfig:
+    ppo = config.ppo
+    ppo_overrides: dict[str, object] = {}
+    optional_fields = {
+        "ppo_update_interval_samples": "update_interval_samples",
+        "min_tier_update_samples": "min_tier_update_samples",
+        "ppo_epochs": "ppo_epochs",
+        "minibatch_size": "minibatch_size",
+        "learning_rate": "learning_rate",
+        "clip_epsilon": "clip_epsilon",
+        "entropy_coef": "entropy_coef",
+        "value_coef": "value_coef",
+        "target_kl": "target_kl",
+        "max_grad_norm": "max_grad_norm",
+    }
+    for arg_name, field_name in optional_fields.items():
+        value = getattr(args, arg_name, None)
+        if value is not None:
+            ppo_overrides[field_name] = value
+    if ppo_overrides:
+        ppo = replace(ppo, **ppo_overrides)
+        config = replace(config, ppo=ppo)
+    return config
 
 
 def _warehouse_gridlock_result_payload(result: object) -> dict[str, object]:

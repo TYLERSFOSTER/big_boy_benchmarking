@@ -113,7 +113,7 @@ object, but the artifact and code structure should rhyme with them: semantic
 object first, deterministic numeric encoding second, Torch tensor third.
 
 ### PO Reply
-> This isn't accetable. The whole point is evaluating `state_collapser`. We don;t copy shit in `state_colapser`. We address why we can't use it, and potentially fix it.
+> This isn't accetable. The whole point is evaluating `state_collapser`. We don;t copy [XXX] in `state_colapser`. We address why we can't use it, and potentially fix it.
 
 ### Codex Reply
 
@@ -543,7 +543,7 @@ decision according to its advantage. If we factor the policy too aggressively,
 we weaken exactly the coordination mechanism the environment is meant to test.
 
 ### PO Reply
-Ok. I am starting to get really frustrated with this part of the discussion. Ehat the fuck is this "```text
+Ok. I am starting to get really frustrated with this part of the discussion. Ehat the [XXX] is this "```text
 finite tower-control candidate policy
 ```"!? Where did that come from? Move this thread over to `docs/design/svg_physical_system_designs/warehouse_gridlock_001/04_gpu_rl_training_loop/tower_traversing_logic_discussion.md`
 
@@ -875,7 +875,7 @@ Artifacts should record:
 - training throughput.
 
 ### PO Reply
-> I agree, but this seems to contradict your suggestion to copy shit in `state_collapser` instead of use it.
+> I agree, but this seems to contradict your suggestion to copy [XXX] in `state_collapser` instead of use it.
 
 ### Codex Reply
 
@@ -1224,7 +1224,7 @@ For the first serious design blueprint, I would propose this order:
 4. Only after that, tower PPO design using state_collapser tower/fiber
    semantics.
 
-This gives us a non-bullshit PPO trainer first. Then we can ask the hardertower question with a real reference implementation beside it.
+This gives us a non-[XXX] PPO trainer first. Then we can ask the hardertower question with a real reference implementation beside it.
 
 ### PO turn
 > I think the real think to work out is how exactly PPO interacts with the tower architecture. I just want to walk through this. How much is already obvious from architecture?

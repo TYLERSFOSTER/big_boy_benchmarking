@@ -302,7 +302,7 @@ uv run ruff check src/big_boy_benchmarking/environments/warehouse_gridlock/trans
 
 ### Phase 17
 
-- Phase 17.Stage 1.Action 1: Completed. `git -C /Users/foster/state_collapser status --short` produced no output during final verification; this workplan did not edit `state_collapser`.
+- Phase 17.Stage 1.Action 1: Completed. `git -C <state_collapser-repo> status --short` produced no output during final verification; this workplan did not edit `state_collapser`.
 - Phase 17.Stage 1.Action 2: Completed. Smoke artifact root size:
 
 ```text

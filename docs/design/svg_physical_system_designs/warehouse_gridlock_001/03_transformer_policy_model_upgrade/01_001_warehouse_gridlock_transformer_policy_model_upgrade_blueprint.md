@@ -28,15 +28,15 @@ Relevant implemented surfaces:
 
 Relevant `state_collapser` context reviewed:
 
-- `/Users/foster/state_collapser/docs/usage/01_005_using_your_own_training_loop.md`
-- `/Users/foster/state_collapser/docs/usage/01_010_tensorization_boundary.md`
-- `/Users/foster/state_collapser/docs/api_notes/tensorization_boundary.md`
-- `/Users/foster/state_collapser/docs/design/model_train_surfaces/01_001_model_and_training_surface_architecture.md`
-- `/Users/foster/state_collapser/docs/design/model_train_surfaces/01_002_model_and_training_surface_blueprint.md`
-- `/Users/foster/state_collapser/docs/design/model_train_surfaces/01_005_big_boy_benchmarking_tensorization_alignment_note.md`
-- `/Users/foster/state_collapser/docs/design/tensorization/01_001_tensorization_architecture_blueprint.md`
-- `/Users/foster/state_collapser/docs/code_review/03_001_synthetic_blow_full_repo_review_current_state.md`
-- `/Users/foster/state_collapser/src/state_collapser/training/torch.py`
+- `<state_collapser-repo>/docs/usage/01_005_using_your_own_training_loop.md`
+- `<state_collapser-repo>/docs/usage/01_010_tensorization_boundary.md`
+- `<state_collapser-repo>/docs/api_notes/tensorization_boundary.md`
+- `<state_collapser-repo>/docs/design/model_train_surfaces/01_001_model_and_training_surface_architecture.md`
+- `<state_collapser-repo>/docs/design/model_train_surfaces/01_002_model_and_training_surface_blueprint.md`
+- `<state_collapser-repo>/docs/design/model_train_surfaces/01_005_big_boy_benchmarking_tensorization_alignment_note.md`
+- `<state_collapser-repo>/docs/design/tensorization/01_001_tensorization_architecture_blueprint.md`
+- `<state_collapser-repo>/docs/code_review/03_001_synthetic_blow_full_repo_review_current_state.md`
+- `<state_collapser-repo>/src/state_collapser/training/torch.py`
 
 ### PO Attribution
 
@@ -1239,4 +1239,3 @@ The transformer upgrade is complete when:
 - tests cover import gates, encoding, forward pass, action selection, training
   update, checkpoint round-trip, and trace retention;
 - the implementation log records what was done and what remains bounded.
-

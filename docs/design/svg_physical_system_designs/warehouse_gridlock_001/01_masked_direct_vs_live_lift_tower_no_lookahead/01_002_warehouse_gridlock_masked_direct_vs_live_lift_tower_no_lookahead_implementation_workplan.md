@@ -154,8 +154,9 @@ Stop execution if:
 - either arm cannot record candidate counts before and after masking;
 - selected-action audit rows cannot prove
   `successor_out_count_used_for_selection=false`;
-- generated `readout_source.json` would canonically point at `/private/tmp` or
-  another machine-local artifact root;
+- generated `readout_source.json` would canonically point at a machine-local
+  scratch artifact root such as `<scratch-artifact-root>` instead of a
+  repo-resident artifact root;
 - result tables cannot distinguish direct candidate masking from tower live
   lift filtering;
 - tests reveal that invalid ensemble transitions advance Warehouse time;
@@ -597,7 +598,7 @@ docs/evaluations/warehouse_gridlock_001/masked_direct_vs_live_lift_tower/
 
 Stop if:
 
-- any canonical path defaults to `/private/tmp`.
+- any canonical path defaults to a machine-local scratch artifact root.
 
 #### Phase 1.Stage 2: Register CLI And IDs
 

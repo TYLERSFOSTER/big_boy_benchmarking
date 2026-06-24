@@ -837,7 +837,7 @@ For the first serious design blueprint, I would propose this order:
 4. Only after that, tower PPO design using state_collapser tower/fiber
    semantics.
 
-This gives us a non-bullshit PPO trainer first. Then we can ask the harder
+This gives us a non-[XXX] PPO trainer first. Then we can ask the harder
 tower question with a real reference implementation beside it.
 
 

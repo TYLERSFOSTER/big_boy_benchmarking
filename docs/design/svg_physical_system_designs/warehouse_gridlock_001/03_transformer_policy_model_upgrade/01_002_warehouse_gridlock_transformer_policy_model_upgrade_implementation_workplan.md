@@ -1455,7 +1455,7 @@ Do not add generic commentary.
 
 ### Phase 17.Stage 1.Action 1 - Verify no accidental `state_collapser` edits
 
-Check that no files under `/Users/foster/state_collapser` were modified by this
+Check that no files under `<state_collapser-repo>` were modified by this
 workplan execution.
 
 Record the check in the implementation log.
@@ -1577,4 +1577,3 @@ This workplan is complete when:
 - readout source exists at the transformer readout path;
 - implementation log records all completed work and test results;
 - no `state_collapser` files were modified.
-

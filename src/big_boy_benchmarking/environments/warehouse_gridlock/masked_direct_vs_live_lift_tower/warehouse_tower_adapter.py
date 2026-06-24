@@ -11,29 +11,50 @@ from state_collapser.core.state import State
 from state_collapser.graph.hidden_graph import HiddenGraph
 
 from big_boy_benchmarking.environments.warehouse_gridlock.actions import (
+    DirectionOrStay,
     WarehouseGridlockAction,
 )
+from big_boy_benchmarking.environments.warehouse_gridlock.graph import GridNode
 from big_boy_benchmarking.environments.warehouse_gridlock.state import (
     WarehouseGridlockState,
 )
 
 
 def warehouse_state_to_core_state(state: WarehouseGridlockState) -> State:
+    payload = _state_payload(state)
     return State(
-        payload=state,
+        payload=payload,
         identity=("warehouse_gridlock_001_state", state.stable_id),
     )
 
 
 def core_state_to_warehouse_state(state: State) -> WarehouseGridlockState:
-    if not isinstance(state.payload, WarehouseGridlockState):
+    if isinstance(state.payload, WarehouseGridlockState):
+        return state.payload
+    if not (
+        isinstance(state.payload, tuple)
+        and len(state.payload) == 4
+        and state.payload[0] == "warehouse_gridlock_001_state"
+    ):
         raise ValueError(f"unsupported Warehouse state payload: {state.payload!r}")
-    return state.payload
+    _, time_step, robot_items, box_items = state.payload
+    return WarehouseGridlockState(
+        robot_positions={
+            str(robot_id): GridNode(int(row), int(col))
+            for robot_id, row, col in tuple(robot_items)
+        },
+        box_positions={
+            str(box_id): GridNode(int(row), int(col))
+            for box_id, row, col in tuple(box_items)
+        },
+        time_step=int(time_step),
+    )
 
 
 def warehouse_action_to_primitive_action(action: WarehouseGridlockAction) -> PrimitiveAction:
+    payload = _action_payload(action)
     return PrimitiveAction(
-        payload=action,
+        payload=payload,
         identity=("warehouse_gridlock_001_generated_action", action.stable_id),
         labels=(
             "warehouse_gridlock_action",
@@ -43,9 +64,46 @@ def warehouse_action_to_primitive_action(action: WarehouseGridlockAction) -> Pri
 
 
 def primitive_action_to_warehouse_action(action: PrimitiveAction) -> WarehouseGridlockAction:
-    if not isinstance(action.payload, WarehouseGridlockAction):
+    if isinstance(action.payload, WarehouseGridlockAction):
+        return action.payload
+    if not (
+        isinstance(action.payload, tuple)
+        and len(action.payload) == 2
+        and action.payload[0] == "warehouse_gridlock_001_action"
+    ):
         raise ValueError(f"unsupported Warehouse action payload: {action.payload!r}")
-    return action.payload
+    _, command_items = action.payload
+    return WarehouseGridlockAction(
+        commands={
+            str(robot_id): DirectionOrStay(str(command))
+            for robot_id, command in tuple(command_items)
+        }
+    )
+
+
+def _state_payload(state: WarehouseGridlockState) -> tuple[object, ...]:
+    return (
+        "warehouse_gridlock_001_state",
+        state.time_step,
+        tuple(
+            (robot_id, node.row, node.col)
+            for robot_id, node in sorted(state.robot_positions.items())
+        ),
+        tuple(
+            (box_id, node.row, node.col)
+            for box_id, node in sorted(state.box_positions.items())
+        ),
+    )
+
+
+def _action_payload(action: WarehouseGridlockAction) -> tuple[object, ...]:
+    return (
+        "warehouse_gridlock_001_action",
+        tuple(
+            (robot_id, command.value)
+            for robot_id, command in sorted(action.commands.items())
+        ),
+    )
 
 
 @dataclass(frozen=True)

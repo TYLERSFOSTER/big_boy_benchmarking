@@ -147,26 +147,4 @@ No required source artifact was classified as absent. The artifact root is repo-
 
 ## Clarifying Questions And Turns
 
-#### Project Owner / Evaluator Turn
-
-> ...
-
-#### Embedded Engineering Consultant / Codex Turn
-
-> ...
-
-#### Project Owner / Evaluator Turn
-
-> ...
-
-#### Embedded Engineering Consultant / Codex Turn
-
-> ...
-
-#### Project Owner / Evaluator Turn
-
-> ...
-
-#### Embedded Engineering Consultant / Codex Turn
-
-> ...
+_No active public clarification turns are recorded for this readout._
