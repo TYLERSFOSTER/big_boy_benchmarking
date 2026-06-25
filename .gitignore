@@ -210,6 +210,14 @@ tempCodeRunnerFile.py
 # Generated evaluation artifact trees.
 # Repo-side readout files stay tracked; raw run/event trees are local or release assets.
 docs/evaluations/**/artifacts/
+docs/evaluations/**/movies/
+docs/evaluations/**/*.gif
+docs/evaluations/**/*.mp4
+docs/evaluations/**/*.mov
+docs/evaluations/**/*.webm
+docs/evaluations/**/*.pt
+docs/evaluations/**/*.pth
+docs/evaluations/**/*.ckpt
 
 # TeX build sidecars
 *.aux

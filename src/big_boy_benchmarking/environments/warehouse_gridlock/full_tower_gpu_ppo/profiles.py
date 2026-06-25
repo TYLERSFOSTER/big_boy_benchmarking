@@ -5,6 +5,8 @@ from __future__ import annotations
 from pathlib import Path
 
 from .config import (
+    RETENTION_PROFILE_FULL_DEBUG,
+    RETENTION_PROFILE_MOVIE_ONLY,
     WarehouseCheckpointConfig,
     WarehouseDeviceConfig,
     WarehouseFullTowerPPOConfig,
@@ -44,7 +46,7 @@ def apply_profile(
             ppo=WarehousePPOHyperparameters(update_interval_samples=4, minibatch_size=8),
             capacity=WarehousePolicyCapacityConfig(capacity_0=64, min_capacity=32),
             device=WarehouseDeviceConfig(device=device or "cpu"),
-            retention=WarehouseRetentionConfig(profile_id="smoke_debug"),
+            retention=WarehouseRetentionConfig(profile_id=RETENTION_PROFILE_FULL_DEBUG),
             checkpoint=WarehouseCheckpointConfig(checkpoint_every_updates=1),
             profile_id=profile_id,
             progress_every_episodes=1,
@@ -64,7 +66,7 @@ def apply_profile(
             ppo=WarehousePPOHyperparameters(update_interval_samples=16, minibatch_size=16),
             capacity=WarehousePolicyCapacityConfig(capacity_0=128, min_capacity=48),
             device=WarehouseDeviceConfig(device=device or "cuda"),
-            retention=WarehouseRetentionConfig(profile_id="smoke_debug"),
+            retention=WarehouseRetentionConfig(profile_id=RETENTION_PROFILE_MOVIE_ONLY),
             checkpoint=WarehouseCheckpointConfig(checkpoint_every_updates=1),
             profile_id=profile_id,
             progress_every_episodes=1,
@@ -84,7 +86,7 @@ def apply_profile(
             ppo=WarehousePPOHyperparameters(update_interval_samples=128, minibatch_size=64),
             capacity=WarehousePolicyCapacityConfig(capacity_0=192, min_capacity=64),
             device=WarehouseDeviceConfig(device=device or "cuda"),
-            retention=WarehouseRetentionConfig(profile_id="serious_train"),
+            retention=WarehouseRetentionConfig(profile_id=RETENTION_PROFILE_MOVIE_ONLY),
             checkpoint=WarehouseCheckpointConfig(checkpoint_every_updates=1),
             profile_id=profile_id,
             progress_every_episodes=1,

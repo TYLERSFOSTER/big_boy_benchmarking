@@ -83,6 +83,10 @@ class FullTowerPPOPaths:
         return self.artifact_root / "progress_events.jsonl"
 
     @property
+    def trace_index(self) -> Path:
+        return self.results_dir / "trace_episode_index.csv"
+
+    @property
     def artifact_readout_source(self) -> Path:
         return self.artifact_root / "readout_source.json"
 

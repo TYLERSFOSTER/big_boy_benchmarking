@@ -24,6 +24,7 @@ from .config import WarehouseFullTowerPPOConfig
 from .docs_writer import write_human_docs, write_readout_source
 from .events import (
     CONTROLLER_EVENT_FIELDNAMES,
+    EPISODE_FIELDNAMES,
     ROLLOUT_SAMPLE_FIELDNAMES,
     STEP_FIELDNAMES,
 )
@@ -38,6 +39,11 @@ from .state_collapser_runtime import (
     selected_warehouse_action,
 )
 from .tokenization import encode_surface
+from .trace_retention import (
+    TraceRecord,
+    base_retention_reason,
+    write_selected_trace,
+)
 
 
 @dataclass(frozen=True)
@@ -90,6 +96,7 @@ def run_full_tower_gpu_ppo(config: WarehouseFullTowerPPOConfig) -> WarehouseFull
     update_rows: list[dict[str, object]] = []
     tier_policy_rows: list[dict[str, object]] = []
     timing_rows: list[dict[str, object]] = []
+    trace_records: list[TraceRecord] = []
     total_episodes = (
         config.episodes_per_arm
         * config.replicates_per_arm
@@ -118,6 +125,7 @@ def run_full_tower_gpu_ppo(config: WarehouseFullTowerPPOConfig) -> WarehouseFull
                     run_result = _run_arm(
                         instance=instance,
                         config=config,
+                        paths=paths,
                         arm=arm,
                         run_id=current_run_id,
                         replicate_index=replicate_index,
@@ -126,12 +134,17 @@ def run_full_tower_gpu_ppo(config: WarehouseFullTowerPPOConfig) -> WarehouseFull
                         actual_device=actual_device,
                         progress=progress,
                     )
-                    _write_run_tables(run_root=run_root, run_result=run_result)
+                    _write_run_tables(
+                        run_root=run_root,
+                        run_result=run_result,
+                        write_full_debug_tables=config.retention.writes_full_debug_tables,
+                    )
                     episode_rows.extend(run_result["episode_rows"])
                     step_rows.extend(run_result["step_rows"])
                     surface_rows.extend(run_result["surface_rows"])
                     update_rows.extend(run_result["update_rows"])
                     tier_policy_rows.extend(run_result["tier_policy_rows"])
+                    trace_records.extend(run_result["trace_records"])
                     duration = time.perf_counter() - run_started
                     timing_rows.append(
                         {
@@ -163,6 +176,7 @@ def run_full_tower_gpu_ppo(config: WarehouseFullTowerPPOConfig) -> WarehouseFull
         update_rows=update_rows,
         tier_policy_rows=tier_policy_rows,
         timing_rows=timing_rows,
+        trace_records=trace_records,
     )
     readout_source = write_readout_source(
         paths=paths,
@@ -215,6 +229,7 @@ def _run_arm(
     *,
     instance: Any,
     config: WarehouseFullTowerPPOConfig,
+    paths: FullTowerPPOPaths,
     arm: Any,
     run_id: str,
     replicate_index: int,
@@ -222,7 +237,7 @@ def _run_arm(
     seed: int,
     actual_device: str,
     progress: tqdm,
-) -> dict[str, list[dict[str, object]]]:
+) -> dict[str, Any]:
     rng = random.Random(seed)
     policy_bank = TierPolicyBank(capacity=config.capacity, ppo=config.ppo, device=actual_device)
     buffers: dict[int, TierRolloutBuffer] = {}
@@ -232,9 +247,16 @@ def _run_arm(
     surface_rows: list[dict[str, object]] = []
     sample_rows: list[dict[str, object]] = []
     update_rows: list[dict[str, object]] = []
+    trace_records: list[TraceRecord] = []
     global_update_index = 0
     ppo_sample_index = 0
     controller_event_index = 0
+    best_reward = float("-inf")
+    best_trace_rows: list[dict[str, object]] = []
+    best_episode_index = -1
+    first_success_retained = False
+    retained_trace_keys: set[tuple[int, str]] = set()
+    final_episode_index = config.episodes_per_arm - 1
     for episode_index in range(config.episodes_per_arm):
         state = instance.start_state
         total_reward = 0.0
@@ -244,6 +266,10 @@ def _run_arm(
         episode_step_count = 0
         episode_sample_count = 0
         episode_controller_count = 0
+        episode_step_rows: list[dict[str, object]] = []
+        episode_controller_rows: list[dict[str, object]] = []
+        episode_surface_rows: list[dict[str, object]] = []
+        episode_sample_rows: list[dict[str, object]] = []
         for step_index in range(config.max_seconds_per_episode * 4):
             if state.time_step >= config.max_seconds_per_episode:
                 truncated = True
@@ -256,26 +282,24 @@ def _run_arm(
                 schema_seed=schema_seed,
                 generation_seed=rng.randrange(2**31),
             )
-            surface_rows.append(
-                surface.to_summary_row(
-                    run_id=run_id,
-                    episode_index=episode_index,
-                    step_index=step_index,
-                )
+            surface_row = surface.to_summary_row(
+                run_id=run_id,
+                episode_index=episode_index,
+                step_index=step_index,
             )
-            controller_rows.append(
-                {
-                    "run_id": run_id,
-                    "arm_id": arm.arm_id,
-                    "episode_index": episode_index,
-                    "controller_event_index": controller_event_index,
-                    "event_type": "pointwise_surface",
-                    "tier_index": surface.tier_index,
-                    "state_cell_id": surface.state_cell_id,
-                    "candidate_action_count": len(surface.action_choices),
-                    "details": surface.semantics_id,
-                }
-            )
+            episode_surface_rows.append(surface_row)
+            controller_row = {
+                "run_id": run_id,
+                "arm_id": arm.arm_id,
+                "episode_index": episode_index,
+                "controller_event_index": controller_event_index,
+                "event_type": "pointwise_surface",
+                "tier_index": surface.tier_index,
+                "state_cell_id": surface.state_cell_id,
+                "candidate_action_count": len(surface.action_choices),
+                "details": surface.semantics_id,
+            }
+            episode_controller_rows.append(controller_row)
             controller_event_index += 1
             episode_controller_count += 1
             if not surface.actor_callable:
@@ -355,7 +379,7 @@ def _run_arm(
             ppo_sample = PPOSample(context=context, encoded=encoded, sample=sample)
             buffer = buffers.setdefault(surface.tier_index, TierRolloutBuffer(surface.tier_index))
             buffer.append(ppo_sample)
-            sample_rows.append(
+            episode_sample_rows.append(
                 {
                     **sample.to_dict(),
                     "run_id": run_id,
@@ -363,7 +387,7 @@ def _run_arm(
                     "episode_index": episode_index,
                 }
             )
-            step_rows.append(
+            episode_step_rows.append(
                 {
                     "run_id": run_id,
                     "arm_id": arm.arm_id,
@@ -413,6 +437,61 @@ def _run_arm(
             updates=sum(row.get("optimizer_steps", 0) for row in update_rows),
             arm=arm.arm_id[:18],
         )
+        if config.retention.writes_full_debug_tables:
+            step_rows.extend(episode_step_rows)
+            controller_rows.extend(episode_controller_rows)
+            surface_rows.extend(episode_surface_rows)
+            sample_rows.extend(episode_sample_rows)
+        retained_count_before = len(trace_records)
+        if total_reward > best_reward:
+            best_reward = total_reward
+            best_episode_index = episode_index
+            best_trace_rows = list(episode_step_rows)
+        base_reason = base_retention_reason(
+            episode_index=episode_index,
+            final_episode_index=final_episode_index,
+            config=config.retention,
+        )
+        if base_reason:
+            _retain_trace_once(
+                paths=paths,
+                records=trace_records,
+                retained_keys=retained_trace_keys,
+                rows=episode_step_rows,
+                run_id=run_id,
+                arm_id=arm.arm_id,
+                replicate_index=replicate_index,
+                schema_seed=schema_seed,
+                episode_index=episode_index,
+                reason=base_reason,
+            )
+        if (
+            config.retention.writes_selected_traces
+            and config.retention.retain_first_success
+            and terminated
+            and not first_success_retained
+        ):
+            first_success_retained = True
+            _retain_trace_once(
+                paths=paths,
+                records=trace_records,
+                retained_keys=retained_trace_keys,
+                rows=episode_step_rows,
+                run_id=run_id,
+                arm_id=arm.arm_id,
+                replicate_index=replicate_index,
+                schema_seed=schema_seed,
+                episode_index=episode_index,
+                reason="first_success",
+            )
+        retained_trace_count = len(trace_records) - retained_count_before
+        tier_indices_seen = sorted(
+            {
+                int(row["tier_index"])
+                for row in episode_surface_rows
+                if row.get("tier_index") is not None
+            }
+        )
         episode_rows.append(
             {
                 "run_id": run_id,
@@ -429,8 +508,33 @@ def _run_arm(
                 "failure_reason": failure_reason,
                 "ppo_sample_count": episode_sample_count,
                 "controller_event_count": episode_controller_count,
+                "pointwise_surface_count": len(episode_surface_rows),
+                "empty_actor_surface_count": sum(
+                    1
+                    for row in episode_surface_rows
+                    if int(row.get("candidate_action_count", 0) or 0) <= 0
+                ),
+                "tier_indices_seen": "|".join(str(index) for index in tier_indices_seen),
+                "retained_trace_count": retained_trace_count,
                 "optimizer_steps": sum(entry.optimizer_steps for entry in policy_bank.entries.values()),
             }
+        )
+    if (
+        config.retention.writes_selected_traces
+        and config.retention.retain_best_reward
+        and best_episode_index >= 0
+    ):
+        _retain_trace_once(
+            paths=paths,
+            records=trace_records,
+            retained_keys=retained_trace_keys,
+            rows=best_trace_rows,
+            run_id=run_id,
+            arm_id=arm.arm_id,
+            replicate_index=replicate_index,
+            schema_seed=schema_seed,
+            episode_index=best_episode_index,
+            reason="best_reward",
         )
     for tier_index, buffer in sorted(buffers.items()):
         if buffer.ready_count() > 0:
@@ -463,6 +567,7 @@ def _run_arm(
         "sample_rows": sample_rows,
         "update_rows": update_rows,
         "tier_policy_rows": tier_policy_rows,
+        "trace_records": trace_records,
     }
 
 
@@ -550,17 +655,74 @@ def _decision_context(
     )
 
 
-def _write_run_tables(*, run_root: Path, run_result: dict[str, list[dict[str, object]]]) -> None:
-    write_csv(run_root / "episodes.csv", run_result["episode_rows"], [
-        "run_id", "arm_id", "replicate_index", "schema_seed", "episode_index",
-        "max_seconds", "seconds_elapsed", "step_count", "total_reward",
-        "terminated", "truncated", "failure_reason", "ppo_sample_count",
-        "controller_event_count", "optimizer_steps",
-    ], create_parents=True)
-    write_csv(run_root / "step_events.csv", run_result["step_rows"], STEP_FIELDNAMES)
-    write_csv(run_root / "control_events.csv", run_result["controller_rows"], CONTROLLER_EVENT_FIELDNAMES)
-    write_csv(run_root / "rollout_samples.csv", run_result["sample_rows"], ROLLOUT_SAMPLE_FIELDNAMES)
-    write_json(run_root / "run_manifest.json", {"run_id": run_root.name}, create_parents=True)
+def _retain_trace_once(
+    *,
+    paths: FullTowerPPOPaths,
+    records: list[TraceRecord],
+    retained_keys: set[tuple[int, str]],
+    rows: list[dict[str, object]],
+    run_id: str,
+    arm_id: str,
+    replicate_index: int,
+    schema_seed: int,
+    episode_index: int,
+    reason: str,
+) -> None:
+    if not rows:
+        return
+    key = (episode_index, reason)
+    if key in retained_keys:
+        return
+    retained_keys.add(key)
+    records.append(
+        write_selected_trace(
+            trace_dir=paths.trace_episode_dir(
+                run_id=run_id,
+                episode_index=episode_index,
+            ),
+            rows=rows,
+            run_id=run_id,
+            arm_id=arm_id,
+            replicate_index=replicate_index,
+            schema_seed=schema_seed,
+            episode_index=episode_index,
+            reason=reason,
+        )
+    )
+
+
+def _write_run_tables(
+    *,
+    run_root: Path,
+    run_result: dict[str, Any],
+    write_full_debug_tables: bool,
+) -> None:
+    write_csv(
+        run_root / "episodes.csv",
+        run_result["episode_rows"],
+        EPISODE_FIELDNAMES,
+        create_parents=True,
+    )
+    if write_full_debug_tables:
+        write_csv(run_root / "step_events.csv", run_result["step_rows"], STEP_FIELDNAMES)
+        write_csv(
+            run_root / "control_events.csv",
+            run_result["controller_rows"],
+            CONTROLLER_EVENT_FIELDNAMES,
+        )
+        write_csv(
+            run_root / "rollout_samples.csv",
+            run_result["sample_rows"],
+            ROLLOUT_SAMPLE_FIELDNAMES,
+        )
+    write_json(
+        run_root / "run_manifest.json",
+        {
+            "run_id": run_root.name,
+            "write_full_debug_tables": write_full_debug_tables,
+        },
+        create_parents=True,
+    )
 
 
 def _select_device(config: WarehouseFullTowerPPOConfig) -> str:

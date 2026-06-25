@@ -10,11 +10,11 @@
 
 - Artifact evidence: complete for the checked-in smoke run; the aggregate
   summary, run index, episode table, pointwise action surface table, PPO update
-  table, tier-policy table, timing table, and replayable per-run step traces
-  exist under the repo artifact root.
+  table, tier-policy table, timing table, and selected trace index exist under
+  the repo artifact root.
 - Behavioral result: PPO smoke passed; the run executed real PPO update rows
-  with `2` optimizer steps across
-  `2` smoke episodes.
+  with `808` optimizer steps across
+  `101` smoke episodes.
 - Goal result: mechanics met; actor calls saw
   `0` empty pointwise
   executable surfaces and representative fallback count was
@@ -22,7 +22,7 @@
 - Claim scope: smoke/readiness only; this does not claim serious GPU training
   success or Warehouse Gridlock tower superiority.
 - Provenance: repo-resident source binding at `readout_source.json`, with raw
-  smoke artifacts under `artifacts/smoke_cpu_001`.
+  smoke artifacts under `artifacts/tower_movie_only_100000_001`.
 
 ## Summary of Goals Behind this Evaluation
 
@@ -56,7 +56,7 @@ frozen `rollout_policy_k`, stores the old log probability and exact candidate
 surface, and later updates the current `policy_k` with PPO old/new-ratio
 updates.
 
-The smoke run used run label `smoke_cpu_001` with direct/no-contraction and
+The smoke run used run label `tower_movie_only_100000_001` with direct/no-contraction and
 tower/nontrivial arms, one schema seed, one replicate, one episode per arm, and
 a four-second horizon. The run was intentionally small so it could verify
 record contracts, old/current policy snapshots, PPO updates, repo-side
@@ -77,21 +77,23 @@ budget`, not as `the tower solves Warehouse Gridlock`.
 ## Evidence Map
 
 - Aggregate summary:
-  `artifacts/smoke_cpu_001/evaluation_aggregate_summary.json`.
+  `artifacts/tower_movie_only_100000_001/evaluation_aggregate_summary.json`.
 - Aggregate table:
-  `artifacts/smoke_cpu_001/evaluation_aggregate_table.csv`.
+  `artifacts/tower_movie_only_100000_001/evaluation_aggregate_table.csv`.
 - Run index:
-  `artifacts/smoke_cpu_001/run_index.csv`.
+  `artifacts/tower_movie_only_100000_001/run_index.csv`.
 - PPO updates:
-  `artifacts/smoke_cpu_001/results/ppo_update_summary.csv`.
+  `artifacts/tower_movie_only_100000_001/results/ppo_update_summary.csv`.
 - Pointwise action surfaces:
-  `artifacts/smoke_cpu_001/results/pointwise_action_surface_summary.csv`.
+  `artifacts/tower_movie_only_100000_001/results/pointwise_action_surface_summary.csv`.
 - Per-tier policies:
-  `artifacts/smoke_cpu_001/results/tier_policy_summary.csv`.
-- Renderable per-run traces:
-  `artifacts/smoke_cpu_001/runs/*/step_events.csv`.
+  `artifacts/tower_movie_only_100000_001/results/tier_policy_summary.csv`.
+- Renderable selected traces:
+  `artifacts/tower_movie_only_100000_001/results/trace_episode_index.csv` points at retained
+  `artifacts/tower_movie_only_100000_001/traces/*/episode_*/step_events.csv` files. Full-debug
+  runs also write per-run `runs/*/step_events.csv`.
 - Example rendered movies:
-  `movies/smoke_cpu_001/`.
+  `movies/tower_movie_only_100000_001/`.
 
 ## What This Does Not Mean
 

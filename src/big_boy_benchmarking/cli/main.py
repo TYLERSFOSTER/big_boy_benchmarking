@@ -949,6 +949,37 @@ def build_parser() -> argparse.ArgumentParser:
         default="smoke_cpu",
         choices=("smoke_cpu", "debug_gpu", "serious_gpu"),
     )
+    warehouse_full_tower_ppo_run_parser.add_argument(
+        "--retention-profile",
+        choices=warehouse_full_tower_ppo_config.RETENTION_PROFILE_CHOICES,
+        help=(
+            "Artifact retention mode. full_debug keeps all step/control/sample tables; "
+            "movie_only keeps compact summaries plus selected render traces; "
+            "summary_only keeps compact summaries only."
+        ),
+    )
+    warehouse_full_tower_ppo_run_parser.add_argument(
+        "--trace-episode-index",
+        action="append",
+        help="Retain a renderable trace for this episode index, or 'final'. Repeatable.",
+    )
+    warehouse_full_tower_ppo_run_parser.add_argument(
+        "--trace-every-episodes",
+        type=int,
+        help="Retain a renderable trace every N episodes.",
+    )
+    warehouse_full_tower_ppo_run_parser.add_argument(
+        "--retain-best-reward",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Retain the best-reward episode trace when selected traces are enabled.",
+    )
+    warehouse_full_tower_ppo_run_parser.add_argument(
+        "--retain-first-success",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help="Retain the first successful episode trace when selected traces are enabled.",
+    )
     warehouse_full_tower_ppo_run_parser.add_argument("--episodes-per-arm", type=int)
     warehouse_full_tower_ppo_run_parser.add_argument("--replicates-per-arm", type=int)
     warehouse_full_tower_ppo_run_parser.add_argument("--schema-seeds", type=int)
@@ -2946,6 +2977,7 @@ def _warehouse_full_tower_ppo_config_from_args(
     if getattr(args, "active_arm_id", None):
         config = replace(config, active_arm_ids=tuple(args.active_arm_id))
     config = _warehouse_full_tower_ppo_apply_optional_overrides(config, args)
+    config = _warehouse_full_tower_ppo_apply_retention_overrides(config, args)
     if getattr(args, "no_progress", False):
         config = replace(config, progress_every_episodes=0)
     elif getattr(args, "progress_every_episodes", None) is not None:
@@ -2966,6 +2998,43 @@ def _warehouse_full_tower_ppo_config_from_args(
             "full-tower PPO long runs require --confirm-long-run "
             f"(profile={config.profile_id}, total_episode_budget={total_episode_budget})"
         )
+    return config
+
+
+def _warehouse_full_tower_ppo_apply_retention_overrides(
+    config: warehouse_full_tower_ppo_config.WarehouseFullTowerPPOConfig,
+    args: argparse.Namespace,
+) -> warehouse_full_tower_ppo_config.WarehouseFullTowerPPOConfig:
+    retention = config.retention
+    overrides: dict[str, object] = {}
+    retention_profile = getattr(args, "retention_profile", None)
+    if retention_profile is not None:
+        overrides["profile_id"] = retention_profile
+        if retention_profile == warehouse_full_tower_ppo_config.RETENTION_PROFILE_SUMMARY_ONLY:
+            overrides.update(
+                {
+                    "trace_episode_indices": (),
+                    "retain_first_episode": False,
+                    "retain_last_episode": False,
+                    "retain_first_success": False,
+                    "retain_best_reward": False,
+                    "retain_every_n_episodes": 0,
+                }
+            )
+    trace_episode_index = getattr(args, "trace_episode_index", None)
+    if trace_episode_index:
+        overrides["trace_episode_indices"] = tuple(trace_episode_index)
+    trace_every_episodes = getattr(args, "trace_every_episodes", None)
+    if trace_every_episodes is not None:
+        overrides["retain_every_n_episodes"] = trace_every_episodes
+    retain_best_reward = getattr(args, "retain_best_reward", None)
+    if retain_best_reward is not None:
+        overrides["retain_best_reward"] = retain_best_reward
+    retain_first_success = getattr(args, "retain_first_success", None)
+    if retain_first_success is not None:
+        overrides["retain_first_success"] = retain_first_success
+    if overrides:
+        config = replace(config, retention=replace(retention, **overrides))
     return config
 
 

@@ -1,5 +1,5 @@
 {
-  "artifact_run_label": "smoke_cpu_001",
+  "artifact_run_label": "tower_movie_only_100000_001",
   "artifact_schema_version": "bbb.v001",
   "claim_boundary": "system readiness and smoke evidence only; not a final broad benchmark claim",
   "environment_instance_id": "warehouse_gridlock_16x16_v001",
@@ -23,7 +23,8 @@
       "results/episode_summary.csv",
       "results/pointwise_action_surface_summary.csv",
       "results/ppo_update_summary.csv",
-      "results/tier_policy_summary.csv"
+      "results/tier_policy_summary.csv",
+      "results/trace_episode_index.csv"
     ]
   },
   "goal_criteria": [
@@ -55,34 +56,36 @@
   "protocol_invocation": "execute docs/prime_directive/artifact_table_to_readable_document_protocol.md at docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/readout_source.json",
   "repo_readout_surface": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo",
   "run_mode": "full_tower_gpu_ppo_smoke_or_training",
-  "source_artifact_root": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/smoke_cpu_001",
-  "source_evaluation_root": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/smoke_cpu_001",
+  "source_artifact_root": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/tower_movie_only_100000_001",
+  "source_evaluation_root": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/tower_movie_only_100000_001",
   "source_files": {
-    "aggregate_summary": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/smoke_cpu_001/evaluation_aggregate_summary.json",
-    "aggregate_table": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/smoke_cpu_001/evaluation_aggregate_table.csv",
-    "episode_summary": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/smoke_cpu_001/results/episode_summary.csv",
-    "pointwise_action_surface_summary": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/smoke_cpu_001/results/pointwise_action_surface_summary.csv",
-    "ppo_update_summary": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/smoke_cpu_001/results/ppo_update_summary.csv",
-    "run_index": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/smoke_cpu_001/run_index.csv",
-    "step_summary": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/smoke_cpu_001/results/step_summary.csv",
-    "tier_policy_summary": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/smoke_cpu_001/results/tier_policy_summary.csv",
-    "timing_summary": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/smoke_cpu_001/results/timing_summary.csv"
+    "aggregate_summary": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/tower_movie_only_100000_001/evaluation_aggregate_summary.json",
+    "aggregate_table": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/tower_movie_only_100000_001/evaluation_aggregate_table.csv",
+    "episode_summary": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/tower_movie_only_100000_001/results/episode_summary.csv",
+    "pointwise_action_surface_summary": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/tower_movie_only_100000_001/results/pointwise_action_surface_summary.csv",
+    "ppo_update_summary": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/tower_movie_only_100000_001/results/ppo_update_summary.csv",
+    "run_index": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/tower_movie_only_100000_001/run_index.csv",
+    "step_summary": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/tower_movie_only_100000_001/results/step_summary.csv",
+    "tier_policy_summary": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/tower_movie_only_100000_001/results/tier_policy_summary.csv",
+    "timing_summary": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/tower_movie_only_100000_001/results/timing_summary.csv",
+    "trace_episode_index": "docs/evaluations/warehouse_gridlock_001/full_tower_gpu_ppo/artifacts/tower_movie_only_100000_001/results/trace_episode_index.csv"
   },
   "summary": {
     "claim_boundary": "system readiness and smoke evidence only; not a final broad benchmark claim",
     "empty_actor_surface_count": 0,
-    "episode_count": 2,
+    "episode_count": 101,
     "evaluation_status": "ppo_updates_present",
-    "max_total_reward": -3.0,
-    "mean_total_reward": -3.5,
-    "min_total_reward": -4.0,
-    "optimizer_steps": 2,
-    "pointwise_surface_row_count": 8,
-    "ppo_update_row_count": 2,
+    "max_total_reward": 1513.0,
+    "mean_total_reward": 802.1683168316831,
+    "min_total_reward": 255.0,
+    "optimizer_steps": 808,
+    "pointwise_surface_row_count": 25856,
+    "ppo_update_row_count": 202,
     "representative_fallback_count": 0,
+    "retained_trace_count": 12,
     "status": "complete",
     "success_count": 0,
     "success_rate": 0.0,
-    "tier_indices_seen": "0"
+    "tier_indices_seen": "1"
   }
 }

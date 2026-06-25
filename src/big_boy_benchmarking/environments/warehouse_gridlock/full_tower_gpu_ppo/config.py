@@ -31,6 +31,18 @@ DEFAULT_MAX_SECONDS_PER_EPISODE = 8
 DEFAULT_CANDIDATE_PROPOSALS_PER_STEP = 32
 DEFAULT_MAX_ACTIVE_ROBOTS = 3
 DEFAULT_SEED = 0
+RETENTION_PROFILE_FULL_DEBUG = "full_debug"
+RETENTION_PROFILE_MOVIE_ONLY = "movie_only"
+RETENTION_PROFILE_SUMMARY_ONLY = "summary_only"
+RETENTION_PROFILE_ALIASES = {
+    "smoke_debug": RETENTION_PROFILE_FULL_DEBUG,
+    "serious_train": RETENTION_PROFILE_MOVIE_ONLY,
+}
+RETENTION_PROFILE_CHOICES = (
+    RETENTION_PROFILE_FULL_DEBUG,
+    RETENTION_PROFILE_MOVIE_ONLY,
+    RETENTION_PROFILE_SUMMARY_ONLY,
+)
 
 
 @dataclass(frozen=True)
@@ -112,7 +124,8 @@ class WarehouseDeviceConfig:
 
 @dataclass(frozen=True)
 class WarehouseRetentionConfig:
-    profile_id: str = "smoke_debug"
+    profile_id: str = RETENTION_PROFILE_FULL_DEBUG
+    trace_episode_indices: tuple[int | str, ...] = ("0", "final")
     retain_first_episode: bool = True
     retain_last_episode: bool = True
     retain_first_success: bool = True
@@ -120,13 +133,63 @@ class WarehouseRetentionConfig:
     retain_every_n_episodes: int = 0
 
     def __post_init__(self) -> None:
-        if self.profile_id not in {"smoke_debug", "serious_train", "full_debug"}:
+        if self.normalized_profile_id not in RETENTION_PROFILE_CHOICES:
             raise ValueError(f"unknown retention profile: {self.profile_id!r}")
         if self.retain_every_n_episodes < 0:
             raise ValueError("retain_every_n_episodes must be nonnegative")
 
+    @property
+    def normalized_profile_id(self) -> str:
+        return RETENTION_PROFILE_ALIASES.get(self.profile_id, self.profile_id)
+
+    @property
+    def writes_full_debug_tables(self) -> bool:
+        return self.normalized_profile_id == RETENTION_PROFILE_FULL_DEBUG
+
+    @property
+    def writes_selected_traces(self) -> bool:
+        return self.normalized_profile_id in {
+            RETENTION_PROFILE_FULL_DEBUG,
+            RETENTION_PROFILE_MOVIE_ONLY,
+        }
+
+    def normalized_trace_indices(self) -> tuple[int | str, ...]:
+        normalized: list[int | str] = []
+        for item in self.trace_episode_indices:
+            if isinstance(item, int):
+                normalized.append(item)
+                continue
+            text = str(item)
+            if text == "final":
+                normalized.append(text)
+            else:
+                normalized.append(int(text))
+        if self.retain_first_episode and 0 not in normalized:
+            normalized.append(0)
+        if self.retain_last_episode and "final" not in normalized:
+            normalized.append("final")
+        return tuple(normalized)
+
     def to_manifest(self) -> dict[str, object]:
-        return self.__dict__.copy()
+        return {
+            "profile_id": self.profile_id,
+            "normalized_profile_id": self.normalized_profile_id,
+            "trace_episode_indices": [str(item) for item in self.trace_episode_indices],
+            "retain_first_episode": self.retain_first_episode,
+            "retain_last_episode": self.retain_last_episode,
+            "retain_first_success": self.retain_first_success,
+            "retain_best_reward": self.retain_best_reward,
+            "retain_every_n_episodes": self.retain_every_n_episodes,
+            "writes_full_debug_tables": self.writes_full_debug_tables,
+            "writes_selected_traces": self.writes_selected_traces,
+            "retention_policy": (
+                "all_episode_step_surface_control_and_rollout_tables"
+                if self.writes_full_debug_tables
+                else "summary_first_selected_render_traces_only"
+                if self.writes_selected_traces
+                else "summary_tables_only_no_render_traces_by_default"
+            ),
+        }
 
 
 @dataclass(frozen=True)

@@ -72,6 +72,7 @@ def render_episode_gif(
         arm_id=arm_id,
         replicate_index=replicate_index,
         schema_seed=schema_seed,
+        episode_index=episode_index,
     )
     rows = _episode_rows(resolved_step_events, episode_index)
     if not rows:
@@ -136,6 +137,7 @@ def resolve_step_events_path(
     arm_id: str | None,
     replicate_index: int | None,
     schema_seed: int | None,
+    episode_index: int | None = None,
 ) -> Path:
     if step_events_path is not None:
         path = Path(step_events_path)
@@ -148,12 +150,34 @@ def resolve_step_events_path(
     root = Path(artifact_root)
     if run_id:
         path = root / "runs" / run_id / "step_events.csv"
-        if not path.exists():
-            raise FileNotFoundError(f"step_events path does not exist: {path}")
-        return path
+        if path.exists():
+            return path
+        trace_candidates = _trace_index_candidate_paths(
+            root=root,
+            run_id=run_id,
+            arm_id=arm_id,
+            replicate_index=replicate_index,
+            schema_seed=schema_seed,
+            episode_index=episode_index,
+        )
+        for candidate in trace_candidates:
+            if candidate.exists():
+                return candidate
+        raise FileNotFoundError(f"step_events path does not exist: {path}")
 
     run_index = root / "run_index.csv"
     if not run_index.exists():
+        trace_candidates = _trace_index_candidate_paths(
+            root=root,
+            run_id=None,
+            arm_id=arm_id,
+            replicate_index=replicate_index,
+            schema_seed=schema_seed,
+            episode_index=episode_index,
+        )
+        for candidate in trace_candidates:
+            if candidate.exists():
+                return candidate
         raise FileNotFoundError(f"run_index.csv does not exist: {run_index}")
     matches = _matching_run_index_rows(
         run_index,
@@ -175,7 +199,11 @@ def resolve_step_events_path(
             f"First matches: {choices}"
         )
     row = matches[0]
-    candidates = _candidate_step_event_paths(root=root, row=row)
+    candidates = _candidate_step_event_paths(
+        root=root,
+        row=row,
+        episode_index=episode_index,
+    )
     for candidate in candidates:
         if candidate.exists():
             return candidate
@@ -220,7 +248,12 @@ def _matching_run_index_rows(
     return matches
 
 
-def _candidate_step_event_paths(*, root: Path, row: dict[str, str]) -> list[Path]:
+def _candidate_step_event_paths(
+    *,
+    root: Path,
+    row: dict[str, str],
+    episode_index: int | None,
+) -> list[Path]:
     candidates: list[Path] = []
     run_root_text = row.get("run_root", "")
     if run_root_text:
@@ -232,7 +265,62 @@ def _candidate_step_event_paths(*, root: Path, row: dict[str, str]) -> list[Path
             for ancestor in root.parents:
                 candidates.append(ancestor / run_root / "step_events.csv")
     candidates.append(root / "runs" / row["run_id"] / "step_events.csv")
+    candidates.extend(
+        _trace_index_candidate_paths(
+            root=root,
+            run_id=row.get("run_id"),
+            arm_id=row.get("arm_id"),
+            replicate_index=_optional_int(row.get("replicate_index")),
+            schema_seed=_optional_int(row.get("schema_seed")),
+            episode_index=episode_index,
+        )
+    )
     return _unique_paths(candidates)
+
+
+def _trace_index_candidate_paths(
+    *,
+    root: Path,
+    run_id: str | None,
+    arm_id: str | None,
+    replicate_index: int | None,
+    schema_seed: int | None,
+    episode_index: int | None,
+) -> list[Path]:
+    trace_index = root / "results" / "trace_episode_index.csv"
+    if not trace_index.exists():
+        return []
+    with trace_index.open(newline="", encoding="utf-8") as handle:
+        rows = list(csv.DictReader(handle))
+    candidates: list[Path] = []
+    for row in rows:
+        if run_id is not None and row.get("run_id") != run_id:
+            continue
+        if arm_id is not None and row.get("arm_id") != arm_id:
+            continue
+        if (
+            replicate_index is not None
+            and _optional_int(row.get("replicate_index")) != replicate_index
+        ):
+            continue
+        if schema_seed is not None and _optional_int(row.get("schema_seed")) != schema_seed:
+            continue
+        if episode_index is not None and _optional_int(row.get("episode_index")) != episode_index:
+            continue
+        path_text = row.get("trace_path") or row.get("step_events_path") or ""
+        if not path_text:
+            continue
+        candidates.extend(_path_resolution_candidates(root=root, text=path_text))
+    return _unique_paths(candidates)
+
+
+def _path_resolution_candidates(*, root: Path, text: str) -> list[Path]:
+    path = Path(text)
+    if path.is_absolute():
+        return [path]
+    candidates = [path, root / path]
+    candidates.extend(ancestor / path for ancestor in root.parents)
+    return candidates
 
 
 def _unique_paths(paths: list[Path]) -> list[Path]:
@@ -245,6 +333,13 @@ def _unique_paths(paths: list[Path]) -> list[Path]:
         seen.add(key)
         unique.append(path)
     return unique
+
+
+def _optional_int(value: object) -> int | None:
+    try:
+        return int(str(value))
+    except (TypeError, ValueError):
+        return None
 
 
 def _episode_rows(step_events_path: Path, episode_index: int) -> list[dict[str, str]]:

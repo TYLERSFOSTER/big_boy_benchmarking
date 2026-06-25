@@ -25,6 +25,10 @@ EPISODE_FIELDNAMES = [
     "failure_reason",
     "ppo_sample_count",
     "controller_event_count",
+    "pointwise_surface_count",
+    "empty_actor_surface_count",
+    "tier_indices_seen",
+    "retained_trace_count",
     "optimizer_steps",
 ]
 
@@ -138,4 +142,16 @@ TIMING_FIELDNAMES = [
     "arm_id",
     "duration_seconds",
     "episode_count",
+]
+
+TRACE_INDEX_FIELDNAMES = [
+    "run_id",
+    "arm_id",
+    "replicate_index",
+    "schema_seed",
+    "episode_index",
+    "trace_path",
+    "reason_retained",
+    "step_count",
+    "renderability_status",
 ]

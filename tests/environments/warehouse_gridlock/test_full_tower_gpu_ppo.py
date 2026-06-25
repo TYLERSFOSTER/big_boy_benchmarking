@@ -263,6 +263,10 @@ def test_full_tower_ppo_cli_smoke_writes_readout_updates_and_movie(
     update_rows = _csv_rows(artifact_root / "results" / "ppo_update_summary.csv")
     assert update_rows
     assert all(float(row["approx_kl"]) == float(row["approx_kl"]) for row in update_rows)
+    assert (artifact_root / "results" / "trace_episode_index.csv").exists()
+    full_debug_run_roots = list((artifact_root / "runs").glob("*"))
+    assert full_debug_run_roots
+    assert any((run_root / "step_events.csv").exists() for run_root in full_debug_run_roots)
 
     assert (
         main(
@@ -291,6 +295,107 @@ def test_full_tower_ppo_cli_smoke_writes_readout_updates_and_movie(
     assert readout_source.exists()
 
     movie = tmp_path / "direct_ep0.gif"
+    assert (
+        main(
+            [
+                "warehouse-gridlock",
+                "full-tower-gpu-ppo",
+                "render-episode",
+                "--artifact-root",
+                str(artifact_root),
+                "--arm-id",
+                WAREHOUSE_GRIDLOCK_DIRECT_NO_CONTRACTION_ARM_ID,
+                "--replicate-index",
+                "0",
+                "--schema-seed",
+                "0",
+                "--episode-index",
+                "0",
+                "--output",
+                str(movie),
+                "--cell-pixels",
+                "16",
+                "--frame-ms",
+                "20",
+            ]
+        )
+        == 0
+    )
+    assert movie.exists()
+
+
+def test_full_tower_ppo_movie_only_retains_renderable_trace_without_full_debug_tables(
+    tmp_path: Path,
+    capsys,
+) -> None:
+    pytest.importorskip("torch", reason="Torch optional ML dependency is not installed")
+    readiness_source = _write_readiness_source(tmp_path)
+    artifact_root = (
+        tmp_path
+        / "docs"
+        / "evaluations"
+        / "warehouse_gridlock_001"
+        / "full_tower_gpu_ppo"
+        / "artifacts"
+        / "movie_only_001"
+    )
+
+    assert (
+        main(
+            [
+                "warehouse-gridlock",
+                "full-tower-gpu-ppo",
+                "run",
+                "--repo-root",
+                str(tmp_path),
+                "--artifact-root",
+                str(artifact_root),
+                "--readiness-source",
+                str(readiness_source),
+                "--run-label",
+                "movie_only_001",
+                "--locked-by",
+                "test",
+                "--profile",
+                "smoke_cpu",
+                "--retention-profile",
+                "movie_only",
+                "--active-arm-id",
+                WAREHOUSE_GRIDLOCK_DIRECT_NO_CONTRACTION_ARM_ID,
+                "--episodes-per-arm",
+                "1",
+                "--replicates-per-arm",
+                "1",
+                "--schema-seeds",
+                "1",
+                "--max-seconds-per-episode",
+                "2",
+                "--no-progress",
+            ]
+        )
+        == 0
+    )
+    run_payload = json.loads(capsys.readouterr().out)
+    assert run_payload["status"] == "success"
+
+    summary = json.loads((artifact_root / "evaluation_aggregate_summary.json").read_text())
+    assert summary["retained_trace_count"] >= 1
+    assert summary["pointwise_surface_row_count"] >= 1
+
+    run_roots = list((artifact_root / "runs").glob("*"))
+    assert len(run_roots) == 1
+    assert (run_roots[0] / "episodes.csv").exists()
+    assert not (run_roots[0] / "step_events.csv").exists()
+    assert not (run_roots[0] / "control_events.csv").exists()
+    assert not (run_roots[0] / "rollout_samples.csv").exists()
+
+    assert _csv_rows(artifact_root / "results" / "step_summary.csv") == []
+    assert _csv_rows(artifact_root / "results" / "pointwise_action_surface_summary.csv") == []
+    trace_rows = _csv_rows(artifact_root / "results" / "trace_episode_index.csv")
+    assert trace_rows
+    assert Path(trace_rows[0]["trace_path"]).exists()
+
+    movie = tmp_path / "movie_only_ep0.gif"
     assert (
         main(
             [

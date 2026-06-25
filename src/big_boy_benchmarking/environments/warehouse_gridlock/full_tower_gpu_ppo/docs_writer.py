@@ -48,6 +48,10 @@ def write_readout_source(
                 paths.results_dir / "tier_policy_summary.csv",
             ),
             "timing_summary": _rel(paths.repo_root, paths.results_dir / "timing_summary.csv"),
+            "trace_episode_index": _rel(
+                paths.repo_root,
+                paths.results_dir / "trace_episode_index.csv",
+            ),
         },
         "expected_files": {
             "required": [
@@ -65,6 +69,7 @@ def write_readout_source(
                 "results/pointwise_action_surface_summary.csv",
                 "results/ppo_update_summary.csv",
                 "results/tier_policy_summary.csv",
+                "results/trace_episode_index.csv",
             ],
             "not_applicable": [
                 "representative_fallback_for_execution",
@@ -171,8 +176,8 @@ def _readme(
 
 - Artifact evidence: complete for the checked-in smoke run; the aggregate
   summary, run index, episode table, pointwise action surface table, PPO update
-  table, tier-policy table, timing table, and replayable per-run step traces
-  exist under the repo artifact root.
+  table, tier-policy table, timing table, and selected trace index exist under
+  the repo artifact root.
 - Behavioral result: PPO smoke passed; the run executed real PPO update rows
   with `{summary.get("optimizer_steps", "unknown")}` optimizer steps across
   `{summary.get("episode_count", "unknown")}` smoke episodes.
@@ -249,8 +254,10 @@ budget`, not as `the tower solves Warehouse Gridlock`.
   `artifacts/{run_label}/results/pointwise_action_surface_summary.csv`.
 - Per-tier policies:
   `artifacts/{run_label}/results/tier_policy_summary.csv`.
-- Renderable per-run traces:
-  `artifacts/{run_label}/runs/*/step_events.csv`.
+- Renderable selected traces:
+  `artifacts/{run_label}/results/trace_episode_index.csv` points at retained
+  `artifacts/{run_label}/traces/*/episode_*/step_events.csv` files. Full-debug
+  runs also write per-run `runs/*/step_events.csv`.
 - Example rendered movies:
   `movies/{run_label}/`.
 
